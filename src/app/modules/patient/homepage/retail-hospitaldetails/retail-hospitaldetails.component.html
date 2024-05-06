@@ -1,0 +1,694 @@
+<div class="home_wrapper">
+  <app-header></app-header>
+
+  <div class="breadcum_wrapper" aria-label="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb_title">
+        {{ "hospital_details" | translate }}
+      </div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "home" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage/retailhospital/']">{{
+            "retail_hospital" | translate
+          }}</a>
+        </li>
+
+        <li class="breadcrumb-item">
+          {{ hospitalDetails?.hospital_name }}
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="" style="margin-left: 10%; margin-top: 10px;" [routerLink]="['/patient/homepage/retailhospital']">
+    <button class="btn btn-primary">{{ "back" | translate }}</button>
+  </div>
+  <div class="main_section retail_hospital_detail">
+    <div class="main_section_inner">
+      <div class="container">
+        <div class="row">
+          <div id="main_content" class="content_area col-lg-12">
+            <div class="bottom_section">
+              <div class="order_medicine">
+                <div class="bottom_bar">
+                  <div class="row">
+                    <div class="left_part col-lg-9">
+                      <div class="medicine_details">
+                        <div class="image">
+                          <img
+                            src="{{
+                              hospitalProfile
+                                ? hospitalProfile
+                                : '../../../../../../assets/img/default_user.png'
+                            }}"
+                          />
+                        </div>
+                        <div class="medicine_info">
+                          <h2 class="title">
+                            {{ hospitalDetails?.hospital_name }}
+                          </h2>
+                          <div class="desc" (click)="getDirection(hospitalDetails?.in_location?.loc?.coordinates)" style="cursor: pointer; text-decoration: underline;">
+                            <mat-icon>roomg</mat-icon
+                            >{{ hospitalDetails?.in_location?.address }}
+                          </div>
+                          <div class="order_location">
+                            <div class="row">
+                              <div class="col-md-6 col-xl-5">
+                                <div class="location address">
+                                  <div class="label">
+                                    {{ "number_of_doctors" | translate }}
+                                  </div>
+                                  <div class="value">
+                                    {{ numberofDoctors }}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-xl-5">
+                                <div class="location time_slot">
+                                  <div class="label">
+                                    {{ "open" | translate }}
+                                  </div>
+                                  <div
+                                    class="value"
+                                    *ngIf="
+                                      hospitalDetails.opening_hours_status ===
+                                      true
+                                    "
+                                  >
+                                    <mat-icon>watch_later</mat-icon
+                                    >{{ "24_hours" | translate }}
+                                  </div>
+                                  <div
+                                    class="value"
+                                    *ngIf="
+                                      hospitalDetails.opening_hours_status ===
+                                      false
+                                    "
+                                  >
+                                    <mat-icon>watch_later</mat-icon
+                                    >{{ "closed" | translate }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="rating">
+                            <span class="ratings-star">
+                              <div class="rating">
+                                <i
+                                  class="fa-solid fa-star"
+                                  *ngFor="let f of [].constructor(4)"
+                                ></i>
+                                &nbsp; (123 Reviews)
+                              </div>
+                            </span>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="right_part col-lg-3">
+                      <!-- <div
+                        class="open_today"
+                        *ngIf="hospitalDetails?.onDutyStatus; else off">
+                        <div class="green_circle">
+                          <div class="circle">
+                            <div class="inner_green"></div>
+                          </div>
+                          <p><b>Open Today</b></p>
+                        </div>
+                      </div>
+                      <ng-template #off>
+                        <div class="close_today">
+                          <div class="red_circle">
+                            <div class="circle">
+                              <div class="inner_green"></div>
+                            </div>
+                            <p><b>{{ 'closed' | translate}}</b></p>
+                          </div>
+                        </div>
+                      </ng-template> -->
+
+                      <!-- <div class="title" *ngIf="hospitalDetails?.onDutyStatus; else off">
+                        <span class="dot"></span>On Duty Today
+                      </div>
+                      <ng-template #off>
+                        <div class="off"><span class="off_dot"></span>{{ 'closed' | translate}}</div>
+                      </ng-template> -->
+                      <div class="primary_btn">
+                        <button
+                          class="btn btn-primary"
+                          (click)="
+                            createAlert(hospitalDetails?.for_portal_user?._id)
+                          "
+                        >
+                          {{ "book_appointment" | translate }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="order_medicine">
+                <div class="tabing_section">
+                  <mat-tab-group [selectedIndex]="selectedIndex">
+                    <mat-tab label="Background">
+                      <div class="main_outer">
+                        <div class="about_section">
+                          <div class="header_section">
+                            <p>{{ "about" | translate }}</p>
+                          </div>
+                          <div class="content">
+                            <p>
+                              {{ hospitalDetails?.about_hospital }}
+                            </p>
+                          </div>
+                        </div>
+                        <hr />
+
+                        <hr />
+                        <div class="contact_info">
+                          <div class="header_section">
+                            <p>{{ "contact_information" | translate }}</p>
+                          </div>
+                          <div class="list_group_section">
+                            <ul>
+                              <li>
+                                <p class="small_text">
+                                  {{ "phone" | translate }}
+                                </p>
+                                <h2>
+                                  ({{
+                                    hospitalDetails?.for_portal_user
+                                      ?.country_code
+                                  }})
+                                  {{ hospitalDetails?.for_portal_user?.mobile }}
+                                </h2>
+                              </li>
+                              <li>
+                                <p class="small_text">
+                                  {{ "email" | translate }}
+                                </p>
+                                <h2>
+                                  {{ hospitalDetails?.for_portal_user?.email }}
+                                </h2>
+                              </li>
+                              <li>
+                                <p class="small_text">
+                                  {{ "location" | translate }}
+                                </p>
+                                <h2>
+                                  {{ hospitalDetails?.in_location?.address }},
+                                  {{ hospitalDetails?.in_location?.pincode }}
+                                  <a (click)="getDirection( hospitalDetails?.in_location?.loc?.coordinates)">
+                                    {{ "get_directions" | translate }}</a
+                                  >
+                                </h2>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <hr />
+                        <div
+                          class="association_grp"
+                          *ngIf="hospitalDetails?.association?.is_true && hospitalDetails?.patient_portal"
+                        >
+                          <div class="header_section">
+                            <p>{{ "association_group" | translate }}</p>
+                          </div>
+                          <div class="list_group_section">
+                            <ul>
+                              <li
+                                *ngFor="
+                                  let name of hospitalDetails?.association
+                                    ?.name;
+                                  let index = index
+                                "
+                              >
+                                <p>0.{{ index + 1 }}. {{ name }}</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <hr />
+                        <div class="association_grp">
+                          <div class="header_section">
+                            <p>{{ "pictures" | translate }}</p>
+                          </div>
+                          <div
+                            class="list_group_section"
+                            *ngIf="
+                              hospitalDetails?.hospitalPictures?.length > 0
+                            "
+                          >
+                            <ul>
+                              <li
+                                *ngFor="
+                                  let img of hospitalDetails?.hospitalPictures
+                                "
+                              >
+                                <img src="{{ img }}" />
+                              </li>
+                            </ul>
+                          </div>
+                          <div
+                            class="list_group_section"
+                            *ngIf="
+                              hospitalDetails?.hospitalPictures?.length === 0
+                            "
+                          >
+                            <ul>
+                              <li>
+                                <h2 class="text-center">
+                                  {{ "no_pictures_available" | translate }}
+                                </h2>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+
+                    <mat-tab label="Our Team">
+                      <div class="main_outer">
+                        <div class="our_team">
+                          <div *ngFor="let group of groupedDoctors">
+                            <h2><b>{{ group.speciality }}</b></h2>
+                            <div class="item_wrapper row cat_list_item">
+                              <div class="col-sm-6 col-lg-4 col-xl-3" *ngFor="let doctor of group.doctors">
+                                <div class="item">
+                                  <div class="item_inner" [routerLink]="['/patient/homepage/retaildoctordetail/', doctor._id]">
+                                    <div class="image">
+                                      <img src="{{ doctor?.profile_picture ? doctor?.profile_picture : '../../../../assets/img/homepage/medicine.png' }}" />
+                                    </div>
+                                    <div class="desc">
+                                      <h3 class="title">{{ doctor?.full_name }}</h3>
+                                      <div class="desc">
+                                        {{ "experience" | translate }} : {{ doctor?.years_of_experience }} Year
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="cat_list_item" *ngFor="let listing of x">
+                            <h2 class="cat_title">{{ listing }}</h2>
+                            <div class="item_wrapper row">
+                              <div
+                                class="item col-sm-6 col-lg-4 col-xl-3"
+                                *ngFor="let list of obj1[listing]"
+                              >
+                                <div
+                                  class="item_inner"
+                                  [routerLink]="[
+                                    '/patient/homepage/retaildoctordetail/',
+                                    list._id
+                                  ]"
+                                >
+                                  <div class="image">
+                                    <img
+                                      src="{{
+                                        list?.profile_picture
+                                          ? list?.profile_picture
+                                          : '../../../../assets/img/homepage/medicine.png'
+                                      }}"
+                                    />
+                                  </div>
+                                  <div class="desc">
+                                    <h3 class="title">{{ list?.full_name }}</h3>
+                                    <div class="desc">
+                                      {{ "experience" | translate }} :
+                                      {{ list?.years_of_experience }}
+                                      {{ "year" | translate }}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </mat-tab>
+
+                    <mat-tab label="Accepted Insurance Companies">
+                      <div class="main_outer">
+                        <div class="accept_insurance">
+                          <div class="list_group_section">
+                            <ul>
+                              <div
+                                class="text-center"
+                                *ngIf="acceptedInsuranceList.length === 0"
+                              >
+                                <span
+                                  ><b>{{
+                                    "no_insurance_companies" | translate
+                                  }}</b></span
+                                >
+                              </div>
+                              <li *ngFor="let company of acceptedInsuranceList">
+                                <div class="companies">
+                                  {{ company?.company_name }}
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+
+                    <mat-tab label="Test Performed">
+                      <div class="main_outer_new">
+                        <div
+                          class="our_team"
+                          *ngIf="updatedPathologyTests.length > 0"
+                        >
+                          <div
+                            class="cat_list_item"
+                            *ngFor="let test of updatedPathologyTests"
+                          >
+                            <h2 class="cat_title">{{ test.typeOfTest }}</h2>
+                            <div class="item_wrapper row">
+                              <div
+                                class="item col-sm-6 col-lg-4 col-xl-3"
+                                *ngFor="let testName of test.nameOfTests"
+                              >
+                                <div class="item_inner">
+                                  <div class="desc">
+                                    <h3 class="title">{{ testName }}</h3>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="our_team"
+                          *ngIf="updatedPathologyTests.length === 0"
+                        >
+                          <div class="text-center">
+                            <span
+                              ><b>{{
+                                "no_test_performed_available" | translate
+                              }}</b></span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+
+                    <mat-tab label="Reviews">
+                      <div class="reviews_outer">
+                        <div class="header_review">
+                          <div class="header_section">
+                            <p>{{ "reviews" | translate }}</p>
+                          </div>
+                          <div class="primary_btn">
+                            <button
+                              class="btn btn-primary"
+                              (click)="
+                                openVerticallyCenteredreview(reviewcontent)
+                              "
+                            >
+                              <img
+                                class="img-fluid"
+                                src="../../../../../assets/img/write.svg"
+                              />&nbsp;&nbsp;{{ "write_a_review" | translate }}
+                            </button>
+                          </div>
+                        </div>
+
+                        <div class="average_rating">
+                          <div class="star_rating">
+                            <p>{{ "average_rating" | translate }}</p>
+                            <span class="ratings-star">
+                              <div class="rating">
+                                {{ getAverage }}
+                                <i
+                                  class="fa-solid fa-star"
+                                  *ngFor="
+                                    let f of [].constructor(
+                                      getAverage?.average_rating
+                                    )
+                                  "
+                                ></i
+                                >&nbsp;
+                              </div>
+                            </span>
+                          </div>
+                          <div class="progress_rating">
+                            <div class="progress_rating_block">
+                              <i class="fa-solid fa-star"></i>
+                              <p>5</p>
+                              <mat-progress-bar
+                                mode="determinate"
+                                [value]="ratingCount.fiveStart"
+                              ></mat-progress-bar>
+                              <!-- <p>2.0K</p> -->
+                              <p>{{ ratingCount?.fiveStart }}</p>
+                            </div>
+                            <div class="progress_rating_block">
+                              <i class="fa-solid fa-star"></i>
+                              <p>4</p>
+                              <mat-progress-bar
+                                mode="determinate"
+                                [value]="ratingCount.fourStart"
+                              ></mat-progress-bar>
+                              <!-- <p>2.0K</p> -->
+                              <p>{{ ratingCount?.fourStart }}</p>
+                            </div>
+                            <div class="progress_rating_block">
+                              <i class="fa-solid fa-star"></i>
+                              <p>3</p>
+                              <mat-progress-bar
+                                mode="determinate"
+                                [value]="ratingCount.threeStart"
+                              ></mat-progress-bar>
+                              <!-- <p>2.0K</p> -->
+                              <p>{{ ratingCount?.threeStart }}</p>
+                            </div>
+                            <div class="progress_rating_block">
+                              <i class="fa-solid fa-star"></i>
+                              <p>2</p>
+                              <mat-progress-bar
+                                mode="determinate"
+                                [value]="ratingCount.oneStart"
+                              ></mat-progress-bar>
+                              <!-- <p>2.0K</p> -->
+                              <p>{{ ratingCount?.twoStart }}</p>
+                            </div>
+                            <div class="progress_rating_block">
+                              <i class="fa-solid fa-star"></i>
+                              <p>1</p>
+                              <mat-progress-bar
+                                mode="determinate"
+                                [value]="ratingCount.oneStart"
+                              ></mat-progress-bar>
+                              <!-- <p>2.0K</p> -->
+                              <p>{{ ratingCount?.oneStart }}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="feedback"
+                          *ngFor="let feedback of hospitalRating_Reviwe"
+                        >
+                          <div class="feedback_inner">
+                            <div class="part_wrapper">
+                              <div class="left_part part">
+                                <div class="icon">
+                                  {{ feedback?.firsttlatterofname }}
+                                </div>
+                                <div class="desc">
+                                  <h2>
+                                    {{ feedback?.patientName?.full_name }}
+                                  </h2>
+                                  <span class="ratings-star">
+                                    <div class="rating">
+                                      <!-- <i
+                                        class="fa-solid fa-star"
+                                        *ngFor="
+                                          let f of [].constructor(
+                                            feedback?.rating
+                                          )
+                                        "
+                                      ></i
+                                      >&nbsp; -->
+                                      <div class="rating">
+                                        <i
+                                          class="fa-solid fa-star"
+                                          *ngFor="
+                                            let f of [].constructor(
+                                              adjustRatingStar(feedback?.rating)
+                                            )
+                                          "
+                                        ></i>
+                                        <i
+                                          class="fa-solid fa-star-half-alt"
+                                          *ngIf="feedback?.rating % 1 !== 0"
+                                        ></i>
+                                      </div>
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="right_part">
+                                <span class="date">
+                                  {{
+                                    feedback?.date | date : "dd/MM/YYYY"
+                                  }}</span
+                                >
+                              </div>
+                            </div>
+                            <p>{{ feedback?.comment }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
+
+<!-- Review modal -->
+
+<div class="review">
+  <ng-template #reviewcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "write_a_review" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form_field_wrapper">
+            <label>{{ "rate_the_doctor" | translate }}</label>
+            <div class="ratings-star">
+              <ngb-rating [(rate)]="currentRate" [max]="5"></ngb-rating>
+            </div>
+          </div>
+
+          <div class="form_field_wrapper">
+            <label
+              >{{
+                "tell_us_about_your_experience_with_the_doctor" | translate
+              }}.</label
+            >
+            <mat-form-field appearance="fill">
+              <textarea
+                matInput
+                (change)="handelReviweRating({ comment: $event })"
+                (keyup)="handelReviweRating({ comment: $event })"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </form>
+        <div class="primary_btn">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="postRatingAndReviwe()"
+          >
+            {{ "submit" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<!-- Login required warning modal -->
+<div class="order_medicine">
+  <ng-template #loginRequiredWarningModal let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <div class="modal_title" style="font-weight: 900; font-size: large">
+          {{ "login_required" | translate }}
+        </div>
+
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal_title">
+          {{ "to_add_a_review_you_need_to_login_first" | translate }}.
+        </div>
+        <div class="primary_btn">
+          <a (click)="handleBtnClick()">
+            <button type="button" class="btn btn-primary">
+              {{ "login" | translate }}
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Login required appoinment warning modal -->
+<div class="order_medicine">
+  <ng-template #loginRequiredAppointmentWarningModal let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <div class="modal_title" style="font-weight: 900; font-size: large">
+          {{ "login_required" | translate }}
+        </div>
+
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal_title">
+          {{ "to_book_an_appointment_you_need_to_login_first" | translate }}.
+        </div>
+        <div class="primary_btn">
+          <a (click)="handleBtnClick()">
+            <button type="button" class="btn btn-primary">
+              {{ "login" | translate }}
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

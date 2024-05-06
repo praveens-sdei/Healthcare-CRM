@@ -1,0 +1,118 @@
+<div class="rolepermission dashboard_main_content">
+  <div class="row">
+    <div class="col-xl-3 role_item">
+      <div class="form_field_wrapper">
+        <mat-checkbox class="example-margin" (change)="makeSelectAll($event)">{{
+          "select_all" | translate
+        }}</mat-checkbox>
+      </div>
+    </div>
+    <div class="col-xl-3 role_item" *ngFor="let menu of allMenus">
+      <div class="form_field_wrapper">
+        <mat-checkbox
+          class="example-margin"
+          checked="{{ checkedMenuArray.includes(menu.id) ? true : false }}"
+          (change)="makeJSON($event.checked, menu.id, menu.menu_order)"
+          >{{ menu.name }}</mat-checkbox
+        >
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
+        <div class=" col-xl-3 role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Dashboard</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3 role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Appointment </mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Revenue Management </mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Staff Management</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Roles and Permission </mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Patient Management</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Rating and Reviews</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Claims</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Communication</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Logs</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Master</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Payment</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Mailbox</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Assign Questionnaire</mat-checkbox>
+            </div>
+        </div>
+        <div class=" col-xl-3  role_item">
+            <div class="form_field_wrapper">
+                <mat-checkbox class="example-margin">Educational Content</mat-checkbox>
+            </div>
+        </div>
+    </div> -->
+
+  <div class="primary_btn">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      [routerLink]="['/super-admin/individualdoctor']"
+    >
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="handleAssignPerminssions()"
+    >
+      {{ "assign" | translate }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="clickBack()">
+      {{ "back" | translate }}
+    </button>
+  </div>
+</div>

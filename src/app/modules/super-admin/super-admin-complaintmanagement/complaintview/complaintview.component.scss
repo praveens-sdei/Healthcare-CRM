@@ -1,0 +1,101 @@
+@import '../../../../../assets/css/variable/variable';
+.back_button {
+    text-align: right; 
+    margin-bottom: 10px;
+}
+    .profile_data{
+        .profile_info{
+            position: relative; 
+            background: rgba(182, 200, 214, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            ul{
+                display: grid;
+                align-items: center;
+                grid-gap: 15px;
+                margin: 0;
+                grid-template-columns: repeat(4, 1fr);
+                padding-left: 0;
+                padding-right: 0;
+                .col_item{
+                    display: flex;
+                    align-items: center;
+                    .profile_image{
+                        width: 55px;
+                        height: 55px;
+                        margin: 0 15px 0 0;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                    .profile_contact{
+                        .lable{
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            letter-spacing: 0.05em;
+                            color: $bodyopacitylightcolor;
+                            margin: 0 0 6px;
+                        }
+                        .user_value{
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: $linkcolor;
+                            letter-spacing: 0.05em;
+                        }
+                    }
+                }
+                &.company_detail{
+                    grid-template-columns: repeat(5, 1fr);
+                    border-bottom:none;
+                    padding-bottom: 0;
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        .complain_data{
+            margin: 0 0 20px;
+            label{   
+                margin: 0 0 10px;
+                color: $linkcolor;
+            }
+            .complain_desc{
+                background: $white_color;
+                border: 1px solid #B6C8D6;
+                border-radius: 12px;
+                padding: 15px;
+                color: $linkcolor;
+            }
+            &.complain {
+                .complain_desc{
+                    background-color: rgba(182, 200, 214, 0.2);
+                    border: none;
+                }
+            }
+           
+        }
+        .button_container {
+            display: flex;
+            gap: 10px;
+          }
+
+    }
+
+
+@media screen and (max-width:$desktop) {
+    .profile_data .profile_info ul{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .profile_data .profile_info ul{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .profile_data .profile_info ul{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

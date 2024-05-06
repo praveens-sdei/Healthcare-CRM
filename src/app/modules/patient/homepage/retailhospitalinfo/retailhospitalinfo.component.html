@@ -1,0 +1,259 @@
+<div class="home_wrapper">
+  <app-header></app-header>
+
+  <div class="breadcum_wrapper" aria-label="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb_title">{{ "hospital_details" | translate }}</div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "home" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage/retailhospital/']">{{
+            "retail_hospital" | translate
+          }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage/retailhospitaldetail/6513c2b3388d2311bdbfa808']">
+            {{ hospitalDetails?.hospital_name }}
+          </a>
+        </li>
+        <li class="breadcrumb-item">
+            {{ hospitalDetails?.hospital_name }} Book Appointment
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="" style="margin-left: 10%; margin-top: 10px;" [routerLink]="['/patient/homepage/retailhospitaldetail/6513c2b3388d2311bdbfa808']">
+    <button class="btn btn-primary">{{ "back" | translate }}</button>
+  </div>
+  <div class="main_section retail_doctor_detail">
+    <div class="main_section_inner">
+      <div class="container">
+        <div class="row">
+          <div id="main_content" class="content_area col-xl-10">
+            <div class="bottom_section">
+              <div class="appointment_hospital_details">
+                <div class="appointment_hospital">
+                  <div class="medicine_details commom_space">
+                    <div class="image">
+                      <img
+                        src="{{
+                          hospitalProfile
+                            ? hospitalProfile
+                            : '../../../../../../assets/img/default_user.png'
+                        }}"
+                      />
+                    </div>
+                    <div class="medicine_info">
+                      <h2 class="title">
+                        {{ hospitalDetails?.hospital_name }}
+                      </h2>
+                      <div class="desc_wrapper ">
+                        <div class="rating_section">
+                          <span class="ratings-star">
+                            <div class="rating">
+                              <i class="fa-solid fa-star"></i>
+                              <span style="font-weight: 700;">
+                                {{hospitalRatings?.getAverage?.average_rating}}
+                              </span>
+                              &nbsp;
+                              <span>
+                               ({{hospitalRatings?.ratingArray?.length}} Reviews)
+                              </span>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+
+                      <ul class="content_list row">
+                        <li class="content_item">
+                          <div class="title">{{ "phone" | translate }}</div>
+                          <span class="content_desc">
+                            ({{
+                              hospitalDetails?.for_portal_user?.country_code
+                            }})
+                            {{ hospitalDetails?.for_portal_user?.mobile }}</span
+                          >
+                        </li>
+                        <li class="content_item">
+                          <div class="title">{{ "email" | translate }}</div>
+                          <span class="content_desc">
+                            {{ hospitalDetails?.for_portal_user?.email }}
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">{{ "location" | translate }}</div>
+                          <span class="content_desc" (click)="getDirection(hospitalDetails?.in_location?.loc?.coordinates)" style="cursor: pointer; text-decoration: underline;">
+                            {{ hospitalDetails?.in_location?.address }}
+                          
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">
+                            {{ "number_of_doctors" | translate }}
+                          </div>
+                          <span class="content_desc">
+                            {{ numberofDoctors }}
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">
+                            {{ "opening_hours" | translate }}
+                          </div>
+                          <span class="content_desc"> 24 Hrs </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hospital_search_section">
+                <div class="hospital_search_inner">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                      <div class="search_bar common_content">
+                        <label>{{ "search_1" | translate }}</label>
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'search' | translate }}"
+                            aria-label="Search"
+                            (search)="handleSearchDoctorList($event)"
+                            (keyup)="handleSearchDoctorList($event)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <div class="content_wrap">
+                        <div class="form_field_wrapper">
+                          <label>{{ "select_specialty" | translate }}</label>
+                          <!-- <mat-form-field appearance="fill">
+                            <mat-select (selectionChange)="handleSelectSpecialityList($event.value)" >
+                              <mat-option
+                              *ngFor="let specialityName of specialityList"
+                              [value]="specialityName._id"
+                              >{{ specialityName?.specilization }}</mat-option                            >
+                              
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>Specialty</mat-label>
+                            <mat-select
+                              (selectionChange)="
+                                handleSelectSpecialityList($event)
+                              "
+                            >
+                              <mat-option
+                                *ngFor="let specialityName of specialityList"
+                                [value]="specialityName.specilization"
+                                >{{ specialityName?.specilization }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                            [overlay]="overlay"
+                            [limitSelection]="0"
+                            [minCountForSearch]="0"
+                            [placeholder]="'Select Speciality'"
+                            (update)="handleSelectSpecialityList($event)"
+                            [data]="specialityList"
+                          >
+                          </select2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="main_outer">
+                      <div class="our_team">
+                        <div *ngFor="let group of groupedDoctors">
+                          <h2><b>{{ group.speciality }}</b></h2>
+                          <div class="item_wrapper row cat_list_item">
+                            <div class="col-sm-6 col-lg-3 col-xl-3 res_col" *ngFor="let doctor of group.doctors">
+                              <div class="item">
+                                <div class="item_inner" [routerLink]="['/patient/homepage/retaildoctordetail/', doctor._id]">
+                                  <div class="image">
+                                    <img src="{{ doctor?.profile_picture ? doctor?.profile_picture : '../../../../assets/img/homepage/medicine.png' }}" />
+                                  </div>
+                                  <div class="desc">
+                                    <h3 class="title">{{ doctor?.full_name }}</h3>
+                                    <div class="desc">
+                                      {{ "experience" | translate }} : {{ doctor?.years_of_experience }} Year
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <!-- <div
+                          class="item_wrapper row cat_list_item"
+                          *ngFor="let list of doctorsList"
+                        >
+                          <h2 *ngFor="let data of list?.speciality1">
+                            <b>{{ data }}</b>
+                          </h2>
+                          <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <div class="item">
+                              <div
+                                class="item_inner"
+                                [routerLink]="[
+                                  '/patient/homepage/retaildoctordetail/',
+                                  list._id
+                                ]"
+                              >
+                                <div class="image">
+                                  <img
+                                    src="{{
+                                      list?.profile_picture
+                                        ? list?.profile_picture
+                                        : '../../../../assets/img/homepage/medicine.png'
+                                    }}"
+                                  />
+                                </div>
+                                <div class="desc">
+                                  <h3 class="title">{{ list?.full_name }}</h3>
+                                  <div class="desc">
+                                    {{ "experience" | translate }} :
+                                    {{ list?.years_of_experience }} Year
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="primary_btn continue_btn">
+                <button
+                  class="btn btn-secondary"
+                  [routerLink]="['/patient/homepage/retailhospital']"
+                >
+                  {{ "cancel" | translate }}
+                </button>
+                <button class="btn btn-primary" (click)="handleRoute()">
+                  {{ "continue" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

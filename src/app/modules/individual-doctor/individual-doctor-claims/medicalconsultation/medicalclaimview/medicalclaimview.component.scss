@@ -1,0 +1,305 @@
+@import '../../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+.medicines_claim {
+    .top_bar {
+        .policy {
+            label {
+                margin-right: 12px;
+            }
+
+            .custome_dropdown {
+                background: #EBF0F4;
+                border-radius: 15px;
+                padding: 0 13px;
+
+                .mat-form-field-wrapper {
+                    padding-bottom: 10px;
+
+                    .mat-form-field-flex {
+                        .mat-form-field-infix {
+                            padding: 9px 0 8px;
+                            width: 260px;
+
+                            .mat-select {
+                                .mat-select-arrow {
+                                    border: solid #3d596d;
+                                    border-width: 0 3px 3px 0;
+                                    display: inline-block;
+                                    padding: 4px;
+                                    transform: rotate(45deg);
+                                    -webkit-transform: rotate(45deg);
+                                    border-radius: 2px;
+                                }
+
+                                .mat-select-value {
+                                    font-weight: 500;
+                                    font-size: $font_medium;
+
+                                    .mat-select-placeholder {
+                                        color: #0F123F;
+                                        -webkit-text-fill-color: #0F123F;
+                                    }
+                                }
+                            }
+                        }
+
+                        .mat-form-field-label-wrapper {
+                            display: none;
+                        }
+                    }
+
+                    .mat-form-field-underline {
+                        background-color: transparent;
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    hr {
+        margin: 32px -32px;
+    }
+
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 20px;
+                    color: $bodycolor;
+                    margin-left: 10px;
+                }
+
+                &.active,
+                &:hover {
+                    background: $bodycolor;
+
+                    p {
+                        color: $white_color;
+                    }
+                }
+            }
+
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+                margin: 5px 0;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                flex-wrap: wrap;
+
+                li {
+                    width: auto;
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+// custom dropdown window css
+.customdropdown {
+    .mat-select-panel {
+        margin-top: 25%;
+
+        .select-all {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+        }
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .medicines_claim .top_bar {
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .medicines_claim .top_bar .right_part .primary_btn {
+        flex-direction: row;
+    }
+
+    .medicines_claim .top_bar .right_part .primary_btn .btn {
+        margin: 0 0 0 15px;
+    }
+}
+
+@media screen and (max-width:$small_phone) {
+
+    .medicines_claim .top_bar .left_part,
+    .medicines_claim .top_bar .right_part,
+    .medicines_claim .top_bar .left_part .policy .mat-form-field {
+        width: 100%;
+    }
+
+    .medicines_claim .top_bar .left_part .policy {
+        width: 100%;
+    }
+
+    .medicines_claim .top_bar .right_part .primary_btn {
+        flex-direction: column;
+    }
+
+    .medicines_claim .top_bar .right_part .primary_btn a {
+        width: 100%;
+    }
+
+    .medicines_claim .top_bar .right_part .primary_btn .btn,
+    .medicines_claim .top_bar .right_part .primary_btn .btn:last-child {
+        margin: 0 0 15px;
+        width: 100%;
+    }
+
+    .medicines_claim .export_list .inner_exprot_list ul li {
+        width: 100%;
+    }
+
+    .medicines_claim .export_list .inner_exprot_list .status_list {
+        width: 100%;
+    }
+}
+
+// @import '../../../../../../assets/css/variable/variable';
+
+// .individualdr_claims{
+//    .claims_tab{
+//     position: relative;
+//     .primary_btn{
+//         position: absolute;
+//         right: 0;
+//         left: auto;
+//         top: 0;
+//         bottom: auto;
+//         .btn{
+//             padding: 10px 15px;
+//         }
+//     }
+//     .mat-tab-header{
+//         margin: 0 0 28px;
+//         border-bottom: none;
+//         width: 65%;
+//         .mat-tab-list{
+//             .mat-tab-labels{
+//                 display: inline-flex;
+//                 .mat-tab-label {
+//                     font-family: $font_family_body,$font_sans_sarif;
+//                     height: 55px;
+//                     padding: 0 10px;
+//                     min-width: 125px;
+//                     font-size: $font_medium;
+//                     font-weight: 500;
+//                     color: $bodycolor;
+//                     background-color: $white_color;
+//                     border: 1px solid rgba(11, 73, 119, 0.15);
+//                     border-radius: 10px;
+//                     justify-content: flex-start;
+//                     opacity: 1;
+//                     margin-left: 20px;
+//                     &:first-child{
+//                         margin-left: 0;
+//                     }
+//                     .mat-tab-label-content{
+//                         .btn_svg {
+//                             height: 35px;
+//                             width: 35px;
+//                             line-height: 35px;
+//                             margin-right: 10px;
+//                             background-color: #0B4977;
+//                             border-radius: 9px;
+//                             svg{
+//                                 fill: #ffffff;
+//                                 width: 20px;
+//                                 height: 20px;
+//                             }
+//                             &.approved  {
+//                                 background-color: #72D284; 
+//                             }
+//                             &.pending  {
+//                                 background-color: #FFB71B;   
+//                             }
+//                             &.rejected  {
+//                                 background-color: #FF7354; 
+//                             }
+
+//                         }
+//                     }
+//                 }
+//                 .mat-tab-label.mat-tab-label-active{
+//                     color: $white_color;
+//                     background-color: $bodycolor;
+//                     .mat-tab-label-content{
+//                         .btn_svg {
+//                             background-color: #EBF0F4;
+//                             svg{
+//                                 fill: #0B4977;
+//                                 rect{
+//                                     fill: #EBF0F4;
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//             .mat-ink-bar{
+//                 display: none;
+//             }
+//             .mat-ink-bar{
+//                 background-color: $bodycolor;
+//             }
+//         }
+//     }
+//     .mat-tab-body-content{
+//         overflow: hidden;
+//     }
+//    }  
+// }
+// @media screen and (max-width:$desktop_medium) {
+//     .individualdr_claims .claims_tab .mat-tab-header{
+//         width: 60%;
+//     }
+// }
+// @media screen and (max-width:$desktop) {
+//     .individualdr_claims .claims_tab .mat-tab-header{
+//         width: 50%;
+//     }
+// }
+// @media screen and (max-width:$large_phone) {
+//     .individualdr_claims .claims_tab .mat-tab-header{
+//         width: 100%;
+//     }
+//     .individualdr_claims .claims_tab .primary_btn{
+//         position: static;
+//         margin: 0 0 20px;
+//         justify-content: flex-end;    
+//     }
+// }
+// @media screen and (max-width:$small_phone) {
+//     .individualdr_claims .claims_tab .primary_btn{
+//         flex-direction: column;
+//     }
+//     .individualdr_claims .claims_tab .primary_btn .btn{
+//         margin: 15px 0 0;
+//     }
+// }

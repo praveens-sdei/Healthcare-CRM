@@ -1,0 +1,22 @@
+@import '../../../../../assets/css/variable/variable';
+
+
+.main_section {
+    margin-top: 40px;
+}
+
+.contact-main-section {
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        color: $black_color;
+    }
+    p {
+        font-size: 15px;
+        color: $black_color;
+    }
+    .contact-card-wrap {
+        border: 2px solid $sidebarcolor;
+        border-radius: 8px;
+    }
+}

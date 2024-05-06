@@ -1,0 +1,257 @@
+<div class="preview_medicine dashboard_main_content">
+  <div class="row">
+    <div class="col-md-7 col-xl-8">
+      <div class="main_title">{{ "eyeglasses" | translate }}</div>
+      <div class="top_bar">
+        <div class="part_wrapper">
+          <div class="left_part part">
+            <h2>Dr. Ronald Richards</h2>
+            <div class="address">
+              6391 Elgin St. Celina, Delaware 10299 Wade Warren
+            </div>
+          </div>
+          <div class="right_part part">
+            <div class="immunization_img">
+              <img src="../../../../../../assets/img/immunization_img.png" />
+            </div>
+            <div class="immunization_info">
+              <h2>{{ "great_plains_community_hospital" | translate }}</h2>
+              <div class="address">
+                1901 Thornridge Cir. Shiloh, Hawaii 81063
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom_bar">
+        <div class="profile_data">
+          <div class="profile_info">
+            <ul class="profile_info_inner profile_info_with_img">
+              <li class="col_item profile_image_wrapper">
+                <div class="profile_image">
+                  <img src="../../../assets/img/profile_img.png" />
+                </div>
+                <div class="profile_contact">
+                  <div class="profile_title">Jacob Jones</div>
+                  <div class="lable">{{ "mobile_number" | translate }}</div>
+                  <div class="user_value">(+42) 123 456 7890</div>
+                </div>
+              </li>
+              <li class="col_item">
+                <div class="profile_contact">
+                  <div class="lable">{{ "email" | translate }}</div>
+                  <div class="user_value">email@dummy.com</div>
+                </div>
+              </li>
+              <li class="col_item">
+                <div class="profile_contact">
+                  <div class="lable">{{ "date_of_birth" | translate }}</div>
+                  <div class="user_value">03/05/1994</div>
+                </div>
+              </li>
+              <li class="col_item">
+                <div class="profile_contact">
+                  <div class="lable">{{ "age" | translate }}</div>
+                  <div class="user_value">28 Year</div>
+                </div>
+              </li>
+              <li class="col_item">
+                <div class="profile_contact">
+                  <div class="lable">{{ "gender" | translate }}</div>
+                  <div class="user_value">Male</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="prescription_data">
+            <div class="prescribe_no">
+              {{ "number_of_prescription" | translate }}: <span>01</span>
+            </div>
+          </div>
+          <div class="prescrib_content">
+            <div class="prescription_title">
+              {{ "bifocal_eye_glasses" | translate }}
+            </div>
+            <div class="item">
+              <div class="item_inner">
+                <div class="bifocal_eye">
+                  <span>{{ "left_eye" | translate }} : </span> <b>+</b>2,50
+                  (<b>+</b>0,70) 15° Add 1,75
+                </div>
+                <div class="bifocal_eye">
+                  <span>{{ "right_eye" | translate }} : </span><b>+</b>2,25
+                  (<b>+</b>0,50) 75° Add 1,75
+                </div>
+              </div>
+            </div>
+            <h3>{{ "anti_reflective_treatment" | translate }}</h3>
+            <h3>{{ "anti_photochromic" | translate }}</h3>
+          </div>
+        </div>
+
+        <div class="visual_acuity_wrapper">
+          <div class="visual_acuity">
+            <label class="visual_title">{{
+              "visual_acuity" | translate
+            }}</label>
+            <ul>
+              <li class="item">
+                <div class="item_inner">
+                  <label>{{ "left_eye" | translate }}</label>
+                  <div class="value">4/10</div>
+                </div>
+              </li>
+              <li class="item">
+                <div class="item_inner">
+                  <label>{{ "right_eye" | translate }}</label>
+                  <div class="value">8/12</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="primary_btn">
+          <button
+            class="btn btn-secondary"
+            routerLink="/individual-doctor/eprescription/eprescriptioneyeglasses"
+          >
+            {{ "modify_the_prescription" | translate }}
+          </button>
+          <button
+            class="btn btn-primary"
+            routerLink="/individual-doctor/eprescription/validateeyeglassesprescription"
+          >
+            {{ "validate_the_eprescription" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-5 col-xl-4">
+      <div class="prescription_detail">
+        <div class="prescription_inner">
+          <div class="prescribe_item profile">
+            <div class="prescribe_profile">
+              <div class="image">
+                <img src="../../../../../../assets/img/default_user.png" />
+              </div>
+              <div class="desc">
+                <h2 class="title">Jacob Jones</h2>
+                <div class="age">20 Year Old</div>
+              </div>
+            </div>
+          </div>
+          <div class="prescribe_item">
+            <div class="prescribe_title">{{ "biometrics" | translate }}</div>
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <div class="form_field_wrapper">
+                  <label>{{ "height" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form_field_wrapper">
+                  <label>{{ "weight" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form_field_wrapper">
+                  <label>{{ "bmi" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form_field_wrapper">
+                  <label>{{ "bmi_interpreter" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input matInput type="text" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prescribe_item">
+            <div class="prescribe_title">{{ "liver_failure" | translate }}</div>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">{{
+                "none" | translate
+              }}</mat-radio-button>
+              <mat-radio-button value="2">{{
+                "moderate" | translate
+              }}</mat-radio-button>
+              <mat-radio-button value="3">{{
+                "severe" | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="prescribe_item">
+            <div class="prescribe_title">{{ "renal_failure" }}</div>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">{{
+                "none" | translate
+              }}</mat-radio-button>
+              <mat-radio-button value="2">{{
+                "moderate" | translate
+              }}</mat-radio-button>
+              <mat-radio-button value="3">{{
+                "severe" | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="prescribe_item">
+            <div class="prescribe_title">{{ "allergies" | translate }}</div>
+            <ul class="listing row">
+              <li class="item">
+                <label>{{ "allergy_type" | translate }}</label>
+                <div class="value">{{ "food_allergies" | translate }}</div>
+              </li>
+              <li class="item">
+                <label>{{ "allergen" | translate }}</label>
+                <div class="value">Swollen</div>
+              </li>
+              <li class="item">
+                <label>{{ "reaction" | translate }}</label>
+                <div class="value">Skin</div>
+              </li>
+            </ul>
+          </div>
+          <div class="prescribe_item">
+            <div class="prescribe_title">
+              {{ "medical_history" | translate }}
+            </div>
+            <ul class="listing row">
+              <li class="item">
+                <label>{{ "allergy_type" | translate }}</label>
+                <div class="value">Augmentin 625 Duo Tablet</div>
+              </li>
+              <li class="item">
+                <label>{{ "frequency" | translate }}</label>
+                <div class="value">One Daily Morning</div>
+              </li>
+            </ul>
+          </div>
+          <div class="prescribe_item">
+            <mat-checkbox class="example-margin">{{
+              "accident_related" | translate
+            }}</mat-checkbox>
+            <mat-checkbox class="example-margin">{{
+              "occupational_desease" | translate
+            }}</mat-checkbox>
+            <mat-checkbox class="example-margin">{{
+              "free_of_charge" | translate
+            }}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

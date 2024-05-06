@@ -1,0 +1,87 @@
+@import '../../../../assets/css/variable/variable';
+.login {
+    .login_inner {
+        .left_part {
+            background-image: url(../../../../assets/img/hospital_login.svg);
+        }
+    }
+ 
+    .get_code_screen .form_field_wrapper .mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+        border-top-width: 4px;
+        padding: 4px 0 8px;
+        font-size: 16px;
+        display: flex !important;
+        justify-content: space-between;
+    }
+    .get_code_screen .mat-input-element {
+        background: #F0F0F0;
+        border: 1px solid #9E9E9E;
+        border-radius: 8px;
+        width: 50px;
+        height: 50px;
+     }
+     .get_code_screen .form_field_wrapper .mat-form-field .mat-form-field-wrapper .mat-form-field-flex{
+        border: none;
+     }
+     .back_section a{
+        display: flex;
+        justify-content: center;
+        padding-top: 25px;
+        align-items: center;
+        color: #3A3737;
+        text-decoration: none;
+        gap: 5px;
+     }
+     .back_section  p{
+        display: flex;
+        align-items: center;
+    }
+     .otpview
+     {
+         
+     text-align: center;
+     margin-bottom: 11px;
+ 
+     }
+}
+
+.login {
+    .login_inner {
+        .right_part {
+            .rightpart_inner {
+                form {
+                    width: 400px;
+                    margin: 0 auto;
+                    .login_title {
+                        margin: 0 0 15px;
+                    }
+                    .otp-input{
+                        text-align: center;
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 24px;
+                        letter-spacing: 0.02em;
+                        color: #000000;
+                        background: #F0F0F0;
+                        border: 1px solid #9E9E9E;
+                        border-radius: 8px;
+                        margin-right: 15px;
+                        width: 50px;
+                        height: 50px;
+                        &:last-child{
+                            margin: 0;
+                        }
+                      }
+                   
+                      .form_field_wrapper {
+                        margin: 0 0 30px;
+                        .ng-otp-input-wrapper {
+                            text-align: center;
+                        }
+                    }
+                
+                  }
+            }
+        }
+    }
+}

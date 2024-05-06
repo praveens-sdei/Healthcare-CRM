@@ -1,0 +1,217 @@
+<div class="makeeprescription dashboard_main_content">
+  <div class="row">
+    <div class="col-md-7 col-xl-8">
+      <div class="main_title">{{ "vaccination" | translate }}</div>
+      <div class="top_bar">
+        <div class="search_bar common_content">
+          <div class="input-group">
+            <button class="btn search-btn">
+              <mat-icon>search</mat-icon>
+            </button>
+            <input
+              type="search"
+              class="form-control"
+              placeholder="{{ 'search' | translate }}"
+              aria-label="Search"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom_bar">
+        <form [formGroup]="vaccinationForm">
+          <div class="prescription">
+            <div class="prescription_title">{{ "measles" | translate }}</div>
+            <div class="form_field_wrapper">
+              <label>{{ "add_dosage" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <textarea
+                  type="text"
+                  formControlName="dosage"
+                  placeholder="{{ 'enter_dosage' | translate }}"
+                  matInput
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="isSubmitted && registerFormControl.dosage.invalid"
+            >
+              {{ "enter_dosage" | translate }}*
+            </div>
+            <div class="form_field_wrapper">
+              <label
+                >{{ "additional_comments" | translate }} ({{
+                  "optional" | translate
+                }})</label
+              >
+              <mat-form-field appearance="fill">
+                <textarea
+                  type="text"
+                  formControlName="comment"
+                  placeholder="{{ 'write_here' | translate }}"
+                  matInput
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="primary_btn">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="handleAddVaccination()"
+              >
+                {{ "add_vaccination" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-5 col-xl-4">
+      <div class="prescription_detail">
+        <div class="prescription_inner">
+          <div class="prescribe_item profile">
+            <div class="prescribe_profile">
+              <div class="image">
+                <img src="../../../../../assets/img/doctor.png" />
+              </div>
+              <div class="desc">
+                <h2 class="title">Jacob Jones</h2>
+                <div class="age">20 Year Old</div>
+              </div>
+            </div>
+          </div>
+          <form [formGroup]="filterForm">
+            <div class="prescribe_item">
+              <div class="prescribe_title">{{ "biometrics" | translate }}</div>
+              <div class="row">
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "height" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="height" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "weight" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="weight" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "bmi" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="bmi" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "bmi_interpreter" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        matInput
+                        type="number"
+                        formControlName="bmi_inetpreter"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "liver_failure" | translate }}
+              </div>
+              <mat-radio-group formControlName="liver_failure">
+                <mat-radio-button checked value="None">{{
+                  "none" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Moderate">{{
+                  "moderate" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Severe">{{
+                  "severe" | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "renal_failure" | translate }}
+              </div>
+              <mat-radio-group formControlName="renal_failure">
+                <mat-radio-button checked value="None">{{
+                  "none" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Moderate">{{
+                  "moderate" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Severe">{{
+                  "severe" | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">{{ "allergies" | translate }}</div>
+              <ul class="listing row">
+                <li class="item">
+                  <label>{{ "allergy_type" | translate }}</label>
+                  <div class="value">{{ "food_allergies" | translate }}</div>
+                </li>
+                <li class="item">
+                  <label>{{ "allergen" | translate }}</label>
+                  <div class="value">Swollen</div>
+                </li>
+                <li class="item">
+                  <label>{{ "reaction" | translate }}</label>
+                  <div class="value">{{ "skin" | translate }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "medical_history" | translate }}
+              </div>
+              <ul class="listing row">
+                <li class="item">
+                  <label>{{ "allergy_type" | translate }}</label>
+                  <div class="value">
+                    {{ "augmentin_625_duo_tablet" | translate }}
+                  </div>
+                </li>
+                <li class="item">
+                  <label>{{ "frequency" | translate }}</label>
+                  <div class="value">{{ "one_daily_morning" | translate }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="prescribe_item">
+              <mat-checkbox
+                class="example-margin"
+                formControlName="accident_related"
+                >{{ "accident_related" | translate }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="example-margin"
+                formControlName="occupational_desease"
+                >{{ "occupational_desease" | translate }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="example-margin"
+                formControlName="free_of_charge"
+                >{{ "free_of_charge" | translate }}</mat-checkbox
+              >
+            </div>
+
+            <!-- <button (click)="showForm()">Show Form Value</button> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

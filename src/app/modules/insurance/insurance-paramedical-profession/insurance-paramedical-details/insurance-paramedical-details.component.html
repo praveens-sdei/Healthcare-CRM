@@ -1,0 +1,3436 @@
+<div class="pre_medicalconsultation dashboard_main_content common_space">
+  <div class="export_list">
+    <div class="inner_exprot_list">
+      <div class="row">
+        <div class="col-xl-9 col-lg-7">
+          <!-- <div class="row">
+                        <div class="col-lg-6 col-xl-3 col-md-3 col-sm-6">
+                            <div class="status_list">
+                                <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/approve.svg"
+                                    alt="approve">
+                                <p>Approved (30)</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-3 col-md-3 col-sm-6">
+                            <div class="status_list">
+                                <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/todo.svg"
+                                    alt="approve">
+                                <p>To-Do (5)</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-3 col-md-3 col-sm-6">
+                            <div class="status_list">
+                                <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/pending.svg"
+                                    alt="approve">
+                                <p>Pending (2)</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-3 col-md-3 col-sm-6">
+                            <div class="status_list">
+                                <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/reject.svg"
+                                    alt="approve">
+                                <p>Rejected (3)</p>
+                            </div>
+                        </div>
+                    </div> -->
+        </div>
+        <div class="col-xl-3 col-lg-5">
+          <div class="primary_btn">
+            <!-- <button type="button" class="btn btn-primary"
+                            (click)="openVerticallyCenteredsecond(addsecondsubsriber)">
+                            <mat-icon>description</mat-icon>{{ 'view_attached_documents' | translate}} 
+                        </button> -->
+            <!-- <button type="button" class="btn btn-primary"
+                            (click)="openVerticallyCenteredrequestedamount(requestedamount)">
+                            <mat-icon>description</mat-icon>{{ 'view_attached_documents' | translate}} 
+                        </button> -->
+            <!-- <button type="button" class="btn btn-primary"
+                            (click)="openVerticallyCenteredapproved(approved)">
+                            <mat-icon>description</mat-icon>{{ 'view_attached_documents' | translate}} 
+                        </button> -->
+            <ng-container *ngIf="giveInnerPermission('viewAttachedDocument')">
+              <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+                <mat-icon>description</mat-icon>{{ "view_attached_documents" | translate }}
+              </button>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user_insurance pt-30">
+    <div class="row">
+      <div class="col-md-6 mt-3 mt-md-0">
+        <div class="user_insurance_block">
+          <p>{{ "this_claim_for" | translate }}:</p>
+          <p>
+            {{
+            claimDetails?.insurerType == "primaryInsurer"
+            ? "Primary Insurer"
+            : "Secondary Insurer"
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-3 mt-md-0">
+        <div class="user_insurance_block">
+          <p>{{ "insurance_type" | translate }}:</p>
+          <p>{{ subscriberDetails?.subscriber_type }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="user_insurance pt-30">
+        <div class="row">
+            <div class="col-md-6 mt-3 mt-md-0">
+                <div class="user_insurance_block">
+                    <p>This Claim for :</p>
+                    <p>Primary Insurer</p>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3 mt-md-0">
+                <div class="primary_btn">
+                    <button type="button" class="btn btn-primary">
+                        <mat-icon>print</mat-icon>Print
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <mat-icon>share</mat-icon>Export
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "primary_insurer_identity" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel primary-insurer-identity-panel custom-expansion-panel">
+          <div class="expansion_panel_inner">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "first_name" | translate }} :</p>
+                      <p>
+                        {{
+                        findvalue("First Name") == ""
+                        ? "-"
+                        : findvalue("First Name")
+                        }}
+                        <!-- {{
+                            findvalue("First Name") == ""
+                            ? "-"
+                            : findvalue("First Name")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "middle_name" | translate }} :</p>
+                      <p>
+                        {{
+                        findvalue("Middle Name") == ""
+                        ? "-"
+                        : findvalue("Middle Name")
+                        }}
+                        <!-- {{
+                            findvalue("Middle Name") == ""
+                            ? "-"
+                            : findvalue("Middle Name")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "last_name" | translate }} :</p>
+                      <p>
+                        {{
+                        findvalue("Last Name") == ""
+                        ? "-"
+                        : findvalue("Last Name")
+                        }}
+
+                        <!-- {{
+                            findvalue("Last Name") == ""
+                            ? "-"
+                            : findvalue("Last Name")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "gender" | translate }} :</p>
+                      <p>
+                        {{
+                        findvalue("Gender") == "" ? "-" : findvalue("Gender")
+                        }}
+
+                        <!-- {{
+                            findvalue("Gender") == "" ? "-" : findvalue("Gender")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-12 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "date_of_birth" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                ( Primarydetails?.primarysubscriberDetails?.date_of_birth | date :
+                                                "dd-MM-YYYY")
+                                                :(claimDetailssubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+                                                }} -->
+                        {{
+                        findvalue("Date Of Birth") == ""
+                        ? "-"
+                        : (findvalue("Date Of Birth") | date : "MM-dd-YYYY")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "age" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.age
+                                                :claimDetailssubscriberDetails?.age
+                                                }} -->
+                        {{
+                        findvalue("Age") == ""
+                        ? "-"
+                        : findvalue("Age") + " yrs"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_ID" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.insurance_id
+                                                :claimDetailssubscriberDetails?.insurance_id
+                                                }} -->
+                        {{
+                        findvalue("Insurance ID") == ""
+                        ? "-"
+                        : findvalue("Insurance ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "insurance_validity" | translate }} :</p>
+                      <p>
+                        {{ "from" | translate }} :
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                (Primarydetails?.primarysubscriberDetails?.insurance_validity_from| date
+                                                : "dd-MM-YYYY")
+                                                :(claimDetailssubscriberDetails?.insurance_validity_from| date :
+                                                "dd-MM-YYYY")
+                                                }} -->
+                        {{
+                        findvalue("Insurance From Date") == ""
+                        ? "-"
+                        : (findvalue("Insurance From Date")
+                        | date : "MM-dd-YYYY")
+                        }}
+                        {{ "to" | translate }} :
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                (Primarydetails?.primarysubscriberDetails?.insurance_validity_to| date :
+                                                "dd-MM-YYYY")
+                                                :(claimDetailssubscriberDetails?.insurance_validity_to| date :
+                                                "dd-MM-YYYY")
+                                                }} -->
+                        {{
+                        findvalue("Insurance To Date") == ""
+                        ? "-"
+                        : (findvalue("Insurance To Date")
+                        | date : "MM-dd-YYYY")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "policy_ID" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.policy_id
+                                                :claimDetailssubscriberDetails?.policy_id
+                                                }} -->
+                        {{
+                        findvalue("Policy ID") == ""
+                        ? "-"
+                        : findvalue("Policy ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "card_ID" | translate }} :</p>
+                      <p>
+                        {{
+                        claimDetailssubscriberDetails?.subscription_for ==
+                        "Secondary"
+                        ? Primarydetails?.primarysubscriberDetails?.card_id
+                        : claimDetailssubscriberDetails?.card_id
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "employee_ID" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.employee_id
+                                                :claimDetailssubscriberDetails?.employee_id
+                                                }} -->
+                        {{
+                        findvalue("Employee ID") == ""
+                        ? "-"
+                        : findvalue("Employee ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_holder" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.insurance_holder_name
+                                                :claimDetailssubscriberDetails?.insurance_holder_name
+                                                }} -->
+                        {{
+                        findvalue("Insurance Holder Name") == ""
+                        ? "-"
+                        : findvalue("Insurance Holder Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reimbursement" | translate }} :</p>
+                      <p>
+                        <!-- {{
+                                                claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+                                                Primarydetails?.primarysubscriberDetails?.reimbersement_rate
+                                                :claimDetailssubscriberDetails?.reimbersement_rate
+                                                }} -->
+                        {{
+                        findvalue("Reimbursement") == ""
+                        ? "-"
+                        : findvalue("Reimbursement") + " %"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-4">
+                          <div class="outer_detail_block last_child">
+                            <div class="detail_section">
+                              <p>Registration Number:</p>
+                              <p>541287636201320</p>
+                            </div>
+                          </div>
+                        </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- *ngIf="claimDetails?.insurerType === 'secondaryInsurer'" -->
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "secondary_insurer_identiry" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "first_name" | translate }} :</p>
+                    <p>
+                      {{ claimDetailssubscriberDetails?.subscriber_first_name }}
+                      <!-- {{
+                          findvaluesecondary("First Name") == ""
+                          ? "-"
+                          : findvaluesecondary("First Name")
+                          }} -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "middle_name" | translate }} :</p>
+                    <p>
+                      {{
+                      claimDetailssubscriberDetails?.subscriber_middle_name
+                      }}
+                      <!-- {{
+                          findvaluesecondary("Middle Name") == ""
+                          ? "-"
+                          : findvaluesecondary("Middle Name")
+                          }} -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "last_name" | translate }} :</p>
+                    <p>
+                      {{ claimDetailssubscriberDetails?.subscriber_last_name }}
+                      <!-- {{
+                          findvaluesecondary("Last Name") == ""
+                          ? "-"
+                          : findvaluesecondary("Last Name")
+                          }} -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "gender" | translate }} :</p>
+                    <p>
+                      {{ claimDetailssubscriberDetails?.gender }}
+                      <!-- {{
+                          findvaluesecondary("Gender") == ""
+                          ? "-"
+                          : findvaluesecondary("Gender")
+                          }} -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "date_of_birth" | translate }} :</p>
+                    <p>
+                      {{
+                      claimDetailssubscriberDetails?.date_of_birth
+                      | date : "dd-MM-YYYY"
+                      }}
+                      <!-- {{
+                          findvaluesecondary("Date Of Birth") == ""
+                          ? "-"
+                          : (findvaluesecondary("Date Of Birth")
+                          | date : "MM-dd-YYYY")
+                          }} -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "age" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.age + " yrs" }}
+
+                        <!-- {{
+                            findvaluesecondary("Age") == ""
+                            ? "-"
+                            : findvaluesecondary("Age") + " yrs"
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_ID" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.insurance_id }}
+                        <!-- {{
+                            findvaluesecondary("Insurance ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Insurance ID")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "insurance_validity" | translate }} :</p>
+                      <p>
+                        {{ "from" | translate }} :
+                        {{
+                        claimDetailssubscriberDetails?.insurance_validity_from
+                        | date : "dd-MM-YYYY"
+                        }}
+
+                        <!-- {{
+                            findvaluesecondary("Insurance From Date") == ""
+                            ? "-"
+                            : (findvaluesecondary("Insurance From Date")
+                            | date : "MM-dd-YYYY")
+                            }} -->
+                        {{ "to" | translate }} :
+                        {{
+                        claimDetailssubscriberDetails?.insurance_validity_to
+                        | date : "dd-MM-YYYY"
+                        }}
+
+                        <!-- {{
+                            findvaluesecondary("Insurance To Date") == ""
+                            ? "-"
+                            : (findvaluesecondary("Insurance To Date")
+                            | date : "MM-dd-YYYY")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "policy_ID" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.policy_id }}
+
+                        <!-- {{
+                            findvaluesecondary("Policy ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Policy ID")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "card_ID" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.card_id }}
+
+                        <!-- {{
+                            findvaluesecondary("Card ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Card ID")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "employee_ID" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.employee_id }}
+
+                        <!-- {{
+                            findvaluesecondary("Employee ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Employee ID")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_holder" | translate }} :</p>
+                      <p>
+                        {{
+                        claimDetailssubscriberDetails?.insurance_holder_name
+                        }}
+
+                        <!-- {{
+                            findvaluesecondary("Insurance Holder Name") == ""
+                            ? "-"
+                            : findvaluesecondary("Insurance Holder Name")
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reimbursement" | translate }} :</p>
+                      <p>
+                        {{ claimDetailssubscriberDetails?.reimbersement_rate }}
+
+                        <!-- {{
+                            findvaluesecondary("Reimbursement") == ""
+                            ? "-"
+                            : findvaluesecondary("Reimbursement") + " %"
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>
+                        {{ "relation_with_the_pirmary_insured" | translate }} :
+                      </p>
+                      <p>
+                        {{
+                        claimDetailssubscriberDetails?.relationship_with_insure
+                        }}
+
+                        <!-- {{
+                            findvaluesecondary(
+                            "Relation With The Primary Insured"
+                            ) == ""
+                            ? "-"
+                            : findvaluesecondary(
+                            "Relation With The Primary Insured"
+                            )
+                            }} -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="expansion_other_panel">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <div class="outer_detail_block two_block">
+                        <div class="detail_section">
+                          <p>Relation with the Pirmary Insured:</p>
+                          <p>Wife</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "contract_exclusions" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel contract-exclusions-panel custom-expansion-panel">
+          <div class="expansion_panel_inner">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>
+                        {{ healthPlanDetails?.contract_exclusion }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <!-- -------------------------------------------Patient Contract HealthCare Plan----------------------------------------- -->
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "patient_insurance_contract_plan" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        &nbsp;&nbsp;&nbsp;
+        <div>
+          &nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn btn-primary"
+            (click)="openVerticallyCenteredPatientInurance(patientinuranceplan)">
+            {{ "patient_contract_plan" | translate }}
+          </button>
+        </div>
+        <br />
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- -------------------------------------------Claim History----------------------------------------- -->
+      
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ "claim_history" | translate }} </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="table-wrap">
+            <div class="table-inner">
+              <!-- {{dataSource | json}} -->
+              <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                <ng-container matColumnDef="claimdate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_date" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.createdAt | date : "MM-dd-YYYY" }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="claimid">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_ID" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.claimId }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="claimType">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_type" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.claimType }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="insuranceid">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "insurance_ID" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element.insurerType == "secondaryInsurer"
+                    ? findvalue2(
+                    "Insurance ID",
+                    element?.secondaryInsuredIdentity
+                    )
+                    : findvalue2(
+                    "Insurance ID",
+                    element?.primaryInsuredIdentity
+                    )
+                    ? findvalue2(
+                    "Insurance ID",
+                    element?.primaryInsuredIdentity
+                    )
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="plans">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "plans" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.plan_name }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="insuranceholder">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "insurance_holder" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element.insurerType == "secondaryInsurer"
+                    ? findvalue2(
+                    "Insurance Holder Name",
+                    element?.secondaryInsuredIdentity
+                    )
+                    : findvalue2(
+                    "Insurance Holder Name",
+                    element?.primaryInsuredIdentity
+                    )
+                    ? findvalue2(
+                    "Insurance Holder Name",
+                    element?.primaryInsuredIdentity
+                    )
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="reimbursmentrate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "reimbursment_rate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.reimbursmentRate
+                    ? element?.reimbursmentRate + " %"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="requestedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "requested_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.totalRequestedAmount
+                    ? element?.totalRequestedAmount + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="totalamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.totalCostOfAllMedicine
+                    ? element?.totalCostOfAllMedicine + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="approvedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "approved_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.totalApprovedAmount
+                    ? element?.totalApprovedAmount + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "status" | translate }}
+                  </th>
+                  <!-- <td mat-cell *matCellDef="let element"><a class="rejected">Rejected</a></td>
+                                              <td mat-cell *matCellDef="let element"><a class="todo">To Do</a></td> -->
+                  <td mat-cell *matCellDef="let element">
+                    <a class="{{ element?.status }}">{{ element?.status }}</a>
+                  </td>
+                  <!-- <td mat-cell *matCellDef="let element"><a class="pending">Pending</a></td> -->
+                </ng-container>
+  
+                <ng-container matColumnDef="comments">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "comments" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.comments }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "action" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- {{element| json}} -->
+                    <mat-icon (click)="handleViewPreviousClaim1(element?.claimId,element?.claimType)">visibility
+                    </mat-icon>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnss"></tr>
+              </table>
+              <div class="text-center" *ngIf="dataSources.length === 0">
+                <b>{{ "no_claim_history" | translate }}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "previous_medicines_claims" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="claimdate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_date" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.createdAt | date : "MM-dd-YYYY" }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="claimid">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_ID" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.claimId }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="claimType">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_type" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.claimType }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="insuranceid">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "insurance_ID" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element.insurerType == "secondaryInsurer"
+                    ? findvalue2(
+                    "Insurance ID",
+                    element?.secondaryInsuredIdentity
+                    )
+                    : findvalue2(
+                    "Insurance ID",
+                    element?.primaryInsuredIdentity
+                    )
+                    ? findvalue2(
+                    "Insurance ID",
+                    element?.primaryInsuredIdentity
+                    )
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="plans">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "plans" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.plan_name }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="insuranceholder">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "insurance_holder" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element.insurerType == "secondaryInsurer"
+                    ? findvalue2(
+                    "Insurance Holder Name",
+                    element?.secondaryInsuredIdentity
+                    )
+                    : findvalue2(
+                    "Insurance Holder Name",
+                    element?.primaryInsuredIdentity
+                    )
+                    ? findvalue2(
+                    "Insurance Holder Name",
+                    element?.primaryInsuredIdentity
+                    )
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reimbursmentrate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "reimbursment_rate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.reimbursmentRate
+                    ? element?.reimbursmentRate + " %"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="requestedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "requested_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.totalRequestedAmount
+                    ? element?.totalRequestedAmount + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    element?.totalCostOfAllMedicine
+                    ? element?.totalCostOfAllMedicine + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="approvedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "approved_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- {{element | json}} -->
+                    {{
+                    element?.totalApprovedAmount
+                    ? element?.totalApprovedAmount + " CFA"
+                    : "-"
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "status" | translate }}
+                  </th>
+                  <!-- <td mat-cell *matCellDef="let element"><a class="rejected">Rejected</a></td>
+                                          <td mat-cell *matCellDef="let element"><a class="todo">To Do</a></td> -->
+                  <td mat-cell *matCellDef="let element">
+                    <a class="{{ element?.status }}">{{ element?.status }}</a>
+                  </td>
+                  <!-- <td mat-cell *matCellDef="let element"><a class="pending">Pending</a></td> -->
+                </ng-container>
+
+                <ng-container matColumnDef="comments">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "comments" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.comments }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "action" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="handleViewPreviousClaim(element?.claimId)">visibility
+                    </mat-icon>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+              <div class="text-center" *ngIf="dataSource.length === 0">
+                <b>{{ "no_previous_medicine_claims_found" | translate }} </b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner contact_analysis mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "contract_analysis" | translate }}
+            <div class="form_field_wrapper contract">
+              <mat-form-field appearance="fill">
+                <mat-select disableRipple  [(ngModel)]="selectedValue" (selectionChange)="claimTypeFilter($event)">
+                  <ng-container>
+                    <mat-option  *ngIf="claimDetails?.insurerType === 'primaryInsurer'" value={{claimDetailssubscriberDetails?._id}}> {{claimDetailssubscriberDetails?.subscriber_full_name}}</mat-option>
+                    <mat-option *ngIf="claimDetails?.insurerType === 'secondaryInsurer'" [value]="Primarydetails?.primarysubscriberDetails">{{Primarydetails?.primarysubscriberDetails?.subscriber_full_name
+                    }}</mat-option>
+                    <mat-option *ngIf="claimDetails?.insurerType === 'secondaryInsurer'" value={{claimDetailssubscriberDetails?._id}}>{{claimDetailssubscriberDetails?.subscriber_full_name}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>                           
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="service_limit">
+            <div class="row">
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>{{ "category_service_limit" | translate }}</h3>
+                  </div>
+                  <div class="total_category">
+                    <!-- <p>
+                      {{ "total" | translate }}<br />
+                      {{ "category" | translate }}
+                    </p> -->
+                  </div>
+                  <ng-container *ngIf="categoryGraphValue?.length>0; else norecord">
+                  <div *ngFor="let item of categoryGraphValue;let i =index">
+                    <div class="ratio_line">
+                      <p>{{item.number_index}}</p>
+                      <div class="progress" [style]="item.yellow">
+                        <div class="progress-bar" role="progressbar" aria-label="Success example" [style]="item.styleprogress"
+                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                          <span style="width: auto;">
+                          {{ item.category_name}}:{{item.in_limit.category_limit}}
+                         </span>
+                        </div>
+                      </div>
+                      <p>{{item.remaining_percentage}}({{item.use_limit | number:'1.0-2'}})</p>
+                    </div>
+                  </div>
+                 
+                  <div class="detail_description">
+                    <ul>
+                      <li *ngFor="let catrory of categoryGraphValue">
+                        <div class="line" [style]="catrory.darkcolor"></div>
+                        <p>{{ catrory.category_name}}</p>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+                <ng-template #norecord>
+                  <h3>{{ "no_data_found" | translate }}</h3>
+                 </ng-template>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>{{ "service_limit" | translate }}</h3>
+                  </div>
+                  <div class="total_category">
+                    <!-- <p>
+                      {{ "total" | translate }}<br />
+                      {{ "service" | translate }}
+                    </p> -->
+                  </div>
+                  <!--  -->
+                  <ng-container *ngIf="serviceGraphValue?.length>0; else norecord">
+                    <div *ngFor="let item of serviceGraphValue;let i =index">
+                      <div class="ratio_line">
+                        <p>{{item.number_index}}</p>
+                        <div class="progress" [style]="item.yellow">
+                          <div class="progress-bar" role="progressbar" aria-label="Success example" [style]="item.styleprogress"
+                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <span style="width: auto;">
+                            {{ item.service_name}}:{{item.in_limit.service_limit}}
+                           </span>
+                          </div>
+                        </div>
+                        <p>{{item.remaining_percentage}}({{item.use_limit | number:'1.0-2'}})</p>
+                      </div>
+                    </div>
+                    <div class="detail_description">
+                      <ul>
+                        <li *ngFor="let service of serviceGraphValue">
+                          <div class="line" [style]="service.darkcolor"></div>
+                          <p>{{ service.service_name}}</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </ng-container>
+                 <ng-template #norecord>
+                  <h3>{{ "no_data_found" | translate }}</h3>
+                 </ng-template>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>{{ "family_category_limit" | translate }}</h3>
+                  </div>
+                  <div class="total_category">
+                    <!-- <p>
+                      {{ "total" | translate }}<br />
+                      {{ "family" | translate }}<br/>
+                      {{"category" | translate}}
+                    </p> -->
+                  </div>
+                  <ng-container *ngIf="familycategoryGraphValue?.length>0; else norecord">
+                  <div *ngFor="let item of familycategoryGraphValue;let i =index">
+                    <div class="ratio_line">
+                      <p>{{item.number_index }}</p>
+                      <div class="progress" [style]="item.yellow">
+                        <div class="progress-bar" role="progressbar" aria-label="Success example" [style]="item.styleprogress"
+                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                          <span style="width: auto;">
+                          {{ item.category_name}}:{{item.in_limit}}
+                         </span>
+                        </div>
+                      </div>
+                      <p>{{item.remaining_percentage}}({{item.use_limit | number:'1.0-2'}})</p>
+                    </div>
+                  </div>
+                 
+                  <div class="detail_description">
+                    <ul>
+                      <li *ngFor="let catrory of familycategoryGraphValue">
+                        <div class="line" [style]="catrory.darkcolor"></div>
+                        <p>{{ catrory.category_name}}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  </ng-container>
+                  <ng-template #norecord>
+                    <h3>{{ "no_data_found" | translate }}</h3>
+                   </ng-template>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>{{ "family_service_limit" | translate }}</h3>
+                  </div>
+                  <div class="total_category">
+                    <!-- <p>
+                      {{ "total" | translate }}<br />
+                      {{ "family" | translate }}<br/>
+                      {{"service" | translate}}
+                    </p> -->
+                  </div>
+                  <!--  -->
+                  <ng-container *ngIf="familyserviceGraphValue?.length>0; else norecord">
+                  <div *ngFor="let item of familyserviceGraphValue;let i =index">
+                    <div class="ratio_line">
+                      <p>{{item.number_index}}</p>
+                      <div class="progress" [style]="item.yellow">
+                        <div class="progress-bar" role="progressbar" aria-label="Success example" [style]="item.styleprogress"
+                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                          <span style="width: auto;">
+                          {{ item.service_name}}:{{item.in_limit}}
+                         </span>
+                        </div>
+                      </div>
+                      <p>{{item.remaining_percentage}}({{item.use_limit | number:'1.0-2'}})</p>
+                    </div>
+                  </div>
+                  <div class="detail_description">
+                    <ul>
+                      <li *ngFor="let service of familyserviceGraphValue">
+                        <div class="line" [style]="service.darkcolor"></div>
+                        <p>{{ service.service_name}}</p>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+                <ng-template #norecord>
+                  <h3>{{ "no_data_found" | translate }}</h3>
+                 </ng-template>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>
+                      {{ "total_assured_amount_of_all_service" | translate }}
+                    </h3>
+                  </div>
+                  <div class="doughnut_chart2_main canvas_wrap mt-5">
+                    <canvas baseChart [datasets]="doughnutChart2Datasets" [options]="doughnutChart2Options"
+                      [legend]="true" [type]="'doughnut'">
+                    </canvas>
+                  </div>
+                  <div class="detail_description chart">
+                    <ul>
+                      <li>
+                        <div class="line green"></div>
+                        <div class="detail_section">
+                          <!-- <p>{{total_assured_service_amount?.availablelimit}}CFA</p>
+                          <p>{{ "available_amount" | translate }}</p> -->
+                          <ng-container *ngIf="total_assured_service_amount?.availablelimit < 0; else datafound">
+                            <p>0</p>
+                            <p>{{ "available_amount" | translate }}</p>
+                          </ng-container>
+                          <ng-template #datafound>
+                            <p>{{total_assured_service_amount?.availablelimit | number:'1.0-2'}} CFA</p>
+                            <p>{{ "available_amount" | translate }}</p>
+                          </ng-template>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="line yellow"></div>
+                        <div class="detail_section">
+                          <p>{{total_assured_service_amount?.servicelimit | number:'1.0-2'}}CFA</p>
+                          <div *ngIf="total_assured_service_amount?.availablelimit < 0">
+                            (<p>{{total_assured_service_amount?.availablelimit | number:'1.0-2'}} CFA</p>)
+                          </div>
+                          <p>{{ "used_amount" | translate }}</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12 border-gray">
+                <div class="outer_service">
+                  <div class="header_title">
+                    <h3>
+                      {{
+                      "family_total_insured_amount_of_all_services"
+                      | translate
+                      }}
+                    </h3>
+                  </div>
+                  <div class="doughnut_chart_main canvas_wrap mt-5">
+                    <canvas baseChart [datasets]="doughnutChartDatasets" [options]="doughnutChartOptions"
+                      [legend]="true" [type]="'doughnut'">
+                    </canvas>
+                  </div>
+                  <div class="detail_description chart">
+                    <ul>
+                      <li>
+                        <div class="line blue"></div>
+                        <div class="detail_section">
+                          <ng-container *ngIf="family_total_insured_amount?.availablelimit < 0; else datafound">
+                            <p>0</p>
+                            <p>{{ "available_amount" | translate }}</p>
+                          </ng-container>
+                          <ng-template #datafound>
+                            <p>{{family_total_insured_amount?.availablelimit | number:'1.0-2'}} CFA</p>
+                            <p>{{ "available_amount" | translate }}</p>
+                          </ng-template>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="line yellow"></div>
+                        <div class="detail_section">
+                          <p>{{family_total_insured_amount?.servicelimit | number:'1.0-2'}} CFA</p><br/>
+                          <div *ngIf="family_total_insured_amount?.availablelimit < 0">
+                            (<p>{{family_total_insured_amount?.availablelimit | number:'1.0-2'}} CFA</p>)
+                          </div>
+                          <p>{{ "used_amount" | translate }}</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "health_plan_and_claims_status" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "assured_amount" | translate }} :</p>
+                    <p>2 000 000 CFA</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "current_claim_amount" | translate }} :</p>
+                    <p>15 000 CFA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "cumulative_claims_amount" | translate }} :</p>
+                      <p>25 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "premium" | translate }} :</p>
+                      <p>200 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "ratio_claim_amount_/_premium" | translate }} :</p>
+                      <p>25%</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "category_limit" | translate }} :</p>
+                      <p>12 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "service_limit" | translate }} :</p>
+                      <p>10 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "service_assured_amount" | translate }} :</p>
+                      <p>250 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "category_assured_amount" | translate }} :</p>
+                      <p>500 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "annual_assured_amount" | translate }} :</p>
+                      <p>2 000 000 CFA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           {{ "accident_details" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel primary-insurer-identity-panel custom-expansion-panel">
+          <div class="expansion_panel_inner">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Is related to an accident? </p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_first_name
+    :claimDetailssubscriberDetails?.subscriber_first_name
+    }} -->
+                        {{
+                        findvalueAccident("Is It Related To An Accident") == ""
+                        ? "-"
+                        : findvalueAccident("Is It Related To An Accident")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "accident_date" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_middle_name
+    :claimDetailssubscriberDetails?.subscriber_middle_name
+    }} -->
+                        {{
+                        findvalueAccident("Accident Date") == ""
+                        ? "-"
+                        : findvalueAccident("Accident Date")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "accident_type" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_last_name
+    :claimDetailssubscriberDetails?.subscriber_last_name
+    }} -->
+                        {{
+                        findvalueAccident("Accident Type") == ""
+                        ? "-"
+                        : findvalueAccident("Accident Type")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reason" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.gender
+    :claimDetailssubscriberDetails?.gender
+    }} -->
+                        {{
+                        findvalueAccident("Comment") == "" ? "-" : findvalueAccident("Comment")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-12 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "is_there_an_official_report" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    ( Primarydetails?.primarysubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+    :(claimDetailssubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+    }} -->
+                        {{
+                        findvalueAccident("Is There An Official Report") == ""
+                        ? "-"
+                        : findvalueAccident("Is There An Official Report")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "is_there_a_responsible_third_party" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.age
+    :claimDetailssubscriberDetails?.age
+    }} -->
+                        {{
+                        findvalueAccident("Is There A Responsible Third Party") == ""
+                        ? "-"
+                        : findvalueAccident("Is There A Responsible Third Party")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "first_name" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.insurance_id
+    :claimDetailssubscriberDetails?.insurance_id
+    }} -->
+                        {{
+                        findvalueAccident("First Name") == ""
+                        ? "-"
+                        : findvalueAccident("First Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "last_name" | translate }}</p>
+                      <p>
+                        {{
+                        findvalueAccident("Last Name") == ""
+                        ? "-"
+                        : findvalueAccident("Last Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "phone_number" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.policy_id
+    :claimDetailssubscriberDetails?.policy_id
+    }} -->
+                        {{
+                        findvalueAccident("Phone Number") == ""
+                        ? "-"
+                        : findvalueAccident("Phone Number")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "address" | translate }}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.card_id
+    :claimDetailssubscriberDetails?.card_id
+    }} -->
+                        {{
+                        findvalueAccident("Address") == ""
+                        ? "-"
+                        : findvalueAccident("Address")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <div class="flex-text">
+      <div class="flex-text-inner">
+        {{ "is_there_prescription_or_nor" | translate }}
+      </div>
+      <div class="flex-text-inner">yes</div>
+    </div>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "details" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="table-wrap">
+            <div class="table-inner">
+              <!-- {{medicineList | json}} -->
+              <table mat-table [dataSource]="medicineList" class="mat-elevation-z8">
+                <ng-container matColumnDef="prescribercentre">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "prescriber_centre" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ presciptionData?.prescriberCenter }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="prescribertitle">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "prescriber_title" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ presciptionData?.prescriberTitle }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="prescriberName">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "prescriber_name" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                    presciptionData?.prescriberFirstName +
+                    " " +
+                    presciptionData?.prescriberMiddleName +
+                    " " +
+                    presciptionData?.prescriberLastName
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="speciality">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "speciality" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ presciptionData?.prescriberSpecialty }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reasonforconsultation">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "reason_for_consultation" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.reasonOfConsultation }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="copayment">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "co-payment" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.coPayment }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reimbursementrate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "reimbursement_rate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.reimbursmentRate }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalrequestedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_requested_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.requestAmount }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="totalamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.totalCost }}
+                  </td>
+                </ng-container>
+
+                <ng-container *ngFor="let column of dynamiccolumns">
+                  <ng-container [matColumnDef]="column.columnDef">
+                    <!-- <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell> -->
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ column.header }}
+                      <!-- {{checkallapprovereject(column.staffRoleID)}} -->
+                      <span *ngIf="!checkallapprovereject(column.staffRoleID)">
+                        <a class="icon_group_status" *ngIf="isDisabled || isSendDisable">
+                          <mat-icon class="done" [ngClass]="{
+                              disable: claimDetails?.status != 'pending'
+                            }" (click)="
+                              openVerticallyCenteredapprovedAll(approvedAll)
+                            ">done</mat-icon>
+                          <mat-icon class="close" [ngClass]="{
+                              disable: claimDetails?.status != 'pending'
+                            }" (click)="openVerticallyCenteredRejectAll(rejectAll)">close</mat-icon>
+                        </a>
+                      </span>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let index = index">
+                      <!-- {{ element[column.columnDef] }} -->
+
+                      <a class="icon_group_status" *ngIf="
+                          checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            column.staffRoleID
+                          ) === null;
+                          else status
+                        ">
+                        <mat-icon class="done" [ngClass]="{
+                            disable: claimDetails?.status != 'pending'
+                          }" (click)="
+                            openVerticallyCenteredapproved(
+                              approved,
+                              element?._id,
+                              element?.contractAdvisor?.approvedAmount,
+                              element
+                            )
+                          ">done</mat-icon>
+                        <mat-icon class="close" [ngClass]="{
+                            disable: claimDetails?.status != 'pending'
+                          }" (click)="
+                            openVerticallyCenteredReject(
+                              reject,
+                              element?._id,
+                              element?.contractAdvisor?.approvedAmount,
+                              element
+                            )
+                          ">close</mat-icon>
+                      </a>
+                      <ng-template #status>
+                        <a class="icon_group_status">
+                          <a class="{{
+                              checkLoginUser(
+                                element.staffData,
+                                element._id,
+                                column.staffRoleID
+                              )?.type == 'approved'
+                                ? 'approved'
+                                : 'rejected'
+                            }}">{{
+                            checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            column.staffRoleID
+                            )?.type == "approved"
+                            ? "Approved"
+                            : "Rejected"
+                            }}
+                            {{
+                              checkLoginUser(element.staffData, element._id, staffRoleID)?.type == 'approved'
+                              ? ' - Amount: (' + (element?.staffData[0]?.amount ?? '') + ')'
+                              : ''
+                            }}</a>
+                          &nbsp;
+                          <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/info_details.svg"
+                            alt="approve" title="{{
+                              checkLoginUser(
+                                element.staffData,
+                                element._id,
+                                column.staffRoleID
+                              )?.comment
+                            }}" />
+                          <br />
+
+                          <!-- <div
+                                              *ngIf="checkLoginUser(element.staffData,element._id,column.staffRoleID)?.amount!=null && !checkanlysiscolumn(column.header)">
+                                              <b>Approved Amount:</b> {{
+                                              checkLoginUser(element.staffData,element._id,column.staffRoleID)?.amount }}
+                                            </div> -->
+                        </a>
+                      </ng-template>
+                    </td>
+                  </ng-container>
+                  <ng-container [matColumnDef]="column.columApprovedAmount">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ column.columApprovedAmount }}
+                    </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                      {{
+                      checkLoginUser(
+                      element.staffData,
+                      element._id,
+                      column.staffRoleID
+                      )?.amount
+                      }}
+                    </td>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container matColumnDef="comments">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "comments" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element; let index = index">
+                    <a class="svgicon" [ngClass]="{
+                        disable:
+                          claimDetails?.status != 'pending'
+                            ? true
+                            : checkLoginUserwithColumName(
+                                element.staffData,
+                                element._id,
+                                staffRoleID
+                              ) === null
+                      }" (click)="
+                        openCommentModalHandle(
+                          checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            staffRoleID
+                          ),
+                          element,
+                          'edit'
+                        )
+                      ">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z" />
+                      </svg>
+                    </a>
+                  </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="medicalanalysis">
+                                    <th mat-header-cell *matHeaderCellDef>Medical Analysis</th>
+                                    <td mat-cell *matCellDef="let element"><a class="rejected">Rejected</a></td>
+
+                                </ng-container> -->
+
+                <ng-container matColumnDef="action">
+                  <!-- <th mat-header-cell *matHeaderCellDef>Action</th>
+
+                                    <td mat-cell *matCellDef="let element">
+                                        <a class="svgicon">
+                                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z" />
+                                            </svg>
+                                        </a>
+                                    </td> -->
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnses"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnses"></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="expansion_panel_inner">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xxl-2 col-xl-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "total" | translate }}:</p>
+                      <p>{{ totalCost ? totalCost + " CFA" : "" }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl-2 col-xl-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "co-payment" | translate }}:</p>
+                      <p>{{ totalCoPayment ? totalCoPayment + " CFA" : "" }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "to_be_paid_by_the_insurance" | translate }}:</p>
+                      <p>
+                        {{
+                        totalToBePaidByInsurance
+                        ? totalToBePaidByInsurance + " CFA"
+                        : "0 CFA"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section" *ngFor="let data of uniqueRole">
+                      <p>
+                        {{ "total_amount_approved_by" | translate }}
+                        {{ data.roleInfoData }} :
+                      </p>
+                      <p>{{ data.amount ? data.amount : " - " }} CFA</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review_send">
+            <div class="inner_review_send" *ngIf="staffRoleID === lastRoleId ? false : true">
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-xxl-1 col-xl-2 col-sm-9 col-9 order-1 order-xl-0">
+                    <div class="primary_btn review-btn-block">
+                      <button type="button" class="btn btn-primary">
+                        {{ "review" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-xxl-10 col-xl-9 col-sm-12 col-xs order-3 order-xl-0 mt-3 mt-xl-0"
+                    *ngIf="flagForResubmitAndLeaveClaim()">
+                    <div class="search_send">
+                      <div class="notify">
+                        <p>
+                          {{ "select_notification_recipients" | translate }}
+                        </p>
+                        <!-- <a class="svgicon">
+                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path opacity="0.15" fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M6.11591 0.0388641C3.53288 0.391143 1.40424 2.05956 0.459047 4.47271C0.13993 5.28741 0 6.05754 0 6.999C0 8.17418 0.232255 9.15496 0.75255 10.177C1.82301 12.2799 3.89752 13.7151 6.2377 13.9719C6.57282 14.0087 7.42955 14.0095 7.75556 13.9733C11.0236 13.6107 13.6188 11.0178 13.9722 7.76207C14.0088 7.42575 14.0094 6.56879 13.9733 6.24386C13.7127 3.89373 12.2828 1.81976 10.189 0.754928C9.42286 0.365276 8.73007 0.151943 7.86087 0.0379579C7.47175 -0.013062 6.4929 -0.0125403 6.11591 0.0388641ZM7.31631 2.64283C7.65242 2.73279 7.99111 2.99824 8.13692 3.28605C8.39487 3.7952 8.31588 4.34835 7.92563 4.76562C7.42038 5.30586 6.58081 5.30586 6.07556 4.76562C5.90027 4.57818 5.81494 4.42367 5.75087 4.17763C5.54972 3.40516 6.17389 2.61213 6.98687 2.60727C7.09256 2.60664 7.24081 2.62265 7.31631 2.64283ZM7.39905 6.14789C7.62895 6.227 7.76391 6.31366 7.92887 6.48811C8.09066 6.65924 8.22057 6.91019 8.26287 7.1333C8.27978 7.22249 8.29074 7.86493 8.29049 8.75328C8.29005 10.35 8.28453 10.4206 8.13692 10.7119C8.0973 10.7902 7.99462 10.9244 7.90875 11.0103C7.49733 11.4218 6.92071 11.5069 6.38438 11.2352C6.20785 11.1458 5.95542 10.8918 5.86427 10.7119C5.71666 10.4206 5.71114 10.35 5.7107 8.75328C5.71045 7.86493 5.72141 7.22249 5.73832 7.1333C5.79888 6.81389 6.01384 6.48797 6.29049 6.29622C6.57559 6.0986 7.06539 6.03305 7.39905 6.14789Z"
+                                                        fill="black" />
+                                                </svg>
+                                            </a> -->
+                      </div>
+                      <div class="searching_list ms-sm-2 ms-xs-0 mt-2 mt-sm-0">
+                        <mat-form-field class="example-chip-list" appearance="fill">
+                          <!-- <mat-label>Favorite user</mat-label> -->
+                          <mat-chip-list #chipList aria-label="user selection">
+                            <mat-chip *ngFor="let user of user" (removed)="remove(user)">
+                              {{ user }}
+                              <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip>
+                            <input placeholder="Add Users" #userInput [formControl]="userCtrl" [matAutocomplete]="auto"
+                              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="
+                                separatorKeysCodes
+                              " (matChipInputTokenEnd)="add($event)" (input)="userDeopDwonFilter($event)" />
+                          </mat-chip-list>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-option *ngFor="
+                                let user of filteredOptions | async;
+                                let i = index
+                              " [value]="user">
+                              <span *ngIf="user == 'No Data'">
+                                No Staff Found
+                              </span>
+                              <span *ngIf="user != 'No Data'">
+                                {{ user?.name }} -({{ user?.staff_role }})
+                              </span>
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xxl-1 col-xl-1 col-sm-3 col-3 mt-sm-0 order-2 order-xl-0"
+                    *ngIf="flagForResubmitAndLeaveClaim()">
+                    <div class="primary_btn justify-content-end send-btn-block">
+                      <button [disabled]="isDisabled || isSendDisable" type="button" class="btn btn-primary"
+                        (click)="openPopupSendConfoirmation(sendPopup, 'read')">
+                        {{ "send" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="inner_review_send accept-reject-block text-end"
+              *ngIf="staffRoleID === lastRoleId ? true : false">
+              <div class="primary_btn justify-content-end">
+                <button [disabled]="isSendDisable" type="button" class="btn btn-primary"
+                  (click)="openPopup('approve', 'unread')" *ngIf="claimDetails?.status === 'pending'">
+                  {{ "approve" | translate }}
+                </button>
+                <button [disabled]="isSendDisable" type="button" class="btn btn-danger reject-btn"
+                  (click)="openPopup('reject')" *ngIf="claimDetails?.status === 'pending'">
+                  {{ "reject" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <br /><br />
+
+  &nbsp;&nbsp;<button class="btn btn-warning" *ngIf="flagForResubmitAndLeaveClaim()"
+    (click)="resubmitConfirmation(resubmit)">
+    {{ "resubmit" | translate }}
+  </button>
+  &nbsp;&nbsp;<button class="btn btn-danger" *ngIf="flagForResubmitAndLeaveClaim()"
+    (click)="openLeaveClaimPopup(leaveClaim)" [disabled]="isLeaveClaimDisable">
+    {{ "leave_claim" | translate }}
+  </button>
+</div>
+
+<ng-template #addsecondsubsriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Add Secondary Subscriber</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="bottom_bar">
+        <div class="row">
+          <div class="item col-sm-4 col-md-3">
+            <div class="item_inner">
+              <div class="doc_img">
+                <img src="../../../../assets/img/doc_img.png" (click)="
+                    openVerticallyCenteredquickview(
+                      quick_view,
+                      '../../../../assets/img/doc_img.png'
+                    )
+                  " />
+              </div>
+            </div>
+          </div>
+          <div class="item col-sm-4 col-md-3">
+            <div class="item_inner">
+              <div class="doc_img">
+                <img src="../../../../assets/img/doc_img.png" (click)="
+                    openVerticallyCenteredquickview(
+                      quick_view,
+                      '../../../../assets/img/doc_img.png'
+                    )
+                  " />
+              </div>
+              <!-- <div class="doc_desc">
+                  <div class="name">Document Name</div>
+                  <div class="date">Date - 10-26-2024</div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ "documents_here" | translate }}
+    </div>
+  </div>
+</ng-template>
+<ng-template #requestedamountAll let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        <!-- {{ "requested_amount" | translate }} -->{{
+        "add_comment" | translate
+        }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form_field_wrapper">
+        <label>{{ "add_comment" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_comment' | translate }} " [(ngModel)]="showAddedComment"
+            #reqComment></textarea>
+        </mat-form-field>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary"
+          (click)="handleCommentForContractAdvisorAll(reqComment.value, true)">
+          <!-- {{ "add_comment" | translate }} -->{{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #requestedamount let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        <!-- {{ "requested_amount" | translate }} -->{{
+        "add_comment" | translate
+        }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        <b>{{ "medical_consultation_name" | translate }} :</b>
+        {{ seletedMedineData?.reasonOfConsultation }}
+      </p>
+      <p>
+        <b>{{ "total_amount" | translate }} :</b>
+        {{ seletedMedineData?.totalCost + " CFA" }}
+      </p>
+      <p>
+        <b>{{ "requested_amount" | translate }} :</b>
+        {{ seletedMedineData?.requestAmount + " CFA" }}
+      </p>
+      <p>
+        <b>{{ "co-payment" | translate }} : </b>{{ seletedMedineData?.coPayment + " CFA" }}
+      </p>
+
+      <ng-container *ngIf="seletedMedineData?.staffData.length > 0">
+        <h3>{{ "staff_response" | translate }}</h3>
+        <div *ngFor="let data of seletedMedineData?.staffData; let i = index">
+          <ng-container *ngIf="data.staff_id != userID">
+            <p>
+              {{ i + 1 }}. {{ "medicine" | translate }} {{ data.type }}
+              {{ "by" | translate }} {{ data.staffadmininfo[0]?.staff_name }}
+              {{ "and_amount_is" | translate }}
+              {{ data?.amount }}
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <!-- <div *ngIf="staffRole === 'CFO'">
+          <p>
+            <b>Approved Amount {{ 'by' | translate}}  contract advisor : </b>{{approvedAmountByConAdvisor? approvedAmountByConAdvisor + "
+            CFA":'Null' }}
+          </p>
+        </div> -->
+
+      <div class="form_field_wrapper">
+        <label>{{ "enter_approved_amount" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <ng-template *ngIf="uniqueRole.length > 0">
+            <input type="number" matInput #appAmmount [(ngModel)]="lastAmount" [max]="seletedMedineData?.totalCost" />
+          </ng-template>
+
+          <input type="number" matInput #appAmmount [(ngModel)]="amountApprovedByConAdvisor"
+            [max]="seletedMedineData?.totalCost" />
+
+          <div style="color: red" *ngIf="amountApprovedByConAdvisor > seletedMedineData?.totalCost">
+            {{ "value_cannot_be_greater_than_the_total_amount" | translate }}
+          </div>
+          <!-- <div *ngIf="amountApprovedByConAdvisor > seletedMedineData?.requestAmount">
+              Value cannot be greater than the requested amount.
+            </div> -->
+        </mat-form-field>
+      </div>
+
+      <div class="form_field_wrapper">
+        <label>{{ "add_comment" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_comment' | translate }} " [(ngModel)]="showAddedComment"
+            #reqComment></textarea>
+        </mat-form-field>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <!--  -->
+        <button type="button" class="btn btn-primary" [disabled]="
+            amountApprovedByConAdvisor > seletedMedineData?.totalCost ||
+            amountApprovedByConAdvisor < 0
+          " (click)="
+            handleCommentForContractAdvisor(reqComment.value, appAmmount.value)
+          ">
+          <!-- {{ " add_comment" | translate }} -->{{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modelAfterRejctForConCFOAll let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        <!-- {{ "requested_amount" | translate }} -->{{
+        "add_comment" | translate
+        }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form_field_wrapper">
+        <label>{{ "add_comment" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_comment' | translate }} " [(ngModel)]="showAddedComment"
+            #reqComment></textarea>
+        </mat-form-field>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary"
+          (click)="handleCommentForContractAdvisorAll(reqComment.value, false)">
+          <!-- {{ "add_comment" | translate }} -->{{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modelAfterRejctForConCFO let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        <!-- {{ "requested_amount" | translate }} -->{{
+        "add_comment" | translate
+        }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>
+        <b>{{ "medical_consultation_name" | translate }} :</b>
+        {{ seletedMedineData?.reasonOfConsultation }}
+      </p>
+      <p>
+        <b>{{ "total_amount" | translate }} :</b>
+        {{ seletedMedineData?.totalCost + " CFA" }}
+      </p>
+      <p>
+        <b>{{ "requested_amount" | translate }} :</b>
+        {{ seletedMedineData?.requestAmount + " CFA" }}
+      </p>
+      <p>
+        <b>{{ "co-payment" | translate }} : </b>{{ seletedMedineData?.coPayment + " CFA" }}
+      </p>
+
+      <ng-container *ngIf="seletedMedineData?.staffData.length > 0">
+        <h3>{{ "staff_response" | translate }}</h3>
+        <div *ngFor="let data of seletedMedineData?.staffData; let i = index">
+          <ng-container *ngIf="data.staff_id != userID">
+            <p>
+              {{ i + 1 }}. {{ "medicine" | translate }} {{ data.type }}
+              {{ "by" | translate }} {{ data.staffadmininfo[0]?.staff_name }}
+              {{ "and_amount_is" | translate }}
+              {{ data?.amount }}
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <!-- <div *ngIf="staffRole === 'CFO'">
+          <p><b>Approved Amount {{ 'by' | translate}}  contract advisor : </b>{{ approvedAmountByConAdvisor + " CFA" }}</p>
+        </div> -->
+
+      <!-- <div class="form_field_wrapper">
+          <label>{{ "enter_approved_amount" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input type="number" matInput  #appAmmount [(ngModel)]="amountApprovedByConAdvisor"/>
+          </mat-form-field>
+        </div> -->
+
+      <div class="form_field_wrapper">
+        <label>{{ "add_comment" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_comment' | translate }} " [(ngModel)]="showAddedComment"
+            #reqComment></textarea>
+        </mat-form-field>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleCommentForContractAdvisor(reqComment.value, 0)">
+          <!-- {{ "add_comment" | translate }} -->{{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!------------------Comment modal----------------->
+<ng-template #comment let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "comment" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- <p>8 000 CFA</p> -->
+
+      <!-- <div class="form_field_wrapper">
+                  <label>{{'enter_approved_amount'|translate}}</label>
+                  <mat-form-field appearance="fill">
+                      <input type="text" matInput placeholder="8 000 CFA">
+                  </mat-form-field>
+              </div> -->
+
+      <div class="form_field_wrapper">
+        <label>{{ "add_comment" | translate }}</label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_comment' | translate }} " #comment
+            [(ngModel)]="showAddedComment"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form_field_wrapper" *ngIf="staffRole === 'Medical Advisor'">
+        <!-- <p>{{ 'resubmit_claim' | translate}} </p>
+          <mat-radio-group
+            aria-label="Select an option"
+            (change)="handleResubmit($event)"
+            ><mat-radio-button [value]="true">Yes</mat-radio-button
+            >&nbsp;&nbsp;<mat-radio-button [value]="false"
+              >No</mat-radio-button
+            ></mat-radio-group
+          > -->
+      </div>
+
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="commentOnCliam(comment.value)">
+          <!-- {{ "add_comment" | translate }} -->
+          {{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------approved All modal--------->
+<ng-template #approvedAll let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">{{ "do_you_really_want_to_approve" | translate }}?</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAprrovedOrRejectAll('approved')">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------approved modal--------->
+<ng-template #approved let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">{{ "do_you_really_want_to_approve" | translate }}?</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAprrovedOrReject('approved')">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------reject modal--------->
+<ng-template #rejectAll let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <!-- <p class="mt-4">{{'do_you_really_want_to_approve'|translate}}?</p> -->
+      <p class="mt-4">{{ "do_you_really_want_to_reject" | translate }}</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAprrovedOrRejectAll('reject')">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #reject let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <!-- <p class="mt-4">{{'do_you_really_want_to_approve'|translate}}?</p> -->
+      <p class="mt-4">{{ "do_you_really_want_to_reject" | translate }}</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAprrovedOrReject('reject')">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------warning modal--------->
+<ng-template #warning let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/info.svg" alt="approve" />
+      </div>
+      <!-- <p class="mt-4">{{'do_you_really_want_to_approve'|translate}}?</p> -->
+      <p class="mt-4">{{ alreadyTakenMessage }}</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-primary" (click)="closePopup()">
+          {{ "continue" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #wanttosign let-modal>
+  <div class="custome_modal wanttosign">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{ "do_you_want_to_sign" | translate }}?</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-primary">
+          {{ "yes" | translate }}
+        </button>
+        <button type="button" class="btn btn-secondary">
+          {{ "no" | translate }}
+        </button>
+      </div>
+      <div class="expansion_panel">
+        <div class="expansion_panel_inner">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "first_name" | translate }}:</p>
+                  <p>Adama</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "last_name" | translate }}:</p>
+                  <p>Traore</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "date" | translate }}:</p>
+                  <p>11-*02-2250</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "time" | translate }}:</p>
+                  <p>12:40 PM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="siganature">
+        <p>{{ "signature" | translate }}</p>
+        <div class="signature_block">
+          <div class="signature_iamge">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/signature.svg" alt="signature" />
+          </div>
+          <div class="icon_img">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/imgicon.svg" alt="signature" />
+          </div>
+        </div>
+      </div>
+      <div class="form_field_wrapper mt-4">
+        <mat-form-field appearance="fill">
+          <mat-select disableRipple placeholder="Send to">
+            <mat-option value="1">{{ "receptionist" | translate }} </mat-option>
+            <mat-option value="2">{{ "cfo" | translate }} </mat-option>
+            <mat-option value="3">{{ "contract_manager" | translate }}
+            </mat-option>
+            <mat-option value="3">
+              {{ "return_to_provider" | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------approved claim--------->
+<ng-template #approveClaim let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">
+        {{ "are_you_sure_want_to_Approve_this_claim" | translate }}
+      </p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAfterConfirmation()">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #rejectClaim let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">
+        {{ "are_you_sure_want_to_reject_this_claim" | translate }}
+      </p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleSendApproval(false)">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #resubmitt let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">
+        {{ "are_you_want_to_resubmit_this_claim" | translate }}
+      </p>
+
+      <div class="primary_btn mt-4">
+        <p>{{ "resubmit_claim" | translate }}</p>
+        <mat-radio-group aria-label="Select an option" (change)="handleResubmit($event)"><mat-radio-button
+            [value]="true">{{ "yes" | translate }} </mat-radio-button>&nbsp;&nbsp;<mat-radio-button [value]="false">{{
+            "no" | translate }}
+          </mat-radio-button></mat-radio-group>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #leaveClaim let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">
+        {{ "are_you_sure_want_to_leave_this_claim" | translate }}
+      </p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleLeaveClaim()">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!----------------------- view claim history popup ------------------------------------->
+<div class="other">
+  <ng-template #othercontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "claims_history" | translate }}
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "claim_date" | translate }}</div>
+                <div class="value">1/05/30</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "insurance_ID" | translate }}</div>
+                <div class="value">123456789</div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "plans" | translate }}</div>
+                <div class="value">LoreumLoreumLoreumLoreumLoreum</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "insurance_holder" | translate }}</div>
+                <div class="value">LoreumLoreumLoreumLoreumLoreum</div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "reimbursment_rate" | translate }}</div>
+                <div class="value">80%</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "requested_amount" | translate }}</div>
+                <div class="value">15000 CFA</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "total_amount" | translate }}</div>
+                <div class="value">25000 CFA</div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "approved_amount" | translate }}</div>
+                <div class="value">25000 CFA</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "status" | translate }}</div>
+                <div class="value">{{ "approved" | translate }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "comments" | translate }}</div>
+                <div class="value">LoreumLoreumLoreum</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<!----------------------- patient insurance contract plan popup ------------------------------------->
+<ng-template #patientinuranceplan let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ "health_plan_details" | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="health_detail">
+              <div class="expansion_panel">
+                <div class="expansion_panel_inner">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "policy_ID" | translate }} :</p>
+                          <p>
+                            {{
+                            claimDetails?.insurerType == "primaryInsurer"
+                            ? findvalue("Policy ID") == ""
+                            ? "-"
+                            : findvalue("Policy ID")
+                            : findvaluesecondary("Policy ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Policy ID")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "type_of_insurance" | translate }} :</p>
+                          <p>{{ subscriberDetails?.subscriber_type }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="outer_detail_block last_child">
+                        <div class="detail_section">
+                          <p>{{ "health_plan_name" | translate }} :</p>
+                          <p>{{ healthPlanDetails?.name }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="description_block">
+                    <div class="content">
+                      <h4>{{ "description" | translate }}</h4>
+                      <p>{{ healthPlanDetails?.description }}</p>
+                    </div>
+                  </div>
+                  <div class="description_block">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="outer_detail_block">
+                          <div class="detail_section">
+                            <p>
+                              {{ "total_primary_care_limit" | translate }} :
+                            </p>
+                            <p>
+                              {{
+                              healthPlanDetails?.total_care_limit?.grand_total
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="outer_detail_block">
+                          <div class="detail_section">
+                            <p>
+                              {{ "total_secondary_care_limit" | translate }} :
+                            </p>
+                            <p>
+                              {{
+                              healthPlanDetails?.total_care_limit
+                              ?.secondary_care_limit
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="outer_detail_block last_child">
+                          <div class="detail_section">
+                            <p>
+                              {{
+                              "total_primary_and_secondary_care_limit"
+                              | translate
+                              }}
+                              :
+                            </p>
+                            <p>
+                              {{
+                              healthPlanDetails?.total_care_limit
+                              ?.primary_care_limit
+                              }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="outer_service_block">
+              <div class="service_block">
+                <mat-accordion>
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ "services" | translate }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="table-wrap">
+                      <div class="table-inner">
+                        <table mat-table [dataSource]="dataSourceService" class="mat-elevation-z8">
+                          <ng-container matColumnDef="category">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "category" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.has_category }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="service">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "service" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.service }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="reimbursmentrate">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "reimbursment_rate" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{
+                              element?.reimbursment_rate
+                              ? element?.reimbursment_rate + " %"
+                              : ""
+                              }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="servicelimit">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "service_limit" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_limit?.service_limit }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="servicecondition">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "service_condition" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{
+                              element?.has_conditions?.repayment_condition
+                              ?.max_no +
+                              " " +
+                              element?.has_conditions?.repayment_condition
+                              ?.unit
+                              }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="categorylimit">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "category_limit" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_limit?.category_limit }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="categorycondition">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "category_condition" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.has_conditions?.category_condition }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="preauthorization">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "pre_authorization" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.pre_authorization ? "Yes" : "No" }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="waitingperiod">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "waiting_period" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{
+                              element?.waiting_period?.duration?.min_no +
+                              " " +
+                              element?.waiting_period?.duration?.unit
+                              }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="waitingperiodredeemed">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "waiting_period_redeemed" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.waiting_period?.redeemed }}
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsservice"></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: displayedColumnsservice
+                            "></tr>
+                        </table>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+              <div class="service_block">
+                <mat-accordion>
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ "exclusion" | translate }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="table-wrap">
+                      <div class="table-inner">
+                        <table mat-table [dataSource]="dataSourcesCatogery" class="mat-elevation-z8">
+                          <ng-container matColumnDef="categoryofexclusion">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "category_of_exclusion" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_exclusion?.category }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="exclusioninninternationalnonpropertynames">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{
+                              "exclusion_INN_international_non_property_names"
+                              | translate
+                              }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_exclusion?.name }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="brandname">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "brand_name" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_exclusion?.brand }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="comment">
+                            <th mat-header-cell *matHeaderCellDef>
+                              {{ "comment" | translate }}
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element?.in_exclusion?.comment }}
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnscategory"></tr>
+                          <tr mat-row *matRowDef="
+                              let row;
+                              columns: displayedColumnscategory
+                            "></tr>
+                        </table>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Quickview Modal -->
+
+<ng-template #quick_view let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="docview_img">
+        <img src="{{ setDocToView }}" width="600px" height="500px" />
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!---------------------Send confoormation popup-------------->
+<ng-template #sendPopup let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">{{ "are_you_sure_want_to_send" | translate }}</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleAfterConfirmation()">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #viewdocumentdetails let-modal>
+  <div class="custome_modal view-attached-document-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "view_attached_documents" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- {{allDetails.medicineclaimdocs | json}} -->
+      <div class="row">
+        <div class="col-lg-2 col-sm-6 mb-3" *ngFor="
+            let claimdata of claimDetails.medicineclaimdocs;
+            let i = index
+          ">
+          <div class="card">
+            <div class="img-block">
+              <img src="{{ claimdata.document_signed_url }}" class="documentimage" />
+            </div>
+            <div class="card-body">
+              <h5 class="card-title mb-3">{{ claimdata.fileName }}</h5>
+              <a href="{{ claimdata.document_signed_url }}" class="d-flex justify-content-between align-items-center">
+                <span>{{ "download" | translate }} </span>
+                <mat-icon>download</mat-icon>
+              </a>
+            </div>
+          </div>
+          <!-- <div class="img-card-block">
+              <div class="img-block">
+                <img src="{{ claimdata.document_signed_url }}" class="documentimage" />
+              </div>
+              <div class="img-caption">
+  
+              </div>
+              <p>
+                {{claimdata.fileName}}
+                <a href="{{ claimdata.document_signed_url }}">
+                <span class="downloadicon">
+                  <mat-icon>download</mat-icon>
+                </span>
+              </a>
+            </p>
+            </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!---------------------Resubmit Confirmation Popup-------------->
+<ng-template #resubmit let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/apprv.svg" alt="approve" />
+      </div>
+      <p class="mt-4">
+        {{ "are_you_sure_want_to_resubmit" | translate }} {{ claimId }}?
+      </p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "no" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="addReasonModal(resubmitreason)">
+          {{ "yes" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!------------------Resubmit Reason modal----------------->
+<ng-template #resubmitreason let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "reason" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form_field_wrapper">
+        <!-- <label>{{ "add_comment" | translate }}</label> -->
+        <label>{{ "add_reason" | translate }} </label>
+        <mat-form-field appearance="fill">
+          <textarea matInput placeholder="{{ 'your_reason' | translate }} " #reason></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleResubmitClaim(reason.value)">
+          <!-- {{ "add_comment" | translate }} -->
+          {{ "resubmit" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!------------------Comment modal----------------->
+<ng-template #approvalPopup let-modal>
+  <div class="custome_modal requestamount">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "total_approval_amount" | translate }} :
+        {{ totalCost ? totalCost + " CFA" : "" }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div *ngFor="let data of uniqueRole">
+        <p>{{ "name" | translate }} :{{ data.roleInfoData }}</p>
+        <p>{{ "amount_approve" | translate }} : {{ data.amount }}</p>
+        <!-- <p>Status:{{(data.isApproved == true) ? "Approved" : "Rejected"}}</p> -->
+      </div>
+      <!-- <p *ngIf="staffRole === 'CFO'">
+          <b>Approved Amount {{ 'by' | translate}}  Contract Advisor :</b>
+          {{
+          claimDetails?.totalApprovedAmountByContractAdvisor
+          ? claimDetails?.totalApprovedAmountByContractAdvisor + " CFA"
+          : "Null"
+          }}
+        </p> -->
+      <form [formGroup]="approvalClaimForm">
+        <div class="form_field_wrapper">
+          <label>{{ "requested_amount" | translate }} </label>
+          <mat-form-field appearance="fill">
+            <input type="number" matInput formControlName="requestedAmount" [readonly]="true" />
+          </mat-form-field>
+        </div>
+
+        <div class="form_field_wrapper">
+          <label>{{ "enter_approved_amount" | translate }} </label>
+          <mat-form-field appearance="fill">
+            <!-- <input type="number" matInput #appAmmount [(ngModel)]="amountApprovedByConAdvisor"
+              [max]="seletedMedineData?.requestAmount" />
+            <div *ngIf="amountApprovedByConAdvisor > seletedMedineData?.requestAmount">
+              Value cannot be greater than the requested amount.
+            </div> -->
+
+            <input *ngIf="typeofRead == 'read'" [readonly]="true" type="number" matInput
+              formControlName="approvedAmount" />
+
+            <input *ngIf="typeofRead == 'unread'" type="number" [(ngModel)]="lastAmount" matInput
+              formControlName="approvedAmount" />
+
+            <!-- <div
+                *ngIf="approvalClaimForm.get('approvedAmount').invalid && approvalClaimForm.get('approvedAmount').dirty">
+                Value cannot be greater than the requested amount.
+              </div> -->
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div class="primary_btn">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="handleSendApproval(true)"
+          [disabled]="approvalClaimForm.invalid">
+          {{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

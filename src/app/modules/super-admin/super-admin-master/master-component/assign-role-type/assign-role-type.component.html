@@ -1,0 +1,169 @@
+<div class="assignplan dashboard_main_content">
+  <div class="tab_content moreresponsetab assign_plan">
+    <div class="assign_plan_inner">
+      <div class="main_title content_item">
+        {{ "Assign category to portal type" | translate }}
+      </div>
+      <div class="content_item">
+        <div class="content_wrap">
+          <!-- <mat-form-field class="inner_label" appearance="fill"> 
+                       <mat-label>Select Insurance</mat-label> -->
+          <div class="form_field_wrapper modal-body">
+            <label>{{ "select_insurance" | translate }}</label>
+            <select2
+              [overlay]="overlay"
+              [limitSelection]="0"
+              [minCountForSearch]="0"
+              [data]="insuranceList"
+              (update)="getCompanyid($event)"
+            >
+            </select2>
+          </div>
+
+          <!-- <mat-select>
+                            <mat-option *ngFor="let insurance of insuranceList" 
+                            (click)="getCompanyid(insurance?.for_portal_user?._id)"
+                             [value]="insurance?.for_portal_user?._id">{{insurance.company_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+
+          <!-- <mat-form-field>
+                        <input type="text" matInput [formControl]="searchControl" placeholder="Search">
+                      </mat-form-field>
+                      
+                      <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let insurance of filteredOptions | async"
+                                    (click)="getCompanyid(insurance?.for_portal_user?._id)"
+                                    [value]="insurance?.for_portal_user?._id">
+                          {{ insurance.company_name }}
+                        </mat-option>
+                      </mat-autocomplete> -->
+
+          <mat-error *ngIf="isSubmitted && !insuranceCompanyId">{{
+            "please_select_insurance_first" | translate
+          }}</mat-error>
+          <div class="form_field_wrapper" *ngIf="insuranceCompanyId">
+            <mat-form-field appearance="fill"
+              ><h5>{{ "select_portal_type" | translate }}</h5>
+              <mat-select (selectionChange)="portalTypeSeclect($event)">
+                <mat-option value="Hospital">{{
+                  "hospital" | translate
+                }}</mat-option>
+                <mat-option value="Pharmacy">{{
+                  "pharmacy" | translate
+                }}</mat-option>
+                <mat-option value="Doctor">{{
+                  "doctor" | translate
+                }}</mat-option>
+                <mat-option value="Patient">{{
+                  "patient" | translate
+                }}</mat-option>
+                <mat-option value="Optical">{{
+                  "optical" | translate
+                }}</mat-option>
+                <mat-option value="Dental">{{
+                  "dental" | translate
+                }}</mat-option>
+                <mat-option value="Laboratory-Imaging">{{
+                  "laboratory_imaging" | translate
+                }}</mat-option>
+                <mat-option value="Paramedical-Professions">{{ "paramedical_professions" | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- <div class="policy">
+                        <label>Select Insurance</label>
+                        <div class="form_field_wrapper">
+                            <mat-form-field appearance="fill">
+      
+                                <mat-select (selectionChange)="onSelected($event.value)">
+                                    <mat-option value="">Select</mat-option>
+                                    <mat-option *ngFor="let item of insAdminList;let i = index"
+                                        value="{{item.id}}">{{item.name}}</mat-option>
+                                </mat-select>
+      
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+        </div>
+      </div>
+      <div class="content_item accordion">
+        <div class="subscribe_detail_inner accodion_item">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{
+                  "categories" | translate
+                }}</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="expansion_panel">
+                <div class="expansion_panel_inner">
+                  <div class="listing_section">
+                    <div class="listing_section_inner">
+                      <div class="row">
+                        <div class="title col-md-4">
+                          {{ "category_names" | translate }}
+                        </div>
+
+                        <div class="title col-md-4">
+                          {{ "action" | translate }}
+                        </div>
+                      </div>
+
+                      <ng-container
+                        *ngFor="let service of planserviceList; let i = index"
+                      >
+                        <ng-container>
+                          <div class="row">
+                            <div class="item col-md-4">
+                              {{ service?.has_category }}
+                            </div>
+
+                            <div class="item col-md-4">
+                              <input
+                                [disabled]="portalValue == ''"
+                                *ngIf="
+                                  portaltypeData.includes(service.has_category);
+                                  else elseBlock
+                                "
+                                checked
+                                type="checkbox"
+                                (click)="
+                                  checkboxCheck(service.has_category, $event)
+                                "
+                              />
+                              <ng-template #elseBlock>
+                                <input
+                                  type="checkbox"
+                                  [disabled]="portalValue == ''"
+                                  (click)="
+                                    checkboxCheck(service.has_category, $event)
+                                  "
+                                />
+                              </ng-template>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+
+      <div class="content_item primary_btn">
+        <button class="btn btn-secondary">{{ "cancel" | translate }}</button>
+        <button
+          class="btn btn-primary"
+          [disabled]="mylist.length == 0"
+          (click)="portaltypeandinsuranceId()"
+        >
+          {{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

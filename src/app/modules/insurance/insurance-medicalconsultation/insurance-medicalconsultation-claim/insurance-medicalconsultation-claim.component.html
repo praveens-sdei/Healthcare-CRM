@@ -1,0 +1,33 @@
+<div class="pharmacy_medicine_claims dashboard_main_content">
+    <div class="pharmacy_medicine_inner">
+        <div class="row">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </div>
+        <mat-stepper class="example-stepper" #mainStepperr [orientation]="(stepperOrientation | async)!">
+
+            <mat-step [stepControl]="firstFormGroup" label="Common Information">
+                <div class="step_counter_inner">
+                    <app-commoninformationconsultation [mstepperr]="mainStepperr"></app-commoninformationconsultation>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" label="Service Type">
+                <div class="step_counter_inner">
+                    <app-servicetype-consultation [mstepperr]="mainStepperr"></app-servicetype-consultation>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="thirdFormGroup" label="Document Upload">
+          <div class="step_counter_inner">
+            <app-documentupload-consultation [mstepperr]="mainStepperr"></app-documentupload-consultation>
+          </div>
+        </mat-step>
+  
+        <mat-step [stepControl]="thirdFormGroup" label="eSignature">
+          <div class="step_counter_inner">
+            <app-esignature-consultation [mstepperr]="mainStepperr"></app-esignature-consultation>
+          </div>
+        </mat-step>
+        </mat-stepper>
+    </div>
+</div>

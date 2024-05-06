@@ -1,0 +1,316 @@
+<div class="tab_content">
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="left_part">
+        <div class="main_title">{{ "vitals" | translate }}</div>
+      </div>
+      <div
+        class="right_part"
+        *ngIf="
+          userRole !== 'HOSPITAL_STAFF' &&
+          userRole !== 'INDIVIDUAL_DOCTOR_STAFF'
+        "
+      >
+        <div class="primary_btn">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openVitalModal(vitalModal)"
+          >
+            {{ "add_vitals" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="vitalsdataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Date Column -->
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.createdAt | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!--Height Column -->
+            <ng-container matColumnDef="height">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "height" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.height + " cm" }}
+              </td>
+            </ng-container>
+
+            <!--Weight (LB) Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "weight" | translate }} (LB)
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.weight ? element?.weight + " kgs" : "" }}
+              </td>
+            </ng-container>
+
+            <!--H-Rate Column -->
+            <ng-container matColumnDef="hrate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "h_rate" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.h_rate }}
+              </td>
+            </ng-container>
+
+            <!--Plan Type Column -->
+            <ng-container matColumnDef="plantype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "plan_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.plantype }}
+              </td>
+            </ng-container>
+
+            <!--BMI Column -->
+            <ng-container matColumnDef="bmi">
+              <th mat-header-cell *matHeaderCellDef>{{ "bmi" | translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.bmi ? element?.bmi + " kg/m2" : "" }}
+              </td>
+            </ng-container>
+
+            <!-- BP(H/L) -->
+            <ng-container matColumnDef="bp">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "BP(H/L)" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.bp }}
+              </td>
+            </ng-container>
+
+            <!-- Pulse -->
+            <ng-container matColumnDef="pulse">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "pulse" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.pulse }}
+              </td>
+            </ng-container>
+
+            <!-- Resp -->
+            <ng-container matColumnDef="resp">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "resp" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.resp }}
+              </td>
+            </ng-container>
+
+            <!-- Temp(°F) -->
+            <ng-container matColumnDef="temp">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "temp(f)" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.temp }}
+              </td>
+            </ng-container>
+
+            <!-- Blood Group -->
+            <ng-container matColumnDef="bloodgroup">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "blood_group" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.blood_group }}
+              </td>
+            </ng-container>
+
+            <!-- Clearance-->
+            <ng-container matColumnDef="clearance">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "clearance" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.clearance }}
+              </td>
+            </ng-container>
+
+            <!-- Hepatics Summary-->
+            <ng-container matColumnDef="hepaticssummary">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "hepatics_summary" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.hepatics_summary }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="vitalsdisplayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: vitalsdisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <!-- <mat-paginator
+          class="pagination"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="primary_btn btn_consultation">
+    <button class="btn btn-primary">Start Consultation</button>
+  </div> -->
+</div>
+
+<!-- ---------------------------------------Add Vital Model ---------------------------------------- -->
+<ng-template #vitalModal let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_vitals" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="add_vital_inner">
+        <div class="row" [formGroup]="vitalForm">
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "height" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="height" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "weight" | translate }} (LB)</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="weight" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "h_rate" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="h_rate" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "bmi" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="bmi" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "BP(H/L)" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="bp" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "pulse" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="pulse" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "resp" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="resp" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "temp(f)" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="temp" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "blood_group" | translate }} </label>
+              <mat-form-field appearance="fill">
+                <mat-select
+                  disableRipple
+                  formControlName="blood_group"
+                  placeholder="{{ 'select_blood_group' | translate }}"
+                >
+                  <mat-option
+                    *ngFor="let blood of bloodGroupList"
+                    [value]="blood.value"
+                    >{{ blood.label }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "clearance" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="clearance" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "hepatics_summary" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  matInput
+                  formControlName="hepatics_summary"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button class="btn btn-primary" (click)="handleAddVitals()">
+          {{ "add" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

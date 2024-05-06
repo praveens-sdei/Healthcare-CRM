@@ -1,0 +1,1217 @@
+<div class="add_pharmacy dashboard_main_content">
+  <div class="add_pharmacy_inner">
+    <div class="pb-3">
+      <i
+        class="fa fa-angle-left p-2"
+        style="font-size: 20px"
+        aria-hidden="true"
+        routerLink="/super-admin/openhour"
+      ></i>
+    </div>
+    <div class="top_bar">
+      <ul class="onduty_wrapper row">
+        <li class="item">
+          <label>{{ "on_duty_group_number" | translate }}</label>
+          <div class="value">{{ groupData?.onDutyGroupNumber }}</div>
+        </li>
+        <li class="item">
+          <label>{{ "city" | translate }}</label>
+          <div class="value">{{ groupData?.city_name }}</div>
+        </li>
+        <!-- <li class="item">
+          <label>Start Date</label>
+          <div class="value">{{ startDate }}</div>
+        </li>
+        <li class="item">
+          <label>Start Time</label>
+          <div class="value">{{ groupData?.startTime }}</div>
+        </li>
+        <li class="item">
+          <label>End Date</label>
+          <div class="value">{{ end_date }}</div>
+        </li>
+        <li class="item">
+          <label>End Time</label>
+          <div class="value">{{ groupData?.endTime }}</div>
+        </li> -->
+      </ul>
+    </div>
+    <div class="bottom_bar">
+      <!--  -->
+      <div class="table-wrap" style="margin-top: 10px">
+        <div class="table-inner">
+          <table mat-table [dataSource]="datesData" class="mat-elevation-z8">
+            <ng-container matColumnDef="start_date">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_date | date : "dd-MM-yyyy" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="start_time">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_time" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_time }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end_date">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "end_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.end_date | date : "dd-MM-yyyy" }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="end_time">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "end_time" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.end_time }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="pendingdisplayedColumns1"></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let row;
+                columns: pendingdisplayedColumns1;
+                let i = index
+              "
+            ></tr>
+          </table>
+          <div class="text-center" *ngIf="datesData?.length === 0">
+            <b>{{ "no_on_duty_found" | translate }}</b>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <!-- <div class="main_title">List of Pharmacy</div> -->
+      <div class="primary_btn text-right">
+        <button class="btn btn-primary" (click)="redirectOnDuty()">
+          {{ "add_new_pharmacy" | translate }}
+        </button>
+      </div>
+      <!-- <div class="row">
+                <ng-container *ngFor="let phar of pharmacyList">
+                    <div class="col-sm-6 col-md-4 col-xl-3 item" (click)="redirectOnDutyEdit(phar.portalusers._id)">
+                        <div class="item_inner">
+                            <div class="icon">
+                                <img src="/assets/img/pharmacy/pharmacy4.svg">
+                            </div>
+                            <div class="title">{{phar.pharmacy_name}}</div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <span style="color: red;" *ngIf="(pharmacyList.length == 0)">Please Add Pharmacy</span>
+            </div> -->
+
+      <div class="table-wrap" style="margin-top: 10px">
+        <div class="table-inner">
+          <table mat-table [dataSource]="pharmacyList" class="mat-elevation-z8">
+            <!-- Pharmacy  Name Column -->
+            <ng-container matColumnDef="date_of_creation">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "date_of_creation" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{
+                  element?.portalusers?.date_of_creation | date : "MM-dd-yyyy"
+                }}
+              </td>
+            </ng-container>
+
+            <!-- Pharmacy  Name Column -->
+            <ng-container matColumnDef="pharmacy_name">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "pharmacy_name" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.pharmacy_name }}
+              </td>
+            </ng-container>
+
+            <!--Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "email" | translate }}
+              </th>
+              <td
+                mat-cell
+                *matCellDef="let element"
+                style="text-transform: lowercase"
+              >
+                {{ element?.portalusers?.email }}
+              </td>
+            </ng-container>
+
+            <!--Phone Number Column -->
+            <ng-container matColumnDef="phone_number">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "phone_number" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.portalusers?.phone_number }}
+              </td>
+            </ng-container>
+
+            <!--Location Column -->
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "location" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.locationinfos?.address }}
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="redirectOnDutyEdit(element?.portalusers?._id)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="13"
+                      viewBox="0 0 12 13"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.852998C10.3428 0.887441 10.1536 0.971554 10.0166 1.07425C9.94218 1.13009 9.72307 1.33536 9.52976 1.53043L9.17827 1.88509L10.063 2.77052L10.9477 3.65594L11.3237 3.28068C11.7438 2.86143 11.8395 2.73767 11.9242 2.50438C12.0906 2.04553 11.979 1.55103 11.6302 1.202C11.3334 0.904967 10.9118 0.773132 10.5142 0.852998ZM6.64187 4.42464C5.03559 6.03389 4.6412 6.44087 4.62404 6.50694C4.61229 6.55211 4.52518 6.97971 4.43044 7.45717C4.31571 8.0355 4.26371 8.34701 4.27468 8.39039C4.29571 8.47347 4.36459 8.54243 4.44763 8.56347C4.5351 8.58567 6.32498 8.22981 6.41623 8.1721C6.45238 8.14924 7.36806 7.24261 8.4511 6.15737L10.4203 4.18422L9.54134 3.30433C9.05794 2.82042 8.65701 2.42447 8.65039 2.42447C8.64378 2.42447 7.73994 3.32454 6.64187 4.42464ZM1.27858 2.84912C0.801035 2.91978 0.368127 3.23955 0.154276 3.67962C-0.00886787 4.01529 -0.00024066 3.78264 0.000204767 7.83719C0.000673638 11.9193 -0.00959462 11.6643 0.168764 12.0206C0.339315 12.3613 0.644737 12.6245 1.03519 12.7672L1.20715 12.8301H4.99328H8.7794L8.96695 12.7664C9.45195 12.6016 9.813 12.2172 9.9558 11.7136C9.99568 11.573 9.99847 11.4202 9.99847 9.37926V7.19542L9.92778 7.08097C9.82569 6.91573 9.65157 6.82638 9.46356 6.84281C9.29873 6.85719 9.17157 6.93365 9.07852 7.07438L9.01384 7.17215L9.00212 9.33243C8.9914 11.3073 8.98697 11.499 8.95056 11.5655C8.8943 11.6683 8.76044 11.7794 8.65672 11.8095C8.59422 11.8275 7.50926 11.833 4.94437 11.8281L1.32036 11.8212L1.22857 11.757C1.1781 11.7218 1.11044 11.6539 1.07821 11.6063L1.0196 11.5196L1.01353 7.86312C1.0076 4.2986 1.00858 4.2044 1.0524 4.11912C1.07713 4.07102 1.12735 4.00316 1.16396 3.96837C1.31372 3.82614 1.21017 3.83222 3.48356 3.83222C5.06037 3.83222 5.58551 3.82525 5.6587 3.80336C5.79228 3.76342 5.9376 3.61258 5.9765 3.47355C6.03895 3.2503 5.94597 3.01626 5.7487 2.90022L5.63797 2.83506L3.52806 2.83175C2.3676 2.82995 1.35533 2.83774 1.27858 2.84912Z"
+                        fill="#0B4977"
+                      />
+                    </svg>
+                  </a>
+                  <!-- <a class="svgicon" [routerLink]="selectedTabIndex === 0 ? ['/super-admin/individualpharmacy/details'] : ['/super-admin/individualpharmacy/approveddetails']">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                            <path d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"/>
+                                            </svg>
+                                    </a> -->
+                  <!-- <a class="svgicon" (click)="individualPharmacyDetails(i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                                            <path d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"/>
+                                            </svg>
+                                    </a> -->
+                  <!-- <a class="svgicon reject" *ngIf="selectedTabIndex == 0" (click)="pharmacyAction(i, 'DECLINED')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.732011 0.0273918C0.447072 0.0832955 0.198888 0.27729 0.0752607 0.540672C0.0156383 0.667687 0.00265662 0.734558 0.00265662 0.914713C0.00260185 1.33793 -0.182811 1.12777 2.9456 4.25067L5.71266 7.01287L2.92336 9.80275C0.656614 12.07 0.122038 12.6183 0.0699202 12.7294C-0.0215539 12.9245 -0.0235805 13.2738 0.0656477 13.4679C0.145373 13.6413 0.319666 13.8216 0.495603 13.9124C0.693998 14.0149 1.00909 14.0292 1.23506 13.946C1.39388 13.8874 1.49305 13.792 4.19981 11.0924L7.00026 8.29945L9.78684 11.0782C12.0251 13.3101 12.6004 13.8698 12.7104 13.9222C12.8253 13.977 12.8892 13.9875 13.1075 13.9871C13.3354 13.9868 13.3848 13.9777 13.5057 13.9144C13.6735 13.8264 13.8586 13.6316 13.9383 13.459C14.0237 13.2742 14.0198 12.9204 13.9303 12.7294C13.8782 12.6183 13.3436 12.07 11.0769 9.80275L8.28757 7.01287L11.0546 4.25067C14.183 1.12777 13.9976 1.33793 13.9976 0.914713C13.9976 0.735542 13.9845 0.667769 13.9265 0.544912C13.7048 0.075282 13.1486 -0.118303 12.6839 0.112396C12.6115 0.148307 11.6127 1.12575 9.78679 2.9473L7.00012 5.72741L4.21345 2.9473C2.38758 1.12575 1.38871 0.148307 1.31635 0.112396C1.22367 0.0663931 0.919259 -0.00917537 0.867141 0.000916846C0.858623 0.00255786 0.797796 0.0144552 0.732011 0.0273918Z" fill="#FF7354"/>
+                                            </svg>
+                                    </a>
+                                    <a class="svgicon approved" *ngIf="selectedTabIndex == 0" (click)="pharmacyAction(i, 'APPROVED')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0599 1.01833C16.0083 1.03131 15.9168 1.06637 15.8565 1.09623C15.7963 1.1261 13.6881 3.17305 11.1711 5.64552L6.59516 10.1405L4.42834 8.01378C2.90597 6.51963 2.21962 5.86623 2.12068 5.81702C1.93063 5.72247 1.62585 5.7201 1.44584 5.81179C1.27792 5.89732 1.11027 6.0835 1.04128 6.26109C0.973349 6.43591 0.990558 6.67834 1.08333 6.85368C1.17701 7.03082 6.14003 11.8938 6.28893 11.9544C6.43815 12.0151 6.75154 12.0152 6.90107 11.9546C7.04975 11.8942 16.8279 2.29847 16.9293 2.11334C17.0233 1.94181 17.0236 1.60932 16.93 1.43668C16.7605 1.12428 16.3752 0.939004 16.0599 1.01833Z" fill="#72D284" stroke="#72D284" stroke-width="0.5"/>
+                                            </svg>
+                                    </a> -->
+                  <!-- <a class="svgicon reject" *ngIf="selectedTabIndex == 0" (click)="openVerticallyCenteredreject(reject,i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.732011 0.0273918C0.447072 0.0832955 0.198888 0.27729 0.0752607 0.540672C0.0156383 0.667687 0.00265662 0.734558 0.00265662 0.914713C0.00260185 1.33793 -0.182811 1.12777 2.9456 4.25067L5.71266 7.01287L2.92336 9.80275C0.656614 12.07 0.122038 12.6183 0.0699202 12.7294C-0.0215539 12.9245 -0.0235805 13.2738 0.0656477 13.4679C0.145373 13.6413 0.319666 13.8216 0.495603 13.9124C0.693998 14.0149 1.00909 14.0292 1.23506 13.946C1.39388 13.8874 1.49305 13.792 4.19981 11.0924L7.00026 8.29945L9.78684 11.0782C12.0251 13.3101 12.6004 13.8698 12.7104 13.9222C12.8253 13.977 12.8892 13.9875 13.1075 13.9871C13.3354 13.9868 13.3848 13.9777 13.5057 13.9144C13.6735 13.8264 13.8586 13.6316 13.9383 13.459C14.0237 13.2742 14.0198 12.9204 13.9303 12.7294C13.8782 12.6183 13.3436 12.07 11.0769 9.80275L8.28757 7.01287L11.0546 4.25067C14.183 1.12777 13.9976 1.33793 13.9976 0.914713C13.9976 0.735542 13.9845 0.667769 13.9265 0.544912C13.7048 0.075282 13.1486 -0.118303 12.6839 0.112396C12.6115 0.148307 11.6127 1.12575 9.78679 2.9473L7.00012 5.72741L4.21345 2.9473C2.38758 1.12575 1.38871 0.148307 1.31635 0.112396C1.22367 0.0663931 0.919259 -0.00917537 0.867141 0.000916846C0.858623 0.00255786 0.797796 0.0144552 0.732011 0.0273918Z" fill="#FF7354"/>
+                                            </svg>
+                                    </a> -->
+                  <!-- <a class="svgicon approved" *ngIf="selectedTabIndex == 0" (click)="openVerticallyCenteredapproved(approved,i)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0599 1.01833C16.0083 1.03131 15.9168 1.06637 15.8565 1.09623C15.7963 1.1261 13.6881 3.17305 11.1711 5.64552L6.59516 10.1405L4.42834 8.01378C2.90597 6.51963 2.21962 5.86623 2.12068 5.81702C1.93063 5.72247 1.62585 5.7201 1.44584 5.81179C1.27792 5.89732 1.11027 6.0835 1.04128 6.26109C0.973349 6.43591 0.990558 6.67834 1.08333 6.85368C1.17701 7.03082 6.14003 11.8938 6.28893 11.9544C6.43815 12.0151 6.75154 12.0152 6.90107 11.9546C7.04975 11.8942 16.8279 2.29847 16.9293 2.11334C17.0233 1.94181 17.0236 1.60932 16.93 1.43668C16.7605 1.12428 16.3752 0.939004 16.0599 1.01833Z" fill="#72D284" stroke="#72D284" stroke-width="0.5"/>
+                                            </svg>
+                                    </a> -->
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="pendingdisplayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let row;
+                columns: pendingdisplayedColumns;
+                let i = index
+              "
+            ></tr>
+          </table>
+          <div class="text-center" *ngIf="pharmacyList?.length === 0">
+            <b>{{ "no_pharmacies_found" | translate }}</b>
+          </div>
+        </div>
+        <!-- <mat-paginator 
+                    class="pagination" 
+                    [length]="totalLength" 
+                    (page)="handlePageEvent($event)"
+                    [pageSize]="pageSize"
+                    [pageSizeOptions]="[5, 10, 20]" 
+                    showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="primary_btn">
+        <button class="btn btn-primary" (click)="redirectOnDuty()">Add New
+            Pharmacy</button>
+        
+    </div> -->
+</div>
+
+<!-- Add Pharmacy Modal -->
+<ng-template #addpharmacy let-modal>
+  <div class="custome_modal addonduty">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_pharmacy" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="addPharForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="top_part">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "pharmacy_name" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" formControlName="pharmacy_name" matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "phone_number" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <input type="mobile" matInput [maxlength]="10" formControlName="mobile_phone_number"
+                                        #phone (focus)="onFocus()" ng2TelInput placeholder="Enter Mobile" /> -->
+                  <input
+                    type="mobile"
+                    matInput
+                    [maxlength]="10"
+                    formControlName="mobile_phone_number"
+                    placeholder="Enter Mobile"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "email" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="email" formControlName="email" matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-8">
+              <div class="form_field_wrapper">
+                <label>{{ "address" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <input type="text" matInput #address name="address" placeholder="Enter address"
+                                        formControlName="address" /> -->
+                  <input
+                    type="text"
+                    matInput
+                    name="address"
+                    placeholder="{{ 'enter_address' | translate }}"
+                    formControlName="address"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "neighborhood" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="neighborhood" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "country" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_country' | translate }}"
+                    formControlName="nationality"
+                    (selectionChange)="getRegionList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country._id"
+                      >{{ country?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "region" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="region"
+                    (selectionChange)="getProvienceList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let region of regionList"
+                      [value]="region._id"
+                      >{{ region?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "province" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="province"
+                    (selectionChange)="getDepartmentList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let provience of provienceList"
+                      [value]="provience._id"
+                      >{{ provience?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "department" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_department' | translate }}"
+                    formControlName="department"
+                    (selectionChange)="getCityList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let department of departmentList"
+                      [value]="department._id"
+                      >{{ department?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "city" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="Select City"
+                    formControlName="city"
+                  >
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city._id"
+                      >{{ city?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "village" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_village' | translate }}"
+                    formControlName="village"
+                  >
+                    <mat-option
+                      *ngFor="let village of villageList"
+                      [value]="village._id"
+                      >{{ village?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="bottom_part">
+          <div class="opening_hour hour_section">
+            <div class="week_days opening_hour_content">
+              <div class="modal_title">{{ "opening_hour" | translate }}</div>
+              <div class="week_days_inner">
+                <div class="row">
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "sun" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="sun_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="sun_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "mon" | translate }}</label>
+
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="mon_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="mon_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "tue" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="tue_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="tue_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "wed" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="wed_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="wed_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "thu" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="thu_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="thu_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "fri" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="fri_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="fri_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "sat" | translate }}</label>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="sat_start_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                      <div class="time">
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <div class="time">
+                            <input
+                              formControlName="sat_end_time"
+                              class="form-control"
+                              matInput
+                              matTimepicker
+                            />
+                            <mat-icon matSuffix>schedule</mat-icon>
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="non_opening_datetime hour_section">
+            <div class="modal_title">
+              {{ "non_opening_date_time" | translate }}
+            </div>
+            <div class="date_time_inner">
+              <div class="row">
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "date" | translate }}</label>
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="fill"
+                    >
+                      <input
+                        matInput
+                        formControlName="close_any_date"
+                        [matDatepicker]="picker8"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker8"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker8></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_time" | translate }}</label>
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="fill"
+                    >
+                      <div class="time">
+                        <input
+                          class="form-control"
+                          formControlName="close_start_tme"
+                          matInput
+                          matTimepicker
+                        />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_time" | translate }}</label>
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="fill"
+                    >
+                      <div class="time">
+                        <input
+                          class="form-control"
+                          formControlName="close_end_time"
+                          matInput
+                          matTimepicker
+                        />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row_generate row_add">
+                                <mat-icon class="plus">add</mat-icon>
+                            </div> -->
+              <!-- <div class="row_generate row_minus">
+                            <mat-icon class="plus">remove</mat-icon>
+                        </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="primary_btn">
+          <button type="submit" class="btn btn-primary">
+            {{ "save" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Edit Pharmacy Modal -->
+<ng-template #editpharmacy let-modal>
+  <div class="custome_modal addonduty">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "edit_pharmacy" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="top_part">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "pharmacy_name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "phone_number" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="number" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-8">
+            <div class="form_field_wrapper">
+              <label>{{ "address" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "neighborhood" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "country" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "Country" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "Country" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "Country" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "region" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "province" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "department" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "city" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "village" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="bottom_part">
+        <div class="opening_hour hour_section">
+          <div class="week_days opening_hour_content">
+            <div class="modal_title">{{ "opening_hour" | translate }}</div>
+            <div class="week_days_inner">
+              <div class="row">
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "sun" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "mon" | translate }}</label>
+
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "tue" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "wed" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "thu" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "fri" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "sat" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="non_opening_datetime hour_section">
+          <div class="modal_title">
+            {{ "non_opening_date_time" | translate }}
+          </div>
+          <div class="date_time_inner">
+            <div class="row">
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "date" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input
+                      matInput
+                      [matDatepickerFilter]="myFilter"
+                      [matDatepicker]="picker8"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker8"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker8></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "start_time" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <div class="time">
+                      <input class="form-control" matInput matTimepicker />
+                      <mat-icon matSuffix>schedule</mat-icon>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "end_time" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <div class="time">
+                      <input class="form-control" matInput matTimepicker />
+                      <mat-icon matSuffix>schedule</mat-icon>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row_generate row_add">
+              <mat-icon class="plus">add</mat-icon>
+            </div>
+            <!-- <div class="row_generate row_minus">
+                            <mat-icon class="plus">remove</mat-icon>
+                        </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="primary_btn">
+        <button type="button" class="btn btn-primary">
+          {{ "update" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,453 @@
+<div class="appointment_detail dashboard_main_content">
+  <div class="top_bar">
+    <div class="main_title">{{ "patient_details" | translate }}</div>
+    <div class="primary_btn">
+      <button
+        class="btn btn-secondary"
+        (click)="
+          openVerticallyCenteredAssignhealthcare(assignhealthcare_content)
+        "
+      >
+        {{ "assign_nurse" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner profile_info_with_img">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img src="../../../assets/img/profile_img.png" />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">
+              {{ profile?.first_name }} {{ profile?.middle_name }}
+              {{ profile?.last_name }}
+            </div>
+            <div class="lable">{{ "mobile_number" | translate }}</div>
+            <div class="user_value">{{ profile?.mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ profile?.email }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ profile?.dob ? profile?.dob : "-" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "gender" | translate }}</div>
+            <div class="user_value">{{ profile?.gender }}</div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">SSN Number</div>
+            <div class="user_value">15216515443</div>
+          </div>
+        </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "marital_status" | translate }}</div>
+            <div class="user_value">{{ profile?.marital_status }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner profile_secondary_info">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">{{ profile?.address }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "neighborhood" | translate }}</div>
+            <div class="user_value">{{ profile?.neighborhood }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "country" | translate }}</div>
+            <div class="user_value">{{ country }}</div>
+          </div>
+        </li>
+      </ul>
+      <div class="emergency_contact">
+        <h3 class="profileinfo_title">
+          {{ "add_emergency_contact" | translate }}
+        </h3>
+        <ul class="profile_info_inner">
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "name" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.name }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "Relationship" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.relationship }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "phone_number" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.phone_number }}
+              </div>
+            </div>
+          </li>
+          <!-- <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">Address</div>
+              <div class="user_value">New South Wales, 2481 Australia</div>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile_appoint_details">
+    <h3 class="profileinfo_title">{{ "appointment_details" | translate }}</h3>
+    <div class="profile_data">
+      <div class="profile_info">
+        <ul class="profile_info_inner">
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "date" | translate }}</div>
+              <div class="user_value">
+                {{ appointmentDetails?.consultationDate }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "time" | translate }}</div>
+              <div class="user_value">
+                {{ appointmentDetails?.consultationTime }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">
+                {{ "reason_for_appointment" | translate }}
+              </div>
+              <div class="user_value">
+                {{ appointmentDetails?.reasonForAppointment }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "consult_fee" | translate }}</div>
+              <div class="user_value">
+                ${{ appointmentDetails?.consultationFee }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item consult_type">
+            <div class="profile_contact">
+              <div class="lable">{{ "consult_type" | translate }}</div>
+              <div class="user_value">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.2266 2.18816V4.37633L9.04636 3.93863L9.86609 3.50092H11.9298H13.9934V1.75046V0H11.11H8.2266V2.18816ZM9.86645 1.75046V2.18808H9.45649H9.04652V1.75046V1.31285H9.45649H9.86645V1.75046ZM11.5063 1.75046V2.18808H11.0963H10.6864V1.75046V1.31285H11.0963H11.5063V1.75046ZM13.1462 1.75046V2.18808H12.7362H12.3262V1.75046V1.31285H12.7362H13.1462V1.75046ZM0.819927 7.00185V11.378H1.65352H2.48711V11.0559C2.48711 10.3479 2.67561 9.84194 3.10785 9.38968C3.55198 8.92496 3.98531 8.7545 4.73393 8.74992L5.12454 8.74755L4.93465 8.70411C3.84335 8.45444 3.12643 7.29082 3.35052 6.13289C3.4373 5.68433 3.61388 5.34197 3.92778 5.01353C4.23257 4.69462 4.55059 4.51123 4.95263 4.4226C5.62516 4.27431 6.31527 4.50006 6.80323 5.02794C7.07148 5.31811 7.24408 5.63526 7.34403 6.02162C7.40716 6.26572 7.40716 6.86274 7.34403 7.10684C7.13549 7.91293 6.52825 8.53271 5.77906 8.70411L5.58917 8.74755L5.97978 8.74992C6.56614 8.7535 6.87634 8.83551 7.25635 9.0874C7.58839 9.30752 7.88797 9.67471 8.05121 10.0617C8.16538 10.3323 8.20224 10.5308 8.21848 10.9623L8.23414 11.378H10.6901H13.1462V7.87708V4.37615H11.6019H10.0575L8.74588 5.07634C8.02446 5.46144 7.42802 5.77652 7.42044 5.77652C7.41287 5.77652 7.40667 5.06759 7.40667 4.20111V2.62569H4.1133H0.819927V7.00185ZM5.06876 5.29208C4.84235 5.35078 4.66954 5.45645 4.49396 5.64349C4.00881 6.16034 4.00881 6.969 4.49396 7.48451C4.9816 8.00267 5.73621 8.00302 6.21898 7.48532C6.70438 6.96482 6.7047 6.16084 6.21974 5.64314C5.90779 5.31014 5.4902 5.1828 5.06876 5.29208ZM4.24995 9.66899C4.01983 9.73047 3.84756 9.83543 3.67404 10.02C3.4057 10.3053 3.30704 10.5963 3.30704 11.1023V11.378H5.35685H7.40667V11.1023C7.40667 10.6003 7.30697 10.3067 7.03891 10.0193C6.86098 9.82849 6.66502 9.71322 6.42825 9.66007C6.22007 9.6133 4.43094 9.62065 4.24995 9.66899ZM0 12.529C0 13.035 0.0986645 13.326 0.366999 13.6111C0.551838 13.8076 0.754496 13.9235 1.00072 13.9736C1.11748 13.9974 2.78723 14.004 7.09236 13.9978L13.0232 13.9891L13.18 13.9215C13.504 13.7818 13.7909 13.4746 13.9134 13.1362C13.9604 13.0064 13.9772 12.8863 13.9872 12.6106L14 12.2532H7.00001H0V12.529Z"
+                    fill="#3DA7C8"
+                  /></svg
+                >{{ appointmentDetails?.appointmentType }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="primary_btn">
+    <button
+      class="btn btn-secondary"
+      (click)="openVerticallyCenteredreject(reject)"
+    >
+      {{ "rejected" | translate }}
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="openVerticallyCenteredreject(approved)"
+    >
+      {{ "accept" | translate }}
+    </button>
+  </div>
+</div>
+
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_accept_appointment" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="acceptOrRejectAppointment('APPROVED', '')"
+          >
+            {{ "yes" | translate }}
+          </button>
+          <!-- <button type="button" class=" btn btn-primary" (click)="modal.dismiss('Cross click')"  (click)="openVerticallyCenteredselectclaims(selectclaimscontent)"> Yes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Reject modal -->
+<ng-template #reject let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_reject_doctor" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              openVerticallyCenteredcancelappointment(cancelappintmentcontent)
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- ---------------------------------------Assign Healthcare Provider Model ---------------------------------------- -->
+<div class="assignhealthcare_model">
+  <ng-template #assignhealthcare_content let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "assign_health_care_provider" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="searchbar">
+            <div class="row">
+              <div class="searchbox col-sm-12 col-md-12">
+                <div class="input-group">
+                  <button class="btn search-btn">
+                    <img src="../../../../../assets/img/search_medicine.svg" />
+                  </button>
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    aria-label="Search"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="assign_item_wrapper">
+            <div
+              class="assign_item {{ returnClass(staf?.id) }}"
+              *ngFor="let staf of staffList"
+            >
+              <div
+                class="assign_item_inner"
+                (click)="handleSelectStaff(staf?.id)"
+              >
+                <div class="left_part">
+                  <span class="chat_img">
+                    <img src="../../../../assets/img/chat.png" />
+                  </span>
+                  <div class="chat_detail">
+                    <div class="chat_name">{{ staf?.name }}</div>
+                    <div class="profile">{{ staf?.role }}</div>
+                  </div>
+                </div>
+                <div class="right_part">
+                  <div class="contact">(+42) 123 456 7890</div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="assign_item">
+              <div class="assign_item_inner">
+                <div class="left_part">
+                  <span class="chat_img">
+                    <img src="../../../../assets/img/chat.png" />
+                  </span>
+                  <div class="chat_detail">
+                    <div class="chat_name">Jenny Wilson</div>
+                    <div class="profile">Nurse</div>
+                  </div>
+                </div>
+                <div class="right_part">
+                  <div class="contact">(+42) 123 456 7890</div>
+                </div>
+              </div>
+            </div>
+            <div class="assign_item">
+              <div class="assign_item_inner">
+                <div class="left_part">
+                  <span class="chat_img">
+                    <img src="../../../../assets/img/chat.png" />
+                  </span>
+                  <div class="chat_detail">
+                    <div class="chat_name">Jenny Wilson</div>
+                    <div class="profile">Nurse</div>
+                  </div>
+                </div>
+                <div class="right_part">
+                  <div class="contact">(+42) 123 456 7890</div>
+                </div>
+              </div>
+            </div>
+            <div class="assign_item">
+              <div class="assign_item_inner">
+                <div class="left_part">
+                  <span class="chat_img">
+                    <img src="../../../../assets/img/chat.png" />
+                  </span>
+                  <div class="chat_detail">
+                    <div class="chat_name">Jenny Wilson</div>
+                    <div class="profile">Nurse</div>
+                  </div>
+                </div>
+                <div class="right_part">
+                  <div class="contact">(+42) 123 456 7890</div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+          <div class="primary_btn">
+            <button (click)="assignHeathCareProvider()" class="btn btn-primary">
+              {{ "assign" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Reason modal -->
+
+<div class="cancel_appointment">
+  <ng-template #cancelappintmentcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "cancel_appointment" | translate }}
+        </h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="item col-md-12">
+              <div class="form_field_wrapper">
+                <label>{{ "cancellation_reason" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <textarea matInput #reason></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="primary_btn mt-2">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "back" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="acceptOrRejectAppointment('REJECTED', reason.value)"
+          >
+            {{ "cancel_appointment" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

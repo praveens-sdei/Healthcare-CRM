@@ -1,0 +1,601 @@
+<div class="hospital_revenue dashboard_main_content">
+  <div class="top_bar up_bar common_space">
+    <div class="content_wrap">
+      <!-- <div class="policy">
+                <label>{{'Doctor:'|translate}}</label>
+                <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                        <mat-select placeholder="Select">
+                            <mat-option value="option1">Option1</mat-option>
+                            <mat-option value="option2">Option2</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="policy">
+                <label>{{'Specialty:'|translate}}</label>
+                <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                        <mat-select placeholder="Speciality">
+                            <mat-option value="option1">Option1</mat-option>
+                            <mat-option value="option2">Option2</mat-option>
+                            <mat-option value="option3">Option3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+
+      <div class="policy">
+        <label>{{ "date" | translate }} :</label>
+        <div class="form_field_wrapper">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [matDatepicker]="picker"
+              placeholder="{{ 'select_date' | translate }}"
+              [(ngModel)]="selectedDate"
+              (dateChange)="getSelectedDate($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy">
+        <label>{{ "year" | translate }} :</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select
+              placeholder="{{ 'select_year' | translate }}"
+              [(ngModel)]="selectedYear"
+            >
+              <mat-option
+                (click)="getYear(year)"
+                *ngFor="let year of years"
+                [value]="year"
+                >{{ year }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+      <ng-container *ngIf="giveInnerPermission('total_online_consultation')">
+        <div class="col-md-4 col-sm-12">
+          <div class="cust_col light_green">
+            <div class="cust_col_inner header-card-inner">
+              <div class="action-block">
+                <div class="more_action">
+                  <button
+                    class="btn btn-outline-light"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        [routerLink]="['/individual-doctor/appointment/']"
+                        [queryParams]="{ type: 'ONLINE' }"
+                        >{{ "view" | translate }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+              <div class="left">
+                <div class="counter downtwobolock">
+                  {{ "total_online_consultation" | translate }}
+                </div>
+                <div class="counter_title">
+                  <div class="two_data">
+                    <div class="first_block">
+                      <p>{{ OnlineCoPay }}</p>
+                      <p>{{ "co_pay_amount" | translate }}</p>
+                    </div>
+                    <div class="first_block">
+                      <p>{{ OnlineInsuranceToBePaid }}</p>
+                      <p>{{ "insurance_amount" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      
+      <ng-container *ngIf="giveInnerPermission('home_visit')">
+        <div class="col-md-4 col-sm-12">
+          <div class="cust_col light_yellow">
+            <div class="cust_col_inner header-card-inner">
+              <div class="action-block">
+                <div class="more_action">
+                  <button
+                    class="btn btn-outline-light"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        [routerLink]="['/individual-doctor/appointment/']"
+                        [queryParams]="{ type: 'HOME_VISIT' }"
+                        >{{ "view" | translate }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+              <div class="left">
+                <div class="counter downtwobolock">
+                  {{ "home_visit" | translate }}
+                </div>
+                <div class="counter_title">
+                  <div class="two_data">
+                    <div class="first_block">
+                      <p>{{ HomeVisitCoPay }}</p>
+                      <p>{{ "co_pay_amount" | translate }}</p>
+                    </div>
+                    <div class="first_block">
+                      <p>{{ HomeVisitInsuranceToBePaid }}</p>
+                      <p>{{ "insurance_amount" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="assets/img/dashboard/dashboard45.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      
+
+      <ng-container *ngIf="giveInnerPermission('hospital_clinic')">
+        <div class="col-md-4 col-sm-12">
+          <div class="cust_col light_violet">
+            <div class="cust_col_inner header-card-inner">
+              <div class="action-block">
+                <div class="more_action">
+                  <button
+                    class="btn btn-outline-light"
+                    type="button"
+                    id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        [routerLink]="['/individual-doctor/appointment/']"
+                        [queryParams]="{ type: 'FACE_TO_FACE' }"
+                        >{{ "view" | translate }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+              <div class="left">
+                <div class="counter downtwobolock">
+                  {{ "hospital_clinic" | translate }}
+                </div>
+                <div class="counter_title">
+                  <div class="two_data">
+                    <div class="first_block">
+                      <p>{{ F2FCoPay }}</p>
+                      <p>{{ "co_pay_amount" | translate }}</p>
+                    </div>
+                    <div class="first_block">
+                      <p>{{ F2FInsuranceToBePaid }}</p>
+                      <p>{{ "insurance_amount" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="right">
+                <div class="counter_img">
+                  <img src="assets/img/dashboard/dashboard46.svg" />
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      
+    </div>
+  </div>
+
+  <div class="claim_section">
+    <div class="row">
+      <ng-container *ngIf="giveInnerPermission('total_revenue')">
+        <div class="cost_details col-xl-5">
+          <div class="cost_details_inner common_space">
+            <div class="top_bar">
+              <div class="title_wrap">
+                <div class="main_title">{{ "total_revenue" | translate }}</div>
+              </div>
+              <div class="icons">
+                <mat-icon (click)="openVerticallyCenteredpiechartpopup(piechartpopup)">open_in_full</mat-icon>
+                <div class="more_action">
+                  <button
+                    class="btn btn-outline-light"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                      <a class="dropdown-item" href="#">{{
+                        "action" | translate
+                      }}</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">{{
+                        "another_action" | translate
+                      }}</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">{{
+                        "something_else_here" | translate
+                      }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="chart piecharts">
+              <canvas
+                baseChart
+                [type]="'pie'"
+                [datasets]="pieChartDatasets"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [legend]="pieChartLegend"
+              >
+              </canvas>
+            </div>
+            <div class="chart_label">
+              <div class="row">
+                <div class="col-md-3 col-6 mb-2">
+                  <div class="chart_detail">
+                    <div class="line"></div>
+                    <div class="detail_section">
+                      <p>{{ totalRevenue }}</p>
+                      <p>{{ "all" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                  <div class="chart_detail">
+                    <div class="line two"></div>
+                    <div class="detail_section">
+                      <p>{{ totalf2fRevenue }}</p>
+                      <p>{{ "f2f" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                  <div class="chart_detail">
+                    <div class="line three"></div>
+                    <div class="detail_section">
+                      <p>{{ totalHomeVisitRevenue }}</p>
+                      <p>{{ "home_visit" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                  <div class="chart_detail">
+                    <div class="line four"></div>
+                    <div class="detail_section">
+                      <p>{{ totalOnlineRevenue }}</p>
+                      <p>{{ "online" | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+     
+      <ng-container *ngIf="giveInnerPermission('online_cosult_graph')">
+        <div class="col-xl-7">
+          <div class="common_space hospitaldash">
+            <div class="top_bar">
+              <div class="title_wrap">
+                <div class="main_title">
+                  {{ "online_consultation" | translate }}
+                </div>
+              </div>
+              <div class="content_wrap">
+                <div class="policy_wrapper">
+                  <div class="policy">
+                    <label>{{ "filter" | translate }} :</label>
+                    <div class="form_field_wrapper">
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          (selectionChange)="getDateToFilterOnline($event)"
+                        >
+                          <mat-option value="Monthly">{{
+                            "monthly" | translate
+                          }}</mat-option>
+                          <mat-option value="Yearly">{{
+                            "yearly" | translate
+                          }}</mat-option>
+                          <mat-option value="Weekly">{{
+                            "weekly" | translate
+                          }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="icons">
+                  <mat-icon (click)="openVerticallyCenteredlinechartpopup(linechartpopup)">open_in_full</mat-icon>
+                  <div class="more_action">
+                    <button
+                      class="btn btn-outline-light"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "action" | translate
+                        }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "another_action" | translate
+                        }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "something_else_here" | translate
+                        }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display: block">
+              <canvas
+                baseChart
+                [type]="'line'"
+                [data]="lineChartData"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      
+
+    </div>
+  </div>
+
+  <ng-container *ngIf="giveInnerPermission('f2f_consult_graph')">
+    <div class="claim_by_month common_space">
+      <div class="top_bar">
+        <div class="title_wrap">
+          <div class="main_title">{{ "f2f_consultation" | translate }}</div>
+          <div class="color_code">
+            <div class="common_ring">
+              <div class="ring_section">
+                <p class="ring_block"></p>
+                {{ "co_pay_amount" | translate }}
+              </div>
+              <div class="ring_section">
+                <p class="ring_block skyblue"></p>
+                {{ "insurance_amount" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content_wrap">
+          <div class="policy_wrapper">
+            <div class="policy">
+              <label>{{ "select_year" | translate }}</label>
+              <div class="form_field_wrapper">
+                <mat-form-field appearance="fill">
+                  <mat-select
+                    placeholder="{{ 'select_year' | translate }}"
+                    [(ngModel)]="selectedYear"
+                  >
+                    <mat-option
+                      (click)="filterF2FYear(year)"
+                      *ngFor="let year of years"
+                      [value]="year"
+                      >{{ year }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+  
+          <div class="icons">
+            <mat-icon (click)="openVerticallyCenteredlinechartpopup(barchartpopup)">open_in_full</mat-icon>
+            <div class="more_action">
+              <button
+                class="btn btn-outline-light"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" href="#">{{ "action" | translate }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "another_action" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "something_else_here" | translate
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="month_barchart">
+        <div class="chart-container">
+          <canvas
+            baseChart
+            [data]="monthbarChartData"
+            [options]="monthbarChartOptions"
+            [plugins]="monthbarChartPlugins"
+            [legend]="monthbarChartLegend"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  
+</div>
+
+<!--vertical barchartpopup modal-->
+<ng-template #barchartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "f2f_consultation" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="month_barchart">
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="monthbarChartData"
+          [options]="monthbarChartOptions"
+          [plugins]="monthbarChartPlugins"
+          [legend]="monthbarChartLegend"
+          [type]="'bar'"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--vertical piechart modal-->
+<ng-template #piechartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "total_revenue" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="chart piecharts">
+      <canvas
+        baseChart
+        [type]="'pie'"
+        [datasets]="pieChartDatasets"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+      >
+      </canvas>
+    </div>
+  </div>
+</ng-template>
+
+<!--vertical barchartpopup modal-->
+<ng-template #linechartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "online_consultation" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+      >
+      </canvas>
+    </div>
+  </div>
+</ng-template>

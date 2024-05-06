@@ -1,0 +1,556 @@
+<div class="insurance_medicines dashboard_main_content common_space">
+  <div class="export_list">
+    <div class="inner_exprot_list">
+      <div class="row">
+        <div class="col-xxl-9 col-xl-8 col-lg-7">
+          <div class="left-btn-block gap-3">
+            <button
+              class="status_list {{
+                claimStatus === 'approved' ? 'active' : ''
+              }}"
+              (click)="onTabChange('approved')"
+            >
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/insurance-medicines/approve.svg"
+                alt="approve"
+              />
+              <p>
+                {{ "approved" | translate }} ({{
+                  statusCountData?.approved ? statusCountData?.approved : "0"
+                }})
+              </p>
+            </button>
+            <button
+              class="status_list {{
+                claimStatus === 'resubmit' ? 'active' : ''
+              }}"
+              (click)="onTabChange('resubmit')"
+            >
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/insurance-medicines/todo.svg"
+                alt="approve"
+              />
+              <p>
+                {{ "resubmit" | translate }} ({{
+                  statusCountData?.resubmit ? statusCountData?.resubmit : "0"
+                }})
+              </p>
+            </button>
+            <button
+              class="status_list {{
+                claimStatus === 'pending' ? 'active' : ''
+              }}"
+              (click)="onTabChange('pending')"
+            >
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/insurance-medicines/pending.svg"
+                alt="approve"
+              />
+              <p>
+                {{ "pending" | translate }} ({{
+                  statusCountData?.pending ? statusCountData?.pending : "0"
+                }})
+              </p>
+            </button>
+            <button
+              class="status_list {{
+                claimStatus === 'rejected' ? 'active' : ''
+              }}"
+              (click)="onTabChange('rejected')"
+            >
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/insurance-medicines/reject.svg"
+                alt="approve"
+              />
+              <p>
+                {{ "rejected" | translate }} ({{
+                  statusCountData?.reject ? statusCountData?.reject : "0"
+                }})
+              </p>
+            </button>
+            <button
+              class="status_list {{ claimStatus === '' ? 'active' : '' }}"
+              (click)="onTabChange('')"
+            >
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/insurance-medicines/autorization.svg"
+                alt="approve"
+              />
+              <p>
+                {{ "pre-authorization" | translate }} ({{
+                  statusCountData?.preauth ? statusCountData?.preauth : "0"
+                }})
+              </p>
+            </button>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-4 col-lg-5 mt-3 mt-lg-0">
+          <div class="primary_btn">
+            <button type="button" class="btn btn-primary export-btn">
+              <mat-icon>share</mat-icon>{{ "export" | translate }}
+            </button>
+
+            <!-- <a routerLink="/insurance/medicalconsultation/submitclaim"><button type="button" class="btn btn-primary">
+                  <mat-icon>assignment</mat-icon>New Claim
+                </button></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table_detail pt-30">
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="status">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.status')"
+            >
+              {{ "status" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.status'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <a class="{{ element?.mediclaimcommoninfosData?.status }}">{{
+                element?.mediclaimcommoninfosData?.status
+              }}</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('createdAt')"
+            >
+              {{ "date" | translate }}
+              <span
+                *ngIf="sortColumn === 'createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.createdAt | date : "dd-MM-YYYY" }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="makeClaim">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.created_by')"
+            >
+              {{ "make_claim" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.created_by'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.created_by.replace("_", " ")
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="claimid">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.claimId')"
+            >
+              {{ "claim_ID" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.claimId'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.mediclaimcommoninfosData?.claimId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="prescribercentre">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="
+                onSortData(
+                  'mediclaimcommoninfosData.prescriberCenterInfo.prescriberCenter'
+                )
+              "
+            >
+              {{ "prescriber_centre" | translate }}
+              <span
+                *ngIf="
+                  sortColumn ===
+                  'mediclaimcommoninfosData.prescriberCenterInfo.prescriberCenter'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.prescriberCenterInfo
+                  ?.prescriberCenter
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="providingcentre">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="
+                onSortData(
+                  'mediclaimcommoninfosData.deliverCenterInfo.deliverFirstName'
+                )
+              "
+            >
+              {{ "providing_centre" | translate }}
+              <span
+                *ngIf="
+                  sortColumn ===
+                  'mediclaimcommoninfosData.deliverCenterInfo.deliverFirstName'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData.deliverCenterInfo
+                  ?.deliverFirstName
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceholder">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.insurerType')"
+            >
+              {{ "insurance_holder" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.insurerType'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.mediclaimcommoninfosData.insurerType ==
+                "secondaryInsurer"
+                  ? findvalue(
+                      "Insurance Holder Name",
+                      element?.mediclaimcommoninfosData.secondaryInsuredIdentity
+                    )
+                  : findvalue(
+                      "Insurance Holder Name",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  ? findvalue(
+                      "Insurance Holder Name",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceid">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.insurerType')"
+            >
+              {{ "insurance_ID" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.insurerType'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.mediclaimcommoninfosData.insurerType ==
+                "secondaryInsurer"
+                  ? findvalue(
+                      "Insurance ID",
+                      element?.mediclaimcommoninfosData.secondaryInsuredIdentity
+                    )
+                  : findvalue(
+                      "Insurance ID",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  ? findvalue(
+                      "Insurance ID",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="patient">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.insurerType')"
+            >
+              {{ "patient" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.insurerType'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.mediclaimcommoninfosData.insurerType ==
+                "secondaryInsurer"
+                  ? findvalue(
+                      "First Name",
+                      element?.mediclaimcommoninfosData.secondaryInsuredIdentity
+                    )
+                  : findvalue(
+                      "First Name",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  ? findvalue(
+                      "First Name",
+                      element?.mediclaimcommoninfosData.primaryInsuredIdentity
+                    )
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reimbursmentrate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.reimbursmentRate')"
+            >
+              {{ "reimbursment_rate" | translate }}
+              <span
+                *ngIf="
+                  sortColumn === 'mediclaimcommoninfosData.reimbursmentRate'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.reimbursmentRate
+                  ? element?.mediclaimcommoninfosData?.reimbursmentRate + " %"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="paidbypatient">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.totalCoPayment')"
+            >
+              {{ "paid_by_patient" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.totalCoPayment'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.totalCoPayment
+                  ? element?.mediclaimcommoninfosData?.totalCoPayment +
+                    "
+                CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="requestedamount">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="
+                onSortData('mediclaimcommoninfosData.totalRequestedAmount')
+              "
+            >
+              {{ "requested_amount" | translate }}
+              <span
+                *ngIf="
+                  sortColumn === 'mediclaimcommoninfosData.totalRequestedAmount'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.totalRequestedAmount
+                  ? element?.mediclaimcommoninfosData?.totalRequestedAmount +
+                    " CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalamount">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="
+                onSortData('mediclaimcommoninfosData.totalCostOfAllMedicine')
+              "
+            >
+              {{ "total_amount" | translate }}
+              <span
+                *ngIf="
+                  sortColumn ===
+                  'mediclaimcommoninfosData.totalCostOfAllMedicine'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.totalCostOfAllMedicine
+                  ? element?.mediclaimcommoninfosData?.totalCostOfAllMedicine +
+                    " CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="approvedamount">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="
+                onSortData('mediclaimcommoninfosData.totalApprovedAmount')
+              "
+            >
+              {{ "approved_amount" | translate }}
+              <span
+                *ngIf="
+                  sortColumn === 'mediclaimcommoninfosData.totalApprovedAmount'
+                "
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.mediclaimcommoninfosData?.totalApprovedAmount
+                  ? element?.mediclaimcommoninfosData?.totalApprovedAmount +
+                    " CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Resubmit Reason">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('mediclaimcommoninfosData.resubmit')"
+            >
+              {{ "Resubmit Reason" | translate }}
+              <span
+                *ngIf="sortColumn === 'mediclaimcommoninfosData.resubmit'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: left">
+              <span
+                *ngFor="let data of element.mediclaimcommoninfosData?.resubmit"
+              >
+                <span *ngIf="!data.resubmitReason">
+                  <li>-</li>
+                </span>
+                <span *ngIf="data.resubmitReason">
+                  <li>
+                    {{ data?.resubmitReason ? data?.resubmitReason : "-" }} ({{
+                      data?.resubmitUsers[0]?.staff_name
+                    }})
+                  </li>
+                </span>
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="comments">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('comments')"
+            >
+              {{ "comments" | translate }}
+              <span
+                *ngIf="sortColumn === 'comments'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.comments }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="detail">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "detail" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+
+              <ng-container  *ngIf="giveInnerPermission('view')">
+                <mat-icon (click)="handleViewDetails(element.mediclaimcommoninfosData?.claimId)">visibility</mat-icon>
+  
+              </ng-container>
+
+            
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div *ngIf="dataSource.length < 1" class="text-center">
+          <h2>{{ "no_records" | translate }}</h2>
+        </div>
+      </div>
+      <mat-paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

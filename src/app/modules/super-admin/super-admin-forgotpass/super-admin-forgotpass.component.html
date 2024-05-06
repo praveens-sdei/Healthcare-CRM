@@ -1,0 +1,83 @@
+<div class="login">
+    <div class="login_inner">
+        <div class="row">
+        <div class="left_part part col-md-6">
+           <div class="leftpart_inner"> 
+                <div class="logo">
+                    <img [src]="login_logo" alt="Store logo">
+                </div>
+            </div>
+        </div>
+        <div class="right_part part col-md-6">
+            <div class="rightpart_inner">
+                <div class="login_form">
+                    <div class="login_form_inner">
+                        <form [formGroup]="forgotPassForm">
+                            <div class="login_img">
+                                <img src="../../../../assets/img/key.svg">
+                            </div>
+                            <div class="title_wrapper">
+                                <h4 class="form_title">Forgot Password?</h4>
+                                <div class="form_desc">No worries, we’ll send you reset instructions.</div>
+                            </div>
+                            <div class="form_field_wrapper">
+                                <label>Email Address</label>
+                                <mat-form-field appearance="fill">
+                                    <input type="email" formControlName="email" placeholder="Enter Email Address" matInput>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-btn primary_btn">
+                                <button type="submit" class="login_btn btn btn-primary" (click)="onSubmit()">Reset password</button>
+                            </div>
+
+                            <div class="signup_section">
+                                <div class="signup backlogin" [routerLink]="['/super-admin/login']"><mat-icon>west</mat-icon>Back to log in</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- // onSubmit() {
+    //   if (this.forgotPassForm.invalid) {
+    //     return;
+    //   }
+    //   const forgotPasswordRequest: ISendEmailRequest = {
+    //     email: this.getPasswordField("email"),
+    //   };
+    //   console.log(forgotPasswordRequest)
+    //   this._superAdminService.forgotPasswordUser(forgotPasswordRequest).subscribe({
+    //     next: (result: IResponse<ISendOtpResponse>) => {
+    //       console.log('forgotpasss')
+  
+    //       if (result.status === true) {
+    //         console.log(result)
+    //         this.router.navigateByUrl("/super-admin/checkemail", {
+    //           state: { email: this.getPasswordField("email") },
+    //         });
+    //       }
+    //     },
+  
+    //     error: (err: ErrorEvent) => {
+    //       this.coreService.showError("", err.message);
+    //       // if (err.message === "INTERNAL_SERVER_ERROR") {
+    //       //   this.coreService.showError("", err.message);
+    //       // }
+    //     },
+    //   });
+    // } -->
+  

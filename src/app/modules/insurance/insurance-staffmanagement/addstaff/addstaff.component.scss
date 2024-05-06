@@ -1,0 +1,29 @@
+@import '../../../../../assets/css/variable/variable';
+
+.add_staff{
+    .main_title{
+        margin: 0 0 20px;
+    }
+    .image-upload {
+        position: relative;
+        width: fit-content;
+        .mat-icon {
+            position: absolute;
+            right: -25px;
+            top: -10px;
+        }
+        input {
+            display: none;
+        }
+        img {
+            width: 95px;
+            height: 95px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    }
+    .primary_btn{
+        justify-content: flex-end;
+    }
+}
+

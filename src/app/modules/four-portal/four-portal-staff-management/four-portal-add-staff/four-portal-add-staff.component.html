@@ -1,0 +1,617 @@
+<div class="add_staff dashboard_main_content staff_profile_block login_time">
+    <div class="main_title">{{"add_staff" | translate}}</div>
+    <form [formGroup]="addStaff" (ngSubmit)="onSubmit()">
+      <!-- <div class="image-upload">
+              <label for="file-input">
+                  <img src="{{ staff_profile ? staff_profile :'/assets/img/create_profile.png'}}" width="150px"
+                      height="100px">
+  
+              </label>
+              <input class="ng-hide user_upload_input"  accept="image/*"
+                  id="input-file-id" type="file" />
+          </div> -->
+          <div class="user_image_upload">
+            <input
+            class="ng-hide user_upload_input"
+            (change)="onGroupIconChange($event)"
+            accept="image/*"
+            id="input-file-id"
+            type="file"
+          />
+            <div class="user_upload_block">
+              <span class="user_upload_wrapper">
+                <span class="user_upload_icon">
+                  <img
+                  src="{{
+                    staff_profile ? staff_profile : '/assets/img/create_profile.png'
+                  }}"
+                />
+                  <span class="quick_view" *ngIf="staff_profile ? true : false">
+                    <mat-icon
+                      class="closeicon"
+                      (click)="removeSelectpic()"
+                      >close</mat-icon >
+                  </span>
+                </span>
+              </span>
+      
+              <span class="edit_upload_wrapper">
+                <span class="edit_upload_icon"
+                  ><img src="../../../assets/img/edit_profile.svg"
+                /></span>
+              </span>
+            </div>
+          </div>
+      <!-- <div class="image-upload">
+        <label for="file-input">
+          <img
+            class="img-fluid mb-4"
+            src="{{
+              staff_profile
+                ? staff_profile
+                : '../../../../../assets/img/defaultimg.png'
+            }}"
+            width="100px"
+            height="100px"
+          />
+          <i class="fa fa-camera" *ngIf="!staff_profile" ></i>
+        
+        </label>
+        <span class="quick_view" *ngIf="staff_profile ? true : false">
+          <mat-icon class="closeicon" (click)="removeSelectpic()"
+            >close</mat-icon
+          >
+        </span>
+        <input
+          id="file-input"
+          type="file"
+          accept="image/*"
+          (change)="onGroupIconChange($event)"
+        />
+      </div> -->
+  
+      <div class="row">
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{ "date_of_joined" | translate }}</label>
+  
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                formControlName="doj"
+                [matDatepicker]="picker1"                     
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"first_name" | translate}}<span style="color: red"> *</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder='{{"enter_first_name" | translate}}'
+                formControlName="first_name"
+              />
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['first_name'].errors?.['required']"
+            >
+             {{"first_name_is_required" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"Middle Name" | translate}}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder='{{"enter_middle_name" | translate}}'
+                formControlName="middle_name"
+              />
+            </mat-form-field>         
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"Last Name" | translate}}<span style="color: red"> *</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder='{{"enter_last_name" | translate}}'
+                formControlName="last_name"
+              />
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['last_name'].errors?.['required']"
+            >
+              {{"last_name_is_required" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"date_of_birth" | translate}}<span class="danger">*</span> </label>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [max]="maxDate"
+                [matDatepicker]="picker"
+                placeholder='{{"date_of_birth" | translate}}'
+                formControlName="dob"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['dob'].errors?.['required']"
+            >
+              {{"date_of_birth_is_required" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper speciality-select-block">
+            <label>{{"Spoken Language" | translate}}</label>
+            <select2
+            class="test"
+            [overlay]="overlay"
+            multiple="multiple"
+            [limitSelection]="0"
+            [minCountForSearch]="0"                   
+            [data]="spokenLanguages"
+            formControlName="language"
+            (update)="onSelectionChange($event)"
+          >
+          </select2>
+            <!-- <mat-form-field appearance="fill">
+              <mat-select
+                placeholder="Select Language"
+                formControlName="language"
+                multiple
+                (selectionChange)="onSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let language of spokenLanguages"
+                  [value]="language.value"
+                >
+                  {{ language.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <!-- <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['language'].errors?.['required']"
+            >
+              Select language*
+            </span> -->
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-8 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"address" | translate}}<span class="danger">*</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                #address
+                placeholder="Enter address"
+                formControlName="address"
+              />
+            </mat-form-field>
+            <span
+            class="text-danger"
+            *ngIf="isSubmitted && addStaffFormControl['address'].errors?.['required']"
+          >
+            {{"address_is_required" | translate}}*
+          </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"neighborhood" | translate}}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder='{{"neighborhood" | translate}}'
+                formControlName="neighborhood"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"select_country" | translate}}<span class="danger">*</span></label>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{"country" | translate}}</mat-label>
+              <mat-select
+                disableRipple
+                formControlName="country"
+                (selectionChange)="getRegionList($event.value)"
+                [(ngModel)]="patchCountry"
+              >
+                <mat-option
+                  *ngFor="let country of countryList"
+                  [value]="country._id"
+                  >{{ country?.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select Country'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            (update)="getRegionList($event.value)"
+            [data]="countryList"
+            formControlName="country"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['country'].errors?.['required']"
+            >
+             {{"select_country" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"Region" | translate}}</label>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{"select_region" | translate}}</mat-label>
+              <mat-select
+                disableRipple
+                formControlName="region"
+                (selectionChange)="getProvienceList($event.value)"
+              >
+                <mat-option *ngFor="let region of regionList" [value]="region._id"
+                  >{{ region?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select Region'"
+            [overlay]="true"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            (update)="getProvienceList($event.value)"
+            [data]="regionList"
+            formControlName="region"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['region'].errors?.['required']"
+            >
+              {{"select_region" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"province" | translate}}</label>
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>{{"province" | translate}}</mat-label>
+              <mat-select
+                disableRipple
+                placeholder='{{"select_region" | translate}}'
+                formControlName="province"
+                (selectionChange)="getDepartmentList($event.value)"
+              >
+                <mat-option
+                  *ngFor="let provience of provienceList"
+                  [value]="provience._id"
+                  >{{ provience?.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select province'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            (update)="getDepartmentList($event.value)"
+            [data]="provienceList"
+            formControlName="province"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['province'].errors?.['required']"
+            >
+              {{"select_province" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"department" | translate}}</label>
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>{{"department" | translate}}</mat-label>
+              <mat-select
+                disableRipple
+                placeholder='{{"select_department" | translate}}'
+                formControlName="department"
+                (selectionChange)="getCityList($event.value)"
+              >
+                <mat-option
+                  *ngFor="let department of departmentList"
+                  [value]="department._id"
+                  >{{ department?.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select department'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            (update)="getCityList($event.value)"
+            [data]="departmentList"
+            formControlName="department"
+          >
+          </select2>
+  
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['department'].errors?.['required']"
+            >
+              {{"select_province" | translate}}*
+            </span>
+          </div>
+        </div>
+  
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"City" | translate}}</label>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{"select_city" | translate}}</mat-label>
+              <mat-select disableRipple formControlName="city">
+                <mat-option *ngFor="let city of cityList" [value]="city._id">{{
+                  city?.name
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <select2
+            [placeholder] ="'Select city'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data]="cityList"
+            formControlName="city"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['city'].errors?.['required']"
+            >
+              {{"select_city" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"village" | translate}}</label>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{"select_village" | translate}}</mat-label>
+              <mat-select disableRipple formControlName="village">
+                <mat-option
+                  *ngFor="let village of villageList"
+                  [value]="village._id"
+                  >{{ village?.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select village'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data]="villageList"
+            formControlName="village"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['village'].errors?.['required']"
+            >
+              {{"select_village" | translate}}*
+            </span>
+          </div>
+        </div>
+  
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"pincode" | translate}}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder='{{"pincode" | translate}}'
+                formControlName="pincode"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"phone_number" | translate}}<span class="danger">*</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="number"
+                matInput
+                #countryPhone
+                (focus)="onFocus()"
+                placeholder="Enter phone number"
+                formControlName="mobile"
+              />
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['mobile'].errors?.['required']"
+            >
+              {{"enter_mobile" | translate}}
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"email" | translate}}<span class="danger">*</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                placeholder="Enter email"
+                formControlName="email"
+              />
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['email'].errors?.['required']"
+            >
+              {{"enter_email" | translate}}
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"role" | translate}}<span class="danger">*</span></label>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{"enter_role" | translate}}</mat-label>
+              <mat-select disableRipple formControlName="role">
+                <mat-option *ngFor="let role of RoleList" [value]="role._id">{{
+                  role.name
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select Role'"
+            [overlay]="overlay"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data]="RoleList"
+            formControlName="role"
+          >
+          </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['role'].errors?.['required']"
+            >
+              {{"select_role" | translate}}*
+            </span>
+          </div>
+        </div>
+  
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"password" | translate}}<span class="danger">*</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="password"
+                matInput
+                placeholder='{{"password" | translate}}'
+                formControlName="password"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"confirm_password" | translate}}<span class="danger">*</span></label>
+            <mat-form-field appearance="fill">
+              <input
+                type="password"
+                matInput
+                placeholder='{{"confirm_password" | translate}}'
+                formControlName="confirmPassword"
+              />
+            </mat-form-field>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['confirmPassword'].errors?.['required']"
+            >
+              {{"enter_confirm_password" | translate}}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['confirmPassword'].errors?.['matching']"
+            >
+              {{"confim_password_does_not_match" | translate}}
+            </span>
+            <span
+              class="text-success"
+              *ngIf="!addStaffFormControl['confirmPassword'].errors"
+            >
+              {{"password_matched" | translate}}
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 mb-3">
+          <div class="form_field_wrapper speciality-select-block">
+            <label> {{"specialty" | translate}}<span class="danger">*</span></label>
+            <select2
+                  class="test"
+                  [overlay]="overlay"
+                  multiple="multiple"
+                  [limitSelection]="0"
+                  [minCountForSearch]="0"                   
+                  [data]="specialtyList"
+                  formControlName="specialty"
+                  (update)="onSpecialityChange($event)"
+                >
+                </select2>
+            <!-- <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>Select specialty<span class="danger">*</span></mat-label>
+              <mat-select disableRipple formControlName="specialty">
+                <mat-option *ngFor="let list of specialtyList" [value]="list._id"
+                  >{{ list.specilization }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addStaffFormControl['specialty'].errors?.['required']"
+            >
+              {{"specialty_is_required" | translate}}*
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 mb-3">
+          <div class="form_field_wrapper">
+            <label>{{"about_staff" | translate}}</label>
+            <mat-form-field appearance="fill">
+              <textarea
+                matInput
+                formControlName="aboutStaff"
+                placeholder="Describe Yourself*"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn mb-3">
+        <button type="button" class="btn btn-secondary" (click)="routeBack()"  >Cancel</button>
+        <button type="submit" class="btn btn-primary">{{"add_staff" | translate}}</button>
+      </div>
+    </form>
+  </div>
+  

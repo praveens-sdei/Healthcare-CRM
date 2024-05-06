@@ -1,0 +1,54 @@
+@import '../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+
+.rating_review{
+    .top_bar{
+        margin: 0 0 35px;
+        .left_part{
+            display: flex;
+            .primary_btn{
+                .btn {
+                    background: #FFFFFF;
+                    color: $bodycolor;
+                    border: 1px solid rgba(11, 73, 119, 0.15);
+                    border-radius: 10px;
+                    padding: 10px;
+                    justify-content: flex-start;
+                    .btn_svg{
+                        height: 35px;
+                        width: 35px;
+                        background-color: $bodycolor;
+                        border-radius: 9px;
+                        svg{
+                            fill: $white_color;
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                    &:hover{
+                        background: $bodycolor;
+                        color: $white_color;
+                        .btn_svg{
+                            background-color: #EBF0F4;
+                            svg{
+                                fill: $bodycolor;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    } 
+}
+
+@media screen and (max-width:$large_phone) {
+    .rating_review  .top_bar .primary_btn{
+        flex-direction: column;
+    }
+    .rating_review .top_bar .left_part .primary_btn .btn:not(:first-child){
+        margin: 15px 0 0;
+    }
+}

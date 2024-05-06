@@ -1,0 +1,618 @@
+@import '../../../../../assets/css/variable/variable';
+
+.insurance_medicines {
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                min-height: 60px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+                margin: 5px 0;
+
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 20px;
+                    color: #0B4977;
+                    margin-left: 10px;
+                }
+            }
+
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+
+                .btn {
+                    .mat-icon {
+                        height: 30px;
+                        width: 30px;
+                        min-width: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .insurance_notify {
+        border: 1px solid #D9D9D9;
+        border-radius: 9px;
+        padding: 10px;
+        margin: 25px 0 0;
+        font-weight: 600;
+        font-size: $font_medium;
+        line-height: 20px;
+        color: #FF5A36;
+        display: flex;
+        align-items: center;
+
+        .info_icon {
+            background: #FF5A36;
+            border-radius: 9px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 12px 0 0;
+            height: 50px;
+            width: 50px;
+            min-width: 50px;
+            line-height: 50px;
+            text-align: center;
+
+            svg {
+                fill: #ffffff;
+            }
+        }
+    }
+
+    .user_insurance {
+        .user_insurance_block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+
+            p {
+                margin-bottom: 0;
+                font-weight: 400;
+                color: $table_color;
+            }
+        }
+    }
+
+    .mat-expansion-panel {
+        border-radius: 15px !important;
+    }
+}
+
+.custome_modal {
+    .primary_btn {
+        justify-content: flex-end;
+    }
+
+    &.requestamount {
+        .modal-body label {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+    }
+
+    &.approver {
+        .image_block {
+            text-align: center;
+        }
+
+        .primary_btn {
+            text-align: center;
+            justify-content: center;
+
+            .btn {
+                min-width: 40%;
+            }
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+    }
+
+    &.wanttosign {
+        p {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+
+        .primary_btn {
+            text-align: center;
+            justify-content: center;
+
+            .btn {
+                min-width: 20%;
+                margin: 0 10px;
+            }
+        }
+
+        .expansion_panel {
+            margin-top: 20px;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+        }
+
+        .siganature {
+            p {
+                text-align: left;
+            }
+
+            .signature_block {
+                display: flex;
+                justify-content: space-between;
+                background: #F5F5F5;
+                border-radius: 5px;
+                align-items: center;
+            }
+
+            .signature_iamge {
+                padding: 15px;
+            }
+
+            .icon_img {
+                background: #0B4977;
+                border-radius: 5px;
+                padding: 21px;
+            }
+
+        }
+
+        .mat-form-field-flex {
+            background-color: #0B4977 !important;
+
+        }
+
+        .mat-select-placeholder {
+            color: white;
+        }
+
+        .mat-select-arrow {
+            border: solid #ffffff !important;
+            border-width: 0 3px 3px 0 !important;
+        }
+
+        .mat-form-field {
+            max-width: 230px;
+            margin: 0 auto;
+        }
+
+        .mat-select-value {
+            color: white;
+        }
+
+        .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: #0B4977 !important;
+        }
+
+        .mat-option-text {
+            color: #0B4977 !important;
+        }
+
+        .mat-option.mat-active {
+            color: #0B4977 !important;
+        }
+    }
+}
+
+
+
+@media screen and (max-width :1356px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list img {
+        max-width: 27%;
+    }
+}
+
+
+@media screen and (max-width:1199px) {
+    .insurance_medicines .user_insurance .user_insurance_block p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .expansion_panel .expansion_panel_inner .outer_detail_block {
+        border-bottom: 1px solid #b6c8d6;
+    }
+
+    .expansion_panel .expansion_panel_inner .outer_detail_block.last_child {
+        border-bottom: none;
+    }
+}
+
+.excludedcheck {
+    color: red;
+}
+
+.disable:hover {
+    cursor: not-allowed;
+}
+
+.disable:active {
+    pointer-events: none;
+}
+
+mat-icon.disable {
+    filter: opacity(0.5);
+}
+
+.hidden {
+    display: none;
+}
+
+.subscribe_detail_inner {
+    &.details-block {
+        .icon_group_status {
+            justify-content: center;
+        }
+    }
+
+    .last_table_data {
+        &::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #B5C8D8;
+            border-radius: 20px;
+        }
+    }
+}
+
+.details-panel {
+    .review_send {
+        padding: 20px 0;
+    }
+
+    .inner_review_send {
+        .row {
+            border: none !important;
+        }
+    }
+
+    .reject-btn {
+        margin: 0 0 0 15px;
+    }
+
+    .accept-reject-block {
+        padding: 0 22px;
+    }
+}
+
+.view-attached-document-modal {
+    .card {
+        overflow: hidden;
+        border-color: $common_border;
+    }
+
+    .img-block {
+        height: 160px;
+        overflow: hidden;
+        border-bottom: 1px solid $common_border;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    .card-body {
+        padding: 10px 10px;
+
+        a {
+            text-decoration: none;
+            color: $table_color;
+
+            mat-icon {
+                transition: 0.3s ease-in;
+            }
+
+            &:hover {
+                mat-icon {
+                    color: $linkhovercolor;
+                }
+            }
+        }
+    }
+
+    .card-title {
+        font-size: 14px;
+        color: $table_color;
+    }
+}
+
+
+// @import '../.../../../../../../assets/css/variable/variable';
+.pre_medicalconsultation {
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+                margin: 5px 0;
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+                    color: #0B4977;
+                    margin-left: 10px;
+                }
+            }
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+                margin: 5px 0;
+            }
+        }
+    }
+    .user_insurance {
+        .user_insurance_block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+            p {
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 18px;
+                color: #0C2F49;
+            }
+        }
+        .primary_btn {
+            justify-content: flex-end;
+        }
+    }
+    .flex-text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 51px;
+        padding: 0 24px;
+        .flex-text-inner {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 20px;
+            color: #0c2f49;
+        }
+    }
+    .mat-expansion-panel {
+        border-radius: 15px;
+    }
+}
+
+.custome_modal {
+    .modal-body {
+        .modal_content {
+            &.service {
+                .modal_content_inner {
+                    .item {
+                        width: auto;
+                    }
+                }
+            }
+            &.exclusion {
+                .modal_content_inner {
+                    width: 100%;
+                }
+            }
+        }
+        .mat-tab-header {
+            margin: 0 0 28px;
+            border-bottom: none;
+            .mat-tab-list {
+                .mat-tab-labels {
+                    display: inline-flex;
+                    .mat-tab-label {
+                        height: 55px;
+                        padding: 0 20px;
+                        min-width: 200px;
+                        font-size: $font_medium;
+                        font-weight: 600;
+                        color: $bodycolor;
+                        background-color: $white_color;
+                        border: 1px solid rgba(11, 73, 119, 0.15);
+                        border-radius: 10px;
+                        opacity: 1;
+                        margin-left: 20px;
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                    .mat-tab-label.mat-tab-label-active {
+                        color: $white_color;
+                        background-color: $bodycolor;
+                    }
+                }
+                .mat-ink-bar {
+                    display: none;
+                }
+                .mat-ink-bar {
+                    background-color: $bodycolor;
+                }
+            }
+        }
+        .mat-tab-body-content {
+            overflow: hidden;
+        }
+    }
+}
+
+@media screen and (min-width :$tablet_up) {
+    .pre_medicalconsultation .export_list .inner_exprot_list .status_list p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width :$desktop_pro_up) {
+    .pre_medicalconsultation .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+    .button,
+    button,
+    .btn {
+        font-size: 14px;
+        padding: 8px 9px;
+    }
+}
+
+@media screen and (min-width :$desktop_up) {
+    .pre_medicalconsultation .export_list .inner_exprot_list .status_list p {
+        font-size: 11px;
+    }
+    .button,
+    button,
+    .btn {
+        font-size: 11px;
+        padding: 3px 3px;
+    }
+}
+
+@media screen and (min-width :$desktop_large_up) {
+    .button,
+    button,
+    .btn {
+        font-size: 13px;
+        padding: 8px 9px;
+    }
+    .pre_medicalconsultation .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width :1356px) {
+    .pre_medicalconsultation .export_list .inner_exprot_list .status_list img {
+        max-width: 27%;
+    }
+    .review_send .inner_review_send ul li {
+        margin: 0 5px;
+    }
+}
+
+@media screen and (max-width:$desktop) {
+    .pre_medicalconsultation.user_insurance .user_insurance_block p {
+        font-size: 14px;
+    }
+    .review_send .inner_review_send ul {
+        display: flex !important;
+        align-items: center;
+    }
+    .review_send .inner_review_send .primary_btn {
+        display: flex;
+        justify-content: left;
+    }
+    .review_send .inner_review_send ul li {
+        list-style: none;
+        display: inline-block;
+        margin: 8px 10px;
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .expansion_panel .expansion_panel_inner .outer_detail_block {
+        border-bottom: 1px solid #b6c8d6;
+    }
+    .fromto_date {
+        display: block;
+    }
+    .fromto_date .form_field_wrapper {
+        display: block;
+    }
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header {
+        font-size: 15px;
+        line-height: 19px;
+    }
+    .without_arrow .header_text {
+        font-size: 15px;
+        line-height: 19px;
+    }
+    .expansion_panel .expansion_panel_inner .outer_detail_block.last_child {
+        border-bottom: none;
+    }
+}
+
+@media screen and (max-width:$medium_iphone) {
+    .review_send .inner_review_send .search_send {
+        display: block;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .without_arrow .header_text {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header.mat-expanded {
+        height: 73px;
+    }
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description {
+        display: block;
+    }
+}
+
+.progress {
+    position: relative;
+}
+
+.progress .progress-bar span {
+    position: absolute;
+    color: #fff;
+}

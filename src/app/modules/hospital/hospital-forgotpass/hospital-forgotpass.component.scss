@@ -1,0 +1,19 @@
+.login {
+    .login_inner {
+        .left_part {
+            background-image: url(../../../../assets/img/hospital_login.svg);
+        }
+    }
+   
+     .back_section {
+        display: flex;
+        justify-content: center;
+        padding-top: 25px;
+        color: #000;
+        p{
+            display: flex;
+            align-items: center;
+           
+        }
+     }
+}

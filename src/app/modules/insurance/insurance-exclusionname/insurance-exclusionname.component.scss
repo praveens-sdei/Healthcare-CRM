@@ -1,0 +1,125 @@
+
+@import '../../../../assets/css/variable/variable';
+
+.assign_plan{
+    .assign_plan_inner{
+        border: 1px solid #B6C8D6;
+        border-radius: 10px;
+        .main_title{
+            text-align: center;
+        }
+        .content_item{
+            padding: 15px 24px;
+            border-bottom: 1px solid #B6C8D6;
+            .policy{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                label{
+                    margin: 0 15px 0 0;
+                }
+                .form_field_wrapper{
+                    .mat-form-field{
+                        .mat-form-field-wrapper {
+                            padding-bottom: 0;
+                        }
+                    }
+                }
+            }
+            &.accordion{
+                padding-left: 0;
+                padding-right: 0;
+                .subscribe_detail_inner {
+                    border-radius: unset;
+                    border:none;
+                    .mat-accordion{
+                        .mat-expansion-panel{
+                            .mat-expansion-panel-header{
+                                height: auto;
+                                &.mat-expanded{
+                                    height: auto;
+                                    margin-bottom: 15px;
+                                }
+                                &:hover{
+                                    background: transparent;
+                                }
+                            }
+                            .expansion_panel {
+                                .expansion_panel_inner{
+                                    padding: 0;
+                                    .listing_section{
+                                        .listing_section_inner{
+                                            overflow-x: scroll;
+                                            overflow-y: scroll;
+                                            max-height: 70vh;
+                                            .row{
+                                                flex-wrap: nowrap;
+                                                .title {
+                                                    font-size: 14px;
+                                                    line-height: 18px;
+                                                    font-weight: 600;
+                                                    color: #0C2F49;   
+                                                    background: #F6F8FC;
+                                                    padding: 15px 34px;             
+                                                }
+                                                .item {
+                                                    font-size: 12px;
+                                                    line-height: 16px;
+                                                    color: #0C2F49;
+                                                    padding: 10px 34px;
+                                                }
+                                            }
+                                            &::-webkit-scrollbar{
+                                                height: 5px; 
+                                                width: 5px;
+                                            }
+                                            &::-webkit-scrollbar-thumb{
+                                                background-color: #dddddd; 
+                                                border-radius: 10px;
+                                            }
+                                        }
+                                    //   &.exclusion{
+                                    //     .listing_section_inner{
+                                    //         .row{
+                                    //             .title {
+                                    //                 width: 20%;        
+                                    //             }
+                                    //             .item {
+                                    //                 width: 20%;   
+                                    //             }
+                                    //         }
+                                    //     }
+                                    //   }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$tablet) {
+    .assign_plan .assign_plan_inner{
+        width: 100%;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .assign_plan .assign_plan_inner .content_item.accordion .subscribe_detail_inner .mat-accordion .mat-expansion-panel .expansion_panel .expansion_panel_inner .listing_section{
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .assign_plan .assign_plan_inner .content_item .policy{
+        flex-direction: column;
+    }
+    .assign_plan .assign_plan_inner .content_item .policy label{
+        margin: 0 0 15px;
+    }
+}

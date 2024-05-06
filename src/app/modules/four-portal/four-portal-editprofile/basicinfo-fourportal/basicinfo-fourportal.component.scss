@@ -1,0 +1,76 @@
+.image-upload {
+    input {
+        display: none;
+    }
+    img {
+        width: 80px;
+        cursor: pointer;
+    }
+}
+
+.table-wrap-block {
+    max-height: 255px;
+    overflow-y: auto;
+}
+
+.mobile_paydetails {
+    .modal-body{
+        padding: 0;
+        .paydetail_content {
+            width: 75%;
+            margin-bottom: 0;
+            .modal_content_inner{
+                width: 100%;
+            }
+            .field-wrap-block {
+                border: 1px solid rgba(228, 228, 228, 0.9);;
+                border-radius: 5px;
+                .mat-form-field-wrapper {
+                    padding-bottom: 0;
+                }
+                .mat-select {
+                    display: inline-flex;
+                    align-items: center;
+                    width: 100px;
+                    padding: 0 10px;
+                    background-color: rgba(0,0,0,.04);
+                }
+                .mat-form-field {
+                    width: calc(100% - 80px);
+                    .mat-form-field-flex {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+    &::after{
+        display: none;
+    }
+}
+
+// .speciality-select-block {
+//     ::ng-deep {
+//         .select2-label ~ .select2-container > div > .select2-selection--multiple {
+//             ul {
+//                 // width: 400px !important;
+//                 overflow: auto !important;
+//                 position: relative;
+//                 z-index: 10;
+//                 height: 50px;
+//                 li {
+//                     height: 35px;
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: center;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.readonly {
+    pointer-events: none; /* Prevent interaction with the element */
+    background-color: #f5f5f5; /* Optionally change background color to indicate readonly state */
+    color: #999; /* Optionally change text color to indicate readonly state */
+}

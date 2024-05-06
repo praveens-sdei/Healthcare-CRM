@@ -1,0 +1,50 @@
+<div class="add_doctor dashboard_main_content">
+    <div class="step_counter">
+
+
+        <mat-stepper #mainStepper [orientation]="(stepperOrientation | async)!" linear (selectionChange)="onStepSelectionChange($event)">
+            <mat-step [completed]="basicInfo">
+                <ng-template matStepLabel>Basic Info</ng-template>
+                <ng-template [ngIf]="stepIndex === 0">
+                <app-basicinfo-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-basicinfo-fourportal>
+                </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="educationalForm">
+                <ng-template matStepLabel>Educational</ng-template>
+                <ng-template [ngIf]="stepIndex === 1">
+                <app-educational-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-educational-fourportal>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="locationForm">
+                <ng-template matStepLabel>Location</ng-template>
+                <ng-template [ngIf]="stepIndex === 2">
+                <app-location-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-location-fourportal>
+            </ng-template>
+            </mat-step>
+            
+            <mat-step [completed]="availability">
+                <ng-template matStepLabel>Availability</ng-template>
+                <ng-template [ngIf]="stepIndex === 3">
+                <app-availability-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-availability-fourportal>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="feeManage">
+                <ng-template matStepLabel>Fee Management </ng-template>
+                <ng-template [ngIf]="stepIndex === 4">
+                <app-feemanagement-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-feemanagement-fourportal>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="docManage">
+                <ng-template matStepLabel>Document Manage</ng-template>
+                <ng-template [ngIf]="stepIndex === 5">
+                <app-documentmanage-fourportal [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-documentmanage-fourportal>
+            </ng-template>
+            </mat-step>
+
+        </mat-stepper>
+    </div>
+</div>

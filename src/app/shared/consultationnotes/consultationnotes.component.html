@@ -1,0 +1,47 @@
+<label>Notes: </label>
+
+ <div *ngIf="initialFormValues!=''">
+  <textarea #consultData class="form-control" [(ngModel)]="consulatationData" disabled (readonly)="true">
+
+  </textarea>
+  
+   <br>
+    <label>Care Sheet: </label>
+    <formio [form]='jsonFormData' [submission]="initialFormValues"
+    [options]="formioOptions" (submit)="onSubmitTemplate($event)"
+    [viewOnly]="true" [readOnly]="true" [hideComponents]="['button']" ></formio>
+
+ </div>
+ <div  *ngIf="initialFormValues==''">
+  <textarea #consultData class="form-control" [(ngModel)]="consulatationData">
+
+  </textarea>
+  
+   <br>
+  <div class="form_field_wrapper">
+    <!-- <mat-form-field appearance="fill"> -->
+        <label>Select Template: </label>
+      <mat-select
+      class="form-control"
+        placeholder="Select Template Name"
+      >
+        <mat-option value="">Select Template</mat-option>
+        <mat-option  *ngFor="let templateData1 of templateData" (click)="gettemplatedatabyid(templateData1._id)" value="{{templateData1._id}}">{{templateData1.template_name}}</mat-option>
+      </mat-select>
+   
+    <!-- </mat-form-field> -->
+    <!-- <span style="color: red" *ngIf="templateName == ''">
+      Select Category Name</span
+    > -->
+  </div>
+  <!-- [readOnly]="true" -->
+  <br>
+<div *ngIf="templateName!=''">
+    <label>Care Sheet: </label>
+
+    <formio [form]='jsonFormData' [submission]="initialFormValues"
+    [options]="formioOptions" (submit)="onSubmitTemplate($event)"
+    [viewOnly]="true" [hideComponents]="['button']" ></formio>
+    
+</div>
+ </div>

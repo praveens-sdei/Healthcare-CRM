@@ -1,0 +1,20 @@
+@import '../../../../../assets/css/variable/variable';
+
+.complaint_list{
+    .top_bar{
+        margin-bottom: 30px;
+        justify-content: flex-end;
+    }
+}
+.pt-20 {
+    padding-top: 20px;
+}
+.material-icons{
+    cursor: pointer;
+}
+.text_block{
+    width: 100%;
+    background-color: rgba(182, 200, 214, 0.2);
+    border: none;
+    border-radius: 12px;
+}

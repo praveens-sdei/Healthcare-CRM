@@ -1,0 +1,407 @@
+<div class="add_staff dashboard_main_content">
+  <div class="main_title">{{ "edit_manual_medicine_claim" | translate }}</div>
+  <div *ngIf="!referenceofFile" class="profile_img">
+    <img
+      src="{{ profileIcon ? profileIcon : '/assets/img/create_profile.png' }}"
+      width="100px"
+      height="100px"
+    />
+    <input
+      id="file-input"
+      type="file"
+      accept="image/*"
+      (change)="onGroupIconChange($event)"
+    />
+  </div>
+  <div *ngIf="referenceofFile" class="profile_img">
+    <img
+      src="{{
+        referenceofFile ? referenceofFile : '/assets/img/create_profile.png'
+      }}"
+      width="100px"
+      height="100px"
+    />
+    <input
+      id="file-input"
+      type="file"
+      accept="image/*"
+      (change)="onGroupIconChange($event)"
+    />
+  </div>
+
+  <form [formGroup]="editClaimForm">
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "date_of_filling" | translate }} </label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="date"
+              matInput
+              [max]="myformattedDate"
+              placeholder="{{ 'pharmacy_name' | translate }}"
+              formControlName="dateofFilling"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.dateofFilling.touched &&
+              formControls.dateofFilling.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.dateofFilling.errors.required"
+            >
+              {{ "date_of_filling_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "pharmacy_name" | translate }}</label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'pharmacy_name' | translate }}"
+              formControlName="pharmacyName"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.pharmacyName.touched &&
+              formControls.pharmacyName.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.pharmacyName.errors.required"
+            >
+              {{ "pharmacy_name_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "invoice_date" | translate }}</label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="date"
+              matInput
+              placeholder="{{ 'enter_invoice_date' | translate }}"
+              formControlName="invoiceDate"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.invoiceDate.touched &&
+              formControls.invoiceDate.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.invoiceDate.errors.required"
+            >
+              {{ "invoice_date_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "invoice_number" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'invoice_number' | translate }}"
+              formControlName="invoiceNumber"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.invoiceNumber.touched &&
+              formControls.invoiceNumber.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.invoiceNumber.errors.required"
+            >
+              {{ "invoice_number_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "insurance_company" | translate }}</label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'insurance_company' | translate }}"
+              formControlName="insuranceCompany"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.insuranceCompany.touched &&
+              formControls.insuranceCompany.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.insuranceCompany.errors.required"
+            >
+              {{ "insurance_company_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "expected_payment_date" | translate }}</label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="date"
+              matInput
+              placeholder="{{ 'expected_payment_date' | translate }}"
+              formControlName="expectedPaymentDate"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.expectedPaymentDate.touched &&
+              formControls.expectedPaymentDate.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.expectedPaymentDate.errors.required"
+            >
+              {{ "expected_payment_date_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "pharmacy_mobile" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'pharmacy_mobile' | translate }}"
+              formControlName="pharmacyMobile"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "pharmacy_email" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'pharmacy_email' | translate }}"
+              formControlName="pharmacyEmail"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.pharmacyEmail.touched &&
+              formControls.pharmacyEmail.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.pharmacyEmail.errors.email"
+            >
+              {{ "pharmacy_email_is_not_valid" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "claim_number" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'claim_number' | translate }}"
+              formControlName="claimNumber"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "date_of_claim_submission" | translate }}</label
+          ><span class="red">*</span>
+          <mat-form-field appearance="fill">
+            <input
+              type="date"
+              [max]="myformattedDate"
+              matInput
+              placeholder="{{ 'date_of_claim_submission' | translate }}"
+              formControlName="dateofClaimSubmittion"
+            />
+          </mat-form-field>
+          <div
+            *ngIf="
+              formControls.dateofClaimSubmittion.touched &&
+              formControls.dateofClaimSubmittion.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="formControls.dateofClaimSubmittion.errors.required"
+            >
+              {{ "date_of_claim_submission_is_required" | translate }}.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "date_of_payment" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="date"
+              matInput
+              placeholder="{{ 'date_of_payment' | translate }}"
+              formControlName="dateOfPayment"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "method_of_payment" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'method_of_payment' | translate }}"
+              formControlName="methodOfPayment"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "requested_amount" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'requested_amount' | translate }}"
+              formControlName="requestedAmount"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "approved_amount" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'approved_amount' | translate }}"
+              formControlName="approvedAmount"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "rejected_amount" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'rejected_amount' | translate }}"
+              formControlName="rejectedAmount"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "paid_by_insured" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'paid_by_insured' | translate }}"
+              formControlName="paidbytheInsured"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "reason_of_rejecting" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'reason_of_rejecting' | translate }}"
+              formControlName="reasonOfRejecting"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "comments" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'comments' | translate }}"
+              formControlName="comments"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "external_reimbursement" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'external_reimbursement' | translate }}"
+              formControlName="externalReimbursement"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="primary_btn">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="['/super-admin/manualmedicineclaimlist']"
+      >
+        {{ "cancel" | translate }}
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="handleSubmit()">
+        {{ "update_claim" | translate }}
+      </button>
+    </div>
+  </form>
+</div>

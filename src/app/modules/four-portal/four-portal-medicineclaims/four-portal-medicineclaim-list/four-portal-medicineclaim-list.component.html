@@ -1,0 +1,302 @@
+<div class="medicines_claim dashboard_main_content common_space">
+  <div class="top_bar">
+    <div class="left_part">
+      <!-- <div class="policy">
+          <mat-form-field class="custome_dropdown">
+            <mat-select #select multiple placeholder="All Insurance">
+              <div class="select-all">
+                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{ standalone: true }"
+                  (change)="toggleAllSelection()">Select All</mat-checkbox>
+              </div>
+              <mat-option (click)="optionClick()" *ngFor="let food of foods" [value]="food.value">
+                {{ food.viewValue | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+    </div>
+    <div class="right_part">
+      <div class="primary_btn">
+        <a (click)="goToNew()"><button type="button" class="btn btn-primary">
+            <mat-icon>assignment</mat-icon>New Claim
+          </button></a>
+        <button type="button" class="btn btn-primary"  (click)="exportLab()">
+          <mat-icon>share</mat-icon>Export
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="export_list">
+    <div class="inner_exprot_list">
+      <ul class="row">
+        <li>
+          <button class="status_list {{ claimStatus === 'resubmit' ? 'active' : '' }}"
+            (click)="onTabChange('resubmit')">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/todo.svg" alt="approve" />
+            <p>Resubmit ({{ statusCountData?.approved ? statusCountData?.resubmit : "0" }})</p>
+          </button>
+        </li>
+        <li>
+          <button class="status_list {{ claimStatus === 'pending' ? 'active' : '' }}" (click)="onTabChange('pending')">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/pending.svg" alt="approve" />
+            <p>Pending ({{ statusCountData?.pending ? statusCountData?.pending : "0" }})</p>
+          </button>
+        </li>
+        <li>
+          <button class="status_list {{ claimStatus === 'approved' ? 'active' : '' }}"
+            (click)="onTabChange('approved')">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/approve.svg" alt="approve" />
+            <p>Approved ({{ statusCountData?.approved ? statusCountData?.approved : "0" }})</p>
+          </button>
+        </li>
+        <li>
+          <button class="status_list {{ claimStatus === 'rejected' ? 'active' : '' }}"
+            (click)="onTabChange('rejected')">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/reject.svg" alt="approve" />
+            <p>Rejected ({{ statusCountData?.approved ? statusCountData?.reject : "0" }})</p>
+          </button>
+        </li>
+        <li>
+          <button class="status_list {{ claimStatus === '' ? 'active' : '' }}" (click)="onTabChange('')">
+            <img class="img-fluid" src="../../../../../assets/img/insurance-medicines/autorization.svg" alt="approve" />
+            <p>
+              Pre-authorization ({{ statusCountData?.preauth ? statusCountData?.preauth : "0" }})
+            </p>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table_detail pt-30">
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 withoutpagination" matTableExporter
+          #exporter="matTableExporter">
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <span class="{{ element?.status}}">{{ element?.status}}</span> -->
+              <a class="{{ element?.status }}">{{ element?.status }}</a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.createdAt | date : "MM-dd-yyyy" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="claimid">
+            <th mat-header-cell *matHeaderCellDef>Claim ID</th>
+            <td mat-cell *matCellDef="let element">{{ element?.claimId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="prescribercentre">
+            <th mat-header-cell *matHeaderCellDef>Prescriber Centre</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.prescriberCenterInfo?.prescriberCenter }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceprovider">
+            <th mat-header-cell *matHeaderCellDef>Insurance Provider</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.insurance_company_name }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceholder">
+            <th mat-header-cell *matHeaderCellDef>Insurance Holder</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+              element.insurerType == "secondaryInsurer"
+              ? findvalue(
+              "Insurance Holder Name",
+              element?.secondaryInsuredIdentity
+              )
+              : findvalue(
+              "Insurance Holder Name",
+              element?.primaryInsuredIdentity
+              )
+              ? findvalue(
+              "Insurance Holder Name",
+              element?.primaryInsuredIdentity
+              )
+              : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceid">
+            <th mat-header-cell *matHeaderCellDef>Insurance ID</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+              element.insurerType == "secondaryInsurer"
+              ? findvalue("Insurance ID", element?.secondaryInsuredIdentity)
+              : findvalue("Insurance ID", element?.primaryInsuredIdentity)
+              ? findvalue("Insurance ID", element?.primaryInsuredIdentity)
+              : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="patient">
+            <th mat-header-cell *matHeaderCellDef>Patient Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+              element.insurerType == "secondaryInsurer"
+              ? findvalue("First Name", element?.secondaryInsuredIdentity)
+              : findvalue("First Name", element?.primaryInsuredIdentity)
+              ? findvalue("First Name", element?.primaryInsuredIdentity)
+              : "-"
+              }}
+              {{
+              element.insurerType == "secondaryInsurer"
+              ? findvalue("Middle Name", element?.secondaryInsuredIdentity)
+              : findvalue("Middle Name", element?.primaryInsuredIdentity)
+              ? findvalue("Middle Name", element?.primaryInsuredIdentity)
+              : "-"
+              }}
+              {{
+              element.insurerType == "secondaryInsurer"
+              ? findvalue("Last Name", element?.secondaryInsuredIdentity)
+              : findvalue("Last Name", element?.primaryInsuredIdentity)
+              ? findvalue("Last Name", element?.primaryInsuredIdentity)
+              : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reimbursmentrate">
+            <th mat-header-cell *matHeaderCellDef>Reimbursment Rate</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.reimbursmentRate }} %
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="totalamount">
+            <th mat-header-cell *matHeaderCellDef>Total Amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.totalCostOfAllMedicine }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="paidbypatient">
+            <th mat-header-cell *matHeaderCellDef>Paid by Patient</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.totalCoPayment }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="requestedamount">
+            <th mat-header-cell *matHeaderCellDef>Requested Amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.totalRequestedAmount }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="approvedamount">
+            <th mat-header-cell *matHeaderCellDef>Approved Amount</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- {{element | json}} -->
+              {{
+              element?.totalApprovedAmount
+              ? element?.totalApprovedAmount
+              : "-"
+              }} CFA
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="rejectamount">
+            <th mat-header-cell *matHeaderCellDef>Reject Amount</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+              element?.totalApprovedAmount
+              ? (element?.totalRequestedAmount -
+              element?.totalApprovedAmount | number : "1.2-2")
+              : "-"
+              }} CFA
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Resubmit Reason">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "Resubmit Reason" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: left;">
+              <span *ngFor="let data of element?.resubmit">
+                <li> {{ data.resubmitReason ? data.resubmitReason : "-"}} ({{data?.resubmitUsers[0]?.staff_name}})</li>
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef>Comments</th>
+              <td mat-cell *matCellDef="let element">{{ element?.comment }}</td>
+            </ng-container> -->
+          <!-- 
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let element"><a class="rejected">Rejected</a></td>
+                          <td mat-cell *matCellDef="let element"><a class="approved">Approved</a></td>
+                          <td mat-cell *matCellDef="let element"><a class="todo">To Do</a></td>
+              <td mat-cell *matCellDef="let element">
+                <a
+                  class="{{
+                    claimStatus
+                  }}"
+                  >{{ element?.status }}</a
+                >
+              </td>
+            </ng-container> -->
+          <!-- [routerLink]="[
+            '/portals/claims/Laboratory-Imaging/medicineclaim/details',
+            element?.claimId
+          ]" -->
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <!-- {{element | json}} -->
+                <mat-icon *ngIf="element?.claimComplete == true"
+                  (click)="goToNewEdit(element?.claimId)">visibility</mat-icon>
+
+                <span *ngIf="element?.claimComplete == true &&  element?.status != 'approved'"
+                  [ngbTooltip]="'This request is waiting to be processed by the insurance company with the date and time of the submission: ' +(element?.updatedAt | date: 'shortDate') ">
+                  <i class="fa fa-info-circle" style="color: black;"></i></span>
+                <mat-icon *ngIf=" element?.claimComplete == false
+                    " (click)="editclaim(element?.claimId)">edit</mat-icon>
+
+                <ng-container>
+                  <button class="btn btn-primary" *ngIf="
+                          element?.status == 'resubmit'
+                        " (click)="editclaim(element?.claimId)">
+                    {{ "reclaim" | translate }}
+                  </button>
+                  &nbsp;
+                </ng-container>
+                &nbsp;
+                <button class="btn btn-primary" *ngIf="
+                      element?.status === 'approved' &&
+                      element?.requestType === 'pre-auth' &&  !element?.pre_auth_reclaim 
+                    " (click)="editclaim(element?.claimId, 'pre_auth')">
+                  Submit
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div *ngIf="dataSource.length < 1" class="text-center">
+          <h2>No Records!!</h2>
+        </div>
+      </div>
+      <mat-paginator class="pagination" [length]="totalLength" (page)="handlePageEvent($event)" [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

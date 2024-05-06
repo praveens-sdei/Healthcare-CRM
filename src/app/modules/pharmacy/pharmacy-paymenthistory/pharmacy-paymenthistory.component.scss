@@ -1,0 +1,152 @@
+@import "../../../../assets/css/variable/variable";
+
+.payment_pharmacy {
+    .top_bar {
+        .left_heading{
+            h2{
+                font-weight: 600;
+                color: #26323C;
+                margin: 0;
+                span{
+                    font-weight: 400;
+                }
+            }
+        }
+        .content_wrap {
+            .policy {
+                &.date {
+                    width: 49%;
+                    @media screen and (max-width: 576px) {
+                        width: 100%;
+                        &:last-child {
+                            margin: 20px 0 0;
+                        }
+                    }
+                    .form_field_wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        .mat-form-field {
+                            width: calc(100% - 60px);
+                        }
+                    }
+                }
+                label {
+                    margin-right: 12px;
+                }
+                .form_field_wrapper {  
+                    label{
+                        margin-bottom: 0;
+                        min-width: 50px;
+                        color: rgba(15, 18, 63, 0.57);
+                    }  
+                    .mat-form-field {
+                        .mat-form-field-wrapper {
+                            padding: 0;
+                            .mat-form-field-flex {
+                                padding: 5px 15px;
+                                background-color: #f6f8fc;
+                                border-color: #f6f8fc;
+                                font-size: 16px;
+                                border-radius: 12px;
+                                align-items: center;
+                                .mat-form-field-infix {      
+                                    width: 140px;
+                                    .mat-select {
+                                        .mat-select-arrow-wrapper {
+                                            transform: translateY(0);
+                                            .mat-select-arrow {
+                                                margin-top: -3px;
+                                            }
+                                        }
+                                        .mat-select-value {
+                                            color: $formfiled_color;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+                            .mat-form-field-underline {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                &.date{
+                    .form_field_wrapper { 
+                        .mat-form-field {
+                            .mat-form-field-wrapper {
+                                .mat-form-field-flex {
+                                    .mat-form-field-infix {      
+                                        width: 100px;
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+            .search_bar {
+                .input-group{
+                    background: #F6F8FC;
+                    border-radius: 6px;
+                    flex-wrap: unset;
+                    .search_btn{
+                        padding: 0;
+                        width: 50px;
+                        height: 50px;
+                        line-height: 50px;
+                        align-items: center;
+                        justify-content: center;
+                        display: flex;
+                    }
+                    .form-control{
+                        padding: 7px;
+                        margin: 0;
+                        border: none;
+                        min-width: 105px;
+                        background: #F6F8FC;
+                        &::placeholder{
+                            color: #9B9B9B;
+                        }
+                    }
+                    .form_field_wrapper{
+                        .mat-form-field{
+                            .mat-form-field-wrapper{
+                                padding-bottom: 0;
+                                .mat-form-field-flex{
+                                    border-left-color: #E6E8F0;
+                                    border-top-left-radius: unset;
+                                    border-bottom-left-radius: unset;
+                                    .mat-form-field-infix{
+                                        width: 110px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+    margin: 0;
+}
+
+@media screen and (min-device-width: 1400px) and (max-device-width: 1500px) { 
+    .payment_pharmacy .top_bar .left_heading h2{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: $small-phone) {
+    .payment_pharmacy .top_bar .content_wrap .search_bar .input-group .form_field_wrapper .mat-form-field .mat-form-field-wrapper .mat-form-field-flex{
+        border-left-color: #f6f8fc;
+        border-top-color: #E6E8F0;
+        border-top-right-radius: unset;
+    }
+}

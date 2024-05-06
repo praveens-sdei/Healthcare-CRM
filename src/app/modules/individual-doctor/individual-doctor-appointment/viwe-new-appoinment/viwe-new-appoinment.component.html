@@ -1,0 +1,204 @@
+<div class="home_wrapper">
+  <div class="breadcum_wrapper" aria-label="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb_title">{{ "doctor_details" | translate }}</div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "home" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "doctor" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ "doctor_details" | translate }}
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="main_section retail_doctor_detail">
+    <div class="main_section_inner">
+      <div class="container">
+        <div class="row">
+          <div id="main_content" class="content_area col-lg-12">
+            <div class="bottom_section">
+              <div class="appointment_doctor_details">
+                <h1 class="main_title">
+                  {{ "review_appointment" | translate }}
+                </h1>
+                <div class="appointment_review">
+                  <div class="medicine_details commom_space">
+                    <div class="image">
+                      <img
+                        src="{{ doctor_basic_info?.profile_picture?.url }}"
+                      />
+                    </div>
+                    <div class="medicine_info">
+                      <h2 class="title">{{ doctor_basic_info?.full_name }}</h2>
+                      <div class="desc_wrapper row">
+                        <div class="desc col-md-7 col-lg-8">
+                          {{ "gyneco_obste_laparo_ferti" | translate }}
+                        </div>
+                        <div class="rating_section col-md-5 col-lg-4">
+                          <span class="ratings-star">
+                            <div class="rating">
+                              <i class="fa-solid fa-star"></i>
+                              <i class="fa-solid fa-star"></i>
+                              <i class="fa-solid fa-star"></i>
+                              <i class="fa-solid fa-star"></i>
+                              <i class="fa-solid fa-star"></i>
+                              ({{ DoctorRating?.total_review }} Reviews)
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+
+                      <ul class="content_list row">
+                        <li class="content_item">
+                          <div class="title">{{ "phone" | translate }}</div>
+                          <span class="content_desc">
+                            {{
+                              "(" +
+                                appointmentDetails?.doctorId?.country_code +
+                                ")" +
+                                appointmentDetails?.doctorId?.mobile
+                            }}
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">{{ "email" | translate }}</div>
+                          <span class="content_desc">
+                            {{ appointmentDetails?.doctorId?.email }}
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">
+                            {{ "consultation_fee" | translate }}
+                          </div>
+                          <span class="content_desc">
+                            ${{ appointmentDetails?.consultationFee }}
+                          </span>
+                        </li>
+                        <li class="content_item">
+                          <div class="title">{{ "location" | translate }}</div>
+                          <span class="content_desc">
+                            California, USA
+                            <a href="#">{{ "get_directions" | translate }}</a>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="appointment_info commom_space">
+                    <div class="row">
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "appointment_type" | translate }}</label>
+                        <div class="value">
+                          {{ appointmentDetails?.appointmentType }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label
+                          >{{ "reason_for_appointment" | translate }}
+                        </label>
+                        <div class="value">
+                          {{ appointmentDetails?.reasonForAppointment?.name }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "date_and_time" | translate }}</label>
+                        <div class="value">
+                          {{
+                            appointmentDetails?.consultationDate +
+                              "|" +
+                              appointmentDetails?.consultationTime +
+                              " to "
+                          }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "location" | translate }}</label>
+                        <div class="value">
+                          4517 Washington Ave. Manchester, Kentucky 39495
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "consultation_user" | translate }}</label>
+                        <div class="value">Someone else</div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "patient_name" | translate }}</label>
+                        <div class="value">
+                          {{ patientDetails?.patientFullName }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "patient_mobile" | translate }}</label>
+                        <div class="value">
+                          (319) {{ patientDetails?.patientMobile }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "paient_email" | translate }}</label>
+                        <div class="value">
+                          {{ patientDetails?.patientEmail }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "mobile" | translate }}</label>
+                        <div class="value">
+                          (319) {{ patientDetails?.mobile }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6 col-md-4 col-lg-3">
+                        <label>{{ "insurance_number" | translate }}</label>
+                        <div class="value">
+                          {{ patientDetails?.insuranceNumber }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="medical_doc commom_space">
+                    <h3 class="title">{{ "medical_document" | translate }}</h3>
+                    <div class="row">
+                      <div
+                        class="item col-sm-4 col-md-3"
+                        *ngFor="let doc of patient_document"
+                      >
+                        <div class="item_inner">
+                          <div class="doc_img">
+                            <img src="{{ doc.image_url }}" />
+                          </div>
+                          <div class="doc_desc">
+                            <div class="name">{{ doc.doc_name }}</div>
+                            <div class="date">
+                              {{ "date" | translate }} -{{
+                                doc.expiration_date
+                              }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="bottom_bar">
+                                <h3>Note: If you need to cancel appointment, please do so 2 days before the appointment.
+                                </h3>
+                                <div class="primary_btn continue_btn">
+                                    <button class="btn btn-secondary" (click)="editAppointment()" >Edit</button>
+                                    <button class="btn btn-secondary"
+                                        (click)="openVerticallyCenteredcancelappointment(cancel_appointment)" *ngIf="appointmentDetails?.appointmentType==='ONLINE'?false:true">Post-payment</button>
+                                    <button class="btn btn-primary"
+                                        (click)="openVerticallyCenteredpayment(payment)">Proceed to pay</button>
+                                </div>
+                            </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

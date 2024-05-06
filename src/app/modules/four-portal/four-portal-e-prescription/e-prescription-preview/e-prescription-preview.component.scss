@@ -1,0 +1,374 @@
+@import '../../../../../assets/css/variable/variable';
+
+.preview_medicine{
+    .main_title{
+        margin: 0 0 20px;
+        color: $table_color;
+    }
+    .top_bar{
+        border: 1px solid #B6C8D6;
+        border-radius: 10px;
+        padding: 25px;
+        margin: 0 0 30px;
+        justify-content: center;
+        .part_wrapper{
+            margin: 0 -12px;
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+            justify-content: space-between;
+            .part{
+                padding: 0 12px;
+                display: flex;
+                flex-direction: column;
+                h2{
+                    font-size: $font_large;
+                    font-weight: 600;
+                    color: $linkcolor;
+                    margin: 0 0 5px;
+                }
+                .address{
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: $bodyopacitylightcolor;
+                } 
+                &.right_part{
+                    align-items: flex-end;
+                    .immunization_img{
+                        width: 105px;
+                        margin: 0 0 10px;
+                    }
+                }
+            }
+        }
+    }
+    .bottom_bar{
+        .profile_data{
+            background: #ffffff;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            background: #ffffff;
+            margin: 0 0 15px;
+            .profile_info{
+                padding: 20px;
+                position: relative; 
+                ul{
+                    display: grid;
+                    align-items: end;
+                    grid-gap: 15px;
+                    grid-template-columns: repeat(4, 1fr);
+                    border-bottom: 1px solid #C4CDEA;
+                    padding-bottom: 25px;
+                    margin-bottom: 25px;
+                    padding-left: 0;
+                    padding-right: 0;
+                    .col_item{
+                        display: flex;
+                        align-items:center;
+                        min-height: 60px;
+                        .profile_image{
+                            width: 70px;
+                            height: 70px;
+                            min-width: 70px;
+                            margin: 0 15px 0 0;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+                        .profile_contact{
+                            .profile_title{
+                                font-size: $font_large;
+                                font-weight: 600;
+                                line-height: 20px;
+                                letter-spacing: 0em;
+                                color: $linkcolor;
+                                margin: 0 0 10px;
+                            }
+                            .lable{
+                                font-size: 14px;
+                                font-weight: 400;
+                                line-height: 16px;
+                                letter-spacing: 0.05em;
+                                color: $bodyopacitylightcolor;
+                                margin: 0 0 6px;
+                            }
+                            .user_value{
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: $linkcolor;
+                                letter-spacing: 0.05em;
+                            }
+                        }
+                    }
+                    &.profile_info_with_img{
+                        grid-template-columns: 240px repeat(4, 1fr);
+                    }
+                    &:last-child{
+                        border-bottom: none;
+                        margin-bottom: 0;
+                        padding-bottom: 0;
+                    }
+                }
+            }
+            .prescription_data{
+                background: rgba(182, 200, 214, 0.2);
+                padding: 18px 15px;
+                .prescribe_no{
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19px;
+                    color: rgba(38, 50, 60, 0.75);
+                    span{
+                        font-weight: 600;
+                        color: $linkcolor;
+                    }
+                }
+            }
+            .prescrib_content{
+                .list_item{
+                    padding: 15px;
+                    border-bottom: 1px solid #B6C8D6;
+                    h3{
+                        font-weight: 500;
+                        color: rgba(38, 50, 60, 0.75);
+                        margin: 0 0 10px;
+                    }
+                    .prescrib_list{
+                        padding: 0;
+                        margin: 0;
+                        font-weight: 600;
+                        font-size: $font_medium;
+                        color: $linkcolor;
+                        list-style-position: inside;
+                        li{
+                            padding-bottom: 15px;
+                            margin-bottom: 15px;
+                            position: relative;
+                            .prescrib_text{
+                                font-size: $font_medium;
+                                font-weight: 600;
+                                line-height: 19px;
+                                color: $linkcolor;
+                                margin: 10px 0;
+                                display: inline;
+                                &.prescrib_text2{
+                                    font-weight: 500;
+                                    display: block;
+                                }
+                                &.prescrib_unit{
+                                    display: block;
+                                    font-weight: 400;
+                                    color: rgba(38, 50, 60, 0.75);
+                                }
+                            }
+                            &::after{
+                                content: "";
+                                width: 100%;
+                                height: 1px;
+                                background: #B6C8D6;
+                                display: block;
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                top: auto;
+                            }
+                            &:last-child{
+                                padding-bottom: 0;
+                                margin-bottom: 0;
+                                &::after{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                    &:last-child{
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+        .primary_btn{
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            .btn{
+                margin-top: 15px;
+            }
+        }
+    }
+    .prescription_detail{
+        .prescription_inner{
+                border: 1px solid #B6C8D6;
+                border-radius: 15px;
+                overflow: hidden;
+            .prescribe_item{
+                background: #F6F8FC;
+                padding: 20px;
+                border-bottom: 1px solid #B6C8D6;
+                .prescribe_profile{
+                    display: flex;
+                    align-items: center;
+                    .image{
+                        width: 70px;
+                        height: 70px;
+                        line-height: 70px;
+                        border-radius: 50%;
+                        margin: 0 15px 0 0;
+                    }
+                    .desc{
+                        .title{
+                            margin: 0 0 5px;
+                            font-size: $font_ex_large;
+                            line-height: 18px;
+                            font-weight: 700;
+                            color: $table_color;
+                        }
+                        .age{
+                            color: $table_color;
+                            font-weight: 700;
+                            font-size: $font_small;
+                        }
+                    }
+                }
+                .prescribe_title{
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 19px;
+                    color: $table_color;
+                    margin: 0 0 15px;
+                }
+                .mat-radio-group{
+                    .mat-radio-button{
+                        display: block;
+                        label{
+                            margin: 0 0 16px;
+                            .mat-radio-label-content{
+                                padding-left: 12px;
+                            }
+                        }
+                    }
+                }
+                .listing{
+                    padding: 0;
+                    margin: 0 -15px;
+                    list-style: none;
+                    flex-wrap: wrap;
+                        li{
+                            width: auto;
+                            padding: 0 15px;
+                            margin: 0 0 15px;
+                            label{
+                                font-weight: 400;
+                                font-size: $font_small;
+                                line-height: 14px;
+                                margin: 0 0 5px;
+                                color: $linkcolor;
+                            }
+                            .value{
+                                font-weight: 500;
+                                font-size: $font_small;
+                                color: $linkcolor;
+                            }
+                        }
+                }
+                .mat-checkbox{
+                    margin: 0 0 10px;
+                    display: block;
+                    .mat-checkbox-inner-container{
+                        width: 18px;
+                        height: 18px;
+                    }
+                    .mat-checkbox-label{
+                        font-weight: 500;
+                        font-size: $font_medium;
+                        line-height: 19px;
+                        color: $linkcolor;
+                    }
+                }
+                .form_field_wrapper{
+                    label{
+                        font-size: $font_small;
+                        font-weight: 400;
+                        color: $bodyopacitylightcolor;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            .mat-form-field-flex{
+                                border: 1px solid #B6C8D6;
+                                padding: 0 15px;
+                                .mat-form-field-infix{
+                                    .mat-input-element{
+                                        font-size: $font_small;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.profile{
+                    background:$white_color; 
+                }
+                &:last-child{
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$desktop_large) {
+    .preview_medicine .bottom_bar .profile_data .profile_info ul.profile_info_with_img {
+        grid-template-columns: 240px repeat(2, 1fr);
+    }
+}
+@media screen and (max-width:$desktop_medium) {
+    .preview_medicine .bottom_bar .profile_data .profile_info ul.profile_info_with_img {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (min-device-width: 768px) and (max-device-width: 1199px) { 
+    .preview_medicine .bottom_bar .profile_data .profile_info ul.profile_info_with_img {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (max-width:$desktop) {
+    .preview_medicine .top_bar .part_wrapper{
+        flex-direction: column;
+    }
+    .preview_medicine .top_bar .part_wrapper .right_part {
+        margin: 20px 0 0;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .preview_medicine > .row > *:not(:last-child){
+        margin: 0 0 30px;
+    }
+    .preview_medicine .top_bar .part_wrapper .part.right_part{
+        align-items: flex-start;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .preview_medicine .bottom_bar .profile_data .profile_info ul.profile_info_with_img {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .preview_medicine .bottom_bar .primary_btn .btn{
+        margin: 15px 0 0;
+        width: 100%;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .preview_medicine .bottom_bar .profile_data .profile_info ul.profile_info_with_img{
+        grid-gap: 20px;
+    }
+    .preview_medicine .bottom_bar .profile_data .profile_info ul .col_item{
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: auto;
+    }
+    .preview_medicine .bottom_bar .profile_data .profile_info ul .col_item .profile_image{
+        margin: 0 0 15px;
+    }
+}

@@ -1,0 +1,39 @@
+<div class="pharmacy_medicine_claims dashboard_main_content">
+    <div class="pharmacy_medicine_inner">
+        <mat-stepper class="example-stepper" #mainStepper [orientation]="(stepperOrientation | async)!">
+            
+            <mat-step [stepControl]="firstFormGroup" label="Common Information">
+                <div class="step_counter_inner">
+                    <app-commoninformation-hospital  [mstepper]="mainStepper"></app-commoninformation-hospital>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" label="Service Type">
+              <div class="step_counter_inner">
+                <app-servicetype-hospital  [mstepper]="mainStepper"></app-servicetype-hospital>
+            </div>
+            </mat-step>
+
+
+            <mat-step [stepControl]="thirdFormGroup" label="Document Upload">
+              <div class="step_counter_inner">
+                  <app-documentupload-hospital  [mstepper]="mainStepper"></app-documentupload-hospital>
+              </div>
+              <!-- <div class="primary_btn">
+                <button class="btn btn-secondary" mat-button matStepperPrevious>Back</button>
+                <button type="button" class="btn btn-primary" mat-button matStepperNext>Save & Continue</button>
+              </div> -->
+            </mat-step>
+
+            <mat-step [stepControl]="thirdFormGroup" label="eSignature">
+            <div class="step_counter_inner">
+                <app-esignature-hospital  [mstepper]="mainStepper"></app-esignature-hospital>
+            </div>
+            <!-- <div class="primary_btn">
+              <button class="btn btn-secondary" mat-button matStepperPrevious>Back</button>
+              <button type="button" class="btn btn-primary" mat-button matStepperNext>Save & Continue</button>
+            </div> -->
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

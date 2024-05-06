@@ -1,0 +1,716 @@
+<div class="main_block">
+  <div class="main_section">
+    <div>
+      <app-patient-header
+        *ngIf="patientName != ''"
+        [patient_name]="patientName"
+      ></app-patient-header>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
+    <div class="create_profile dashboard_main_content login_time">
+      <form [formGroup]="personalDetails">
+        <div class="personal_details">
+          <div class="image-upload">
+            <label for="file-input">
+              <div class="img">
+                <img
+                  src="{{
+                    profileImage
+                      ? profileImage
+                      : '../../../../../../assets/img/default_user.png'
+                  }}"
+                  alt="Profile Image"
+                  onError="this.src='../../../../assets/img/create_profile1.png'"
+                />
+              </div>
+            </label>
+
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              (change)="onProfilePicChange($event)"
+            />           
+          </div>
+          <!---------------------------Personal Details----------------------------->
+
+          <div class="form_title">{{"personal_details" | translate}}</div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"first_name" | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="first_name" [maxLength]="35"/>
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['first_name'].errors?.['required']"
+                >{{"enter_first_name" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"middle_name" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="middle_name" [maxLength]="20"/>
+                </mat-form-field>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['middle_name'].errors?.['required']"
+                >Enter Middle Name*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"Last Name" | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="last_name" [maxLength]="35"/>
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['last_name'].errors?.['required']"
+                >{{"enter_last_name" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"gender" | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>Sub-admin</mat-label> -->
+                  <mat-select
+                    disableRipple
+                    formControlName="gender"
+                    placeholder='{{"select_gender" | translate}}'
+                  >
+                    <mat-option
+                      *ngFor="let gender of genderList"
+                      [value]="gender.value"
+                      >{{ gender.label }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['gender'].errors?.['required']"
+                >{{"select_gender" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4 col-xl-3">
+              <div class="form_field_wrapper">
+                <label>{{"date_of_birth" | translate}}<span class="danger">*</span></label>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input               
+                    matInput
+                    [matDatepicker]="picker13"
+                    [max]="maxDOB"
+                    formControlName="dob"
+                    (dateChange)="handleDOBChange($event, 'personalDetails')"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
+                  <mat-datepicker #picker13></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <mat-error class="text-danger" *ngIf="isSubmitted && f['dob'].errors?.['required']">
+                {{"enter_dob" | translate}}*
+              </mat-error>
+            </div>
+            
+            
+            <div class="col-sm-6 col-md-4 col-xl-1">
+              <div class="form_field_wrapper">
+                <label>{{"Age" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="age" readonly />
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Spoken Language</label>
+                    <mat-form-field appearance="fill">
+                      <mat-select
+                        disableRipple
+                        formControlName="spokenLanguage"
+                        placeholder="Select Status"
+                      >
+                        <mat-option
+                          *ngFor="let language of spokenLanguageList"
+                          [value]="language.value"
+                          >{{ language.label }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"email_id" | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="email" matInput formControlName="email" />
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['email'].errors?.['required']"
+                >{{"enter_email" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"mobile_number" | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input                 
+                    matInput
+                    #mobile
+                    (focus)="onFocus()"
+                    ng2TelInput
+                    formControlName="mobile"
+                    (keypress)="numberFunc($event)"
+                    (paste)="numberFunc($event)"
+                  />
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['mobile'].errors?.['required']"
+                >{{"enter_mobile" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"blood_group" | translate}} </label>
+                <!-- <mat-form-field appearance="fill">
+                 
+                  <mat-select
+                    disableRipple
+                    formControlName="blood_group"
+                    placeholder='{{"select_blood_group" | translate}}'
+                  >
+                    <mat-option
+                      *ngFor="let blood of bloodGroupList"
+                      [value]="blood.value"
+                      >{{ blood.label }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select Blood group'"
+                [data] = "bloodGroupList"
+                formControlName="blood_group"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+        
+                >
+              </select2>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['blood_group'].errors?.['required']"
+                >Select Blood GRoup*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"marital_status" | translate}} </label>
+                <!-- <mat-form-field appearance="fill">
+                
+                  <mat-select
+                    disableRipple
+                    formControlName="marital_status"
+                    placeholder="Select Status"
+                  >
+                    <mat-option
+                      *ngFor="let status of martialStatusList"
+                      [value]="status.value"
+                      >{{ status.label }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select Marital status'"
+                [data] = "martialStatusList"
+                formControlName="marital_status"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                >
+              </select2>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['marital_status'].errors?.['required']"
+                >Select Marital Status*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-8">
+              <div class="form_field_wrapper">
+                <label>{{"address" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    formControlName="address"
+                    type="text"
+                    matInput
+                    #address
+                    name="address"
+                  />
+                </mat-form-field>
+              </div>
+              <!-- <mat-error
+              class="text-danger"
+              *ngIf="isSubmitted && f['address'].errors?.['required']"
+              >Address is required*</mat-error
+            > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"neighbourhood" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="neighborhood" />
+                </mat-form-field>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['neighborhood'].errors?.['required']"
+                >Enter Neighborhood*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"Country" | translate}}</label>
+                <!-- <mat-form-field appearance="fill"> -->
+                  <!-- <mat-select
+                    disableRipple
+                    placeholder='{{"select_country" | translate}}'
+                    formControlName="country"
+                    (selectionChange)="getRegionList($event.value)"
+                    [(ngModel)]="patchCountry"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country._id"
+                      >{{ country?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select country'"
+                [data] = "countryList"
+                formControlName="country"
+                [overlay]="true"
+                (update)="getRegionList($event.value)"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+        
+                >
+              </select2>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['country'].errors?.['required']"
+                >Select Country*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"Region" | translate}}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder='{{"select_region" | translate}}'
+                    formControlName="region"
+                    (selectionChange)="getProvienceList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let region of regionList"
+                      [value]="region._id"
+                      >{{ region?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select region'"
+                [data] = "regionList"
+                formControlName="region"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                (update)="getProvienceList($event.value)"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['region'].errors?.['required']"
+              >
+                {{"select_region" | translate}}*
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"province" | translate}}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder='{{"select_province" | translate}}'
+                    formControlName="province"
+                    (selectionChange)="getDepartmentList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let provience of provienceList"
+                      [value]="provience._id"
+                      >{{ provience?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select province'"
+                [data] = "provienceList"
+                formControlName="province"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                (update)="getDepartmentList($event.value)"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['province'].errors?.['required']"
+              >
+                {{"enter_provience" | translate}}*
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"department" | translate}}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder='{{"select_department" | translate}}'
+                    formControlName="department"
+                    (selectionChange)="getCityList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let department of departmentList"
+                      [value]="department._id"
+                      >{{ department?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select department'"
+                [data] = "departmentList"
+                formControlName="department"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                (update)="getCityList($event.value)"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['department'].errors?.['required']"
+              >
+                {{"select_department" | translate}}*
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"City" | translate}}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder='{{"select_city" | translate}}'
+                    formControlName="city"
+                  >
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city._id"
+                      >{{ city?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+
+                <select2
+                [placeholder] ="'Select city'"
+                [data] = "cityList"
+                formControlName="city"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['city'].errors?.['required']"
+              >
+                {{"select_city" | translate}}*
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"Village" | translate}}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder='{{"select_village" | translate}}'
+                    formControlName="village"
+                  >
+                    <mat-option
+                      *ngFor="let village of villageList"
+                      [value]="village._id"
+                      >{{ village?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+
+                <select2
+                [placeholder] ="'Select village'"
+                [data] = "villageList"
+                formControlName="village"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['village'].errors?.['required']"
+              >
+                {{"select_village" | translate}}*
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"pincode" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    placeholder='{{"enter_pincode" | translate}}.'
+                    matInput
+                    formControlName="pincode"
+                  />
+                </mat-form-field>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['pincode'].errors?.['required']"
+              >
+                {{"enter_pincode" | translate}}*
+              </mat-error>
+            </div>
+            <!-- <app-address-shared-patient
+              [personalDetails]="personalDetails"
+              *ngIf="showAddressComponent"
+            ></app-address-shared-patient> -->
+          </div>
+        </div>
+
+        <div class="emergency_contact" formGroupName="emergency_contact">
+          <label>{{"add_emergency_contact" | translate}}</label>
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"name" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="name" />
+                </mat-form-field>
+              </div>
+              <!-- <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['emergency_contact'].get('name').errors?.['required']"
+                >Enter Name*</mat-error
+              > -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"Relationship" | translate}}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    formControlName="relationship"
+                    placeholder='{{"select_relation" | translate}}'
+                  >
+                    <mat-option
+                      *ngFor="let relation of relationshipList"
+                      [value]="relation.value"
+                      >{{ relation.label }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select relationship'"
+                [data] = "relationshipList"
+                formControlName="relationship"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [overlay]="true"
+                >
+              </select2>
+              </div>
+              <mat-error
+                class="text-danger"
+                *ngIf="isSubmitted && f['emergency_contact'].get('relationship').errors?.['required']"
+                >{{"select_relation" | translate}}*</mat-error
+              >
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{"phone_number" | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="mobile"
+                    matInput
+                    formControlName="phone_number"
+                    (keypress)="numberFunc($event)"
+                    (paste)="numberFunc($event)"
+                  />
+                </mat-form-field>
+                <mat-error
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['emergency_contact'].get('phone_number').errors?.['required']"
+                  >{{"enter_mobile" | translate}}*</mat-error
+                >
+                <!-- <mat-error
+                  class="text-danger"
+                  *ngIf="isSubmitted &&  f['emergency_contact'].get('phone_number').errors?.['pattern']"
+                  >Enter 10 Digit Number*</mat-error
+                > -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile_paydetails custome_modal divider">
+          <h2>{{"mobile_pay_details" | translate}}</h2>
+          <div class="modal-body">
+            <ng-container formArrayName="mobilePayDetails">
+              <ng-container
+                *ngFor="let _ of mobilePayDetails.controls; let i = index"
+              >
+                <ng-container [formGroupName]="i">
+                  <div class="paydetail_content modal_content">
+                    <div class="row modal_content_inner">
+                      <div class="item col-sm-6 col-lg-6">
+                        <div class="form_field_wrapper">
+                          <label>{{"name_of_mobile_pay_provider" | translate}} </label>
+                          <mat-form-field appearance="fill">
+                            <input
+                              type="text"
+                              matInput
+                              formControlName="provider"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && mobilePayValidation(i).controls['provider'].errors?.['required'] "
+                          >{{"enter_provider_name" | translate}}*</span
+                        >
+                      </div>
+                      <div class="item col-sm-6 col-lg-6">
+                        <div class="form_field_wrapper">
+                          <label>{{"mobile_pay_number" | translate}}</label>
+                          <div class="field-wrap-block d-flex">
+                          <mat-select
+                                disableRipple
+                                placeholder="Select Country Code"
+                                formControlName="mobile_country_code"
+                                class="country-code-select">
+                                <mat-option *ngFor="let code of countryCodes" [value]="code">{{ code }}</mat-option>
+                          </mat-select>
+                          <mat-form-field appearance="fill">
+                            <input
+                              type="mobile"
+                              matInput
+                              formControlName="pay_number"
+                            />
+                          </mat-form-field>
+                          </div>
+                        </div>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && mobilePayValidation(i).controls['pay_number'].errors?.['required'] "
+                          >{{"enter_mobile_pay_number" | translate}}*
+                        </span>
+
+                        <span
+                          class="text-danger"
+                          *ngIf="mobilePayValidation(i).controls['pay_number'].errors?.['pattern'] && mobilePayValidation(i).controls['pay_number'].invalid"
+                        >{{"only_numbers_are_allowed" | translate}}*
+                        </span>
+                      </div>
+                    </div>
+                    <ng-container
+                      *ngIf="i === mobilePayDetails.length - 1; else remove"
+                    >
+                      <div class="row_generate row_minus">
+                        <mat-icon
+                          class="minus"
+                          *ngIf="mobilePayDetails.length > 1"
+                          (click)="removeMobPay(i)"
+                          >remove</mat-icon
+                        >
+                      </div>
+                      <div class="row_generate row_add">
+                        <mat-icon class="plus" (click)="addMobPay()"
+                          >add</mat-icon
+                        >
+                      </div>
+                    </ng-container>
+                    <ng-template #remove>
+                      <div class="row_generate row_minus">
+                        <mat-icon class="minus" (click)="removeMobPay(i)"
+                          >remove</mat-icon
+                        >
+                      </div>
+                    </ng-template>
+                  </div>
+                  <br />
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="primary_btn">
+          <button
+            mat-button
+            type="button"
+            class="btn btn-secondary"
+            [routerLink]="['/patient/login']"
+          >
+            {{"cancel" | translate}}
+          </button>
+          <button
+            mat-button
+            type="button"
+            class="btn btn-primary"
+            (click)="handlePersonalDetails()"
+          >
+            {{"save" | translate}}
+          </button>
+          <!-- <button
+          mat-button
+          type="button"
+          class="btn btn-primary"
+          (click)="skip()"
+        >
+          Skip
+        </button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

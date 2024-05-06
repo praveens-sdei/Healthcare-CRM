@@ -1,0 +1,31 @@
+@import '../../../../../assets/css/variable/variable';
+.add_staff {
+    .main_title {
+        margin: 0 0 15px;
+    }
+    .primary_btn {
+        justify-content: flex-end;
+    }
+    .create_profile_inner {
+        border-radius: 15px;
+        .profile_img {
+            background: #E7E7E7;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 0 0 30px;
+        }
+    }
+    .user_image_upload {
+        .user_upload_block {
+            .user_upload_wrapper {
+                background: unset;
+                .user_upload_icon img {
+                    width: unset;
+                    height: unset;
+                    line-height: 100px;
+                    border-radius: unset;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,323 @@
+@import '../.../../../../../../assets/css/variable/variable';
+
+.makeeprescription_eyeglasses{
+    .main_title{
+        color: $linkcolor;
+        margin: 0 0 25px;
+    }
+    .top_bar{
+        .search_bar{
+            width: 100%;
+            .input-group{
+                background: #F6F8FC;
+                border-radius: 6px;
+                .form-control{
+                    border: none;
+                    background-color: transparent;
+                    padding: 12px 12px 12px 0;
+                    width: 210px;
+                    &::placeholder{
+                        font-weight: 400;
+                        font-size: $font_medium;
+                        line-height: 24px;
+                    }
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+                .btn{
+                    padding: 0;
+                    border: none;
+                    width: 7%;
+                    .mat-icon{
+                        line-height: 50px;
+                        height: 50px;
+                        width: 50px;
+                        color: #9B9B9B;
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
+    .bottom_bar{
+        margin: 30px 0 0;
+        .prescription{
+            margin: 25px 0 0;
+            .prescription_title{
+                font-weight: 600;
+                font-size: $font_medium;
+                line-height: 22px;
+                color: $linkcolor;
+                margin: 0 0 15px;
+            }
+            .item{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    margin: 0 0 25px;
+                    .left_part{
+                        border: 1px solid #B6C8D6;
+                        background: #F6F8FC;
+                        border-radius: 5px;
+                        padding: 20px;
+
+                        .bifocal_eye{
+                            font-size: $font_medium;
+                            font-weight: 400;
+                            color: $table_color; 
+                            margin: 0 0 7px;
+                            b{
+                                color: #F05A4F;
+                            }
+                            span{
+                                font-weight: 600;
+                            }
+                            &:last-child{
+                                margin: 0;
+                            }
+                        }
+                    }
+                    .right_part{
+                        .icon_group{
+                            .svgicon{
+                                background: #EBF0F4;
+                                border-radius: 8px;
+                                padding: 9px 6px;
+                                height: 28px;
+                                width: 28px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                svg{
+                                    fill: #0b4977;
+                                }
+                            }
+                        }
+                    }   
+                }
+                .form_field_wrapper{
+                    margin: 0 0 10px;
+                    label{
+                        color: $bodyopacitycolor;
+                    }
+                }
+                .primary_btn{
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                    .btn{
+                        margin-top: 10x;
+                    }
+                }
+                .visual_acuity_wrapper{
+                    display: flex;
+                    justify-content: space-between;
+                    .visual_acuity{
+                        ul{
+                            list-style: none;
+                            padding: 0;
+                            margin: 0 -10px;
+                            display: flex;
+                            flex-wrap: wrap;
+                            li{
+                                padding: 0 10px;
+                                min-width: 110px;
+                                border: none;
+                                margin: 0;
+                                .item_inner{
+                                    border: 1px solid #B6C8D6;
+                                    border-radius: 10px;
+                                    padding:  8px 14px;
+                                    label{
+                                        font-weight: 400;
+                                        font-size: $font_small;
+                                        color: $linkcolor;
+                                        margin: 0 0 5px;
+                                    }
+                                    .value{
+                                        font-weight: 700;
+                                        font-size: $font_small;
+                                        color: $linkcolor;
+                                        line-height: 20px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .primary_btn{
+                        flex-wrap: wrap;
+                        justify-content: flex-end;
+                        .btn{
+                            margin-top: 10x;
+                        }
+                    }
+                }
+        }
+    }
+
+    .primary_btn{
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        .btn{
+            margin-top: 10x;
+        }
+    }
+
+
+    .prescription_detail{
+        .prescription_inner{
+                border: 1px solid #B6C8D6;
+                border-radius: 15px;
+                overflow: hidden;
+            .prescribe_item{
+                background: #F6F8FC;
+                padding: 20px;
+                border-bottom: 1px solid #B6C8D6;
+                .prescribe_profile{
+                    display: flex;
+                    align-items: center;
+                    .image{
+                        width: 70px;
+                        height: 70px;
+                        line-height: 70px;
+                        border-radius: 50%;
+                        margin: 0 15px 0 0;
+                    }
+                    .desc{
+                        .title{
+                            margin: 0 0 5px;
+                            font-size: $font_ex_large;
+                            line-height: 18px;
+                            font-weight: 700;
+                            color: $table_color;
+                        }
+                        .age{
+                            color: $table_color;
+                            font-weight: 700;
+                            font-size: $font_small;
+                        }
+                    }
+                }
+                .prescribe_title{
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 19px;
+                    color: $table_color;
+                    margin: 0 0 15px;
+                }
+                .mat-radio-group{
+                    .mat-radio-button{
+                        display: block;
+                        label{
+                            margin: 0 0 16px;
+                            .mat-radio-label-content{
+                                padding-left: 12px;
+                            }
+                        }
+                    }
+                }
+                .listing{
+                    padding: 0;
+                    margin: 0 -15px;
+                    list-style: none;
+                    flex-wrap: wrap;
+                        li{
+                            width: auto;
+                            padding: 0 15px;
+                            margin: 0 0 15px;
+                            label{
+                                font-weight: 400;
+                                font-size: $font_small;
+                                line-height: 14px;
+                                margin: 0 0 5px;
+                                color: $linkcolor;
+                            }
+                            .value{
+                                font-weight: 500;
+                                font-size: $font_small;
+                                color: $linkcolor;
+                            }
+                        }
+                }
+                .mat-checkbox{
+                    margin: 0 0 10px;
+                    display: block;
+                    .mat-checkbox-inner-container{
+                        width: 18px;
+                        height: 18px;
+                    }
+                    .mat-checkbox-label{
+                        font-weight: 500;
+                        font-size: $font_medium;
+                        line-height: 19px;
+                        color: $linkcolor;
+                    }
+                }
+                .form_field_wrapper{
+                    label{
+                        font-size: $font_small;
+                        font-weight: 400;
+                        color: $bodyopacitylightcolor;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            .mat-form-field-flex{
+                                border: 1px solid #B6C8D6;
+                                padding: 0 15px;
+                                .mat-form-field-infix{
+                                    .mat-input-element{
+                                        font-size: $font_small;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.profile{
+                    background:$white_color; 
+                }
+                &:last-child{
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+@media screen and (max-width:$desktop) {
+    .makeepremakeeprescription_eyeglassesscription .bottom_bar .prescription .item{
+        flex-direction: column;
+        align-items: normal;
+    }
+    .makeeprescription_eyeglasses .bottom_bar .prescription .item .right_part{
+        margin-top: 15px;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .makeeprescription_eyeglasses  > .row > *{
+        margin: 0 0 30px;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .makeeprescription_eyeglasses .bottom_bar .prescription .visual_acuity_wrapper{
+        flex-direction: column;
+    }
+    .makeeprescription_eyeglasses .bottom_bar .prescription .visual_acuity_wrapper .visual_acuity{
+        margin: 0 0 20px;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .makeeprescription_eyeglasses .bottom_bar .prescription .primary_btn .btn{
+        margin: 0 0 15px;
+        width: 100%;
+    }
+}
+
+.border_bottom{
+    border-bottom: 2px solid;
+}

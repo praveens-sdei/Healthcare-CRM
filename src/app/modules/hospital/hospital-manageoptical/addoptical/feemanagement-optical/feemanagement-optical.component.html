@@ -1,0 +1,322 @@
+<div class="step_counter_inner">
+    <div class="text-start">
+      <div class="row" *ngFor="let loc of locationList">
+        <div class="item flex-row">
+          <div class="form_field_wrapper">
+            <div class="primary_btn">
+              <button
+                type="button"
+                class="btn btn-secondary 
+                {{
+                  selectedLocationId === loc?.hospital_id ? 'active' : ''
+                }}"
+                (click)="handleLocationChange(loc)"
+              >
+                {{ loc?.hospital_name }}</button
+              >&nbsp; &nbsp;
+            </div>
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+    <div class="fee_management">  
+      <form [formGroup]="feeManagement">
+        <div class="consultant_item">
+          <div class="row">
+            <div class="col-sm-6 col-md-4 mb-3 icon">
+              <div class="form_field_wrapper">
+                <label>{{ 'consultation_type' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <div class="icon">
+                    <img src="../../../../../assets/img/consultation1.svg" />
+                  </div>
+                  <input matInput formControlName="online" [readonly]="true" />
+                </mat-form-field>
+              </div>
+              <span class="text-danger" *ngIf="isSubmitted && f['online'].errors?.['required']">
+                {{ 'please_enter_the_value' | translate}}
+              </span>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ 'fee' | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="online_fee" />
+                </mat-form-field>
+                <span class="text-danger" *ngIf="isSubmitted && f['online_fee'].errors?.['required']">
+                  {{ 'please_enter_the_value' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+  
+                <label class="d-block mt-2">{{ 'payment_accepted' | translate}}<span class="danger">*</span></label>
+                <mat-checkbox class="example-margin me-3" formControlName="online_pre_payment">{{ 'pre_payment' | translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="online_post_payment">{{ 'post_payment' | translate}}</mat-checkbox>
+  
+              </div>
+  
+            </div>
+  
+            <div class="mobile_paydetails custome_modal divider">
+              <h2>{{ 'cancellation_policy' | translate}}</h2>
+              <div class="modal-body">
+  
+                <div class="paydetail_content modal_content">
+                  <div class="row modal_content_inner">
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_hours' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" min="0" 
+                          max="23" matInput formControlName="online_noofhours" />
+                        </mat-form-field>
+                      </div>
+  
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_min' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" min="0" max="59" matInput formControlName="online_noofmin" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_days' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" matInput formControlName="online_noofdays" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'comments' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <textarea  matInput formControlName="online_comments" ></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                </div>
+  
+  
+              </div>
+            </div>
+  
+  
+  
+          </div>
+        </div>
+        <div class="consultant_item">
+          <div class="row">
+            <div class="col-sm-6 col-md-4 mb-3 icon">
+              <div class="form_field_wrapper">
+                <label>{{ 'consultation_type' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <div class="icon">
+                    <img src="../../../../../assets/img/consultation2.svg" />
+                  </div>
+                  <input matInput formControlName="homeVisit" [readonly]="true" />
+                </mat-form-field>
+                <span class="text-danger" *ngIf="isSubmitted && f['homeVisit'].errors?.['required']">
+                  {{ 'please_enter_the_value' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ 'fee' | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="homeVisit_fee" />
+                </mat-form-field>
+                <span class="text-danger" *ngIf="isSubmitted && f['homeVisit_fee'].errors?.['required']">
+                  {{ 'please_enter_the_value' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ 'travel_fee' | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="travel_fee" />
+                </mat-form-field>
+                <span class="text-danger" *ngIf="isSubmitted && f['travel_fee'].errors?.['required']">
+                  {{ 'please_enter_the_value' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+  
+                <label>{{ 'payment_accepted' | translate}}<span class="danger">*</span></label>
+                <mat-checkbox class="example-margin" formControlName="homevisit_pre_payment">{{ 'pre_payment' | translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="homevisit_post_payment">{{ 'post_payment' | translate}}</mat-checkbox>
+  
+              </div>
+  
+            </div>
+  
+  
+            <div class="mobile_paydetails custome_modal divider">
+              <h2>{{ 'cancellation_policy' | translate}}</h2>
+              <div class="modal-body">
+  
+                <div class="paydetail_content modal_content">
+                  <div class="row modal_content_inner">
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_hours' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" matInput formControlName="homevisit_noofhours" />
+                        </mat-form-field>
+                      </div>
+  
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_min' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" min="0" max="59" matInput formControlName="homevisit_noofmin" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_days' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" matInput formControlName="homevisit_noofdays" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'comments' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <textarea type="text" matInput formControlName="homevisit_comments" ></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                </div>
+  
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+        <div class="consultant_item">
+          <div class="row">
+            <div class="col-sm-6 col-md-4 mb-3 icon">
+              <div class="form_field_wrapper">
+                <label>{{ 'consultation_type' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <div class="icon">
+                    <img src="../../../../../assets/img/consultation3.svg" />
+                  </div>
+                  <input matInput formControlName="f2f" [readonly]="true" />
+                </mat-form-field>
+              </div>
+              <span class="text-danger" *ngIf="isSubmitted && f['f2f'].errors?.['required']">
+                {{ 'please_enter_the_value' | translate}}
+              </span>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ 'fee' | translate}}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="f2f_fee" />
+                </mat-form-field>
+                <span class="text-danger" *ngIf="isSubmitted && f['f2f_fee'].errors?.['required']">
+                  {{ 'please_enter_the_value' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-3">
+              <div class="form_field_wrapper">
+  
+                <label>{{ 'payment_accepted' | translate}}<span class="danger">*</span></label>
+                <mat-checkbox class="example-margin" formControlName="f2f_pre_payment">{{ 'pre_payment' | translate}}</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="f2f_post_payment">{{ 'post_payment' | translate}}</mat-checkbox>
+  
+              </div>
+  
+            </div>
+  
+            <div class="mobile_paydetails custome_modal divider">
+              <h2>{{ 'cancellation_policy' | translate}}</h2>
+              <div class="modal-body">
+  
+                <div class="paydetail_content modal_content">
+                  <div class="row modal_content_inner">
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_hours' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" matInput formControlName="f2f_noofhours" />
+                        </mat-form-field>
+                      </div>
+  
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_min' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" min="0" max="59" matInput formControlName="f2f_noofmin" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'no_of_days' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" matInput formControlName="f2f_noofdays" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="item col-md-4 col-sm-6">
+                      <div class="form_field_wrapper">
+                        <label>{{ 'comments' | translate}}</label>
+                        <mat-form-field appearance="fill">
+                          <textarea type="text" matInput formControlName="f2f_comments" ></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                </div>
+  
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="primary_btn">
+      <button class="btn btn-secondary"  (click)="previousPage()">{{ 'back' | translate}}</button>
+  
+      <button class="btn btn-primary" (click)="buttonHandler()">
+        {{ 'save_and_next' | translate}}
+      </button>
+      <button
+      type="button"
+      class="btn btn-danger"
+      style="margin-left: 10px"
+      [routerLink]="['/hospital/manageoptical']"
+    >
+      {{ 'exit' | translate}}
+    </button>
+    </div>
+  </div>
+  

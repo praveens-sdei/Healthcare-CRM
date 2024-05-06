@@ -1,0 +1,27 @@
+@import '../../../../../assets/css/variable/variable';
+
+@media screen and (max-width:$tablet) {
+    .details_patient .primary_btn{
+        margin-top: 20px;
+    }
+}
+
+.exluded-medicine{
+    color: #FF7354 !important;
+}
+
+.details_patient {
+    .medicine_info {
+        .table-inner {
+            overflow-x: auto;
+            .table-xl {
+                width: 1900px;
+                td {
+                    &.mat-column-medicinename {
+                        width: 250px;
+                    }
+                }
+            }
+        }
+    }
+}

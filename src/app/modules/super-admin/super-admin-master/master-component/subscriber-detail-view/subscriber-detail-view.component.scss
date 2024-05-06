@@ -1,0 +1,18 @@
+// @import '../../../../../assets/css/variable/variable';
+@import '../../../../../../assets/css/variable/variable';
+.subscribe_detail{
+    .back_btn{
+        display: flex;
+        align-items: center;
+        margin: 0 0 20px;
+        text-decoration: none;
+        .mat-icon{
+            font-size: 20px;
+            line-height: 24px;
+            width: 20px;
+        }
+        &:hover{
+            color: $homepage_hovercolor;
+        }
+    }
+}

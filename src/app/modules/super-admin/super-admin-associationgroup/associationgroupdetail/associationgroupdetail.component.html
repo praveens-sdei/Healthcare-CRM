@@ -1,0 +1,381 @@
+<div class="hospital_details dashboard_main_content">
+  <div class="primary_btn">
+    <button
+      type="button"
+      class="btn btn-primary"
+      [routerLink]="['/super-admin/associationgroup/edit', groupID]"
+    >
+      {{ "edit_profile" | translate }}
+    </button>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              src="{{
+                groupIcon
+                  ? groupIcon
+                  : '../../../../../assets/img/profile_img.png'
+              }}"
+            />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">
+              {{ groupData?.superadmin_id?.fullName }}
+            </div>
+            <div class="lable">{{ "association_group_type" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.association_id?.association_group_type }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "mobile_number" | translate }}</div>
+            <div class="user_value">{{ groupData?.superadmin_id?.mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ groupData?.superadmin_id?.email }}</div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">Date of Birth</div>
+            <div class="user_value">{{ groupData?.dob }}</div>
+          </div>
+        </li> -->
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">Gender</div>
+            <div class="user_value">{{ groupData?.superadmin_id?.gender }}</div>
+          </div>
+        </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.createdAt | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <hr />
+      <ul class="profile_info_inner hospitalsub_data">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "main_phone_number" | translate }}</div>
+            <div class="user_value">{{ groupData?.superadmin_id?.mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "mobile_phone_number" | translate }}</div>
+            <div class="user_value">{{ groupData?.superadmin_id?.mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "additional_phone_number" | translate }}</div>
+            <div class="user_value">{{ groupData?.additional_phone }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">{{ groupData?.location_id?.address }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "neighborhood" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.neighborhood }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "country" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.country?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "region" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.region?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "province" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.province?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "department" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.department?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "city" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.city?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "village" | translate }}</div>
+            <div class="user_value">
+              {{ groupData?.location_id?.village?.name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "pincode" | translate }}</div>
+            <div class="user_value">{{ groupData?.location_id?.pincode }}</div>
+          </div>
+        </li>
+      </ul>
+      <hr class="about_pharmacy_hr" />
+      <div class="about_pharmacy">
+        <div class="row">
+          <div class="col-md-7 border_right">
+            <div class="about_pharma pr-5">
+              <h4>{{ "about" | translate }}</h4>
+              <p>{{ groupData?.about_group }}</p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="about_pharma">
+              <h4>{{ "pharmacy_slogan" | translate }}</h4>
+              <p>{{ groupData?.group_slogan }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="about_pharmacy_hr" />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "license" | translate }}</p>
+        </div>
+        <ul class="common_list">
+          <li>
+            <div class="list_detail">
+              <p>{{ "license_number" | translate }}</p>
+              <h4>{{ groupData?.license_number }}</h4>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "expiry_date" | translate }}</p>
+              <h4>{{ groupData?.license_expiry | date : "dd/MM/yyyy" }}</h4>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "bank_details" | translate }}</p>
+        </div>
+        <ul class="common_list">
+          <li>
+            <div class="list_detail d-flex">
+              <img
+                class="img-fluid"
+                src="../../../../../assets/img/bank_img.png"
+              />
+              <div class="detail_block">
+                <p>{{ "bank_name" | translate }}</p>
+                <h4>{{ groupData?.bank_details_id?.bank_name }}</h4>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "account_holder_name" | translate }}</p>
+              <h4>
+                {{ groupData?.bank_details_id?.bank_account_holder_name }}
+              </h4>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "account_number" | translate }}</p>
+              <h4>{{ groupData?.bank_details_id?.bank_account_number }}</h4>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "ifsc" | translate }}</p>
+              <h4>{{ groupData?.bank_details_id?.bank_ifsc_code }}</h4>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "bank_address" | translate }}</p>
+              <h4>{{ groupData?.bank_details_id?.bank_address }}</h4>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "mobile_pay_details" | translate }}</p>
+        </div>
+        <ul class="common_list">
+          <li>
+            <div class="list_detail">
+              <p>{{ "name_of_mobile_provider" | translate }}</p>
+              <h4>{{ groupData?.bank_details_id?.mobilepay_provider_name }}</h4>
+            </div>
+          </li>
+          <li>
+            <div class="list_detail">
+              <p>{{ "mobile_pay_number" | translate }}</p>
+              <h4>{{ groupData?.bank_details_id?.mobilepay_number }}</h4>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "list_of_pharmacy" | translate }}</p>
+        </div>
+        <ul class="Pharma_list">
+          <div *ngFor="let pharmacy of relatedPharmacies">
+            <li>
+              <div class="pharmacy_detail">
+                <img
+                  *ngIf="!pharmacy?.profile_picture"
+                  class="img-fluid"
+                  src="../../../../../assets/img/e1.svg"
+                />
+                <img
+                  *ngIf="pharmacy?.profile_picture"
+                  class="img-fluid"
+                  src="{{ pharmacy?.profile_picture }}"
+                />
+                <div class="detail_pharma">
+                  <p>{{ pharmacy?.name }}</p>
+                </div>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="edit_pharma_btn">
+    <button
+      class="btn btn-primary"
+      (click)="openVerticallyCenterededitpharmacy(editpharmacycontent)"
+    >
+      {{ "edit_pharmacy" | translate }}
+    </button>
+  </div>
+</div>
+
+<!-- Edit pharmacy modal -->
+<div class="edit_pharmacy">
+  <ng-template #editpharmacycontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "edit_pharmacy" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="search_bar">
+          <div class="input-group">
+            <button class="btn search-btn">
+              <mat-icon>search</mat-icon>
+            </button>
+            <input
+              type="search"
+              class="form-control"
+              placeholder="{{ 'search' | translate }}"
+              aria-label="Search"
+              [ngModel]="searchText"
+              (keyup)="handleSearchFilter($event)"
+              (search)="handleSearchFilter($event)"
+            />
+          </div>
+        </div>
+        <div class="add_pharmacy_content">
+          <div class="pharmacy_content_inner">
+            <mat-checkbox
+              class="example-margin"
+              aria-label="Select All"
+              [checked]="isChecked()"
+              [indeterminate]="isIndeterminate()"
+              (change)="$event ? toggleAll($event) : null"
+            >
+              {{ "select_all_pharmacy" | translate }}
+            </mat-checkbox>
+            <div *ngFor="let item of pharmacyList">
+              <mat-checkbox
+                class="example-margin"
+                (click)="$event.stopPropagation()"
+                (change)="$event ? toggle(item, $event) : null"
+                [checked]="exists(item?.for_portal_user)"
+              >
+                {{ item?.pharmacy_name }}
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <!-- 
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && association_group_selected_pharmacy?.length < 1"
+          >Please Select any pharmacy</span
+        > -->
+
+        <div class="primary_btn">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closePopup()"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="handleUpdatePharmacy()"
+          >
+            {{ "save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

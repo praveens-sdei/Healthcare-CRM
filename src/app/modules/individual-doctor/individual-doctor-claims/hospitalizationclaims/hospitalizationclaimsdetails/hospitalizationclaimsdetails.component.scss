@@ -1,0 +1,285 @@
+@import '../.../../../../../../../assets/css/variable/variable';
+// @import '../../../../../assets/css/variable/variable';
+
+.insurance_medicines {
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+                margin: 5px 0;
+
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+                    color: #0B4977;
+                    margin-left: 10px;
+                }
+            }
+
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+                margin: 5px 0;
+            }
+        }
+    }
+
+    .user_insurance {
+        .user_insurance_block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+
+            p {
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 18px;
+                color: #0C2F49;
+
+                &.value {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    .mat-expansion-panel {
+        border-radius: 15px !important;
+    }
+}
+
+.custome_modal {
+    .primary_btn {
+        justify-content: flex-end;
+    }
+
+    &.requestamount {
+        .modal-body label {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+    }
+
+    &.approver {
+        .image_block {
+            text-align: center;
+        }
+
+        .primary_btn {
+            text-align: center;
+            justify-content: center;
+
+            .btn {
+                min-width: 40%;
+            }
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+    }
+
+    &.wanttosign {
+        p {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            color: #25282B;
+        }
+
+        .primary_btn {
+            text-align: center;
+            justify-content: center;
+
+            .btn {
+                min-width: 20%;
+                margin: 0 10px;
+            }
+        }
+
+        .expansion_panel {
+            margin-top: 20px;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+        }
+
+        .siganature {
+            p {
+                text-align: left;
+            }
+
+            .signature_block {
+                display: flex;
+                justify-content: space-between;
+                background: #F5F5F5;
+                border-radius: 5px;
+                align-items: center;
+            }
+
+            .signature_iamge {
+                padding: 15px;
+            }
+
+            .icon_img {
+                background: #0B4977;
+                border-radius: 5px;
+                padding: 21px;
+            }
+
+        }
+
+        .mat-form-field-flex {
+            background-color: #0B4977 !important;
+
+        }
+
+        .mat-select-placeholder {
+            color: white;
+        }
+
+        .mat-select-arrow {
+            border: solid #ffffff !important;
+            border-width: 0 3px 3px 0 !important;
+        }
+
+        .mat-form-field {
+            max-width: 230px;
+            margin: 0 auto;
+        }
+
+        .mat-select-value {
+            color: white;
+        }
+
+        .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: #0B4977 !important;
+        }
+
+        .mat-option-text {
+            color: #0B4977 !important;
+        }
+
+        .mat-option.mat-active {
+            color: #0B4977 !important;
+        }
+    }
+}
+
+@media screen and (min-width :768px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width :992px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width :1200px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width :1400px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width :1356px) {
+    .insurance_medicines .export_list .inner_exprot_list .status_list img {
+        max-width: 27%;
+    }
+}
+
+
+@media screen and (max-width:1199px) {
+    .insurance_medicines .user_insurance .user_insurance_block p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .expansion_panel .expansion_panel_inner .outer_detail_block {
+        border-bottom: 1px solid #b6c8d6;
+    }
+
+    .expansion_panel .expansion_panel_inner .outer_detail_block.last_child {
+        border-bottom: none;
+    }
+
+    .review_send .inner_review_send .primary_btn {
+        display: inline;
+        justify-content: center;
+    }
+
+
+}
+
+.downloadicon {
+    position: absolute;
+    margin-top: 130px;
+    margin-left: 182px;
+    background: #0B4977;
+    width: 30px;
+    height: 30px;
+    color: white;
+    border-radius: 50%;
+
+    mat-icon {
+        margin-top: 4px;
+        margin-left: 4px;
+    }
+}
+
+.documentimage {
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+    border: 2px solid;
+}
+
+.excludedcheck {
+    color: red;
+}

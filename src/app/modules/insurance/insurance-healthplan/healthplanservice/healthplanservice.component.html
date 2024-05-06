@@ -1,0 +1,373 @@
+<div class="health_plan dashboard_main_content common_space">
+  <h2 class="d-flex align-items-center">
+    <mat-icon [routerLink]="['/insurance/insurance-healthplan']">
+      arrow_back_ios
+    </mat-icon>
+    {{ "back" | translate }}
+  </h2>
+  <div class="healthpaln_detail_inner">
+    <div class="health_detail grid-accordion-view">
+      <div
+        class="expansion_panel custom-expansion-panel health-plan-name-panel"
+      >
+        <div class="expansion_panel_inner">
+          <div class="row">
+            <!-- <div class="col-md-4">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>Policy ID:</p>
+                  <p>{{ planData?._id || 12121212 }}</p>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-4">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{'type_of_insurance'|translate}}:</p>
+                  <p>{{ "Do not Get" }}</p>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "health_plan_name" | translate }}:</p>
+                  <p>{{ planData?.name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "description" | translate }}</p>
+                  <p>{{ planData?.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "reimbursment_rate" | translate }}</p>
+                  <p>{{ planData?.reimbursment_rate }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "contract_exclusions" | translate }}</p>
+                  <p>{{ planData?.contract_exclusion }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-xxl-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "total_primary_care_limit" | translate }}:</p>
+                  <p>{{ planData?.total_care_limit?.primary_care_limit }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xxl-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "total_secondary_care_limit" | translate }}:</p>
+                  <p>
+                    {{ planData?.total_care_limit?.secondary_care_limit }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-xxl-4 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>
+                    {{ "total_primary_and_secondary_care_limit" | translate }}:
+                  </p>
+                  <p>{{ planData?.total_care_limit?.grand_total }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-main mt-5">
+      <div class="accordion-wrap">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ "services" | translate }}
+                <!-- <div class="primary_btn">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="handleServiceExport()"
+                  >
+                    <mat-icon>share</mat-icon>Export
+                  </button>
+                </div> -->
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="table-wrap">
+              <div class="table-inner" #TABLE>
+                <table
+                  mat-table
+                  [dataSource]="planServicesData"
+                  class="mat-elevation-z8"
+                  matTableExporter
+                  #exporter="matTableExporter"
+                >
+                  <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "category" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.has_category }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="primarySecondaryCatLimit">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "primary_secondary_category_limit" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.primary_and_secondary_category_limit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="categorylimit">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "category_limit" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.in_limit?.category_limit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="categorycondition">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "category_condition" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.has_conditions?.category_condition }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="service">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "service" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.service }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="primarySecondaryServcLimit">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "primary_secondary_service_limit" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.primary_and_secondary_service_limit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="servicelimit">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "service_limit" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.in_limit?.service_limit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="repaymentcondition">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "repayment_condition" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.has_conditions?.repayment_condition?.max_no }}
+                      {{ "maximum_for" | translate }}
+                      {{ element.has_conditions?.repayment_condition?.unit_no }}
+                      {{ element.has_conditions?.repayment_condition?.unit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="reimbursmentrate">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "reimbursment_rate" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.reimbursment_rate }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="preauthorization">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "pre_authorization" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.pre_authorization ? "yes" : "no" }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="waitingperiod">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "waiting_period" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.waiting_period?.duration?.min_no }}
+                      {{ element.waiting_period?.duration?.unit }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="waitingperiodredeemed">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "waiting_period_redeemed" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.waiting_period?.redeemed }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="comment">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "comment" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.comment }}
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="primary_btn justify-content-end mt-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="handleServiceExport()"
+        >
+          <mat-icon>share</mat-icon>{{ "export" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="accordion-main mt-5">
+      <div class="accordion-wrap">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ "exclusion" | translate }}
+                <!-- <div class="primary_btn">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="handleExclusionExport()"
+                  >
+                    <mat-icon>share</mat-icon>Export
+                  </button>
+                </div> -->
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="table-wrap">
+              <div class="table-inner" #EXCLUSION>
+                <table
+                  mat-table
+                  [dataSource]="planExclusionData"
+                  class="mat-elevation-z8"
+                  matTableExporter
+                  #exporterExclusion="matTableExporter"
+                >
+                  <ng-container matColumnDef="categoryofexclusion">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "category_of_exclusion" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.in_exclusion?.category }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="medicinename">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "medicine_name" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.in_exclusion?.name }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="brandname">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "brand_name" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.in_exclusion?.brand }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="comment">
+                    <th mat-header-cell *matHeaderCellDef>
+                      {{ "comment" | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.in_exclusion?.comment }}
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumnss"
+                  ></tr>
+                </table>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="primary_btn justify-content-end mt-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="handleExclusionExport()"
+        >
+          <mat-icon>share</mat-icon>{{ "export" | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="primary_btn justify-content-end pt-30">
+      <button type="button" class="btn btn-primary" (click)="routeToedit()">
+        <a class="btn_svg" >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M14.019 0.0305598C13.7903 0.0764837 13.5381 0.188634 13.3555 0.325561C13.2562 0.400016 12.9641 0.673713 12.7063 0.933803L12.2377 1.40668L13.4173 2.58725L14.5969 3.76782L15.0983 3.26747C15.6584 2.70847 15.786 2.54345 15.8989 2.2324C16.1208 1.6206 15.972 0.96127 15.5069 0.495899C15.1112 0.0998524 14.5491 -0.0759285 14.019 0.0305598ZM8.85583 4.79276C6.71412 6.93842 6.18827 7.48106 6.16539 7.56915C6.14973 7.62937 6.03357 8.19951 5.90726 8.83612C5.75428 9.60722 5.68495 10.0226 5.69958 10.0804C5.72762 10.1912 5.81945 10.2831 5.93017 10.3112C6.04679 10.3408 8.43331 9.86631 8.55497 9.78936C8.60317 9.75889 9.82408 8.55004 11.2681 7.10306L13.8937 4.4722L12.7218 3.29901C12.0772 2.65379 11.5427 2.12585 11.5339 2.12585C11.525 2.12585 10.3199 3.32594 8.85583 4.79276ZM1.70477 2.69205C1.06805 2.78628 0.490836 3.21264 0.205701 3.79939C-0.0118238 4.24696 -0.00032088 3.93675 0.000273023 9.34282C0.000898183 14.7856 -0.0127928 14.4457 0.225018 14.9207C0.45242 15.375 0.85965 15.7259 1.38025 15.9162L1.60953 16H6.6577H11.7059L11.9559 15.9151C12.6026 15.6954 13.084 15.1829 13.2744 14.5113C13.3276 14.3238 13.3313 14.1202 13.3313 11.3989V8.48713L13.237 8.33453C13.1009 8.1142 12.8688 7.99507 12.6181 8.01697C12.3983 8.03615 12.2288 8.1381 12.1047 8.32574L12.0185 8.45609L12.0028 11.3365C11.9885 13.9697 11.9826 14.2252 11.9341 14.3139C11.8591 14.4509 11.6806 14.5991 11.5423 14.6392C11.459 14.6633 10.0123 14.6706 6.5925 14.664L1.76047 14.6548L1.6381 14.5693C1.5708 14.5223 1.48059 14.4318 1.43761 14.3683L1.35947 14.2527L1.35137 9.37739C1.34346 4.6247 1.34477 4.4991 1.4032 4.38538C1.43617 4.32125 1.50313 4.23078 1.55195 4.18439C1.75163 3.99475 1.61356 4.00285 4.64475 4.00285C6.74716 4.00285 7.44734 3.99356 7.54493 3.96437C7.72304 3.91113 7.91681 3.71001 7.96866 3.52462C8.05193 3.22696 7.92796 2.91491 7.66493 2.76018L7.5173 2.67331L4.70407 2.6689C3.1568 2.66649 1.80711 2.67688 1.70477 2.69205Z"
+            />
+          </svg> </a
+        >{{ "edit" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

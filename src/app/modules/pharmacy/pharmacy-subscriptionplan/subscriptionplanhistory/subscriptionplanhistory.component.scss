@@ -1,0 +1,112 @@
+@import '../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+
+.subscription{
+    .top_bar{
+        margin: 0 0 35px;
+        .left_part{
+            display: flex;
+            .search_bar{
+                .input-group{
+                    background: #F6F8FC;
+                    border-radius: 6px;
+                    .form-control{
+                        border: none;
+                        background-color: transparent;
+                        padding: 12px 12px 12px 0;
+                        width: 210px;
+                        &::placeholder{
+                            font-weight: 400;
+                            font-size: $font_small;
+                            line-height: 24px;
+                        }
+                        &:focus{
+                            box-shadow: none;
+                        }
+                    }
+                    .btn{
+                        padding: 0;
+                        border: none;
+                        .mat-icon{
+                            line-height: 50px;
+                            height: 50px;
+                            width: 50px;
+                            color: #9B9B9B;
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+            .content_wrap{
+                .policy{
+                    margin: 0 0 0 20px;
+                    label{
+                        margin-right: 12px;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            padding: 0;
+                            .mat-form-field-flex{
+                                background-color: #EBF0F4;
+                                border: 1px solid #EBF0F4;
+                                .mat-form-field-infix{
+                                    width: 200px;
+                                    .mat-select{
+                                        .mat-select-value{
+                                            color: $formfiled_color;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+                            .mat-form-field-underline{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .btn_detail{
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 12px 42px;
+            p{
+                margin: 0;
+            }
+        }
+
+    }
+    .table-wrap table tr td:last-child .mat-icon {
+        margin: 0 0 0 auto;
+    }
+
+
+    .bottom_bar{
+        table{
+            border-radius: 15px;
+            tr{
+                td{
+                    .status {
+                        font-size: $font_extra_small;
+                        background-color: #FBF3EA;
+                        color: #FF7354;
+                        border-radius: 18.5px;
+                        padding: 7px 21px;
+                        &.active{
+                            background-color: #EBFBEE;
+                            color: #72D284;
+                        }
+                        &.exprired{
+                            background-color: #d81e1e;
+                            color: #141212;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,213 @@
+@import '../../../../../assets/css/variable/variable';
+
+.patient_detail {
+    .main_title{
+        margin: 0 0 15px;
+    }
+    .profile_data{
+        background: #ffffff;
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;
+        background: #ffffff;
+        margin: 0 0 30px;
+        .profile_info{
+            padding: 25px 25px 25px;
+            position: relative; 
+            ul{
+                display: grid;
+                align-items: end;
+                grid-gap: 15px;
+                grid-template-columns: repeat(4, 1fr);
+                border-bottom: 1px solid #C4CDEA;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
+                padding-left: 0;
+                padding-right: 0;
+                .col_item{
+                    display: flex;
+                    align-items:center;
+                    min-height: 60px;
+                    .profile_image{
+                        width: 95px;
+                        height: 95px;
+                        min-width: 95px;
+                        margin: 0 20px 0 0;
+                        border-radius: 50%;
+                        overflow: hidden;
+                    }
+                    .profile_contact{
+                        .profile_title{
+                            font-size: 20px;
+                            font-weight: 600;
+                            line-height: 24px;
+                            letter-spacing: 0em;
+                            color: $linkcolor;
+                            margin: 0 0 15px;
+                        }
+                        .lable{
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            letter-spacing: 0.05em;
+                            color: $bodyopacitylightcolor;
+                            margin: 0 0 6px;
+                        }
+                        .user_value{
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: $linkcolor;
+                            letter-spacing: 0.05em;
+                        }
+                    }
+                }
+                &.profile_info_with_img{
+                    grid-template-columns: 285px repeat(5, 1fr);
+                }
+                &.profile_secondary_info{
+                    grid-template-columns: repeat(5, 1fr);
+                }
+                &:last-child{
+                    border-bottom: none;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+        .emergency_contact{
+            .profileinfo_title{
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                color: $bodycolor;
+            }
+        }
+        &.insurance{
+            .profile_info{
+                ul{
+                    .col_item {
+                        align-items: baseline;    
+                        .profile_image{
+                            width: 140px;
+                            height: 85px;
+                            border-radius: 7px;
+                        }
+                    }
+                    &.profile_info_with_img{      
+                        grid-template-columns: 285px repeat(4, 1fr);
+                    }
+                }
+            }      
+        }
+    }
+    .patient_details_tab{
+        ::ng-deep {
+            .mat-tab-header {
+                margin: 0 0 30px;
+                border-bottom: none;
+                .mat-tab-list {
+                    .mat-tab-labels {
+                        padding: 7px 12px;
+                        background: #F6F8FC;
+                        border: 1px solid #B6C8D6;
+                        border-radius: 15px;
+                        .mat-tab-label {
+                            font-family: $font_family_body, $font_sans_sarif;
+                            height: 40px;
+                            padding: 0 30px;
+                            min-width: 120px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: $bodyopacitylightcolor;
+                            opacity: 1;
+                        }
+                        .mat-tab-label.mat-tab-label-active {
+                            font-weight: 700;
+                            color: #0C2F49;
+                        }
+                    }
+                    .mat-ink-bar {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .tab_content {
+            .top_bar{
+                margin: 0 0 20px;
+                .main_title{
+                    margin: 0;
+                }
+            }
+            .bottom_bar{
+                .primary_btn{
+                    justify-content: flex-end;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$desktop_large) {
+    .patient_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: 285px repeat(3, 1fr);
+    }
+    .patient_detail .profile_data.insurance .profile_info ul.profile_info_with_img {
+        grid-template-columns: 285px repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width:$desktop) {
+    .patient_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: 285px repeat(2, 1fr);
+    }
+    .patient_detail .profile_data .profile_info ul.profile_secondary_info{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .patient_detail .profile_data.insurance .profile_info ul.profile_info_with_img {
+        grid-template-columns: 285px repeat(2, 1fr);
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .patient_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .patient_detail .profile_data .profile_info ul{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .patient_detail .profile_data .profile_info ul.profile_secondary_info{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .patient_detail .profile_data.insurance .profile_info ul.profile_info_with_img {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .patient_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .patient_detail .profile_data .profile_info ul{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .patient_detail .profile_data .profile_info ul.profile_secondary_info{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .patient_detail .profile_data.insurance .profile_info ul.profile_info_with_img {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .profile_data .profile_info ul .profile_image_wrapper{
+        flex-direction: column;
+    }
+    .patient_detail .profile_data .profile_info ul .col_item{
+        align-items: flex-start;
+    }
+    .patient_detail .profile_data .profile_info ul .col_item .profile_image{
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+        margin: 0 0 15px;
+    }
+}

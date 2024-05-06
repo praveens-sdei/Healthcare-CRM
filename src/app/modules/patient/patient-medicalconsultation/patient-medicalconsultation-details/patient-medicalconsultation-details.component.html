@@ -1,0 +1,1759 @@
+<div class="insurance_medicines dashboard_main_content common_space">
+    <div class="user_insurance pt-30">
+        <div class="row">
+            <div class="col-md-6 mt-3 mt-md-0">
+                <div class="user_insurance_block">
+                    <p>{{'this_claim_for'| translate}} :</p>
+                    <p class="value">{{ allDetails?.insurerType=='primaryInsurer'?'Primary Insurer':"Secondary Insurer"
+                        }}</p>
+                </div>
+            </div>
+            <div class="col-md-6 mt-3 mt-md-0">
+                <div class="user_insurance_block">
+                    <p>{{'insurance_type'| translate}} :</p>
+                    <!-- {{subscriber_details}} -->
+                    <p class="value">{{ subscriber_details?.subscriber_type }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="export_list mt-3">
+        <!-- <div class="inner_exprot_list">
+        <div class="primary_btn">
+          <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+            <mat-icon>description</mat-icon>Download Claim Template
+          </button>
+        </div>
+        <div class="primary_btn">
+          <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+            <mat-icon>description</mat-icon>View Attached Documents
+          </button>
+        </div>
+      </div> -->
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-3">
+                <div class="primary_btn">
+                    <a href="{{allDetails?.previewtemplateUrl}}"> <button type="button" class="btn btn-primary">
+                            <mat-icon>download</mat-icon>{{'download_calim_template'| translate}}
+                        </button></a>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="primary_btn">
+                    <button type="button" class="btn btn-primary"
+                        (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+                        <mat-icon>description</mat-icon>{{'view_attached_documents'| translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{'primary_insurer_identity'| translate}} </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="expansion_panel">
+                    <div class="expansion_panel_inner">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{"first_name"| translate}}:</p>
+                                        <p>
+                                            {{findvalue('First Name')==''?'-':findvalue('First Name')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{"middle_name"| translate}}:</p>
+                                        <p>
+                                            {{findvalue('Middle Name')==''?'-':findvalue('Middle Name')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{"last_name"| translate}}:</p>
+                                        <p>
+                                            {{findvalue('Last Name')==''?'-':findvalue('Last Name')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{"gender"| translate}}:</p>
+                                        <p>
+                                            {{findvalue('Gender')==''?'-':findvalue('Gender')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block last_child">
+                                    <div class="detail_section">
+                                        <p>{{"date_of_birth"| translate}}:</p>
+                                        <p>{{findvalue('Date Of Birth')==''?'-':findvalue('Date Of Birth') |
+                                            date:"MM-dd-YYYY"}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{"age"| translate}}:</p>
+                                            <p>{{findvalue('Age')==''?'-':(findvalue('Age')+' yrs')}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{"insurance_ID"| translate}}:</p>
+                                            <p>{{findvalue('Insurance ID')==''?'-':findvalue('Insurance ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>{{"insurance_validity"| translate}}:</p>
+                                            <p>{{"from"| translate}}: {{findvalue('Insurance From Date')==''?'-':findvalue('Insurance
+                                                From Date') |
+                                                date:"MM-dd-YYYY"}} {{"to"| translate}}: {{findvalue('Insurance To
+                                                Date')==''?'-':findvalue('Insurance To Date')
+                                                | date:"MM-dd-YYYY"}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{"policy_ID"| translate}}:</p>
+                                            <p>{{findvalue('Policy ID')==''?'-':findvalue('Policy ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'card_ID'| translate}}:</p>
+                                            <p>{{findvalue('Card ID')==''?'-':findvalue('Card ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>{{'emplloyee_ID'| translate}}:</p>
+                                            <p>{{findvalue('Employee ID')==''?'-':findvalue('Employee ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'insurance_holder'| translate}}:</p>
+                                            <p>{{findvalue('Insurance Holder Name')==''?'-':findvalue('Insurance Holder
+                                                Name')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'reimbursement'| translate}}:</p>
+                                            <p>{{findvalue('Reimbursement')==''?'-':(findvalue('Reimbursement')+' %')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                    <div class="outer_detail_block last_child">
+                      <div class="detail_section">
+                        <p>Registration Number:</p>
+                        <p>541287636201320</p>
+                      </div>
+                    </div>
+                  </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="subscribe_detail_inner mt-30" *ngIf="allDetails?.insurerType=='secondaryInsurer'">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{'secondary_insurer_identity'| translate}} </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="expansion_panel">
+                    <div class="expansion_panel_inner">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'first_name'| translate}}:</p>
+                                        <p>{{findvaluesecondary('First Name')==''?'-':findvaluesecondary('First Name')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'middle_name'| translate}}:</p>
+                                        <p>{{findvaluesecondary('Middle Name')==''?'-':findvaluesecondary('Middle
+                                            Name')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'last_name'| translate}}:</p>
+                                        <p>{{findvaluesecondary('Last Name')==''?'-':findvaluesecondary('Last Name')}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{"gender"| translate}}:</p>
+                                        <p>{{findvaluesecondary('Gender')==''?'-':findvaluesecondary('Gender')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block last_child">
+                                    <div class="detail_section">
+                                        <p>{{'date_of_birth'| translate}}:</p>
+                                        <p>{{findvaluesecondary('Date Of Birth')==''?'-':findvaluesecondary('Date Of
+                                            Birth') |
+                                            date:"MM-dd-YYYY"}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'age'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Age')==''?'-':(findvaluesecondary('Age')+' yrs')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'insurance_ID'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Insurance
+                                                ID')==''?'-':findvaluesecondary('Insurance ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>{{'insurance_validity'| translate}}:</p>
+                                            <p>{{"from"| translate}}: {{findvaluesecondary('Insurance From
+                                                Date')==''?'-':findvaluesecondary('Insurance From
+                                                Date') | date:"MM-dd-YYYY"}} {{"to"| translate}}: {{findvaluesecondary('Insurance To
+                                                Date')==''?'-':findvaluesecondary('Insurance To Date') |
+                                                date:"MM-dd-YYYY"}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'policy_ID'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Policy ID')==''?'-':findvaluesecondary('Policy
+                                                ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'card_ID'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Card ID')==''?'-':findvaluesecondary('Card ID')}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>{{'emplloyee_ID'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Employee ID')==''?'-':findvaluesecondary('Employee
+                                                ID')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="expansion_other_panel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'insurance_holder'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Insurance Holder
+                                                Name')==''?'-':findvaluesecondary('Insurance Holder
+                                                Name')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>{{'reimbursement'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Reimbursement')==''?'-':(findvaluesecondary('Reimbursement')+'
+                                                %')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>{{'relation_with_the_pirmary_insured'| translate}}:</p>
+                                            <p>{{findvaluesecondary('Relation With The Primary
+                                                Insured')==''?'-':findvaluesecondary('Relation
+                                                With The Primary Insured')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="expansion_other_panel">
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="outer_detail_block two_block">
+                      <div class="detail_section">
+                        <p>Relation with the Pirmary Insured:</p>
+                        <p>Wife</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{'deliver_information'| translate}} </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="expansion_panel">
+                    <div class="expansion_panel_inner">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'deliver_centre'| translate}}:</p>
+                                        <p>{{ allDetails?.deliverCenterName }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'deliver_information_name'| translate}}:</p>
+                                        <p>
+                                            {{ allDetails?.deliverCenterInfo?.deliverFirstName }}
+                                            {{ allDetails?.deliverCenterInfo?.deliverMiddleName }}
+                                            {{ allDetails?.deliverCenterInfo?.deliverLastName }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="outer_detail_block last_child">
+                                    <div class="detail_section">
+                                        <p>{{'deliver_information_role'| translate}}:</p>
+                                        <p>{{ allDetails?.deliverCenterInfo?.deliverTitle }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner contact_analysis mt-30">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ "contract_analysis" | translate }}
+                        <div class="form_field_wrapper contract">
+                            <mat-form-field appearance="fill">
+                                <mat-select disableRipple placeholder="Primary Insurer">
+                                    <mat-option value="1">Option 1</mat-option>
+                                    <mat-option value="2">Option 2</mat-option>
+                                    <mat-option value="3">Option 3</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="expansion_panel">
+                    <div class="service_limit">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 border-gray">
+                                <div class="outer_service">
+                                    <div class="header_title">
+                                        <h3>{{ "category_service_limit" | translate }}</h3>
+                                    </div>
+                                    <div class="total_category">
+                                        <p>
+                                            {{ "total" | translate }}<br />
+                                            {{ "category" | translate }}
+                                        </p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>5</p>
+                                        <div class="progress yellow">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 25%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 15 000
+                                            </div>
+                                        </div>
+                                        <p>15%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>3</p>
+                                        <div class="progress red">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 30%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 25 000
+                                            </div>
+                                        </div>
+                                        <p>30%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>2</p>
+                                        <div class="progress blue">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 30%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 30 000
+                                            </div>
+                                        </div>
+                                        <p>30%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>4</p>
+                                        <div class="progress darkblue">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 20%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 20 000
+                                            </div>
+                                        </div>
+                                        <p>15%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>8</p>
+                                        <div class="progress green">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 40%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 40 000
+                                            </div>
+                                        </div>
+                                        <p>40%</p>
+                                    </div>
+                                    <div class="detail_description">
+                                        <ul>
+                                            <li>
+                                                <div class="line yellow"></div>
+                                                <p>{{ "medical_consultation" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line red"></div>
+                                                <p>{{ "medical_health_products" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line blue"></div>
+                                                <p>{{ "mental_health_care" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line darkblue"></div>
+                                                <p>{{ "surgery" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line green"></div>
+                                                <p>{{ "surgical_hospitalization" | translate }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 border-gray">
+                                <div class="outer_service">
+                                    <div class="header_title">
+                                        <h3>{{ "service_limit" | translate }}</h3>
+                                    </div>
+                                    <div class="total_category">
+                                        <p>
+                                            {{ "total" | translate }}<br />
+                                            {{ "category" | translate }}
+                                        </p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>5</p>
+                                        <div class="progress yellow">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 20%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 15 000
+                                            </div>
+                                        </div>
+                                        <p>15%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>3</p>
+                                        <div class="progress red">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 30%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 25 000
+                                            </div>
+                                        </div>
+                                        <p>30%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>2</p>
+                                        <div class="progress blue">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 30%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 30 000
+                                            </div>
+                                        </div>
+                                        <p>30%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>4</p>
+                                        <div class="progress darkblue">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 20%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 20 000
+                                            </div>
+                                        </div>
+                                        <p>15%</p>
+                                    </div>
+                                    <div class="ratio_line">
+                                        <p>8</p>
+                                        <div class="progress green">
+                                            <div class="progress-bar" role="progressbar"
+                                                aria-label="Success example" style="width: 40%" aria-valuenow="25"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{"total"| translate}}: 40 000
+                                            </div>
+                                        </div>
+                                        <p>40%</p>
+                                    </div>
+                                    <div class="detail_description">
+                                        <ul>
+                                            <li>
+                                                <div class="line yellow"></div>
+                                                <p>{{ "general_practitioner" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line red"></div>
+                                                <p>{{ "medical_health_products" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line blue"></div>
+                                                <p>{{ "mental_health_care" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line darkblue"></div>
+                                                <p>{{ "surgery" | translate }}</p>
+                                            </li>
+                                            <li>
+                                                <div class="line green"></div>
+                                                <p>{{ "surgical_hospitalization" | translate }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 border-gray">
+                                <div class="outer_service">
+                                    <div class="header_title">
+                                        <h3>
+                                            {{ "total_assured_amount_of_all_service" | translate }}
+                                        </h3>
+                                    </div>
+                                    <div class="doughnut_chart2_main canvas_wrap mt-5">
+                                        <canvas baseChart [datasets]="doughnutChart2Datasets"
+                                            [options]="doughnutChart2Options" [legend]="true" [type]="'doughnut'">
+                                        </canvas>
+                                    </div>
+                                    <div class="detail_description chart">
+                                        <ul>
+                                            <li>
+                                                <div class="line yellow"></div>
+                                                <div class="detail_section">
+                                                    <p>35 000 {{"cfa"| translate}}</p>
+                                                    <p>{{'available_amount'| translate}}</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="line green"></div>
+                                                <div class="detail_section">
+                                                    <p>85 000 {{'cfa'| translate}}</p>
+                                                    <p>{{'used_amount'| translate}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 border-gray">
+                                <div class="outer_service">
+                                    <div class="header_title">
+                                        <h3>
+                                            {{
+                                            "family_total_insured_amount_of_all_services"
+                                            | translate
+                                            }}
+                                        </h3>
+                                    </div>
+                                    <div class="doughnut_chart_main canvas_wrap mt-5">
+                                        <canvas baseChart [datasets]="doughnutChartDatasets"
+                                            [options]="doughnutChartOptions" [legend]="true" [type]="'doughnut'">
+                                        </canvas>
+                                    </div>
+                                    <div class="detail_description chart">
+                                        <ul>
+                                            <li>
+                                                <div class="line yellow"></div>
+                                                <div class="detail_section">
+                                                    <p>197 500 {{'cfa'| translate}}</p>
+                                                    <p>{{'available_amount'| translate}}</p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="line blue"></div>
+                                                <div class="detail_section">
+                                                    <p>85 000 {{'cfa'| translate}}</p>
+                                                    <p>{{'used_amount'| translate}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{'prescibing_centre'| translate}} </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="expansion_panel">
+                    <div class="expansion_panel_inner">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'name_of_the_centre'| translate}}:</p>
+                                        <p>
+                                            {{ allDetails?.prescriberCenterInfo?.prescriberCenter }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'prescriber_first_name'| translate}}:</p>
+                                        <p>
+                                            {{
+                                            allDetails?.prescriberCenterInfo?.prescriberFirstName
+                                            }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block">
+                                    <div class="detail_section">
+                                        <p>{{'prescriber_last_name'| translate}}:</p>
+                                        <p>
+                                            {{ allDetails?.prescriberCenterInfo?.prescriberLastName }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="outer_detail_block last_child">
+                                    <div class="detail_section">
+                                        <p>{{'specialist'| translate}}:</p>
+                                        <p>
+                                            {{ allDetails?.prescriberCenterInfo?.prescriberSpecialty }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <div class="expansion_panel">
+                    <div class="table-wrap">
+                        <div class="table-inner">
+                            <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                                <ng-container matColumnDef="medicinename">
+                                    <th mat-header-cell *matHeaderCellDef>{{'reason_of_consultation'| translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <!-- {{element |json}} -->
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.reasonOfConsultation)}">{{
+                                            element?.reasonOfConsultation }}
+                                            <!-- <span *ngIf="checkmedicine(element?.medicineName)"
+                                                ngbTooltip="This medicine is excluded in your health plan"> <i
+                                                    class="fa fa-info-circle" style="color: red;"></i></span>  -->
+                                                </span>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="totalamount">
+                                    <th mat-header-cell *matHeaderCellDef>{{'total_amount'| translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+                                            {{ element?.totalCost ? (element?.totalCost | number:'1.2-2') + " CFA" : ""
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="copayment">
+                                    <th mat-header-cell *matHeaderCellDef>{{'co_pay_amount'| translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+
+                                            {{ element?.coPayment ? (element?.coPayment | number:'1.2-2') + " CFA" : ""
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="requestedamount">
+                                    <th mat-header-cell *matHeaderCellDef>{{'requested_amount'| translate}}</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+                                            {{ element?.requestAmount ? (element?.requestAmount | number:'1.2-2') + "
+                                            CFA" : "" }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- <ng-container matColumnDef="frequency">
+                                    <th mat-header-cell *matHeaderCellDef>Frequency</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+                                            {{ element?.frequency }}
+                                        </span>
+                                    </td>
+                                </ng-container> -->
+
+                                <!-- <ng-container matColumnDef="unitpackprescribed">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        Unit/Pack Prescribed
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+                                            {{
+                                            element?.quantityPrescribed
+                                            ? element?.quantityPrescribed + " Packs"
+                                            : ""
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container> -->
+
+                                <!-- <ng-container matColumnDef="quantitydelivered">
+                                    <th mat-header-cell *matHeaderCellDef>Quantity Delivered</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <span [ngClass]="{'excludedcheck':checkmedicine(element?.medicineName)}">
+                                            {{
+                                            element?.quantityDelivered
+                                            ? element?.quantityDelivered + " Packs"
+                                            : ""
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container> -->
+
+
+
+                                <ng-container *ngFor="let column of dynamiccolumns" [matColumnDef]="column.columnDef">
+                                    <!-- <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell> -->
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        {{ column.header }}
+
+                                    </th>
+                                    <td mat-cell *matCellDef="let element; let index = index">
+                                        <!-- {{ element[column.columnDef] }} -->
+
+
+
+                                        <a class="icon_group_status">
+                                            <a class="{{
+                            checkLoginUser(element.staffData,element._id,column.staffRoleID)?.type == 'approved'
+                              ? 'approved'
+                              : 'rejected'
+                          }}">{{
+                                                checkLoginUser(element.staffData,element._id,column.staffRoleID)?.type
+                                                == 'approved'
+                                                ? "Approved"
+                                                : "Rejected"
+                                                }}
+                                                {{
+                                                    checkLoginUser(element.staffData, element._id, column.staffRoleID)?.type == 'approved'
+                                                    ? ' - Amount: (' + (element?.staffData[0]?.amount ?? '') + ')'
+                                                    : ''
+                                                    }}</a>
+                                            &nbsp;
+
+                                            <img class="img-fluid"
+                                                src="../../../../../assets/img/insurance-medicines/info_details.svg"
+                                                alt="approve"
+                                                title="{{   checkLoginUser(element.staffData,element._id,column.staffRoleID)?.comment }}" />
+                                        </a>
+
+
+                                    </td>
+                                </ng-container>
+
+
+                                <!-- <ng-container matColumnDef="medicalanalysis">
+                    <th mat-header-cell *matHeaderCellDef>Medical Analysis</th>
+                  
+                    <td mat-cell *matCellDef="let element">
+                      <a
+                        class="{{
+                          element?.cfo?.isApproved === null
+                            ? 'pending'
+                            : element?.cfo?.isApproved
+                            ? 'approved'
+                            : 'rejected'
+                        }}"
+                        >{{
+                          element?.cfo?.isApproved === null
+                            ? "Pending"
+                            : element?.cfo?.isApproved
+                            ? "Approved"
+                            : "Rejected"
+                        }}</a
+                      >
+                    </td>
+                  
+                  </ng-container>
+  
+                  <ng-container matColumnDef="comment">
+                    <th mat-header-cell *matHeaderCellDef>Comment</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element?.medicalAdvisor?.comment }}
+                    </td>
+                  </ng-container> -->
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnss"></tr>
+                            </table>
+                            <div class="text-center" *ngIf="dataSources.length ==0">
+                                <h2>{{'no_data_found'| translate}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner mt-30">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ "accident_details" | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion_panel primary-insurer-identity-panel custom-expansion-panel">
+              <div class="expansion_panel_inner">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-xxl col-lg-6 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "Is_related_to_an_accident" | translate }} </p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.subscriber_first_name
+        :claimDetailssubscriberDetails?.subscriber_first_name
+        }} -->
+                            {{
+                            findvalueAccident("Is It Related To An Accident") == ""
+                            ? "-"
+                            : findvalueAccident("Is It Related To An Accident")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl col-lg-6 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "accident_date" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.subscriber_middle_name
+        :claimDetailssubscriberDetails?.subscriber_middle_name
+        }} -->
+                            {{
+                            findvalueAccident("Accident Date") == ""
+                            ? "-"
+                            : findvalueAccident("Accident Date")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl col-lg-6 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "accident_type" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.subscriber_last_name
+        :claimDetailssubscriberDetails?.subscriber_last_name
+        }} -->
+                            {{
+                            findvalueAccident("Accident Type") == ""
+                            ? "-"
+                            : findvalueAccident("Accident Type")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl col-lg-6 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "reason" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.gender
+        :claimDetailssubscriberDetails?.gender
+        }} -->
+                            {{
+                            findvalueAccident("Comment") == "" ? "-" : findvalueAccident("Comment")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl col-lg-12 expansion-outline">
+                      <div class="outer_detail_block last_child">
+                        <div class="detail_section">
+                          <p>{{ "is_there_an_official_report" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        ( Primarydetails?.primarysubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+        :(claimDetailssubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+        }} -->
+                            {{
+                            findvalueAccident("Is There An Official Report") == ""
+                            ? "-"
+                            : findvalueAccident("Is There An Official Report")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-3 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "is_there_a_responsible_third_party" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.age
+        :claimDetailssubscriberDetails?.age
+        }} -->
+                            {{
+                            findvalueAccident("Is There A Responsible Third Party") == ""
+                            ? "-"
+                            : findvalueAccident("Is There A Responsible Third Party")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "First Name" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.insurance_id
+        :claimDetailssubscriberDetails?.insurance_id
+        }} -->
+                            {{
+                            findvalueAccident("First Name") == ""
+                            ? "-"
+                            : findvalueAccident("First Name")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-6 expansion-outline">
+                      <div class="outer_detail_block last_child">
+                        <div class="detail_section">
+                          <p>{{ "Last Name" | translate }}</p>
+                          <p>
+                            {{
+                            findvalueAccident("Last Name") == ""
+                            ? "-"
+                            : findvalueAccident("Last Name")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-4 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "phone_number" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.policy_id
+        :claimDetailssubscriberDetails?.policy_id
+        }} -->
+                            {{
+                            findvalueAccident("Phone Number") == ""
+                            ? "-"
+                            : findvalueAccident("Phone Number")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-4 expansion-outline">
+                      <div class="outer_detail_block">
+                        <div class="detail_section">
+                          <p>{{ "address" | translate }}</p>
+                          <p>
+                            <!-- {{
+        claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+        Primarydetails?.primarysubscriberDetails?.card_id
+        :claimDetailssubscriberDetails?.card_id
+        }} -->
+                            {{
+                            findvalueAccident("Address") == ""
+                            ? "-"
+                            : findvalueAccident("Address")
+                            }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+
+    <div class="expansion_panel_inner last_table_data">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="outer_detail_block">
+                    <div class="detail_section">
+                        <p>{{ "total" | translate }}:</p>
+                        <p>{{ totalCoPayment ? (totalCoPayment | number:'1.2-2') + " CFA" : "" }}</p>
+
+                        <!-- <p>{{ totalCost ? (totalCost | number:'1.2-2') + " CFA" : "" }}</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="outer_detail_block">
+                    <div class="detail_section">
+                        <p>{{ "co-payment" | translate }}:</p>
+                        <p>{{ totalCost ? (totalCost | number:'1.2-2') + " CFA" : "" }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="outer_detail_block">
+                    <div class="detail_section">
+                        <p>{{'total_amount_approved'| translate}} : <span>
+                                {{
+                                lastElement
+
+                                ? lastElement
+                                : " - "
+                                }}
+                            </span></p>
+
+                        <p>{{'total_amount_rejected'| translate}} : <span>
+                                {{
+                                (totalToBePaidByInsurance -
+                                lastElement | number : "1.2-2")
+                                }}
+                            </span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                        <p>{{ "to_be_paid_by_the_insurance" | translate }}:</p>
+                        <p>
+                            {{
+                            totalToBePaidByInsurance
+                            ? (totalToBePaidByInsurance | number:'1.2-2') + " CFA"
+                            : "0 CFA"
+                            }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                    <div class="detail_section" *ngFor=" let data of uniqueRole">
+                        <p>{{'total_amount_approved_by'| translate}} {{data.roleInfoData}} : <span>
+                                {{
+                                data.amount
+
+                                ? data.amount
+                                : " - "
+                                }}
+                            </span></p>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-3">
+          <div class="outer_detail_block last_child">
+            <div class="detail_section">
+              <p>Total Approved Amount:</p>
+              <p>
+                {{
+                totalApprovedAmountByCFO
+                ? (totalApprovedAmountByCFO | number:'1.2-2') + " CFA"
+                : "0 CFA"
+                }}
+              </p>
+            </div>
+          </div>
+        </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #viewdocumentdetails let-modal>
+    <div class="custome_modal">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{'view_attached_documents'| translate}}</h4>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- {{allDetails.medicineclaimdocs | json}} -->
+            <div class="row">
+                <div class="col-md-2 col-sm-6" *ngFor="let claimdata of allDetails.medicineclaimdocs; let i=index">
+                    <a href="{{claimdata.document_signed_url}}"> <span class="downloadicon">
+                            <mat-icon>download</mat-icon>
+                        </span></a>
+
+                    <img src="{{claimdata.document_signed_url}}" class="documentimage">
+                    <span>{{claimdata.fileName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- old -->
+
+<!-- <div class="medicalcliam_details dashboard_main_content">
+    <div class="top_bar">
+        <div class="primary_btn">
+            <button type="button" class="btn btn-primary">
+                <a class="btn_svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" viewBox="0 0 17 20" fill="none">
+                        <path d="M10.0707 6.07809V0.948675C10.8107 1.22266 11.4829 1.64774 12.0427 2.19573L14.8299 4.92985C15.3895 5.47799 15.8234 6.13683 16.1027 6.8624H10.8707C10.6585 6.8624 10.455 6.77977 10.305 6.63268C10.155 6.48559 10.0707 6.2861 10.0707 6.07809ZM16.4707 8.81142V15.4899C16.4694 16.5295 16.0476 17.5263 15.2977 18.2614C14.5479 18.9966 13.5312 19.4102 12.4707 19.4114H4.4707C3.41023 19.4102 2.39355 18.9966 1.64368 18.2614C0.893809 17.5263 0.471973 16.5295 0.470703 15.4899V4.50946C0.471973 3.46978 0.893809 2.47303 1.64368 1.73787C2.39355 1.0027 3.41023 0.589136 4.4707 0.587891L8.0827 0.587891C8.2131 0.587891 8.3419 0.598087 8.4707 0.606714V6.07809C8.4707 6.70213 8.72356 7.30061 9.17365 7.74187C9.62373 8.18313 10.2342 8.43103 10.8707 8.43103H16.4515C16.4603 8.5573 16.4707 8.68358 16.4707 8.81142ZM10.0707 15.4899C10.0707 15.2818 9.98642 15.0823 9.83639 14.9353C9.68636 14.7882 9.48288 14.7055 9.2707 14.7055H5.2707C5.05853 14.7055 4.85505 14.7882 4.70502 14.9353C4.55499 15.0823 4.4707 15.2818 4.4707 15.4899C4.4707 15.6979 4.55499 15.8974 4.70502 16.0444C4.85505 16.1915 5.05853 16.2742 5.2707 16.2742H9.2707C9.48288 16.2742 9.68636 16.1915 9.83639 16.0444C9.98642 15.8974 10.0707 15.6979 10.0707 15.4899ZM12.4707 12.3526C12.4707 12.1446 12.3864 11.9451 12.2364 11.798C12.0864 11.6509 11.8829 11.5683 11.6707 11.5683H5.2707C5.05853 11.5683 4.85505 11.6509 4.70502 11.798C4.55499 11.9451 4.4707 12.1446 4.4707 12.3526C4.4707 12.5606 4.55499 12.7601 4.70502 12.9072C4.85505 13.0543 5.05853 13.1369 5.2707 13.1369H11.6707C11.8829 13.1369 12.0864 13.0543 12.2364 12.9072C12.3864 12.7601 12.4707 12.5606 12.4707 12.3526Z"/>
+                        </svg>
+                </a>
+                View Attached Documents
+            </button>
+        </div>
+    </div>
+    <div class="bottom_bar">
+        <div class="user_insurance">
+            <div class="row">
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="user_insurance_block">
+                        <p>This Claim for :</p>
+                        <p class="value">Primary Insurer</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="user_insurance_block">
+                        <p>Insurance Type :</p>
+                        <p class="value">Individual Insurance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="subscribe_detail_inner mt-30">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Primary Insurer Identity
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expansion_panel">
+                        <div class="expansion_panel_inner">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>First Name:</p>
+                                            <p>Adama</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>Last Name:</p>
+                                            <p>Traore</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>Gender:</p>
+                                            <p>Male</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>Date of birth:</p>
+                                            <p>01/01/1970</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Age:</p>
+                                                <p>58 yrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Insurance ID:</p>
+                                                <p>1222222</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Insurance Validity:</p>
+                                                <p>From: 01/01/2020 To: 01/01/2026</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Policy ID:</p>
+                                                <p>547891232</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Card ID:</p>
+                                                <p>547891</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Employee ID:</p>
+                                                <p>54128763</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Insurance Holder:</p>
+                                                <p>Zodo Company</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Reimbursement:</p>
+                                                <p>80%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Registration Number:</p>
+                                                <p>541287636201320</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="subscribe_detail_inner mt-30">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Secondary Insurer Identiry
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expansion_panel">
+                        <div class="expansion_panel_inner">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>First Name:</p>
+                                            <p>Adama</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>Last Name:</p>
+                                            <p>Traore</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block">
+                                        <div class="detail_section">
+                                            <p>Gender:</p>
+                                            <p>Male</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="outer_detail_block last_child">
+                                        <div class="detail_section">
+                                            <p>Date of birth:</p>
+                                            <p>01/01/1970</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Age:</p>
+                                                <p>58 yrs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Insurance ID:</p>
+                                                <p>1222222</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Insurance Validity:</p>
+                                                <p>From: 01/01/2020 To: 01/01/2026</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Policy ID:</p>
+                                                <p>547891232</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Card ID:</p>
+                                                <p>547891</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Employee ID:</p>
+                                                <p>54128763</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Insurance Holder:</p>
+                                                <p>Zodo Company</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block">
+                                            <div class="detail_section">
+                                                <p>Reimbursement:</p>
+                                                <p>80%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="outer_detail_block last_child">
+                                            <div class="detail_section">
+                                                <p>Registration Number:</p>
+                                                <p>541287636201320</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="expansion_other_panel">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="outer_detail_block two_block">
+                                            <div class="detail_section ">
+                                                <p>Relation with the Pirmary Insured:</p>
+                                                <p>Wife</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    
+        <div class="subscribe_detail_inner mt-30">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Details
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expansion_panel">
+                        <div class="table-wrap">
+                            <div class="table-inner">
+                                <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+    
+    
+                                    <ng-container matColumnDef="retailpharmacy">
+                                        <th mat-header-cell *matHeaderCellDef>Retail Pharmacy</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{element.retailpharmacy}}
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="pharmacist">
+                                        <th mat-header-cell *matHeaderCellDef> Pharmacist</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.pharmacist}} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="prescribercentre">
+                                        <th mat-header-cell *matHeaderCellDef>Prescriber Centre</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.prescribercentre}}
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="prescriber">
+                                        <th mat-header-cell *matHeaderCellDef>Prescriber</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.prescriber}} </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="physiciantitle">
+                                        <th mat-header-cell *matHeaderCellDef>Physician Title</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.physiciantitle}}
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="paidbyinsured">
+                                        <th mat-header-cell *matHeaderCellDef>Paid by the Insured</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.paidbyinsured}}
+                                        </td>
+                                    </ng-container>
+    
+    
+                                    <ng-container matColumnDef="totalamount">
+                                        <th mat-header-cell *matHeaderCellDef>Total Amount</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.totalamount}}
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="medicalanalysis">
+                                        <th mat-header-cell *matHeaderCellDef>Medical Analysis</th>
+                                      
+                                        <td mat-cell *matCellDef="let element">
+                                            <div class="icon_group">
+                                                <a class="svgicon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0599 1.01833C16.0083 1.03131 15.9168 1.06637 15.8565 1.09623C15.7963 1.1261 13.6881 3.17305 11.1711 5.64552L6.59516 10.1405L4.42834 8.01378C2.90597 6.51963 2.21962 5.86623 2.12068 5.81702C1.93063 5.72247 1.62585 5.7201 1.44584 5.81179C1.27792 5.89732 1.11027 6.0835 1.04128 6.26109C0.973349 6.43591 0.990558 6.67834 1.08333 6.85368C1.17701 7.03082 6.14003 11.8938 6.28893 11.9544C6.43815 12.0151 6.75154 12.0152 6.90107 11.9546C7.04975 11.8942 16.8279 2.29847 16.9293 2.11334C17.0233 1.94181 17.0236 1.60932 16.93 1.43668C16.7605 1.12428 16.3752 0.939004 16.0599 1.01833Z" fill="#72D284" stroke="#72D284" stroke-width="0.5"/>
+                                                        </svg>
+                                                </a>
+                                                <a class="svgicon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.732011 0.0273918C0.447072 0.0832955 0.198888 0.27729 0.0752607 0.540672C0.0156383 0.667687 0.00265662 0.734558 0.00265662 0.914713C0.00260185 1.33793 -0.182811 1.12777 2.9456 4.25067L5.71266 7.01287L2.92336 9.80275C0.656614 12.07 0.122038 12.6183 0.0699202 12.7294C-0.0215539 12.9245 -0.0235805 13.2738 0.0656477 13.4679C0.145373 13.6413 0.319666 13.8216 0.495603 13.9124C0.693998 14.0149 1.00909 14.0292 1.23506 13.946C1.39388 13.8874 1.49305 13.792 4.19981 11.0924L7.00026 8.29945L9.78684 11.0782C12.0251 13.3101 12.6004 13.8698 12.7104 13.9222C12.8253 13.977 12.8892 13.9875 13.1075 13.9871C13.3354 13.9868 13.3848 13.9777 13.5057 13.9144C13.6735 13.8264 13.8586 13.6316 13.9383 13.459C14.0237 13.2742 14.0198 12.9204 13.9303 12.7294C13.8782 12.6183 13.3436 12.07 11.0769 9.80275L8.28757 7.01287L11.0546 4.25067C14.183 1.12777 13.9976 1.33793 13.9976 0.914713C13.9976 0.735542 13.9845 0.667769 13.9265 0.544912C13.7048 0.075282 13.1486 -0.118303 12.6839 0.112396C12.6115 0.148307 11.6127 1.12575 9.78679 2.9473L7.00012 5.72741L4.21345 2.9473C2.38758 1.12575 1.38871 0.148307 1.31635 0.112396C1.22367 0.0663931 0.919259 -0.00917537 0.867141 0.000916846C0.858623 0.00255786 0.797796 0.0144552 0.732011 0.0273918Z" fill="#FF7354"/>
+                                                        </svg>
+                                                </a>
+                                            </div>
+                                        </td>
+                                     
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef>{{'action'|translate}}</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <div class="icon_group">
+                                                <a class="svgicon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z" fill="#0B4977"/>
+                                                        </svg>
+                                                </a>
+                                              
+                                            </div>
+                                        </td>
+                                    </ng-container>
+    
+                          
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnss;"></tr>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="expansion_panel_inner last_table_data">
+                            <div class="row">
+                            <div class="col-md-4">
+                                <div class="outer_detail_block">
+                                <div class="detail_section">
+                                    <p>Total</p>
+                                    <p>50 000 CFA</p>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="outer_detail_block">
+                                <div class="detail_section">
+                                    <p>Co-Payment</p>
+                                    <p>11 000 CFA</p>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="outer_detail_block last_child">
+                                <div class="detail_section">
+                                    <p>To be paid by the Insurance</p>
+                                    <p> 39 000 CFA</p>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="review_send">
+                            <div class="inner_review_send">
+                                <ul class="search_list">
+                                    <li>
+                                        <div class="primary_btn">
+                                            <button type="button" class="btn btn-primary">
+                                                Review
+                                            </button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_send">
+                                            <div class="notify">
+                                                <p>Select Notification Recipients</p>
+                                                <a class="svgicon">
+                                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path opacity="0.15" fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M6.11591 0.0388641C3.53288 0.391143 1.40424 2.05956 0.459047 4.47271C0.13993 5.28741 0 6.05754 0 6.999C0 8.17418 0.232255 9.15496 0.75255 10.177C1.82301 12.2799 3.89752 13.7151 6.2377 13.9719C6.57282 14.0087 7.42955 14.0095 7.75556 13.9733C11.0236 13.6107 13.6188 11.0178 13.9722 7.76207C14.0088 7.42575 14.0094 6.56879 13.9733 6.24386C13.7127 3.89373 12.2828 1.81976 10.189 0.754928C9.42286 0.365276 8.73007 0.151943 7.86087 0.0379579C7.47175 -0.013062 6.4929 -0.0125403 6.11591 0.0388641ZM7.31631 2.64283C7.65242 2.73279 7.99111 2.99824 8.13692 3.28605C8.39487 3.7952 8.31588 4.34835 7.92563 4.76562C7.42038 5.30586 6.58081 5.30586 6.07556 4.76562C5.90027 4.57818 5.81494 4.42367 5.75087 4.17763C5.54972 3.40516 6.17389 2.61213 6.98687 2.60727C7.09256 2.60664 7.24081 2.62265 7.31631 2.64283ZM7.39905 6.14789C7.62895 6.227 7.76391 6.31366 7.92887 6.48811C8.09066 6.65924 8.22057 6.91019 8.26287 7.1333C8.27978 7.22249 8.29074 7.86493 8.29049 8.75328C8.29005 10.35 8.28453 10.4206 8.13692 10.7119C8.0973 10.7902 7.99462 10.9244 7.90875 11.0103C7.49733 11.4218 6.92071 11.5069 6.38438 11.2352C6.20785 11.1458 5.95542 10.8918 5.86427 10.7119C5.71666 10.4206 5.71114 10.35 5.7107 8.75328C5.71045 7.86493 5.72141 7.22249 5.73832 7.1333C5.79888 6.81389 6.01384 6.48797 6.29049 6.29622C6.57559 6.0986 7.06539 6.03305 7.39905 6.14789Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                            <div class="searching_list">
+    
+                                                <mat-form-field class="example-chip-list" appearance="fill">
+                                                    <mat-chip-list #chipList aria-label="user selection">
+                                                        <mat-chip *ngFor="let user of user" (removed)="remove(user)">
+                                                            {{user}}
+                                                            <button matChipRemove>
+                                                                <mat-icon>cancel</mat-icon>
+                                                            </button>
+                                                        </mat-chip>
+                                                        <input placeholder="Add Users" #userInput [formControl]="userCtrl"
+                                                            [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                            (matChipInputTokenEnd)="add($event)">
+                                                    </mat-chip-list>
+                                                    <mat-autocomplete #auto="matAutocomplete"
+                                                        (optionSelected)="selected($event)">
+                                                        <mat-option *ngFor="let user of filtereduser | async"
+                                                            [value]="user">
+                                                            {{user}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="primary_btn">
+                                            <button type="button" class="btn btn-primary">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>  -->

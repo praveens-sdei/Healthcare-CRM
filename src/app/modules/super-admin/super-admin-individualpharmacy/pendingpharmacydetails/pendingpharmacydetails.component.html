@@ -1,0 +1,364 @@
+<div class="pharmacy_details dashboard_main_content">
+  <div class="button-container">
+    <div class="back_button" [routerLink]="['/super-admin/individualpharmacy']">
+      <button class="btn btn-primary">{{ "back" | translate }}</button>
+    </div>
+
+    <div class="back_button">
+      <button class="btn btn-primary">{{ verifyStatus }}</button>
+    </div>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              [src]="
+                pharmacyProfile
+                  ? pharmacyProfile
+                  : '../../../assets/img/hospital.png'
+              "
+            />
+
+            <!-- bhjvhvhnhj
+            <img src="../../../assets/img/hospital.png"> -->
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">{{ pharmacyName }}</div>
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ pharmacyEmail }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">
+              ({{ pharCountryCode }}) {{ pharmacyPhone }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">{{ address }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">
+              {{ pharmacyJoinDate | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>{{ "about" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <p>{{ about }}</p>
+    </div>
+  </div>
+
+  <h3>{{ "picture" | translate }}</h3>
+  <div class="hospital_img">
+    <div class="row">
+      <div class="item col-sm-3 col-xl-2" *ngFor="let pic of pharmacyPictures">
+        <img src="{{ pic }}" width="170px" height="170px" />
+      </div>
+      <!-- <div class="item col-sm-3 col-xl-2">
+                <img src="../../../../../assets/img/hospital_img.png">
+            </div>
+            <div class="item col-sm-3 col-xl-2">
+                <img src="../../../../../assets/img/hospital_img.png">
+            </div>
+            <div class="item col-sm-3 col-xl-2">
+                <img src="../../../../../assets/img/hospital_img.png">
+            </div> -->
+    </div>
+  </div>
+
+  <h3>{{ "license" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img
+              src="{{
+                licenseDetails?.licence_picture
+                  ? licenseDetails?.licence_picture
+                  : '../../../../../assets/img/doc.png'
+              }}"
+            />
+            <!-- <img src="../../../../../assets/img/doc.png" /> -->
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "license_number" | translate }}</label>
+          <div class="value">{{ licenseDetails?.id_number }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "licence_validity" | translate }}</label>
+          <div class="value">
+            {{ licenseDetails?.expiry_date | date : "dd/MM/YYYY" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <h3>Document</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img src="../../../../../assets/img/doc.png" />
+          </div>
+        </div>
+        <div class="item_info">
+          <label>Document Name</label>
+          <div class="value">Lorem ipsum dolor</div>
+        </div>
+        <div class="item_info">
+          <label>Issue Date</label>
+          <div class="value">22-05-2018</div>
+        </div>
+        <div class="item_info">
+          <label>Expiration Date</label>
+          <div class="value">22-05-2030</div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <h3>Subscription Plan</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <label>Plan</label>
+          <div class="value">Plan A</div>
+        </div>
+        <div class="item_info">
+          <label>Features</label>
+          <div class="value">Manage 10 Staff, Manage 10 Doctor</div>
+        </div>
+        <div class="item_info">
+          <label>Plan Price</label>
+          <div class="value">$149.00</div>
+        </div>
+        <div class="item_info">
+          <label>Plan Type</label>
+          <div class="value">Half yearly</div>
+        </div>
+        <div class="item_info">
+          <label>Purchase Date</label>
+          <div class="value">15-04-2022</div>
+        </div>
+        <div class="item_info">
+          <label>Expiry Date</label>
+          <div class="value">15-04-2025</div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <h3>{{ "mobile_pay_details" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <label>{{ "name_of_mobile_provider" | translate }}</label>
+          <div class="value">{{ payDetails?.provider }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "mobile_pay_number" | translate }}</label>
+          <div class="value">{{ payDetails?.pay_number }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "bank_details" | translate }}</h3>
+  <div class="profile_data bank_details">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info user_img_wrap">
+          <div class="user_img">
+            <img src="../../../../../assets/img/bank_img.png" />
+          </div>
+          <div class="user_img_info">
+            <label>{{ "bank_name" | translate }}</label>
+            <div class="value">{{ bankDetails?.bank_name }}</div>
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "account_holder_name" | translate }}</label>
+          <div class="value">{{ bankDetails?.account_holder_name }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "account_number" | translate }}</label>
+          <div class="value">{{ bankDetails?.account_number }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "ifsc" | translate }}</label>
+          <div class="value">{{ bankDetails?.ifsc_code }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "bank_address" | translate }}</label>
+          <div class="value">{{ bankDetails?.bank_address }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "Association Group" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <ng-container *ngIf="profileDetails?.association?.enabled === false">
+          <div class="item_info">
+            <label>{{ "association_or_group" | translate }}</label>
+            <div class="value">
+              {{ profileDetails?.association?.enabled === true ? "Yes" : "No" }}
+            </div>
+          </div>
+        </ng-container>
+        <div class="item_info">
+          <label>{{ "group_name" | translate }}</label>
+          <div class="value">{{ associationGroupname }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "on_duty_group" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <ng-container *ngIf="profileDetails?.duty_group?.enabled === false">
+          <div class="item_info">
+            <label>{{ "on_duty_group" | translate }}</label>
+            <div class="value">
+              {{ profileDetails?.duty_group?.enabled === true ? "Yes" : "No" }}
+            </div>
+          </div>
+        </ng-container>
+        <div class="item_info">
+          <label>{{ "group_name" | translate }}</label>
+          <div class="value">{{ onDutyCity }}-{{ onDutyGroupNo }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="tabsId == 0">
+    <div class="primary_btn">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="openVerticallyCenteredreject(reject)"
+      >
+        {{ "reject" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="openVerticallyCenteredapproved(approved)"
+      >
+        {{ "approve" | translate }}
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tabsId == 1">
+    <div class="primary_btn">
+      <button type="button" class="btn btn-secondary" (click)="backpage()">
+        {{ "back" | translate }}
+      </button>
+      <ng-container *ngIf="giveInnerPermission('assign_role')">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="showPermission()"
+      >
+        {{ "edit_role_permission" | translate }}
+      </button>
+    </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_approve_pharmacy" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="approveRejectPharmacy('APPROVED')"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Reject modal -->
+<ng-template #reject let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_reject_pharmacy" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="approveRejectPharmacy('DECLINED')"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,462 @@
+<div class="subscribe_detail dashboard_main_content common_space">
+  <h2 class="d-flex align-items-center">
+    <mat-icon [routerLink]="['/insurance/insurance-subscribers']"
+      >arrow_back_ios</mat-icon
+    >
+    {{ "back" | translate }}
+  </h2>
+  <div class="grid-accordion-view-main mt-4">
+    <h2>
+      {{ subscriberDetails.subscription_for }}
+      {{ "subscriber_details" | translate }}
+    </h2>
+    <div class="grid-accordion-view">
+      <div
+        class="expansion_panel custom-expansion-panel primary-subscriber-details-panel"
+      >
+        <div class="expansion_panel_inner">
+          <div class="row">
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "first_name" | translate }}:</p>
+                  <p>{{ subscriberDetails.subscriber_first_name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "last_name" | translate }}:</p>
+                  <p>{{ subscriberDetails.subscriber_last_name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "gender" | translate }}:</p>
+                  <p>{{ subscriberDetails.gender }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "date_of_birth" | translate }}:</p>
+                  <p>
+                    {{ subscriberDetails.date_of_birth | date : "dd/MM/YYYY" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "age" | translate }}:</p>
+                  <p>{{ subscriberDetails.age }} yrs</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "insurance_id" | translate }}:</p>
+                  <p>{{ subscriberDetails.insurance_id }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6 col-md-12 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "insurance_validity" | translate }}:</p>
+                  <p>
+                    {{ "from" | translate }}:
+                    {{ subscriberDetails.insurance_validity_from }}
+                    {{ "to" | translate }}:
+                    {{ subscriberDetails.insurance_validity_to }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "policy_ID" | translate }}:</p>
+                  <p>{{ subscriberDetails.policy_id }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "card_ID" | translate }}:</p>
+                  <p>{{ subscriberDetails.card_id }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "employee_ID" | translate }}:</p>
+                  <p>{{ subscriberDetails.employee_id }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "insurance_holder" | translate }}:</p>
+                  <p>{{ subscriberDetails.insurance_holder_name }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "reimbursement" | translate }}:</p>
+                  <p>
+                    {{
+                      subscriberDetails.reimbersement_rate
+                        ? subscriberDetails.reimbersement_rate
+                        : ""
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "registration_number" | translate }}:</p>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "mobile_number" | translate }}:</p>
+                  <p>{{ subscriberDetails.mobile }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-accordion-view-main mt-5">
+    <h2>{{ "health_plan_details" | translate }}</h2>
+    <div class="grid-accordion-view mt-3">
+      <div
+        class="expansion_panel custom-expansion-panel health-plan-details-panel"
+      >
+        <div class="expansion_panel_inner">
+          <div class="row">
+            <div class="col-xxl-4 col-md-12 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "policy_ID" | translate }}:</p>
+                  <p>55483123554</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "type_of_insurance" | translate }}:</p>
+                  <p>15000</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-md-6 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>{{ "health_plan_name" | translate }}:</p>
+                  <p>{{ subscriberDetails.health_plan_for.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "description" | translate }}</p>
+                  <p>{{ subscriberDetails.health_plan_for.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xxl-4 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "total_primary_care_limit" | translate }}:</p>
+                  <p>
+                    {{
+                      subscriberDetails.health_plan_for.total_care_limit
+                        .primary_care_limit
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-md-6 expansion-outline">
+              <div class="outer_detail_block">
+                <div class="detail_section">
+                  <p>{{ "total_secondary_care_limit" | translate }}:</p>
+                  <p>
+                    {{
+                      subscriberDetails.health_plan_for.total_care_limit
+                        .secondary_care_limit
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-4 col-lg-12 expansion-outline">
+              <div class="outer_detail_block last_child">
+                <div class="detail_section">
+                  <p>
+                    {{ "total_primary_and_secondary_care_limit" | translate }}:
+                  </p>
+                  <p>
+                    {{
+                      subscriberDetails.health_plan_for.total_care_limit
+                        .grand_total
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-main mt-5">
+    <div class="accordion-wrap">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "services" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "category" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.category }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="primarySecondarycatLimit">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "primary_and_secondary_category_limit" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.primaryAndSecondaryCategoryLimit }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="service">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "service" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.service }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="primarySecondaryServcLimit">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "primary_and_secondary_service_limit" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.primaryAndSecondaryServiceLimit }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reimbursmentrate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "reimbursment_rate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.reimbursmentrate }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="servicelimit">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "service_limit" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.servicelimit }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="servicecondition">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "service_condition" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.servicecondition }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="categorylimit">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "category_limit" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.categorylimit }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="categorycondition">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "category_condition" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.categorycondition }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="preauthorization">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "pre_authorization" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.preauthorization }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="waitingperiod">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "waiting_period" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.waitingperiod }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="waitingperiodredeemed">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "waiting_period_redeemed" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.waitingperiodredeemed }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="primary_btn justify-content-end mt-3">
+      <button type="button" class="btn btn-primary">
+        <mat-icon>share</mat-icon>{{ "export" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="accordion-main mt-5">
+    <div class="accordion-wrap">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "exclusion" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table
+                mat-table
+                [dataSource]="dataSources"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="categoryofexclusion">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "category_of_exclusion" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.categoryofexclusion }}
+                  </td>
+                </ng-container>
+
+                <ng-container
+                  matColumnDef="exclusioninninternationalnonpropertynames"
+                >
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{
+                      "exclusion_INN_international_non_property_names"
+                        | translate
+                    }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.exclusioninninternationalnonpropertynames }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="brandname">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "brand_name" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.brandname }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="comment">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "comment" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.comment }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnss"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="primary_btn justify-content-end mt-3">
+      <button type="button" class="btn btn-primary">
+        <mat-icon>share</mat-icon>{{ "export" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,457 @@
+<div class="user_invite dashboard_main_content login_time">
+  <div class="top_bar">
+    <div class="left_part">
+      <div class="search_bar common_content">
+        <div class="input-group">
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search..."
+            aria-label="Search"
+            [ngModel]="searchKey"
+            #text
+            (keyup)="handleSearchFilter($event)"
+            (search)="handleSearchFilter($event)"
+          />
+        </div>
+      </div>
+      <div class="content_wrap">
+        <div class="policy date_pick">
+          <label>{{ "from" | translate }}:</label>
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                [max]="endDateFilter"
+                [(ngModel)]="startDateFilter"
+                (dateChange)="handleSelectStartDateFilter($event)"
+                matInput
+                [matDatepicker]="picker1"
+                placeholder="{{ 'from_date' | translate }}"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="policy date_pick">
+          <label>{{ "to" | translate }}:</label>
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [min]="startDateFilter"
+                [(ngModel)]="endDateFilter"
+                (dateChange)="handleSelectEndDateFilter($event)"
+                [matDatepicker]="picker2"
+                placeholder="{{ 'to_date' | translate }}"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- <div class="policy date">
+            <div class="form_field_wrapper">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
+                  [matDatepicker]="picker"
+                  placeholder="Start date"
+                  [(ngModel)]="searchWithDate"
+                  (dateChange)="handleSearchWithDate($event)"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div> -->
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-link" (click)="clearFilter()">
+          {{ "clear_all" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="right_part">
+      <div class="primary_btn">
+        <ng-container *ngIf="giveInnerPermission('add')">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="openVerticallyCenterednewinvite(newinvitecontent)"
+        >
+          <a class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7.30426 2.72927C2.30765 4.6541 0.197158 5.4967 0.113133 5.60044C-0.0370295 5.78582 -0.0376969 5.94699 0.111064 6.12124C0.202897 6.22884 4.6307 8.40076 4.75817 8.40076C4.78613 8.40076 5.91109 7.62046 9.82693 4.88491C10.3713 4.50467 10.794 4.23203 10.7662 4.27919C10.7385 4.32629 9.78762 5.69403 8.65319 7.3186L6.59069 10.2723L7.6724 12.5219C8.26737 13.7592 8.8137 14.824 8.88651 14.8882C9.05543 15.0373 9.28608 15.0373 9.4564 14.8882C9.587 14.774 14.9372 0.832328 14.9963 0.452285C15.0317 0.22434 14.8093 -0.00627371 14.5601 0.000130373C14.4592 0.00273203 11.194 1.23085 7.30426 2.72927Z"
+              /></svg></a
+          >{{ "new_invitation" | translate }}
+        </button>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('first_name')"
+            >
+              {{ "name" | translate }}
+              <span
+                *ngIf="sortColumn === 'first_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.first_name }}
+            </td>
+          </ng-container>
+
+          <!--Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('email')">
+              {{ "email" | translate }}
+              <span
+                *ngIf="sortColumn === 'email'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="text-transform: lowercase"
+            >
+              {{ element.email }}
+            </td>
+          </ng-container>
+
+          <!--Phone Column -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('phone')">
+              {{ "phone" | translate }}
+              <span
+                *ngIf="sortColumn === 'phone'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.phone }}
+            </td>
+          </ng-container>
+
+          <!-- Location -->
+          <ng-container matColumnDef="location">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('address')"
+            >
+              {{ "location" | translate }}
+              <span
+                *ngIf="sortColumn === 'address'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.address }}
+            </td>
+          </ng-container>
+
+          <!-- Invite Date -->
+          <ng-container matColumnDef="invitedate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('createdAt')"
+            >
+              {{ "invite_date" | translate }}
+              <span
+                *ngIf="sortColumn === 'createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.createdAt }}
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container
+                *ngIf="element.verify_status === 'SEND'; else pending"
+              >
+                <a class="retrived">{{ "reinvite" | translate }} </a>
+              </ng-container>
+              <ng-template #pending>
+                <a class="retrived">{{ element.verify_status }} </a>
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <ng-container *ngIf="giveInnerPermission('reinvite')">
+                <a
+                  class="svgicon"
+                  (click)="openVerticallyEdit(newinvitecontent, element._id)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.30426 2.72927C2.30765 4.6541 0.197158 5.4967 0.113133 5.60044C-0.0370295 5.78582 -0.0376969 5.94699 0.111064 6.12124C0.202897 6.22884 4.6307 8.40076 4.75817 8.40076C4.78613 8.40076 5.91109 7.62046 9.82693 4.88491C10.3713 4.50467 10.794 4.23203 10.7662 4.27919C10.7385 4.32629 9.78762 5.69403 8.65319 7.3186L6.59069 10.2723L7.6724 12.5219C8.26737 13.7592 8.8137 14.824 8.88651 14.8882C9.05543 15.0373 9.28608 15.0373 9.4564 14.8882C9.587 14.774 14.9372 0.832328 14.9963 0.452285C15.0317 0.22434 14.8093 -0.00627371 14.5601 0.000130373C14.4592 0.00273203 11.194 1.23085 7.30426 2.72927Z"
+                    />
+                  </svg>
+                </a>
+              </ng-container>
+                <!-- <a
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCenteredsecond(deleteInvitation, element._id)
+                    "
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="16"
+                      viewBox="0 0 14 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.2153 2.93223C13.5071 2.93223 13.75 3.17447 13.75 3.48272V3.76772C13.75 4.06846 13.5071 4.31821 13.2153 4.31821H0.78539C0.492895 4.31821 0.25 4.06846 0.25 3.76772V3.48272C0.25 3.17447 0.492895 2.93223 0.78539 2.93223H2.97217C3.41639 2.93223 3.80298 2.61648 3.90291 2.17098L4.01743 1.65949C4.1954 0.962745 4.78112 0.5 5.45145 0.5H8.54855C9.21158 0.5 9.80387 0.962745 9.97528 1.62274L10.0978 2.17023C10.197 2.61648 10.5836 2.93223 11.0286 2.93223H13.2153ZM12.1044 13.3505C12.3327 11.2228 12.7324 6.16784 12.7324 6.11684C12.747 5.96235 12.6967 5.8161 12.5967 5.69835C12.4895 5.5881 12.3538 5.52285 12.2043 5.52285H1.80139C1.65113 5.52285 1.50817 5.5881 1.40897 5.69835C1.30831 5.8161 1.25871 5.96235 1.266 6.11684C1.26734 6.12621 1.28168 6.30428 1.30566 6.60197C1.41219 7.92441 1.70888 11.6076 1.90059 13.3505C2.03626 14.6345 2.87874 15.4415 4.09905 15.4708C5.04072 15.4925 6.01084 15.5 7.00284 15.5C7.93722 15.5 8.88619 15.4925 9.85704 15.4708C11.1197 15.449 11.9614 14.6563 12.1044 13.3505Z"
+                      /></svg
+                  ></a> -->
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div *ngIf="dataSource?.length === 0" class="text-center">
+        <b>{{ "no_record_found" | translate }}</b>
+      </div>
+      <mat-paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------------------------------New Invitation modal---------------------------------------- -->
+<div class="new_invite">
+  <ng-template #newinvitecontent let-modal>
+    <div class="custome_modal login_time">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "send_new_invitation" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closePopup()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newInvitationForm" (ngSubmit)="newInvitation()">
+          <div class="row">
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "first_name" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="first_name" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['first_name'].errors?.['required']"
+                >
+                  {{ "first_name_is_required" | translate }}*
+                </span>
+              </div>
+            </div>
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "middle_name" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="middle_name" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['middle_name'].errors?.['required']"
+                >
+                  {{ "middle_name_is_req" | translate }}*
+                </span>
+              </div>
+            </div>
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "last_name" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="last_name" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['last_name'].errors?.['required']"
+                >
+                  {{ "last_name_is_required" | translate }}*
+                </span>
+              </div>
+            </div>
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "email" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="email" matInput formControlName="email" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['email'].errors?.['required']"
+                >
+                  {{ "email_required" | translate }}*
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['email'].errors?.['pattern']"
+                >
+                  {{ "invalid_email" | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "phone_number" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="phone" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['phone'].errors?.['required']"
+                >
+                  {{ "mobile_is_required" | translate }}*
+                </span>
+              </div>
+            </div>
+            <div class="item col-md-6 mb-3">
+              <div class="form_field_wrapper">
+                <label>{{ "address" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="address" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && form['address'].errors?.['required']"
+                >
+                  {{ "address_is_required" | translate }}*
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="primary_btn mb-3">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="closePopup()"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!----------------------------------------- Delete modal --------------------------------------->
+<ng-template #deleteInvitation let-modal>
+  <div class="custome_modal action_modals login_time">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_delete_this_invitation" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

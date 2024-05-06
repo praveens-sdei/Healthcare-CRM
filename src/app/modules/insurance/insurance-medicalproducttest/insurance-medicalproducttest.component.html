@@ -1,0 +1,1103 @@
+<div class="medicalproducttest dashboard_main_content border_radius_block">
+  <div class="medicalproducttest_inner">
+    <mat-tab-group (selectedIndexChange)="tabChanged($event)">  
+      <ng-container *ngIf="giveInnerPermission('medicine_list')" >
+        <mat-tab label="Medicine">
+          <div class="primary_btn">
+            <ng-container *ngIf="giveInnerPermission('export')">
+              <button
+            
+              type="button"
+              class="btn btn-primary"
+              (click)="export('medicine')"
+              [disabled]="!isTabSelected"
+            >
+              <mat-icon
+                role="img"
+                class="mat-icon notranslate material-icons mat-icon-no-color"
+                aria-hidden="true"
+                data-mat-icon-type="font"
+                >share</mat-icon
+              >{{ "export" | translate }}
+            </button> 
+            </ng-container>
+            
+                 
+          </div>
+  
+          <div class="searchbar_wrap">
+            <div class="searchbar">
+              <div class="searchbox">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    (keyup)="handleSearchFilterForMedicine($event)"
+                    (search)="handleSearchFilterForMedicine($event)"
+                    aria-label="Search"
+                  />
+                  <button class="btn search-btn">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="table-wrap">
+            <div class="table-inner without_pagination_block_three">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Complain Type Column -->
+                <ng-container matColumnDef="medicinename">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="onSortData('medicine.medicine_name')"
+                  >
+                    {{ "medicine_name" | translate }}
+                    <span
+                      *ngIf="sortColumn === 'medicine.medicine_name'"
+                      class="material-icons sorticon"
+                      >{{ sortIconClass }}</span
+                    >
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.medicinename }}
+                    <span class="complaint_i ms-2">
+                      <img
+                        class="img-fluid"
+                        src="../../../../assets/img/ii.svg"
+                        (click)="getMedicineDetails(element?.id)"
+                      />
+                    </span>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+              <div *ngIf="medicineDataSource?.length === 0" class="text-center">
+                <b>{{ "no_record_found" | translate }}</b>
+              </div>
+  
+              <mat-paginator
+                class="pagination"
+                [length]="totalLength"
+                (page)="handleMedicinePageEvent($event)"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>      
+      
+
+
+      <ng-container *ngIf="giveInnerPermission('lab_list')">
+        <mat-tab label="Lab Test">
+          <div class="primary_btn">
+  
+            <ng-container  *ngIf="giveInnerPermission('export')">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="export('lab')"
+              [disabled]="!isTabSelected"
+            >
+              <mat-icon
+                role="img"
+                class="mat-icon notranslate material-icons mat-icon-no-color"
+                aria-hidden="true"
+                data-mat-icon-type="font"
+                >share</mat-icon
+              >{{ "export" | translate }}
+            </button>
+          </ng-container>
+          </div>
+  
+          <div class="searchbar_wrap">
+            <div class="searchbar">
+              <div class="searchbox">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    (keyup)="handleSearchFilterForLabTest($event)"
+                    (search)="handleSearchFilterForLabTest($event)"
+                    aria-label="Search"
+                  />
+                  <button class="btn search-btn">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="table-wrap">
+            <div class="table-inner without_pagination_block_three">
+              <table
+                mat-table
+                [dataSource]="dataSourceone"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Complain Type Column -->
+                <ng-container matColumnDef="labtest">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="onSortData('lab_test')"
+                  >
+                    {{ "lab_test" | translate }}
+                    <span
+                      *ngIf="sortColumn === 'lab_test'"
+                      class="material-icons sorticon"
+                      >{{ sortIconClass }}</span
+                    >
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.labtest }}
+                    <span class="complaint_i ms-2">
+                      <img
+                        class="img-fluid"
+                        src="../../../../assets/img/ii.svg"
+                        (click)="
+                          openVerticallyCenteredlabtest(labtestcontent, element)
+                        "
+                      />
+                    </span>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsone"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnsone"
+                ></tr>
+              </table>
+              <div *ngIf="labDataSource?.length === 0" class="text-center">
+                <b>{{ "no_record_found" | translate }}</b>
+              </div>
+  
+              <mat-paginator
+                class="pagination"
+                [length]="labtotalLength"
+                (page)="handleLabPageEvent($event)"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+      
+
+     
+      <ng-container *ngIf="giveInnerPermission('imaging_list')">
+        <mat-tab label="Imaging">
+          <div class="primary_btn">
+            <ng-container  *ngIf="giveInnerPermission('export')">
+  
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="export('imaging')"
+              [disabled]="!isTabSelected"
+            >
+              <mat-icon
+                role="img"
+                class="mat-icon notranslate material-icons mat-icon-no-color"
+                aria-hidden="true"
+                data-mat-icon-type="font"
+                >share</mat-icon
+              >{{ "export" | translate }}
+            </button>
+          </ng-container>
+          </div>
+  
+          <div class="searchbar_wrap">
+            <div class="searchbar">
+              <div class="searchbox">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    (keyup)="handleSearchFilterForImaging($event)"
+                    (search)="handleSearchFilterForImaging($event)"
+                    aria-label="Search"
+                  />
+                  <button class="btn search-btn">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="table-wrap">
+            <div class="table-inner without_pagination_block_three">
+              <table
+                mat-table
+                [dataSource]="dataSourcetwo"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Complain Type Column -->
+                <ng-container matColumnDef="imagingname">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="onSortData('imaging')"
+                  >
+                    {{ "imaging_name" | translate }}
+                    <span
+                      *ngIf="sortColumn === 'imaging'"
+                      class="material-icons sorticon"
+                      >{{ sortIconClass }}</span
+                    >
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.imaging }}
+                    <span class="complaint_i ms-2">
+                      <img
+                        class="img-fluid"
+                        src="../../../../assets/img/ii.svg"
+                        (click)="getImagingDetails(element._id)"
+                      />
+                    </span>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumnstwo"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnstwo"
+                ></tr>
+              </table>
+              <div *ngIf="imagingdataSource?.length === 0" class="text-center">
+                <b>{{ "no_record_found" | translate }}</b>
+              </div>
+  
+              <mat-paginator
+                class="pagination"
+                [length]="imagingtotalLength"
+                (page)="handleImagingPageEvent($event)"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+      
+
+   
+      <ng-container *ngIf="giveInnerPermission('vaccination_list')">
+        <mat-tab label="Vaccination">
+          <div class="primary_btn">
+            <ng-container  *ngIf="giveInnerPermission('export')">
+  
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="export('vaccination')"
+              [disabled]="!isTabSelected"
+            >
+              <mat-icon
+                role="img"
+                class="mat-icon notranslate material-icons mat-icon-no-color"
+                aria-hidden="true"
+                data-mat-icon-type="font"
+                >share</mat-icon
+              >{{ "export" | translate }}
+            </button>
+            </ng-container>
+          </div>
+  
+          <div class="searchbar_wrap">
+            <div class="searchbar">
+              <div class="searchbox">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    (keyup)="handleSearchFilterForVaccination($event)"
+                    (search)="handleSearchFilterForVaccination($event)"
+                    aria-label="Search"
+                  />
+                  <button class="btn search-btn">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="table-wrap">
+            <div class="table-inner without_pagination_block_three">
+              <table
+                mat-table
+                [dataSource]="dataSourcethree"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Complain Type Column -->
+                <ng-container matColumnDef="vaccinationname">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="onSortData('name')"
+                  >
+                    {{ "vaccination_name" | translate }}
+                    <span
+                      *ngIf="sortColumn === 'name'"
+                      class="material-icons sorticon"
+                      >{{ sortIconClass }}</span
+                    >
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.name }}
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsthree"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnsthree"
+                ></tr>
+              </table>
+              <div
+                *ngIf="vaccinationdataSource?.length === 0"
+                class="text-center"
+              >
+                <b>{{ "no_record_found" | translate }}</b>
+              </div>
+  
+              <mat-paginator
+                class="pagination"
+                [length]="vaccinationtotalLength"
+                (page)="handleVaccinationPageEvent($event)"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+
+      </ng-container>
+      
+
+ 
+      <ng-container *ngIf="giveInnerPermission('others_list')">
+        <mat-tab label="Other">
+          <div class="primary_btn">
+            <ng-container  *ngIf="giveInnerPermission('export')">
+  
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="export('other')"
+              [disabled]="!isTabSelected"
+            >
+              <mat-icon
+                role="img"
+                class="mat-icon notranslate material-icons mat-icon-no-color"
+                aria-hidden="true"
+                data-mat-icon-type="font"
+                >share</mat-icon
+              >{{ "export" | translate }}
+            </button>
+            </ng-container>
+          </div>
+  
+          <div class="searchbar_wrap">
+            <div class="searchbar">
+              <div class="searchbox">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search..."
+                    (keyup)="handleSearchFilterForOtherName($event)"
+                    (search)="handleSearchFilterForOtherName($event)"
+                    aria-label="Search"
+                  />
+                  <button class="btn search-btn">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="table-wrap">
+            <div class="table-inner without_pagination_block_three">
+              <table
+                mat-table
+                [dataSource]="dataSourcefour"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Complain Type Column -->
+                <ng-container matColumnDef="othername">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    (click)="onSortData('others')"
+                  >
+                    {{ "other_name" | translate }}
+                    <span
+                      *ngIf="sortColumn === 'others'"
+                      class="material-icons sorticon"
+                      >{{ sortIconClass }}</span
+                    >
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.others }}
+                    <span class="complaint_i ms-2">
+                      <img
+                        class="img-fluid"
+                        src="../../../../assets/img/ii.svg"
+                        (click)="getOthersDetails(element._id)"
+                      />
+                    </span>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsfour"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnsfour"
+                ></tr>
+              </table>
+              <div *ngIf="imagingdataSource?.length === 0" class="text-center">
+                <b>{{ "no_record_found" | translate }}</b>
+              </div>
+  
+              <mat-paginator
+                class="pagination"
+                [length]="otherstotalLength"
+                (page)="handleOthersPageEvent($event)"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+      
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- -----------------------------------Medicine MODAL--------------------------------------- -->
+<div class="medicine">
+  <ng-template #medicinecontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Medicine</h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "medicine_name" | translate }}</div>
+                <div class="value">{{ medicineName }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "INN" | translate }}</div>
+                <div class="value">{{ inn }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "dosage" | translate }}</div>
+                <div class="value">{{ dossage }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "pharmaceutical_formulation" | translate }}
+                </div>
+                <div class="value">{{ pharmaFormulation }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "adminstration_route" | translate }}</div>
+                <div class="value">{{ adminRoute }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "therapeutic_class" | translate }}</div>
+                <div class="value">{{ therapeuticClass }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "manufacturer" | translate }}</div>
+                <div class="value">{{ manuFacturer }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "condition_of_prescription_and_delivery" | translate }}
+                </div>
+                <div class="value">{{ presciptionDelivery }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "Other" | translate }}</div>
+                <div class="value">{{ other }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "link" | translate }}</div>
+                <div class="value">
+                  <a href="#">{{ webLink }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------Lab test modal---------------------------------------- -->
+<div class="labtest">
+  <ng-template #labtestcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "lab_test" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "category" | translate }}</div>
+                <div class="value">{{ category }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "lab_test" | translate }}</div>
+                <div class="value">{{ lab_test }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "description" | translate }}</div>
+                <div class="value">{{ description }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "contributing_factors_to_abnormal_values" | translate }}
+                </div>
+                <div class="value">
+                  {{ contributing_factors_to_abnormal_values }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "normal_value" | translate }}</div>
+                <div class="sub_label">{{ "blood" | translate }}</div>
+                <div class="value">{{ blood }}</div>
+                <!-- <div class="value">Long established fact</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "normal_value" | translate }}
+                </div>
+                <div class="sub_label">{{ "blood" | translate }}</div>
+                <div class="value">{{ urine }}</div>
+                <!-- <div class="value">Lorem Ipsum</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{
+                    "possible_interpretation_of_abnormal_blood_value"
+                      | translate
+                  }}
+                </div>
+                <div class="sub_label">{{ "high_levels" | translate }}</div>
+                <div class="value">{{ blood_high }}</div>
+                <!-- <div class="value">Mylan</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{
+                    "possible_interpretation_of_abnormal_blood_value"
+                      | translate
+                  }}
+                </div>
+                <div class="sub_label">{{ "low_levels" | translate }}</div>
+                <div class="value">{{ blood_low }}</div>
+                <!-- <div class="value">To be initiated at hospital</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{
+                    "possible_interpretation_of_abnormal_urine_value"
+                      | translate
+                  }}
+                </div>
+                <div class="sub_label">{{ "high_levels" | translate }}</div>
+                <div class="value">{{ urine_high }}</div>
+                <!-- <div class="value">Mylan</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{
+                    "possible_interpretation_of_abnormal_urine_value"
+                      | translate
+                  }}
+                </div>
+                <div class="sub_label">{{ "low_levels" | translate }}</div>
+                <div class="value">{{ urine_low }}</div>
+                <!-- <div class="value">To be initiated at hospital</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "blood_procedure" | translate }}</div>
+                <div class="sub_label">{{ "before" | translate }}</div>
+                <div class="value">{{ bloodprocess_before }}</div>
+                <!-- <div class="value">Lorem Ipsum</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "blood_procedure" | translate }}
+                </div>
+                <div class="sub_label">{{ "during" | translate }}</div>
+                <div class="value">{{ blood_process_during }}</div>
+                <!-- <div class="value">Long established fact</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "blood_procedure" | translate }}
+                </div>
+                <div class="sub_label">{{ "After" | translate }}</div>
+                <div class="value">{{ blood_process_after }}</div>
+                <!-- <div class="value">Lorem Ipsum</div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "urine_procedure" | translate }}</div>
+                <div class="sub_label">{{ "before" | translate }}</div>
+                <div class="value">{{ urine_process_before }}</div>
+                <!-- <div class="value">Lorem Ipsum</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "urine_procedure" | translate }}
+                </div>
+                <div class="sub_label">{{ "during" | translate }}</div>
+                <div class="value">{{ urine_process_during }}</div>
+                <!-- <div class="value">Long established fact</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "urine_procedure" | translate }}
+                </div>
+                <div class="sub_label">{{ "After" | translate }}</div>
+                <div class="value">{{ urine_process_after }}</div>
+                <!-- <div class="value">Lorem Ipsum</div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "clinical_warning" | translate }}</div>
+                <div class="value">{{ clinical_warning }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "Other" | translate }}</div>
+                <div class="value">{{ lab_other }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "link" | translate }}</div>
+                <div class="value">
+                  <a href="#">{{ link }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------Imaging modal---------------------------------------- -->
+<div class="imaging">
+  <ng-template #imagingcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "imaging" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "category" | translate }}</div>
+                <div class="value">{{ infoDetails?.category }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "imaging" | translate }}</div>
+                <div class="value">{{ infoDetails?.imaging }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "description" | translate }}</div>
+                <div class="value">{{ infoDetails?.description }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "clinical_considerations" | translate }}
+                </div>
+                <div class="value">
+                  {{ infoDetails?.clinical_consideration }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "normal_value" | translate }}</div>
+                <div class="value">{{ infoDetails?.normal_values }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "abnormal_values" | translate }}</div>
+                <div class="value">{{ infoDetails?.abnormal_values }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "contributing_factors_to_abnormal" | translate }}
+                </div>
+                <div class="value">
+                  {{ infoDetails?.contributing_factors_to_abnormal }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "before" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.before }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "during" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.during }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "After" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.after }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "clinical_warning" | translate }}</div>
+                <div class="value">{{ infoDetails?.clinical_warning }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "contraindications" | translate }}
+                </div>
+                <div class="value">{{ infoDetails?.contraindications }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "Other" | translate }}</div>
+                <div class="value">{{ infoDetails?.other }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "link" | translate }}</div>
+                <div class="value">
+                  <a href="#">{{ infoDetails?.link }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------Other modal---------------------------------------- -->
+<div class="other">
+  <ng-template #othercontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "Other" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "category" | translate }}</div>
+                <div class="value">{{ infoDetails?.category }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "others" | translate }}</div>
+                <div class="value">{{ infoDetails?.others }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "description" | translate }}</div>
+                <div class="value">{{ infoDetails?.description }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "clinical_considerations" | translate }}
+                </div>
+                <div class="value">
+                  {{ infoDetails?.clinical_consideration }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "normal_value" | translate }}</div>
+                <div class="value">{{ infoDetails?.normal_values }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "abnormal_values" | translate }}</div>
+                <div class="value">{{ infoDetails?.abnormal_values }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "contributing_factors_to_abnormal" | translate }}
+                </div>
+                <div class="value">
+                  {{ infoDetails?.contributing_factors_to_abnormal }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "before" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.before }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "during" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.during }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "After" | translate }}</div>
+                <div class="value">{{ infoDetails?.procedure?.after }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "clinical_warning" | translate }}</div>
+                <div class="value">{{ infoDetails?.clinical_warning }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">
+                  {{ "contraindications" | translate }}
+                </div>
+                <div class="value">{{ infoDetails?.contraindications }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "Other" | translate }}</div>
+                <div class="value">{{ infoDetails?.other }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "link" | translate }}</div>
+                <div class="value">
+                  <a href="#">{{ infoDetails?.link }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

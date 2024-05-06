@@ -1,0 +1,510 @@
+<div class="appoinment_commision dashboard_main_content">
+  <div class="header_block">
+    <h3>{{ "setup_appointment_commision" | translate }}</h3>
+  </div>
+
+  <form [formGroup]="hospitaDoctorForm">
+    <div class="hospital_doctor">
+      <div class="inner_hospital_doctor">
+        <div class="online_block">
+          <div class="header_section">
+            <p>{{ "online" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="online">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('online.flat_fee').invalid &&
+                    (hospitaDoctorForm.get('online.flat_fee').dirty ||
+                      hospitaDoctorForm.get('online.flat_fee').touched ||
+                      isSubmittedHospital)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('online.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      isSubmittedHospital &&
+                      hospitaDoctorForm.get('online.flat_fee').invalid && !hospitaDoctorForm.get('online.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('online.percentage_fee').invalid &&
+                    (hospitaDoctorForm.get('online.percentage_fee').dirty ||
+                      hospitaDoctorForm.get('online.percentage_fee').touched)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('online.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="hospitaDoctorForm.get('online.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="online_block">
+          <div class="header_section">
+            <p>{{ "home_visit" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="home_visit">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('home_visit.flat_fee').invalid &&
+                    (hospitaDoctorForm.get('home_visit.flat_fee').dirty ||
+                      hospitaDoctorForm.get('home_visit.flat_fee').touched ||
+                      isSubmittedHospital)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('home_visit.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="
+                      isSubmittedHospital &&
+                      hospitaDoctorForm.get('home_visit.flat_fee').invalid && !hospitaDoctorForm.get('home_visit.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('home_visit.percentage_fee')
+                      .invalid &&
+                    (hospitaDoctorForm.get('home_visit.percentage_fee').dirty ||
+                      hospitaDoctorForm.get('home_visit.percentage_fee')
+                        .touched)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('home_visit.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="hospitaDoctorForm.get('home_visit.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="online_block no_border">
+          <div class="header_section">
+            <p>{{ "hospital_clinic" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="face_to_face">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('face_to_face.flat_fee').invalid &&
+                    (hospitaDoctorForm.get('face_to_face.flat_fee').dirty ||
+                      hospitaDoctorForm.get('face_to_face.flat_fee').touched ||
+                      isSubmittedHospital)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('face_to_face.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                    isSubmittedHospital &&
+                    hospitaDoctorForm.get('face_to_face.flat_fee').invalid && !hospitaDoctorForm.get('face_to_face.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    hospitaDoctorForm.get('face_to_face.percentage_fee')
+                      .invalid &&
+                    (hospitaDoctorForm.get('face_to_face.percentage_fee')
+                      .dirty ||
+                      hospitaDoctorForm.get('face_to_face.percentage_fee')
+                        .touched)
+                  "
+                >
+                  <div
+                    *ngIf="hospitaDoctorForm.get('face_to_face.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="hospitaDoctorForm.get('face_to_face.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="save_data_doctor">
+    <button class="btn btn-primary" (click)="saveCommission('hospital_doctor')">
+      {{ "save" | translate }}
+    </button>
+  </div>
+
+  <div class="header_block mt-5">
+    <h3>{{ "setup_appointment_commission_ind_doctor" | translate }}</h3>
+  </div>
+
+  <form [formGroup]="individualDoctorForm">
+    <div class="hospital_doctor">
+      <div class="inner_hospital_doctor">
+        <div class="online_block">
+          <div class="header_section">
+            <p>{{ "online" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="online">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('online.flat_fee').invalid &&
+                    (individualDoctorForm.get('online.flat_fee').dirty ||
+                      individualDoctorForm.get('online.flat_fee').touched ||
+                      isSubmittedIndividual)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('online.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                      isSubmittedIndividual &&
+                      individualDoctorForm.get('online.flat_fee').invalid && !individualDoctorForm.get('online.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('online.percentage_fee').invalid &&
+                    (individualDoctorForm.get('online.percentage_fee').dirty ||
+                      individualDoctorForm.get('online.percentage_fee').touched)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('online.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="individualDoctorForm.get('online.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="online_block">
+          <div class="header_section">
+            <p>{{ "home_visit" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="home_visit">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('home_visit.flat_fee').invalid &&
+                    (individualDoctorForm.get('home_visit.flat_fee').dirty ||
+                      individualDoctorForm.get('home_visit.flat_fee').touched ||
+                      isSubmittedIndividual)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('home_visit.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                    isSubmittedIndividual &&
+                    individualDoctorForm.get('home_visit.flat_fee').invalid && !individualDoctorForm.get('home_visit.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('home_visit.percentage_fee')
+                      .invalid &&
+                    (individualDoctorForm.get('home_visit.percentage_fee')
+                      .dirty ||
+                      individualDoctorForm.get('home_visit.percentage_fee')
+                        .touched)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('home_visit.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="individualDoctorForm.get('home_visit.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="online_block no_border">
+          <div class="header_section">
+            <p>{{ "hospital_clinic" | translate }}</p>
+          </div>
+          <div class="form_block">
+            <div class="row" formGroupName="face_to_face">
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "flat_fee" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="{{ 'flat_fee' | translate }}"
+                      formControlName="flat_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('face_to_face.flat_fee').invalid &&
+                    (individualDoctorForm.get('face_to_face.flat_fee').dirty ||
+                      individualDoctorForm.get('face_to_face.flat_fee')
+                        .touched ||
+                      isSubmittedIndividual)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('face_to_face.flat_fee').errors?.['min']"
+                  >
+                    {{ "fee_should_be_gt_zero" | translate }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                    isSubmittedIndividual &&
+                    individualDoctorForm.get('face_to_face.flat_fee').invalid && !individualDoctorForm.get('face_to_face.flat_fee').errors?.['min']"
+                  >
+                    {{ "enter_fee" | translate }}*
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "percentage" | translate }} %</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="Number"
+                      matInput
+                      placeholder="%"
+                      formControlName="percentage_fee"
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    individualDoctorForm.get('face_to_face.percentage_fee')
+                      .invalid &&
+                    (individualDoctorForm.get('face_to_face.percentage_fee')
+                      .dirty ||
+                      individualDoctorForm.get('face_to_face.percentage_fee')
+                        .touched)
+                  "
+                >
+                  <div
+                    *ngIf="individualDoctorForm.get('face_to_face.percentage_fee').errors?.['min']"
+                  >
+                    {{ "percentage_should_be_gt_zero" | translate }}
+                  </div>
+                  <div
+                    *ngIf="individualDoctorForm.get('face_to_face.percentage_fee').errors?.['max']"
+                  >
+                    {{ "percentage_should_be_lt_100" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="save_data_doctor">
+    <button
+      class="btn btn-primary"
+      (click)="saveCommission('individual_doctor')"
+    >
+      {{ "save" | translate }}
+    </button>
+  </div>
+</div>

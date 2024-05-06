@@ -1,0 +1,1829 @@
+<div class="esignature">
+  <div class="medicinclaim_block">
+    <div class="header_medicin">
+      <h2>{{loggedType}} {{ 'order_claim' | translate}}</h2>
+    </div>
+    <form [formGroup]="signatureForm">
+      <div class="sub_content">
+        <div class="claim_content">
+          <div class="sub_heading">
+            <h3>{{ "eSignature" | translate }}</h3>
+            <div class="row">
+              <div class="col-sm-6 col-md-4">
+                <label>{{ "full_name" | translate }}</label>
+                <div class="form_field_wrapper">
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="fullName"
+                      readonly="true"
+                      #full_name
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "date" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input
+                      matInput
+                      formControlName="current_date"
+                      readonly="true"
+                      #currentDate
+                    />
+
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <div class="medicinclaim_block">
+    <div class="header_medicin">
+      <h2>{{ "medicine_claims" | translate }}</h2>
+    </div>
+    <form [formGroup]="signatureForm">
+      <div class="sub_content">
+        <div class="claim_content">
+          <div class="sub_heading">
+            <h3>{{ "eSignature" | translate }}</h3>
+            <div class="row">
+              <div class="col-sm-6 col-md-4">
+                <label>{{ "full_name" | translate }}</label>
+                <div class="form_field_wrapper">
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="fullName"
+                      readonly="true"
+                      #full_name
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "date" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input
+                      matInput
+                      formControlName="current_date"
+                      readonly="true"
+                      #currentDate
+                    />
+
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker></mat-datepicker> -->
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4">
+                <div class="form_field_wrapper">
+                  <label>{{ "time" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <div class="time">
+                      <input
+                        class="form-control"
+                        matInput
+                        [ngModel]="defaultValue"
+                        formControlName="current_time"
+                        mode="24h"
+                        matTimepicker
+                      />
+                      <mat-icon matSuffix>schedule</mat-icon>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-8">
+                <div class="form_field_wrapper signature_part">
+                  <label>{{ "signature" | translate }}</label>
+
+                  <div class="signature">
+                    <div class="uploaded_img">
+                      <img
+                        src="{{
+                          signatureURL
+                            ? signatureURL
+                            : '../../../../../assets/img/upload_signature1.png'
+                        }}"
+                        width="175px"
+                        height="53px"
+                      />
+                    </div>
+                    <!-- <div class="upload_input">
+                                          <div class="upload_input_content">
+                                              <img src="../../../../../assets/img/upload_signature.png">
+                                          </div>
+                                          <input
+                                          class="ng-hide user_upload_input"
+                          id="input-file-id"
+  
+                          type="file"
+                          accept="image/*"
+                          (change)="onSubmit($event)"
+                                          />
+                                      </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4">
+                <div class="primary_btn preview_btn">
+                  <!-- <button class="btn btn-primary"  (click)="openVerticallyCenteredClaim(claimsubmittedcontent)">Submitted</button> -->
+                  <!-- <button class="btn btn-primary" (click)="openVerticallyCenteredMaado(maadocontent)">Preview claims1</button> -->
+                  <ng-container
+                    *ngIf="templateId == '637f4d652af514775e3e1703'"
+                  >
+                    <button
+                      class="btn btn-primary"
+                      id="previewbtn"
+                      (click)="onSubmit()"
+                    >
+                      {{ "preview_of_claim" | translate }}
+                    </button>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="templateId == '637f4d802af514775e3e1704'"
+                  >
+                    <button
+                      class="btn btn-primary"
+                      id="previewbtn"
+                      (click)="onSubmit()"
+                    >
+                      {{ "preview_of_claim" | translate }}
+                    </button>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="templateId == '637f4d912af514775e3e1705'"
+                  >
+                    <button
+                      class="btn btn-primary"
+                      id="previewbtn"
+                      (click)="onSubmit()"
+                    >
+                      {{ "preview_of_claim" | translate }}
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="primary_btn">
+            <button class="btn btn-secondary" mat-button matStepperPrevious>
+              {{ "back" | translate }}
+            </button>
+            <ng-container *ngIf="isClaimSubmitted">
+              <button
+                type="button"
+                (click)="getConfirmation()"
+                class="btn btn-primary"
+                mat-button
+              >
+                {{ "submit" | translate }}
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!isClaimSubmitted">
+              <button
+                type="button"
+                (click)="getConfirmation()"
+                class="btn btn-primary"
+                disabled="true"
+                mat-button
+              >
+                {{ "submit" | translate }}
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="!isClaimSubmitted">
+  <h3>{{ "E-signature" | translate }}</h3>
+
+  <div
+    class="signature-container"
+    style="border: 5px solid; width: 65%; margin-top: 10px"
+  >
+    <signature-pad
+      [options]="signaturePadOptions"
+      (onBeginEvent)="drawStart()"
+      (onEndEvent)="drawComplete()"
+    ></signature-pad>
+  </div>
+
+  <div class="primary_btn" style="margin-top: 5px">
+    <button (click)="clearSignature()" class="btn btn-danger clearbtn">
+      {{ "clear_signature" | translate }}
+    </button>
+    <!-- <button
+        [disabled]="signatureURL === ''"
+        (click)="onSubmit()"
+        class="btn btn-primary"
+      >
+        Upload eSignature
+      </button> -->
+  </div>
+</div>
+
+<!-- ---------------------------------------Claim Submitted modal---------------------------------------- -->
+<div class="claim_submitted">
+  <ng-template #claimsubmittedcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "submitted" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="claim_section">
+            <div class="claim_img">
+              <img src="../../../../../assets/img/health_insurance.png" />
+            </div>
+            <div class="claim_title">
+              {{ "are_you_sure_to_submit_this_claim" | translate }}
+            </div>
+            <div class="claim_desc">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo
+              habitant amet neque
+            </div>
+          </div>
+        </form>
+        <div class="primary_btn">
+          <button type="button" (click)="submitClaim()" class="btn btn-primary">
+            {{ "ok" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------UAB modal---------------------------------------- -->
+<div class="uab">
+  <ng-template #uabcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body" id="previewdiv" #previewdiv>
+        <div class="templet-main">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-3">
+              <div class="left-logo-part">
+                <div class="img-wrap">
+                  <img src="../../../../../assets/img/uab.png" />
+                </div>
+                <!-- <div>
+                                      <p> Lorem Ipsum is simply dummy text ,</p>
+                                      <p>and typesetting industry of the printing,,</p>
+                                      <p>Lorem Ipsum has been the ,</p>
+                                      <p>+91 8511234566</p>
+                                  </div> -->
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-9">
+              <div class="right-content-part">
+                <div class="title-wrap">
+                  <h1>
+                    {{ "health_insurance_maternity_insurance" | translate }}
+                  </h1>
+                  <div class="flex-wrapper">
+                    <p>{{ "claim_number" | translate }} :</p>
+                    {{ claim_number }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="flex-wrapper">
+                    <p>{{ "subscriber" | translate }}:</p>
+                    <p>
+                      {{ pri_firstName }} {{ pri_middleName }}
+                      {{ pri_lastName }}
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="flex-wrapper">
+                    <p>{{ "police_ID" | translate }}:</p>
+
+                    <p>{{ pri_policyId }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "declaration_of_illness_or_accident" | translate }} :</p>
+                <p>{{ claimDeclartion }}</p>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>
+                  {{
+                    "to_be_sent_to_the_company_or_agent_through_whom_the_policy_was_purchased"
+                      | translate
+                  }}
+                  :
+                </p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "primary_insured_first_name" | translate }} :</p>
+                <p>{{ sec_pri_firstName }}</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "last_names_it_means_middle_and_last" | translate }} :</p>
+                <p>{{ sec_pri_middleName }} {{ sec_pri_lastName }}</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "patient_first_name" | translate }}::</p>
+                <p>{{ pri_firstName }}</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "last_names_it_means_middle_and_last" | translate }} :</p>
+                <p>{{ pri_middleName }} {{ pri_lastName }}</p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "as_a_secondary_insured" | translate }}:</p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "partner" | translate }}:</p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "children" | translate }}</p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>
+                  {{
+                    "date_of_the_accident_or_the_beginning_of_the_illness"
+                      | translate
+                  }}:
+                </p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "prescribing_doctor" | translate }}:</p>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "nature_of_the_illness_or_accident" | translate }}:</p>
+                <mat-form-field class="example-full-width">
+                  <mat-label></mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>
+                  {{
+                    "in_case_of_an_accident_indicate_the_cause_and_circumstances"
+                      | translate
+                  }}:
+                </p>
+                <mat-form-field class="example-full-width">
+                  <mat-label></mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>
+                  {{
+                    "name_and_address_of_the_responsible_third_party_or_witnesses"
+                      | translate
+                  }}:
+                </p>
+                <mat-form-field class="example-full-width">
+                  <mat-label></mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>
+                  {{
+                    "probable_duration_of_illness_or_disability_in_case_of_accident"
+                      | translate
+                  }}:
+                </p>
+                <mat-form-field class="example-full-width">
+                  <mat-label></mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <h1 class="uab_title">
+                {{
+                  "part_to_be_filled_in_by_the_practitioners_or_the_hospital_the_pharmacy_and_the_laboratory"
+                    | translate
+                }}
+              </h1>
+            </div>
+          </div>
+
+          <!-- ---------------ACTS AND MEDICAL FEES table--------------- -->
+          <div class="table-wrap">
+            <div class="table-inner" #TABLE>
+              <table
+                mat-table
+                [dataSource]="medical_fees_dataSource"
+                class="mat-elevation-z8"
+              >
+                <!--- Note that these columns can be defined in any order.
+                                        The actual rendered columns are set as a property on the row definition" -->
+
+                <ng-container matColumnDef="maintitle">
+                  <th mat-header-cell *matHeaderCellDef [attr.colspan]="7">
+                    {{ "acts_and_medical_fees" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Date of medical procedures duplicate Column -->
+                <ng-container matColumnDef="dateofmedicalproceduresduplicate">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "date_of_medical_procedures_duplicate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateofmedicalprocedures">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "date_of_medical_procedures" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Designation of the cates Duplicate Column-->
+                <ng-container matColumnDef="designationofthecatesduplicate">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "designation_of_the_cates_duplicate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="designationofthecates">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    <span
+                      >{{ "designation_of_the_cates" | translate }}<br />
+                      {{ "c_consultation" | translate }}<br />
+                      {{ "v_visit_p_c_or_k_according_to_the" | translate
+                      }}<br />
+                      {{ "nomenclature" | translate }}</span
+                    >
+                  </th>
+                </ng-container>
+
+                <!--Fees  group -->
+                <ng-container matColumnDef="header-row-second-group">
+                  <th mat-header-cell *matHeaderCellDef [attr.colspan]="2">
+                    {{ "fees" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Total Amount Column -->
+                <ng-container matColumnDef="totalamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <!-- Amount paid by the insured Column -->
+                <ng-container matColumnDef="amoutpaidbyinsured">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "amount_paid_by_the_insured" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <!-- Signature of the doctor attesting to the payment of the medical acts duplicate  Column -->
+                <ng-container matColumnDef="signatureofthedoctorduplicate">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{
+                      "signature_of_the_doctor_attesting_to_the_payment_of_the_medical_acts_duplicate"
+                        | translate
+                    }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="signatureofthedoctor">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{
+                      "signature_of_the_doctor_attesting_to_the_payment_of_the_medical_acts"
+                        | translate
+                    }}
+                  </th>
+                </ng-container>
+
+                <!-- Issuing a prescription Column -->
+                <ng-container matColumnDef="issuingprescriptionduplicate">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "issuing_a_prescription_duplicate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="issuingprescription">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "issuing_a_prescription" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Dotor stamp Column -->
+                <ng-container matColumnDef="dotorstampduplicate">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "dotor_stamp_duplicate" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dotorstamp">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "dotor_stamp" | translate }}
+                  </th>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['maintitle']"></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="[
+                    'dateofmedicalprocedures',
+                    'designationofthecates',
+                    'header-row-second-group',
+                    'signatureofthedoctor',
+                    'issuingprescription',
+                    'dotorstamp'
+                  ]"
+                ></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="medical_fees_disply_Columns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: medical_fees_disply_Columns"
+                ></tr>
+              </table>
+            </div>
+          </div>
+          <!-- ---------------EXECUTION OF PRESCRIPTIONS table--------------- -->
+          <div class="table-wrap">
+            <div class="table-inner" #TABLE>
+              <table
+                mat-table
+                [dataSource]="dataExecution"
+                class="mat-elevation-z8"
+              >
+                <!--- Note that these columns can be defined in any order.
+                                        The actual rendered columns are set as a property on the row definition" -->
+
+                <ng-container matColumnDef="Execution">
+                  <th mat-header-cell *matHeaderCellDef [attr.colspan]="6">
+                    {{ "execution_of_prescriptions" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- 'MedicINES prescribed by the doctor Column -->
+                <ng-container matColumnDef="prescribed">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "prescribed_by_the_doctor" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Prescrib">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "medicine_prescribed_by_the_doctor" | translate }}
+                  </th>
+                </ng-container>
+
+                <!--  Quantity Column-->
+                <ng-container matColumnDef="quantity">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "quantity" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="qty">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "quantity" | translate }}
+                  </th>
+                </ng-container>
+
+                <!--  Medicines delivered Column-->
+                <ng-container matColumnDef="medicinesdelivered">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "medicines_delivered" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Medicinesdelivere">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    <span
+                      >{{ "medicines_delivered" | translate }} <br />
+                      {{
+                        "to_be_completed_by_the_pharmacist" | translate
+                      }}</span
+                    >
+                  </th>
+                </ng-container>
+
+                <!--  Total cost Column-->
+                <ng-container matColumnDef="totalcost">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "no" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "total_cost" | translate }}
+                  </th>
+                </ng-container>
+
+                <!--To be paid by the insured Column -->
+                <ng-container matColumnDef="paidbyinsured">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "paidbyinsured" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="paidbyinsure">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "to_be_paid_by_the_insured" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Signature of the doctor attesting to the payment of the medical acts  Column -->
+                <ng-container matColumnDef="signaturepharmacist">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "signaturepharmacist" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="signaturepharmacis">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "stamp_and_signature_of_the_pharmacist" | translate }}
+                  </th>
+                </ng-container>
+                <ng-container matColumnDef="disclaimer">
+                  <td mat-footer-cell *matFooterCellDef colspan="2">
+                    {{
+                      "please_note_that_the_cost_of_items_displayed_are_completely_and_totally_made_up"
+                        | translate
+                    }}.
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="blankCell">
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+                <ng-container matColumnDef="total_cell">
+                  <td mat-footer-cell *matFooterCellDef colspan="2">
+                    {{ "total" | translate }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['Execution']"></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="[
+                    'Prescrib',
+                    'qty',
+                    'Medicinesdelivere',
+                    'total',
+                    'paidbyinsure',
+                    'signaturepharmacis'
+                  ]"
+                ></tr>
+                <tr
+                  mat-footer-row
+                  *matFooterRowDef="
+                    [
+                      'blankCell',
+                      'total_cell',
+                      'blankCell',
+                      'blankCell',
+                      'blankCell'
+                    ];
+                    sticky: true
+                  "
+                ></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="dataExecution_displayedColumns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: dataExecution_displayedColumns"
+                ></tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- ---------------ANALYSIS, EXAMINATION, X-RAY table--------------- -->
+          <div class="table-wrap">
+            <div class="table-inner" #TABLE>
+              <table
+                mat-table
+                [dataSource]="data_analysis_examination_x_ray"
+                class="mat-elevation-z8"
+              >
+                <!--- Note that these columns can be defined in any order.
+                                        The actual rendered columns are set as a property on the row definition" -->
+
+                <ng-container matColumnDef="Execution">
+                  <th mat-header-cell *matHeaderCellDef [attr.colspan]="6">
+                    {{ "analysis_examination_x-ray" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- 'MedicINES prescribed by the doctor Column -->
+                <ng-container matColumnDef="prescribed">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    <!-- title -->
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Prescrib">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  </th>
+                </ng-container>
+
+                <!--  Total cost Column-->
+                <ng-container matColumnDef="totalcost">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "no" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "total_cost" | translate }}
+                  </th>
+                </ng-container>
+
+                <!--To be paid by the insured Column -->
+                <ng-container matColumnDef="paidbyinsured">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "paidbyinsured" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="paidbyinsure">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "to_be_paid_by_the_insured" | translate }}
+                  </th>
+                </ng-container>
+
+                <!-- Signature of the doctor attesting to the payment of the medical acts  Column -->
+                <ng-container matColumnDef="signaturepharmacist">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    [ngStyle]="{ display: 'none' }"
+                  >
+                    {{ "signaturepharmacist" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="signaturepharmacis">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "stamp_and_signature_of_the_pharmacist" | translate }}
+                  </th>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['Execution']"></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="[
+                    'Prescrib',
+                    'total',
+                    'paidbyinsure',
+                    'signaturepharmacis'
+                  ]"
+                ></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="analysis_examination_x_ray_displayedColumns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="
+                    let row;
+                    columns: analysis_examination_x_ray_displayedColumns
+                  "
+                ></tr>
+              </table>
+
+              <!-- Copyright 2018 Google Inc. All Rights Reserved.
+                                    Use of this source code is governed by an MIT-style license that
+                                    can be found in the LICENSE file at http://angular.io/license -->
+            </div>
+          </div>
+
+          <!-- ---------------NOMENCLATURE table--------------- -->
+          <div class="table-wrap">
+            <div class="table-inner" #TABLE>
+              <table
+                mat-table
+                [dataSource]="data_nomenclature"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="Execution">
+                  <th mat-header-cell *matHeaderCellDef [attr.colspan]="5">
+                    {{
+                      "the practitioner indicates the tooth treated, designates the procedure performed using the indices and coefficients of the nomenclature"
+                        | translate
+                    }}
+                  </th>
+                </ng-container>
+
+                <!-- 'MedicINES prescribed by the doctor Column -->
+                <ng-container matColumnDef="prescribed">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element">
+                    <img src="../../../../../assets/img/template1.png" />
+                  </td>
+                </ng-container>
+
+                <!-- 'MedicINES prescribed by the doctor Column -->
+                <ng-container matColumnDef="prescribed1">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <!--  Total cost Column-->
+                <ng-container matColumnDef="totalcost">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "DATE" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <!--To be paid by the insured Column -->
+                <ng-container matColumnDef="paidbyinsured">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "TEETH" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef>
+                    <span>{{ "total" | translate }}</span>
+                  </td>
+                </ng-container>
+
+                <!-- Blank cell Column -->
+                <ng-container matColumnDef="blankCell">
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+
+                <!-- Signature of the doctor attesting to the payment of the medical acts  Column -->
+                <ng-container matColumnDef="signaturepharmacist">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    {{ "coefficient" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <!-- data -->
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['Execution']"></tr>
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="nomenclaturey_displayedColumns"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: nomenclaturey_displayedColumns"
+                ></tr>
+                <tr
+                  mat-footer-row
+                  *matFooterRowDef="[
+                    'blankCell',
+                    'blankCell',
+                    'blankCell',
+                    'paidbyinsured'
+                  ]"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------MAADO modal---------------------------------------- -->
+<div class="maado">
+  <ng-template #maadocontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body" id="previewdiv" #previewdiv>
+        <div class="templet-main">
+          <div class="row">
+            <div class="top_part">
+              <div class="row">
+                <div class="col-md-3 col-sm-12">
+                  <div class="left-logo-part">
+                    <div class="img-wrap">
+                      <img src="../../../../../assets/img/maado.png" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                  <div class="right-content-part">
+                    <div class="title-wrap">
+                      <h2>{{ "medical_care_form" | translate }}</h2>
+                      <div class="flex-wrapper">
+                        <p>{{ "claim_number" | translate }} :</p>
+                        {{ claim_number }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom_part">
+              <!-- Maado table -->
+              <div class="table-wrap">
+                <div class="table-inner">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style="width: 50%">
+                          1.
+                          {{
+                            "health_insurance_system_information" | translate
+                          }}
+                        </th>
+                        <th style="width: 50%">
+                          {{ "filling_instructions" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="width: 50%">
+                          {{ "sam_code" | translate }}:
+                        </td>
+                        <td style="width: 50%">
+                          {{ "write_legibly" | translate }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 50%">{{ "sam" | translate }}:</td>
+                        <td style="width: 50%">
+                          {{ "id_obligatoire" | translate }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="3">
+                          2.
+                          {{
+                            "patient_information_Access_to_health_care_policy"
+                              | translate
+                          }}
+                        </th>
+                        <th colspan="3">
+                          3. {{ "infos_reference_medical_center" | translate }}
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td rowspan="2">{{ "primary_insured" | translate }}</td>
+                        <td>{{ "matricule" | translate }}:</td>
+                        <td></td>
+                        <td colspan="3">{{ "date_and_time" | translate }}:</td>
+                      </tr>
+                      <tr>
+                        <td>{{ "nom" | translate }}:</td>
+                        <td>
+                          {{ pri_firstName }} {{ pri_middleName }}
+                          {{ pri_lastName }}
+                        </td>
+                        <td colspan="3">
+                          {{ "agreed_healthcare_network" | translate }}:
+                        </td>
+                      </tr>
+                      <tr>
+                        <td rowspan="5">{{ "patient" | translate }}</td>
+                        <td>{{ "card_ID" | translate }}:</td>
+                        <td>{{ pri_cardId }}</td>
+                        <td colspan="3"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="1">
+                          {{ "full_name_first_middle_last" | translate }}:
+                        </td>
+                        <td>
+                          {{ pri_firstName }} {{ pri_middleName }}
+                          {{ pri_lastName }}
+                        </td>
+                        <td colspan="3"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="1">{{ "age" | translate }}:</td>
+                        <td>{{ pri_age }}</td>
+                        <td colspan="3">
+                          {{ "prescribing_doctor_orientation" | translate }}:
+                          {{ priscriberFullName }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="1">
+                          {{ "marital_status" | translate }} :
+                        </td>
+                        <td>{{ marital_status }}</td>
+                        <td colspan="3"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="1">{{ "gender" | translate }} :</td>
+                        <td>{{ pri_gender }}</td>
+                        <td colspan="3"></td>
+                      </tr>
+
+                      <tr>
+                        <th colspan="6">
+                          4. {{ "details_of_medical_procedures" | translate }}:
+                        </th>
+                      </tr>
+
+                      <tr>
+                        <td>{{ "date" | translate }}</td>
+                        <td>{{ "code" | translate }}</td>
+                        <td>{{ "designation_medical_acts" | translate }}</td>
+                        <td>{{ "coefficient" | translate }}</td>
+                        <td>{{ "rate" | translate }}</td>
+                        <td>{{ "total_cost" | translate }}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3" rowspan="2" class="important">
+                          <u>{{ "important" | translate }}:</u>
+                          {{
+                            "the_validity_of_this_form_cannot_exceed_5_days_from_the_date_of_issue"
+                              | translate
+                          }}
+                        </td>
+                        <td
+                          class="total_amount"
+                          colspan="2"
+                          style="text-align: right"
+                        >
+                          {{ "total_amount" | translate }}:
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: right">
+                          {{ "to_be_paid_by_the_patient_1" | translate }}
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" class="assignment">
+                          {{ "assignment_code" | translate }}
+                        </td>
+                        <td colspan="1"></td>
+                        <td colspan="2" style="text-align: right">
+                          {{
+                            "to_be_paid_by_the_insurance_company" | translate
+                          }}
+                        </td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="6">
+                          5.
+                          {{ "details_of_paramedical_procedures" | translate }}:
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ "date" | translate }}</td>
+                        <td>{{ "code" | translate }}</td>
+                        <td>{{ "designation_medical_acts" | translate }}</td>
+                        <td>{{ "coefficient" | translate }}</td>
+                        <td>{{ "rate" | translate }}</td>
+                        <td>{{ "total_cost" | translate }}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3" rowspan="2" class="important">
+                          <u>{{ "important" | translate }}:</u>
+                          {{
+                            "the_validity_of_this_form_cannot_exceed_5_days_from_the_date_of_issue"
+                              | translate
+                          }}
+                        </td>
+                        <td
+                          class="total_amount"
+                          colspan="2"
+                          style="text-align: right"
+                        >
+                          {{ "total_amount" | translate }}:
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: right">
+                          {{ "to_be_paid_by_the_patient_1" | translate }}
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" class="assignment">
+                          {{ "assignment_code" | translate }}
+                        </td>
+                        <td colspan="1"></td>
+                        <td colspan="2" style="text-align: right">
+                          {{
+                            "to_be_paid_by_the_insurance_company" | translate
+                          }}
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td class="signature" rowspan="2" colspan="2">
+                          {{ "patient_signature" | translate }}
+                        </td>
+                        <td class="signature" rowspan="2" colspan="2">
+                          {{
+                            "signature_and_stamp_medical_healthcare_centre"
+                              | translate
+                          }}
+                        </td>
+                        <td class="signature" rowspan="2" colspan="2">
+                          {{ "signature_and_stamp_of_the_doctor" | translate }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="4">
+                          6.
+                          {{
+                            "medicines_prescribed_section_reserved_for_the_prescribing_doctor"
+                              | translate
+                          }}
+                        </th>
+                        <th class="section_reserved" colspan="1">
+                          {{
+                            "section_reserved_for_the_pharmacist" | translate
+                          }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{ "no" | translate }}:</td>
+                        <td>{{ "drugs" | translate }}</td>
+                        <td>{{ "dosage" | translate }}</td>
+                        <td>{{ "quantity" | translate }}</td>
+                        <td>{{ "total_cost" | translate }}</td>
+                      </tr>
+                      <ng-container *ngIf="claimMedicine.length > 0">
+                        <ng-container
+                          *ngFor="let med of claimMedicine; let i = index"
+                        >
+                          <tr>
+                            {{
+                              claimMedicine | json
+                            }}
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ med.medicineName }}</td>
+                            <td>{{ med.quantityPrescribed }}</td>
+                            <td>{{ med.quantityDelivered }}</td>
+                            <td>{{ med.totalCost }}</td>
+                          </tr>
+                        </ng-container>
+                      </ng-container>
+
+                      <!-- <tr>
+                                                  <td>2</td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                              </tr>
+                                              <tr>
+                                                  <td>3</td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                              </tr>
+                                              <tr>
+                                                  <td>4</td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                              </tr>
+                                              <tr>
+                                                  <td>5</td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                              </tr> -->
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td rowspan="3" colspan="2">
+                          <p style="white-space: break-spaces">
+                            <u>{{ "important" | translate }}:</u>
+                            {{ "the_prescribing_practitioner" | translate }}
+                          </p>
+                        </td>
+                        <td colspan="2">{{ "total_amount" | translate }}:</td>
+                        <td>{{ totalCostOfAllMedicine }}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          {{ "to_be_paid_by_the_patient" | translate }}
+                        </td>
+                        <td>{{ totalCoPayment }}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          {{ "to_be_paid_by_maado" | translate }}
+                        </td>
+                        <td>{{ totalRequestedAmount }}</td>
+                      </tr>
+                      <tr>
+                        <td
+                          class="signature"
+                          rowspan="2"
+                          colspan="2"
+                          style="width: 50%; text-align: center"
+                        >
+                          {{
+                            "signature_and_stamp_prescribing_doctor" | translate
+                          }}
+                        </td>
+                        <td
+                          class="signature"
+                          rowspan="2"
+                          colspan="4"
+                          style="width: 50%; text-align: center"
+                        >
+                          <div>
+                            <p *ngIf="pharm_signature != ''">
+                              <img
+                                src="{{ pharm_signature }}"
+                                style="width: 150px; height: 70px"
+                              />
+                            </p>
+                            <p>
+                              {{ "signature_and_stamp_pharmacist" | translate }}
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                        <td style="display: none"></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------HEALTH COVERSURE modal---------------------------------------- -->
+<div class="health_coversure">
+  <ng-template #coversure let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body" id="previewdiv" #previewdiv>
+        <div class="templet-main">
+          <div class="row">
+            <div class="col-md-3 col-sm-12">
+              <div class="left-logo-part">
+                <div class="img-wrap">
+                  <img src="../../../../../assets/img/coversure.png" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-sm-12">
+              <div class="right-content-part">
+                <div class="title-wrap">
+                  <h1>{{ "health_coversure" | translate }}</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="flex-wrapper">
+                    <p>{{ "care_sheet" | translate }}:</p>
+                    <mat-form-field class="example-full-width">
+                      <mat-label></mat-label>
+                      <input matInput />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="flex-wrapper">
+                    <p>{{ "claim_number" | translate }}</p>
+                    {{ claim_number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper clinic">
+                <h1>{{ "doctor_clinic" | translate }}</h1>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-2">
+              <div class="flex-wrapper">
+                <p>{{ "assured" | translate }} :</p>
+                <div class="example-full-width"></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-5">
+              <div class="flex-wrapper">
+                <p>{{ "name" | translate }} :</p>
+
+                {{ pri_firstName }} {{ pri_middleName }} {{ pri_lastName }}
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-5">
+              <div class="flex-wrapper">
+                <p>{{ "first_name" | translate }}:</p>
+                {{ pri_firstName }}
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "police_number" | translate }}:</p>
+                {{ pri_policyId }}
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "insurance_id" | translate }}:</p>
+                {{ pri_insuranceId }}
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "age" | translate }}:</p>
+                {{ pri_age }}
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <div class="flex-wrapper">
+                <p>{{ "code_assignment" | translate }}:</p>
+                {{ code_assignment }}
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------ACTS AND MEDICAL FEES table--------------- -->
+          <div class="table-wrap">
+            <div class="table-inner" #TABLE>
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="4">
+                      6.
+                      {{
+                        "medicines_prescribed_section_reserved_for_the_prescribing_Doctor"
+                          | translate
+                      }}
+                    </th>
+                    <th class="section_reserved" colspan="1">
+                      {{ "section_reserved_for_the_pharmacist" | translate }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ "no" | translate }}:</td>
+                    <td>{{ "prescription" | translate }}</td>
+                    <td></td>
+                    <td>{{ "amount" | translate }}</td>
+                    <td>{{ "paid_insured" | translate }}</td>
+                  </tr>
+                  <ng-container *ngIf="claimMedicine.length > 0">
+                    <ng-container
+                      *ngFor="let med of claimMedicine; let i = index"
+                    >
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ med["medicineName"] }}</td>
+                        <td>{{ med["totalCost"] }}</td>
+                        <td></td>
+                        <td>{{ med["requestAmount"] }}</td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+
+                  <!-- <tr>
+                                          <td>2</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                      </tr>
+                                      <tr>
+                                          <td>3</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                      </tr>
+                                      <tr>
+                                          <td>4</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                      </tr>
+                                      <tr>
+                                          <td>5</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                      </tr> -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td rowspan="3" colspan="2">
+                      <p style="white-space: break-spaces"></p>
+                    </td>
+                    <td colspan="2">{{ "total_amount" | translate }}:</td>
+                    <td>{{ totalCostOfAllMedicine }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      {{ "to_be_paid_by_the_patient" | translate }}
+                    </td>
+                    <td>{{ totalCoPayment }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      {{ "to_be_paid_by_insured" | translate }}
+                    </td>
+                    <td>{{ totalRequestedAmount }}</td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="signature"
+                      rowspan="2"
+                      colspan="2"
+                      style="width: 50%; text-align: center"
+                    >
+                      {{ "signature_and_stamp_prescribing_doctor" | translate }}
+                    </td>
+                    <td
+                      class="signature"
+                      rowspan="2"
+                      colspan="4"
+                      style="width: 50%; text-align: center"
+                    >
+                      <div>
+                        <p *ngIf="pharm_signature != ''">
+                          <img
+                            src="{{ pharm_signature }}"
+                            style="width: 150px; height: 70px"
+                          />
+                        </p>
+                        <p>
+                          {{ "signature_and_stamp_pharmacist" | translate }}
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="row bottom_bar">
+            <div class="col-sm-12 col-md-12 col-lg-2">
+              <div class="flex-wrapper">
+                <p>{{ "date" | translate }}:</p>
+                <!-- leave -->
+                {{ ClaimData.eSignature.date | date : "dd/MM/YYYY" }}
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5">
+              <div class="flex-wrapper">
+                <p>{{ "name_and_first_name_of_doctor" | translate }}:</p>
+                {{ priscriberFullName }}
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5">
+              <div class="flex-wrapper">
+                <!-- <p><img src="{{pharm_signature}}" style="width: 150px;height: 70px;" ></p> -->
+                <p>{{ "signature_insured" | translate }}:</p>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5">
+              <div class="flex-wrapper">
+                <p>
+                  <img
+                    src="{{ doc_sign_stamp }}"
+                    style="width: 150px; height: 70px"
+                  />
+                </p>
+                <p>{{ "date_signature_and_stamp" | translate }}:</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------MAADO modal---------------------------------------- -->
+<div class="maado">
+  <ng-template #previewdiv let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <button
+          type="button"
+          id="closebtn"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+           -->
+        <pdf-viewer
+          [src]="pdfSrc"
+          [render-text]="true"
+          [original-size]="false"
+          style="width: 100%; height: 1200px"
+        ></pdf-viewer>
+      </div>
+    </div>
+  </ng-template>
+</div>

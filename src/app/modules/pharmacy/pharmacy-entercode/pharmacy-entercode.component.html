@@ -1,0 +1,101 @@
+<div class="login entercode">
+  <div class="login_inner">
+    <div class="row">
+      <div class="left_part part col-md-6">
+        <div class="leftpart_inner">
+          <div class="logo">
+            <img [src]="login_logo" alt="Store logo" />
+          </div>
+        </div>
+      </div>
+      <div class="right_part part col-md-6">
+        <div class="rightpart_inner get_code_screen">
+          <div class="login_form">
+            <div class="login_form_inner">
+              <form>
+                <div class="login_img">
+                  <img src="../../../../assets/img/key.svg" />
+                </div>
+                <div class="login_title">Enter Code</div>
+                <div class="title_wrapper">
+                  <div class="form_desc">
+                    Verification Code Sent on {{ otpContext }}
+                  </div>
+                </div>
+                <div class="form_field_wrapper" style="text-align: center;">
+                  <!-- <mat-form-field appearance="fill">
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="firstDigit"
+                      name="firstDigit"
+                    />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="secondDigit"
+                      name="secondDigit"
+                    />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="thirdDigit"
+                      name="thirdDigit"
+                    />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="fourthDigit"
+                      name="fourthDigit"
+                    />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="fifthDigit"
+                      name="fifthDigit"
+                    />
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="sixthDigit"
+                      name="sixthDigit"
+                    />
+                  </mat-form-field> -->
+                  <ng-otp-input #ngOtpInput  (onInputChange)="onOtpChange($event)"  [config]="config"></ng-otp-input>
+                </div>
+
+                <div class="form-btn primary_btn">
+                  <!-- <button type="submit" class="login_btn btn btn-primary">
+                    Verify
+                  </button> -->
+                  <button type="submit" (click)="verifyOtp(ngOtpInput)" [disabled]="isDisabled" class="login_btn btn btn-primary">Verify</button>
+                </div>
+
+                <div class="signup_section">
+                  <div class="signup">
+                    Did not receive code?
+                    <a
+                      class="signup_link"
+                      role="button"
+                      (click)="resendOtpDetails()"
+                      >Resend Code</a
+                    >
+                  </div>
+                </div>
+
+                <div class="back_section">
+                  <a [routerLink]="['/pharmacy/login']"><mat-icon>keyboard_backspace</mat-icon
+                    >{{ "back_to_log_in" | translate }}</a
+                  >
+                  <!-- <p [routerLink]="['/pharmacy/login']">
+                    <mat-icon>keyboard_backspace</mat-icon>Back to log in
+                  </p> -->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

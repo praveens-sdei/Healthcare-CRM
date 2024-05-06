@@ -1,0 +1,101 @@
+<div class="eprescriptiondetails dashboard_main_content">
+  <div class="back_button" (click)="routerBack()">
+    <button class="btn btn-primary">Back</button>
+  </div>
+  <div class="main_title">{{ "patient_details" | translate }}</div>
+
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner profile_info_with_img">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img src="../../../../../assets/img/default_user.png" />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">{{ patientDetails?.patient_name }}</div>
+            <div class="lable">{{ "mobile_number" | translate }}</div>
+            <div class="user_value">{{ patientDetails?.patient_mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ patientDetails?.patient_email }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ patientDetails?.patient_dob | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "gender" | translate }}</div>
+            <div class="user_value">
+              {{
+                patientDetails?.patient_gender
+                  ? patientDetails?.patient_gender
+                  : "-"
+              }}
+            </div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">Age</div>
+            <div class="user_value">28 Year</div>
+          </div>
+        </li>         -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="typeof_prescription">
+    <div class="main_title">
+      {{ "select_the_type_prescription" | translate }}
+    </div>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle
+        value="medicines"
+        (mwlClick)="handleRoutes('eprescriptionmedicine')"
+        >{{ "medicines" | translate }}</mat-button-toggle
+      >
+      <mat-button-toggle
+        value="lab"
+        (mwlClick)="handleRoutes('eprescriptionlab')"
+        >{{ "lab" | translate }}
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="imaging"
+        (mwlClick)="handleRoutes('eprescriptionimaging')"
+        >{{ "imaging" | translate }}
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="vaccination"
+        (mwlClick)="handleRoutes('eprescriptionvaccination')"
+        >{{ "vaccination" | translate }}
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="eyeglasses"
+        (mwlClick)="handleRoutes('eprescriptioneyeglasses')"
+        >{{ "eyeglasses" | translate }}
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="others"
+        (mwlClick)="handleRoutes('eprescriptionother')"
+        >{{ "others" | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="primary_btn">
+    <button
+      class="btn btn-primary"
+      routerLink="/individual-doctor/eprescription/eprescriptionmedicine"
+    >
+      {{ "save_&_continue" | translate }}
+    </button>
+  </div>
+</div>

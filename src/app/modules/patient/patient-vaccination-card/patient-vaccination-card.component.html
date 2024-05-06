@@ -1,0 +1,24 @@
+<div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="item">
+        <div class="label">Vaccination Name : {{ getData?.name }}</div>
+    
+        <div class="label">Administered Date : {{ getData?.administered_date  | date:"dd-MM-yyyy"}}</div>
+     
+        <div class="label">Batch Number : {{ getData?.batch_number }}</div>
+      
+        <div class="label">HCP Provided Vaccination : {{ getData?.hcp_provided_immunization }}</div>
+      
+        <div class="label">Manufactured Name : {{ getData?.manufactured_name }}</div>
+      
+        <div class="label">Medical Centre : {{ getData?.medical_centre }}</div>
+      
+        <div class="label">Next Vaccination Appointment Date: {{ getData?.next_immunization_appointment  | date:"dd-MM-yyyy" }}</div>
+      
+        <div class="label">Route Of Administered : {{ getData?.route_of_administered }}</div>
+      </div>
+    </div>
+
+  </div>
+</div>

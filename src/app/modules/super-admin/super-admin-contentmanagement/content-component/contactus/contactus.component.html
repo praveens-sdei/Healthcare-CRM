@@ -1,0 +1,132 @@
+<div class="content_inner_tab">
+  <mat-tab-group
+    animationDuration="0ms"
+    (selectedTabChange)="langClick($event)"
+  >
+    <mat-tab label="English">
+      <form [formGroup]="contactForm">
+        <div class="faq_tab">
+          <div class="faq_content">
+            <div class="faq_content_inner">
+              <div class="item">
+                <div class="form_field_wrapper">
+                  <label>{{ "phone_number" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="mobile" matInput formControlName="phone" />
+                  </mat-form-field>
+                  <span
+                    class="text-danger"
+                    *ngIf="isSubmitted && f['phone'].errors?.['required']"
+                    >{{ "enter_phone_number" | translate }}*</span
+                  >
+                  <span
+                    class="text-danger"
+                    *ngIf="isSubmitted && f['phone'].errors?.['required'] "
+                    >{{ "enter_phone_number" | translate }}*</span
+                  >
+
+                  <span
+                    class="text-danger"
+                    *ngIf="f['phone'].errors?.['pattern'] && f['phone'].invalid"
+                  >
+                    {{ "only_numbers_are_allowed" | translate }}*
+                  </span>
+                </div>
+                <div class="form_field_wrapper">
+                  <label>{{ "email" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="email" matInput formControlName="email" />
+                  </mat-form-field>
+                  <span
+                    class="text-danger"
+                    *ngIf="isSubmitted && f['email'].errors?.['required']"
+                    >{{ "enter_email" | translate }}*</span
+                  >
+
+                  <span
+                    class="text-danger"
+                    *ngIf="f['email'].errors?.['pattern'] && f['email'].invalid"
+                  >
+                    {{ "please_enter_valid_email" | translate }}
+                  </span>
+                </div>
+
+                <div class="form_field_wrapper">
+                  <label>{{ "address" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="text" matInput formControlName="address" />
+                  </mat-form-field>
+                  <span
+                    class="text-danger"
+                    *ngIf="isSubmitted && f['address'].errors?.['required']"
+                    >{{ "enter_address" | translate }}*</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button mat-button class="btn btn-secondary">
+            {{ "cancel" | translate }}
+          </button>
+          <ng-container *ngIf="giveInnerPermission('add')">
+          <button
+            mat-button
+            class="btn btn-primary"
+            (click)="addContactContent()"
+          >
+            {{ "save" | translate }}
+          </button>
+        </ng-container>
+        </div>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="French">
+      <form [formGroup]="contactFormFr">
+        <div class="faq_tab">
+          <div class="faq_content">
+            <div class="faq_content_inner">
+              <div class="item">
+                <div class="form_field_wrapper">
+                  <label>{{ "phone_number" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="text" matInput formControlName="phone" />
+                  </mat-form-field>
+                </div>
+                <div class="form_field_wrapper">
+                  <label>{{ "email" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="text" matInput formControlName="email" />
+                  </mat-form-field>
+                </div>
+
+                <div class="form_field_wrapper">
+                  <label>{{ "address" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input type="text" matInput formControlName="address" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button mat-button class="btn btn-secondary">
+            {{ "cancel" | translate }}
+          </button>
+          <ng-container *ngIf="giveInnerPermission('add')">
+          <button
+            mat-button
+            class="btn btn-primary"
+            (click)="addContactContentFr()"
+          >
+            {{ "save" | translate }}
+          </button>
+        </ng-container>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

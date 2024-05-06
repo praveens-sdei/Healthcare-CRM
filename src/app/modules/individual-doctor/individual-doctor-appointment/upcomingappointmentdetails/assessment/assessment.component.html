@@ -1,0 +1,31 @@
+<div class="tab_content assessment">
+  <div class="top_bar">
+    <h3 class="profileinfo_title">{{ "assessment" | translate }}</h3>
+    <div class="primary_btn">
+      <!-- <button type="button" class="btn btn-primary">Add Assessment</button> -->
+    </div>
+  </div>
+  <div class="bottom_bar">
+    <div
+      class="assessment_item"
+      *ngFor="let assesment of assessmentsList; let index = index"
+    >
+      <label>Q.{{ index + 1 }} {{ assesment?.question }}</label>
+      <div class="answer">.Ans {{ assesment?.answer }}</div>
+    </div>
+
+    <div class="text-center" *ngIf="assessmentsList?.length === 0">
+      <span
+        ><b>{{ "no_assessments_found" | translate }}</b></span
+      >
+    </div>
+    <!-- <div class="assessment_item">
+            <label>Q.01 Lorem Ipsum is simply dummy text of the printing and typesetting</label>
+            <div class="answer">Ans. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout established fact that a reader will be distracted by the readable content of a page when looking at its layout. </div>
+        </div>
+        <div class="assessment_item">
+            <label>Q.01 Lorem Ipsum is simply dummy text of the printing and typesetting</label>
+            <div class="answer">Ans. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout established fact that a reader will be distracted by the readable content of a page when looking at its layout. </div>
+        </div> -->
+  </div>
+</div>

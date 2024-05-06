@@ -1,0 +1,46 @@
+<div class="home_wrapper">
+  <app-header></app-header>
+
+  <div class="breadcum_wrapper" aria-label="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb_title">{{ "about_us" | translate }}</div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "home" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ "contact_us" | translate }}
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="main_section contact-main-section">
+    <div class="main_section_inner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mb-3">
+            <div class="contact-card-wrap p-3">
+              <h2 class="title m-0">{{ "address" | translate }}:</h2>
+              <p class="m-0 mt-2">{{ address }}</p>
+            </div>
+          </div>
+          <div class="col-lg-3 mb-3">
+            <div class="contact-card-wrap p-3">
+              <h2 class="title m-0">{{ "phone" | translate }}:</h2>
+              <p class="m-0 mt-2">{{ phone }}</p>
+            </div>
+          </div>
+          <div class="col-lg-3 mb-3">
+            <div class="contact-card-wrap p-3">
+              <h2 class="title m-0">{{ "email" | translate }}:</h2>
+              <p class="m-0 mt-2">{{ email }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

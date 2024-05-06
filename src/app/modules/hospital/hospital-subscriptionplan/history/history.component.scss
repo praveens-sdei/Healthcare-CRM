@@ -1,0 +1,46 @@
+@import "../../../../../assets/css/variable/variable";
+.material-icons {
+  cursor: pointer;
+}
+
+.plan_history {
+  .top_bar {
+    margin: 0 0 35px;
+    .left_part {
+      display: flex;
+    }
+  }
+  
+  .bottom_bar{
+    table{
+        border-radius: 15px;
+        tr{
+            td{
+                .status {
+                    font-size: $font_extra_small;
+                    background-color: #FBF3EA;
+                    color: #FF7354;
+                    border-radius: 18.5px;
+                    padding: 7px 21px;
+                    &.active{
+                        background-color: #EBFBEE;
+                        color: #72D284;
+                    }
+                    &.exprired{
+                        background-color: #d81e1e;
+                        color: #141212;
+                    }
+                }
+            }
+        }
+    }
+}
+}
+
+
+
+@media screen and (max-width: $medium_iphone) {
+}
+
+@media screen and (max-width: $medium_phone) {
+}

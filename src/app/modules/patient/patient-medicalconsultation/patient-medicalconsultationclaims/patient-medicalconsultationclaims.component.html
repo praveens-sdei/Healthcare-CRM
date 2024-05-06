@@ -1,0 +1,71 @@
+<!-- <div class="pharmacy_medicine_claims dashboard_main_content">
+  <div class="pharmacy_medicine_inner">
+    <div class="row">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </div>
+    <mat-stepper class="example-stepper" #mainStepperr [orientation]="(stepperOrientation | async)!">
+
+      <mat-step [stepControl]="firstFormGroup" label="Common Information">
+        <div class="step_counter_inner">
+          <app-commoninformationconsultation [mstepperr]="mainStepperr"></app-commoninformationconsultation>
+        </div>
+        
+      </mat-step>
+
+
+    </mat-stepper>
+  </div>
+</div> -->
+
+
+<div class="pharmacy_medicine_claims dashboard_main_content">
+  <div class="pharmacy_medicine_inner">
+    <div class="row">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </div>
+    <!-- </div> -->
+    <!-- <div class="primary_btn">
+      <button type="button" class="btn btn-primary" (click)="downloadclaimtemplate()">
+        <mat-icon>download</mat-icon>{{ "download_calim_template" | translate }}
+      </button>
+    </div> -->
+    <mat-stepper class="example-stepper" #mainStepperr [orientation]="(stepperOrientation | async)!">
+
+      <mat-step [stepControl]="firstFormGroup" label="Common Information">
+        <div class="step_counter_inner">
+          <app-commoninformationconsultation [mstepperr]="mainStepperr"></app-commoninformationconsultation>
+        </div>
+
+      </mat-step>
+
+
+      <mat-step [stepControl]="secondFormGroup" label="Service Type">
+        <div class="step_counter_inner">
+          <app-servicetype-consultation [mstepperr]="mainStepperr"></app-servicetype-consultation>
+        </div>
+        
+      </mat-step>
+
+
+      <mat-step [stepControl]="thirdFormGroup" label="Document Upload">
+        <div class="step_counter_inner">
+          <app-documentupload-consultation [mstepperr]="mainStepperr"></app-documentupload-consultation>
+        </div>
+        <!-- <div class="primary_btn">
+              <button class="btn btn-secondary" mat-button matStepperPrevious>Back</button>
+              <button type="button" class="btn btn-primary" mat-button matStepperNext>Save & Continue</button>
+            </div> -->
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup" label="eSignature">
+        <div class="step_counter_inner">
+          <app-esignature-consultation [mstepperr]="mainStepperr"></app-esignature-consultation>
+        </div>
+        <!-- <div class="primary_btn">
+            <button class="btn btn-secondary" mat-button matStepperPrevious>Back</button>
+            <button type="button" class="btn btn-primary" mat-button matStepperNext>Save & Continue</button>
+          </div> -->
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

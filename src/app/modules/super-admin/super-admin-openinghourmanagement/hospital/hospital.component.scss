@@ -1,0 +1,243 @@
+@import '../../../../../assets/css/variable/variable';
+
+.material-icons{
+    cursor: pointer;
+}
+
+.hospital_listing{
+    padding: 0;
+    .common_space{
+        margin: 0;
+        &.top_bar{
+            flex-wrap: wrap;
+            .left_part{
+                display: flex;
+                .search_bar{
+                    .input-group{
+                        background: #F6F8FC;
+                        border-radius: 6px;
+                        .form-control{
+                            border: none;
+                            background-color: transparent;
+                            padding: 12px 12px 12px 0;
+                            width: 170px;
+                            &::placeholder{
+                                font-weight: 400;
+                                font-size: $font_small;
+                                line-height: 24px;
+                            }
+                            &:focus{
+                                box-shadow: none;
+                            }
+                        }
+                        .btn{
+                            padding: 0;
+                            border: none;
+                            .mat-icon{
+                                line-height: 50px;
+                                height: 50px;
+                                width: 50px;
+                                color: #9B9B9B;
+                                font-size: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+            .right_part{
+                .primary_btn{
+                    flex-wrap: wrap;
+                    .btn{
+                        &.import {
+                            background-color: $white_color;
+                            color: $bodycolor;
+                            .btn_svg{
+                                background-color:$bodycolor;
+                                svg{
+                                    fill: $white_color;
+                                }
+                            }
+                            &:hover{
+                                background-color: $bodycolor;
+                                color: $white_color;
+                                .btn_svg{
+                                    background-color:$white_color;
+                                    svg{
+                                        fill: $bodycolor;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  
+                }
+            }
+        }
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+}
+
+// Add  Hsopital Modal CSS
+.add_hospital_content{
+    hr{
+        margin: 15px -30px 25px;
+    }
+    .bottom_part{
+        .modal_title{
+            font-weight: 600;
+            font-size: $font_medium;
+            line-height: 22px;
+            color: $table-color;
+            margin: 0 0 15px;
+        }
+        .hour_section{
+            margin: 0 0 10px;
+            &.opening_hour{
+                .week_days {
+                    .row{
+                        margin: 0 -8px;
+                        .week_item{
+                            padding: 0 8px;
+                        }
+                    }
+                }
+            }
+            &.non_opening_datetime{
+                .date_time_inner{
+                    display: flex;
+                    align-items: stretch;
+                    .row{
+                        width: 100%;
+                        .time_item{
+                            width: 33.33%;
+                            .form_field_wrapper{
+                                label{
+                                    font-weight: 400;
+                                    color: $bodyopacitylightcolor;
+                                }
+                               .mat-form-field{
+                                    .mat-form-field-flex{
+                                        .mat-form-field-infix{
+                                            width: 100%;  
+                                        } 
+                                    }
+                               } 
+                            }
+                        }
+                    }
+                    .row_generate {
+                        border-radius: 5px;
+                        margin: 30px 0 15px 20px;
+                        height: auto;
+                        background: #ffffff;
+                        border: 1px solid rgba(228, 228, 228, 0.9);
+                        .mat-icon{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #0B4977; 
+                            font-size: 30px;
+                            min-width: 50px;
+                            width: 50px;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                margin: 0;
+            }
+        }
+    }
+    .primary_btn{
+        margin-top: 10px;
+    }
+}
+
+// Import subscribers css
+.import_subscribes {
+    .modal-dialog {
+        max-width: 650px;
+        .import_subscribes {
+            .upload_item {
+                .form_field_wrapper{
+                    .upload_input{
+                        position: relative;
+                        padding-bottom: 22px;
+                        .upload_input_content{
+                            position: absolute;
+                            top: 0;
+                            bottom: auto;
+                            width: 100%;   
+                            label{
+                                padding: 15px 10px;
+                                background-color: #ffffff;
+                                border: 1px solid rgba(228, 228, 228, 0.9);
+                                font-size: 14px;
+                                font-weight: 500;
+                                border-radius: 5px;
+                                color: #3DA7C8;
+                                display: block;
+                                text-align: center;
+                                margin: 0;
+                                .btn_svg{
+                                    margin-right: 10px;
+                                }
+                            }                 
+                        }
+                        .user_upload_input{
+                            opacity: 0;
+                            z-index: 0;
+                            min-height: 50px;
+                            width: 100%;  
+                        }
+                    }
+                }
+            }
+            .primary_btn{
+                justify-content: space-between;
+                .left{
+                    margin-right: 15px;
+                }
+                .right{
+                    display: flex;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+@media screen and (min-width:$desktop_pro_up) {
+    .add_hospital_content .bottom_part .opening_hour .week_days .row .week_item {
+        width: 14.28%;
+    }
+}
+@media screen and (min-width:$desktop_pro_up) {
+    .add_hospital_content .modal-dialog {
+        max-width: 900px;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .add_hospital_content .bottom_part .hour_section.non_opening_datetime .date_time_inner .row .time_item {
+        width: 50%;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .hospital_listing .common_space.top_bar .right_part .primary_btn .btn.import{
+        margin: 0 0 20px;
+    }
+    .add_hospital_content .bottom_part .opening_hour .week_days .row .week_item{
+        width: 50%;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .add_hospital_content .bottom_part .hour_section.non_opening_datetime .date_time_inner .row .time_item {
+        width: 100%;
+    }
+}

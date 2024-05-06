@@ -1,0 +1,451 @@
+<div class="medicine_claim_dashboard dashboard_main_content">
+  <div class="top_bar common_space">
+    <div class="content_wrap">
+      <div class="policy insurance">
+        <div class="form_field_wrapper">
+          <mat-form-field class="custome_dropdown">
+            <mat-select
+              #select
+              multiple
+              placeholder="{{ 'all_insurance' | translate }}"
+            >
+              <div class="select-all">
+                <mat-checkbox
+                  [(ngModel)]="allSelected"
+                  [ngModelOptions]="{ standalone: true }"
+                  (change)="toggleAllSelection()"
+                  >{{ "select_all" | translate }}</mat-checkbox
+                >
+              </div>
+              <mat-option
+                (click)="optionClick()"
+                *ngFor="let food of foods"
+                [value]="food.value"
+              >
+                {{ food.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy date_pick">
+        <div class="form_field_wrapper mright">
+          <div class="primary_btn">
+            <ng-container *ngIf="giveInnerPermission('add')">
+            
+            <a routerLink="/pharmacy/medicineclaims"
+              ><button type="button" class="btn btn-primary">
+                <mat-icon>assignment</mat-icon>{{ "new_claim" | translate }}
+              </button></a
+            >
+          </ng-container>
+          </div>
+        </div>
+        <div class="form_field_wrapper mright">
+          <label>{{ "from" | translate }}:</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [max]="maxdate"
+              (dateChange)="handleDateChage($event)"
+              [matDatepicker]="picker1"
+              placeholder="{{ 'from_date' | translate }}"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form_field_wrapper">
+          <label>{{ "to" | translate }}:</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [min]="min"
+              (dateChange)="handletoDateChange($event)"
+              [matDatepicker]="picker2"
+              placeholder="{{ 'to_date' | translate }}"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{ statusCountDataTotal }}</div>
+              <div class="counter_title">{{ "total_cliams" | translate }}</div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard1.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-6 col-md-3 claims"> -->
+      <!-- <div class="cust_col light_violet">
+                    <div class="cust_col_inner">
+                        <mat-icon class="more">more_horiz</mat-icon>
+                        <div class="left">
+                            <div class="counter">54</div>
+                            <div class="counter_title">Submitted Claims</div>
+                        </div>
+                        <div class="right">
+                            <div class="counter_img">
+                                <img src="assets/img/dashboard/dashboard25.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_skyblue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{
+                  statusCountData?.resubmit ? statusCountData?.resubmit : "0"
+                }}
+              </div>
+              <div class="counter_title">
+                {{ "resubmit_cliams" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard26.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_yellow">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.pending ? statusCountData?.pending : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "pending_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard4.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_green">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{
+                  statusCountData?.approved ? statusCountData?.approved : "0"
+                }}
+              </div>
+              <div class="counter_title">
+                {{ "approved_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard2.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section claims_wrapper common_space">
+    <div class="row">
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_orange">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.reject ? statusCountData?.reject : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "rejected_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard27.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.preauth ? statusCountData?.preauth : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "pre-authorization" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard28.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 claims">
+        <a routerLink="view">
+          <div class="cust_col light_blue">
+            <div class="cust_col_inner">
+              <mat-icon class="more">more_horiz</mat-icon>
+              <div class="left">
+                <div class="counter">{{ statusCountDataTotal }}</div>
+                <div class="counter_title">{{ "claim_list" | translate }}</div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="assets/img/dashboard/dashboard1.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="claim_section">
+    <div class="row">
+      <div class="claim_details col-md-6">
+        <div class="claim_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "total_revenue" | translate }}</div>
+            <div class="icons">
+              <mat-icon>zoom_out_map</mat-icon>
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-7 col-lg-12">
+              <div class="pie_outer">
+                <div class="pie_chart_main canvas_wrap">
+                  <canvas
+                    baseChart
+                    [type]="'pie'"
+                    [datasets]="pieChartDatasets"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend"
+                  >
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-lg-12">
+              <div class="detail_description chart">
+                <ul>
+                  <li>
+                    <div class="line blue"></div>
+                    <div class="detail_section">
+                      <p>6000</p>
+                      <p>{{ "all" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line darkblue"></div>
+                    <div class="detail_section">
+                      <p>2000</p>
+                      <p>{{ "co_payment" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line green"></div>
+                    <div class="detail_section">
+                      <p>4000</p>
+                      <p>{{ "insurance_approved_amount" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line blueshad"></div>
+                    <div class="detail_section">
+                      <p>2000</p>
+                      <p>{{ "pre_authorization_amount" | translate }}</p>
+                    </div>
+                  </li>
+
+                  <hr />
+                  <li>
+                    <div class="line yellow"></div>
+                    <div class="detail_section">
+                      <p>4000</p>
+                      <p>{{ "insurance_approved_amount" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line red"></div>
+                    <div class="detail_section">
+                      <p>2000</p>
+                      <p>{{ "pre_authorization_amount" | translate }}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cost_details col-md-6">
+        <div class="cost_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "average_cost_claim" | translate }}</div>
+            <div class="icons">
+              <mat-icon>zoom_out_map</mat-icon>
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas
+              baseChart
+              [type]="'line'"
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend"
+            >
+            </canvas>
+          </div>
+          <div class="label_box">
+            <ul>
+              <li>
+                <div class="outer">
+                  <div class="color_block cyn"></div>
+                  <p>{{ "all" | translate }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="outer">
+                  <div class="color_block lightgreen"></div>
+                  <p>{{ "approved" | translate }}</p>
+                </div>
+              </li>
+              <!-- <li>
+                                <div class="outer">
+                                    <div class="color_block lightblue"></div>
+                                    <p>Co pay</p>
+                                </div>
+                            </li> -->
+              <li>
+                <div class="outer">
+                  <div class="color_block royalblue"></div>
+                  <p>{{ "pre_authorization" | translate }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="outer">
+                  <div class="color_block magento"></div>
+                  <p>{{ "resubmit" | translate }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="outer">
+                  <div class="color_block yellow"></div>
+                  <p>{{ "pending" | translate }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="outer">
+                  <div class="color_block orange"></div>
+                  <p>{{ "rejected" | translate }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

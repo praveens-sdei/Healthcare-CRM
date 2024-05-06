@@ -1,0 +1,45 @@
+@import '../../../../assets/css/variable/variable';
+.appoinment_commision {
+    .header_block {
+        margin-bottom: 20px;
+        h3 {
+            font-weight: 500;
+            font-size: 20px;
+            color: #0C2F49;
+        }
+    }
+    .hospital_doctor {
+        .inner_hospital_doctor {
+            background: #FFFFFF;
+            border: 1px solid #B6C8D6;
+            border-radius: 5px;
+            .online_block {
+                border-bottom: 1px solid #B6C8D6;
+                padding: 20px 28px;
+                .header_section {
+                    p {
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 22px;
+                        color: #0C2F49;
+                    }
+                }
+                .form_block {}
+                &.no_border {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+    .save_data_doctor {
+        text-align: right;
+        margin-top: 15px;
+        button {
+            min-width: 150px;
+        }
+    }
+}
+
+@media screen and (max-width:$desktop) {}
+
+@media screen and (max-width:$large_phone) {}

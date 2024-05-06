@@ -1,0 +1,1094 @@
+<div class="main_block">
+  <div class="main_section">
+    <div>
+      <app-pharmacy-header
+        *ngIf="profileData != ''"
+        [details]="profileData"
+      ></app-pharmacy-header>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
+    <div class="create_profile login_time">
+      <form [formGroup]="profileFields" (ngSubmit)="createProfile()">
+        <div class="container">
+          <div class="main_title">{{"create_pharmacy_profile" | translate}}</div>
+          <div class="create_profile_inner">
+            <!-- <div class="image-upload">
+              <label for="file-input">
+                <img
+                  class="img-fluid mb-4"
+                  src="{{
+                    profileImage
+                      ? profileImage
+                      : '../../../../../assets/img/profile_img.png'
+                  }}"
+                  width="100px"
+                  height="100px"
+                />
+              </label>
+
+              <input
+                id="file-input"
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event,'profilepicture')"
+              />
+            </div> -->
+            <div class="user_image_upload">
+              <input
+              id="file-input"
+              formControlName="profileImage"
+              type="file"
+              accept="image/*"
+              class="upload_input"
+              (change)="onFileSelected($event, 'profilepicture')"
+            />
+                <div class="user_upload_block">
+                  <span class="user_upload_wrapper">
+                    <span class="user_upload_icon">
+                      <img
+                        src="{{
+                          profileImage ? profileImage : '/assets/img/create_profile.png'
+                        }}"
+                      />
+                    <span class="quick_view" *ngIf="profileImage ? true : false">
+                      <mat-icon class="closeicon" (click)="removeSelectpic('profileImage')">close</mat-icon>
+                    </span>
+                  </span>
+                  </span>
+                  <span class="edit_upload_wrapper">
+                    <span class="edit_upload_icon"
+                      ><img src="../../../assets/img/edit_profile.svg"
+                    /></span>
+                  </span>
+                </div>
+            </div>
+
+
+            <div class="profile_img d-none">
+              <span
+                class="quick_view"
+                *ngIf="profileImage ? true : false"
+                (click)="removeSelectpic('profileImage')"
+              >
+                <mat-icon class="closeicon">close</mat-icon>
+              </span>
+              <img
+                src="{{
+                  profileImage ? profileImage : '/assets/img/create_profile.png'
+                }}"
+                width="100px"
+                height="100px"
+              />
+
+              <input
+                id="file-input"
+                formControlName="profileImage"
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event, 'profilepicture')"
+              />
+            </div>
+
+            <div class="form">
+              <div class="row">
+                <div class="col-sm-6 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"first_name" | translate}} <span class="danger">*</span></label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="first_name"
+                        name="first_name"
+                        [disabled]="true"
+                        [readonly]="true"
+
+                      />
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                      profileFields.get('first_name').hasError('required')
+                    "
+                    >{{"first_name_is_required" | translate}}.</mat-error
+                  >
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"middle_name" | translate}} </label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="middle_name"
+                        name="middle_name"
+                        [disabled]="true"
+                        [readonly]="true"
+
+                      />
+                      <mat-error
+                        *ngIf="
+                          profileFields
+                            .get('middle_name')
+                            .hasError('required')
+                        "
+                        >{{"middle_name_is_required" | translate}}.</mat-error
+                      >
+                     
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"Last Name" | translate}} <span class="danger">*</span></label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="last_name"
+                        name="last_name"
+                        [disabled]="true"
+                        [readonly]="true"
+                      />
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                      profileFields
+                        .get('last_name')
+                        .hasError('required')
+                    "
+                    >{{"last_name_is_required" | translate}}</mat-error
+                  >
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-8 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"pharmacy_name" | translate}} <span class="danger">*</span></label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="pharmacy_name"
+                        name="pharmacy_name"
+                        [disabled]="true"
+                      />
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                      profileFields
+                        .get('pharmacy_name')
+                        .hasError('required')
+                    "
+                    >{{"pharmacy_name_is_required" | translate}}.</mat-error
+                  >
+                  <mat-error
+                    *ngIf="
+                      profileFields.get('pharmacy_name').hasError('pattern')
+                    "
+                    >{{"pharmacy_name_must_contain_alphabets" | translate}}.</mat-error
+                  >
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"email" | translate}} <span class="danger">*</span></label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="email"
+                        matInput
+                        formControlName="email"
+                        name="email"
+                      />
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                      isSubmitted &&
+                      profileFields.get('email').hasError('required')
+                    "
+                    >{{"email_is_required" | translate}}</mat-error
+                  >
+                  <mat-error
+                    *ngIf="
+                      isSubmitted &&
+                      profileFields.get('email').hasError('pattern')
+                    "
+                    >{{"invalid_email_id" | translate}}.</mat-error
+                  >
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label
+                      >{{"main_phone_number" | translate}} <span class="danger">*</span></label
+                    >
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="mobile"
+                        matInput
+                        formControlName="main_phone_number"
+                        #mobile
+                        (focus)="onFocus()"
+                        ng2TelInput
+                        name="main_phone_number"
+                      />
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                    isSubmitted && profileFields.get('main_phone_number').hasError('required') "
+                    >{{"main_phone_number_is_required" | translate}}</mat-error
+                  >
+                  </div>
+                </div>
+                <!-- <div class="col-sm-12 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label
+                      >Mobile Phone Number <span class="danger">*</span></label
+                    >
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="mobile"
+                        matInput
+                        formControlName="mobile_phone_number"
+                        name="mobile_phone_number"
+                      />
+
+                      <mat-error
+                        *ngIf="
+                          isSubmitted &&
+                          profileFields
+                            .get('mobile_phone_number')
+                            .hasError('required')
+                        "
+                        >Mobile number is required*.</mat-error
+                      >
+
+                      <mat-error
+                        *ngIf="
+                          profileFields
+                            .get('mobile_phone_number')
+                            .hasError('pattern')
+                        "
+                      >
+                        Only numbers are allowed*.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+                <ng-container formArrayName="additional_phone_number">
+                  <div
+                    class="col-sm-12 col-md-4 mb-3"
+                    *ngFor="
+                      let _ of additional_phone_number.controls;
+                      index as i
+                    "
+                  >
+                    <div class="form_field_wrapper">
+                      <label>{{"additional_phone_number" | translate}}</label>
+                      <div class="fieldicon_wrap">
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="mobile"
+                            matInput
+                            [formControlName]="i"
+                            [name]="'additional_phone_number' + i"
+                          />
+                        </mat-form-field>
+                        <ng-container *ngIf="i === additional_phone_number.length - 1; else remove">
+                          <div class="row_generate row_minus"  *ngIf="additional_phone_number.length>1">
+                          <mat-icon
+                          class="minus"
+                          (click)="removeAdditionalPhone(i)"
+                          >clear</mat-icon
+                        >
+                      </div>
+                        <mat-icon
+                          class="plus"
+                          (click)="addAdditionalPhone()"
+                          >add</mat-icon
+                        >
+                        </ng-container>
+                        <ng-template #remove>
+                          <mat-icon
+                          class="minus"
+                          (click)="removeAdditionalPhone(i)"
+                          >clear</mat-icon
+                        >
+                        </ng-template>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <!-- <div class="col-sm-12 col-md-8">
+                  <div class="form_field_wrapper">
+                    <label>Address</label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="address"
+                        name="address"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <ng-container formGroupName="location_info">
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Region</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="region"
+                          name="region"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Province</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="province"
+                          name="province"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Department</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="department"
+                          name="department"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Country </label>
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          formControlName="nationality"
+                          name="nationality"
+                        >
+                          <mat-option value="ENGLAND">England</mat-option>
+                          <mat-option value="BRAZIL">Brazil</mat-option>
+                          <mat-option value="AUSTRALIA">Australia</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>City</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="city"
+                          name="city"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Neighborhood</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="neighborhood"
+                          name="neighborhood"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="form_field_wrapper">
+                      <label>Pincode </label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="pincode"
+                          name="pincode"
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </ng-container> -->
+                <app-address-shared
+                  [profileFields]="profileFields"
+                  [isSubmit] = "isSubmitted"
+                  *ngIf="showAddressComponent"
+                ></app-address-shared>
+                <div class="col-sm-12 col-md-8 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"about" | translate}}</label>
+                    <mat-form-field appearance="fill">
+                      <textarea
+                        type="text"
+                        matInput
+                        formControlName="about_pharmacy"
+                        name="about_pharmacy"
+                      ></textarea>
+
+                      <mat-error
+                        *ngIf="
+                          profileFields
+                            .get('about_pharmacy')
+                            .hasError('required')
+                        "
+                        >{{"required" | translate}}*</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 mb-3">
+                  <div class="form_field_wrapper">
+                    <label>{{"pharmacy_slogan" | translate}}</label>
+                    <mat-form-field appearance="fill">
+                      <textarea
+                        type="text"
+                        matInput
+                        formControlName="slogan"
+                        name="slogan"
+                      ></textarea>
+
+                      <mat-error
+                        *ngIf="
+                          isSubmitted &&
+                          profileFields.get('slogan').hasError('required')
+                        "
+                        >{{"required" | translate}}*</mat-error
+                      >
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="healthcare_network">
+                <h2>{{"license" | translate}}</h2>
+                <ng-container formGroupName="licence_details">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >{{"license_number" | translate}} <span class="danger">*</span></label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="number"
+                            matInput
+                            placeholder='{{"license_number" | translate}}'
+                            formControlName="id_number"
+                            name="id_number"
+                          />
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                        isSubmitted &&  profileFields
+                            .get('licence_details.id_number')
+                            .hasError('required')
+                        "
+                        >{{"license_number_is_required" | translate}}.</mat-error
+                      >
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label>{{"expiry_date" | translate}} <span class="danger">*</span></label>
+                        <mat-form-field
+                          class="example-full-width"
+                          appearance="fill"
+                        >
+                          <input
+                            matInput
+                            [matDatepickerFilter]="myFilter"
+                            [matDatepicker]="picker"
+                            formControlName="expiry_date"
+                            name="expiry_date"
+                            placeholder='{{"expiry_date" | translate}}'
+                          />
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="picker"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                        isSubmitted &&  profileFields
+                            .get('licence_details.expiry_date')
+                            .hasError('required')
+                        "
+                        >{{"expiry_date_is_required" | translate}}.</mat-error
+                      >
+                      </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                      <div class="form_field_wrapper">
+                        <div class="row form-field-insurance">
+                          <div class="upload_item col-sm-6 col-md-6 mb-4">
+                            <div class="upload_output" *ngIf="lisencePic ? true : false">
+                              <div class="upload_input_content">
+                                <img
+                                  src="{{
+                                  lisencePic
+                                  ? lisencePic
+                                  : '/assets/img/create_profile.png'
+                                  }}"
+                                />
+                                <button class="btn btn-transparent closing-icon" (click)="removeSelectpic('lisencePic')">
+                                  <mat-icon class="closeicon close">close</mat-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="upload_item col-sm-6 col-md-6">
+                            <div class="upload_input">
+                              <div class="upload_input_content">
+                                <img src="assets/img/add_box.svg" />
+                                <label
+                                  class="upload_text"
+                                  (click)="licenceUpload.click()"
+                                  >{{"upload_license_picture" | translate}}</label>
+                              </div>
+                              <input
+                              type="file"
+                              accept="image/*"
+                              hidden
+                              (change)="onFileSelected($event, 'licence')"
+                              #licenceUpload
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-sm-12 col-md-4 mb-3 upload_item">
+                      <div class="form_field_wrapper">
+                        <label class="invisible">{{"upload_license_picture" | translate}}</label>
+
+                        <input
+                          type="file"
+                          accept="image/*"
+                          hidden
+                          (change)="onFileSelected($event, 'licence')"
+                          #licenceUpload
+                        />
+                        <span
+                          class="upload_text"
+                          (click)="licenceUpload.click()"
+                          >{{"upload_license_picture" | translate}}</span
+                        >
+                        </mat-form-field>
+                      </div>
+                    </div> -->
+                    <!-- <div class="col-sm-12 col-md-2 upload_item">
+                      <div class="form_field_wrapper">
+                        <label class="invisible">{{"preview" | translate}}</label>
+                        <mat-form-field appearance="fill">
+                        <span
+                          class="quick_view"
+                          *ngIf="lisencePic ? true : false"
+                          (click)="removeSelectpic('lisencePic')"
+                        >
+                          <mat-icon class="closeicon">close</mat-icon>
+                        </span>
+                        <img
+                          src="{{
+                            lisencePic
+                              ? lisencePic
+                              : '/assets/img/create_profile.png'
+                          }}"
+                        />
+                      </div>
+                    </div> -->
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="healthcare_network picture_section">
+                <!-- <h2>License </h2> -->
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 mb-3">
+                    <div class="form_field_wrapper add_image">
+                      <label>{{"picture" | translate}}</label>
+
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        hidden
+                        (change)="onFileSelected($event, 'pharmacypictures')"
+                        #pharmacyPicUpload
+                      />
+                      <div class="boxes_wrapper">
+                        <div class="boxes">
+                          <div
+                            class="inner_boxes"
+                            (click)="pharmacyPicUpload.click()"
+                          >
+                            <p><mat-icon>add</mat-icon></p>
+                            <p>{{"add_photos" | translate}}</p>
+                          </div>
+                        </div>
+                        <div class="images-preview mt-4">
+                        <div
+                          class="preview-img"
+                          *ngFor="let pic of pharmacyPicUrl; index as i"
+                        >
+                          <span
+                            class="quick_view"
+                            (click)="removeSelectpic('pharmacy_pic', i)"
+                          >
+                            <mat-icon class="closeicon">close</mat-icon>
+                          </span>
+                          <img [src]="pic" alt="pharmacy_pic" />
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="healthcare_network">
+                <h2>{{"bank_details" | translate}}</h2>
+                <ng-container formGroupName="bank_details">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label>{{"bank_name" | translate}} </label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="bank_name"
+                            name="bank_name"
+                          />
+                          <!-- <mat-error
+                            *ngIf="
+                              bankDataFields
+                                .get('bank_name')
+                                .hasError('required')
+                            "
+                            >Bank name required*.</mat-error
+                          > -->
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >{{"account_holder_name" | translate}}
+                          </label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="account_holder_name"
+                            name="account_holder_name"
+                          />
+
+                          <!-- <mat-error
+                            *ngIf="
+                              bankDataFields
+                                .get('account_holder_name')
+                                .hasError('required')
+                            "
+                            >Enter account holder name*.</mat-error
+                          > -->
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >{{"account_number" | translate}} </label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            (keypress)="numberFunc($event)"
+                            (paste)="numberFunc($event)"
+                            matInput
+                            formControlName="account_number"
+                            name="account_number"
+                          />
+                          <!-- <mat-error
+                            *ngIf="
+                              bankDataFields
+                                .get('account_number')
+                                .hasError('required')
+                            "
+                            >Account number required*</mat-error
+                          > -->
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label>{{"ifsc" | translate}} </label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="ifsc_code"
+                            name="ifsc_code"
+                          />
+                          <!-- <mat-error
+                            *ngIf="
+                              bankDataFields
+                                .get('ifsc_code')
+                                .hasError('required')
+                            "
+                            >IFSC code is required*</mat-error
+                          > -->
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >{{"bank_address" | translate}} </label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="bank_address"
+                            name="bank_address"
+                          />
+
+                          <!-- <mat-error
+                            *ngIf="
+                              bankDataFields
+                                .get('bank_address')
+                                .hasError('required')
+                            "
+                            >bank address is required*</mat-error
+                          > -->
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="healthcare_network association ">
+                <div class="row  association_part">
+                  <div class="association_part_inner">
+                    <div class="item " formGroupName="association">
+                      <h3 class="title">{{"association_or_group" | translate}}</h3>
+                      <mat-radio-group
+                        aria-label="Select an option"
+                        formControlName="enabled"
+                        (change)="handleSelectChange($event)"
+                      >
+                        <mat-radio-button
+                          [value]="true"
+                          [checked]="profileFields.value.association.enabled "
+                          >{{"yes" | translate}}
+                        </mat-radio-button>
+                        <mat-radio-button
+                          [value]="false"
+                          [checked]="!profileFields.value.association.enabled"
+                          >{{"no" | translate}}
+                        </mat-radio-button>
+                      </mat-radio-group>
+                  </div>
+
+                  <ng-container *ngIf="profileFields.value.association.enabled">
+                  <div class="item">
+                    <h3>{{"patient_portal" | translate}}</h3>
+                    <mat-radio-group
+                      aria-label="Select an option"
+                      formControlName="show_to_patient"
+                    >
+                      <mat-radio-button
+                        [value]="true"
+                        [checked]="profileFields.value.show_to_patient"
+                        >{{"yes" | translate}}
+                      </mat-radio-button>
+                      <mat-radio-button
+                        [value]="false"
+                        [checked]="!profileFields.value.show_to_patient"
+                        >{{"no" | translate}}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </ng-container>
+              </div>
+                </div> 
+                <ng-container *ngIf="profileFields.value.association.enabled"> 
+                  <div
+                  class="association_field"
+                  *ngIf="profileFields.value.association.enabled">
+                  <div class="row">
+                    <ng-container formArrayName="name">
+                      <div
+                        class="association_item col-md-6 col-md-6 col-lg-4 mb-3"
+                        *ngFor="let _ of name.controls; index as i"
+                      >
+                        <label>{{"enter_name" | translate}}</label>
+                        <div class="form_field_wrapper">
+                          <select2 [overlay]="overlay"  [limitSelection]="0" [minCountForSearch]=0 [data]="associationList"  
+                              (update)="updateMySelection($event, i)"  [formControlName]="i" >
+                          </select2>
+                          <ng-container *ngIf="i === name.length - 1; else remove">
+                            <div class="row_generate row_minus">
+                              <mat-icon
+                                (click)="removeAdditionalName(i)"
+                                *ngIf="name.length >1"
+                              >
+                                clear</mat-icon
+                              >
+                            </div>
+    
+                            <div class="row_generate row_add">
+                              <mat-icon
+                                class="plus"
+                                (click)="addAdditionalName()"
+                                >add</mat-icon
+                              >
+                            </div>
+                          </ng-container>
+                          <ng-template #remove>
+                            <div class="row_generate row_minus">
+                              <mat-icon
+                                (click)="removeAdditionalName(i)"
+                              >
+                                clear</mat-icon
+                              >
+                            </div>
+                          </ng-template>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+                </ng-container>
+              </div>
+
+              <div
+                class="healthcare_network onduty_group"
+                formGroupName="duty_group"
+              >
+                <div class="onduty">
+                  <div class="onduty_inner row">
+                    <div class="item">
+                      <div class="title">{{"on_duty_group" | translate}}</div>
+                      <mat-radio-group
+                        aria-label="Select an option"
+                        formControlName="enabled"
+                      >
+                        <mat-radio-button
+                          [value]="true"
+                          [checked]="profileFields.value.duty_group.enabled"
+                          >{{"yes" | translate}}</mat-radio-button
+                        >
+                        <mat-radio-button
+                          [value]="false"
+                          [checked]="!profileFields.value.duty_group.enabled"
+                          >{{"no" | translate}}</mat-radio-button
+                        >
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="association_field"
+                  *ngIf="profileFields.value.duty_group.enabled"
+                >
+                <div class="row">
+                  <div class="association_item col-md-4 mb-3">
+                    <label>{{"enter_name" | translate}}</label>
+                    <div class="form_field_wrapper">
+                        <select2 [overlay]="overlay"  [limitSelection]="0" [value]="selectedonduty" [minCountForSearch]=0 [data]="ondutyGroupList"  
+                                (update)="updateMyDutySelection($event)"  formControlName="id_number">
+                        </select2>
+                    </div>
+                  </div>
+                </div>
+                  
+                </div>
+              </div>
+
+              <div class="healthcare_network mobile_paydetails custome_modal divider">
+                <h2>{{ "mobile_pay_details" | translate }}</h2>
+                <div class="modal-body">
+                  <ng-container formArrayName="mobilePayDetails">
+                    <ng-container
+                      *ngFor="let _ of mobilePayDetails.controls; let i = index"
+                    >
+                      <ng-container [formGroupName]="i">
+                        <div class="paydetail_content modal_content">
+                          <div class="row modal_content_inner">
+                            <div class="item col-sm-6 col-lg-6 mb-3">
+                              <div class="form_field_wrapper">
+                                <label>{{"name_of_mobile_pay_provider" | translate}} </label>
+                                <mat-form-field appearance="fill">
+                                  <input
+                                    type="text"
+                                    matInput
+                                    formControlName="provider"
+                                  />
+                                </mat-form-field>
+                              </div>
+                              <span
+                                class="text-danger"
+                                *ngIf="isSubmitted && mobilePayValidation(i).controls['provider'].errors?.['required'] "
+                                >{{"enter_provider_name" | translate}}*</span
+                              >
+                            </div>
+                            <div class="item col-sm-6 col-lg-6 mb-3">
+                              <div class="form_field_wrapper">
+                                <label>{{"mobile_pay_number" | translate}}</label>
+                                <div class="field-wrap-block d-flex">
+                                  <mat-select
+                                    disableRipple
+                                    placeholder="Select Country Code"
+                                    formControlName="mobile_country_code"
+                                    class="country-code-select">
+                                    <mat-option *ngFor="let code of countryCodes" [value]="code">{{ code }}</mat-option>
+                                  </mat-select>
+                                  <mat-form-field appearance="fill">
+                                    <input
+                                      type="mobile"
+                                      matInput
+                                      formControlName="pay_number"
+                                    />
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                              <span
+                                class="text-danger"
+                                *ngIf="isSubmitted && mobilePayValidation(i).controls['pay_number'].errors?.['required'] "
+                                >{{"enter_mobile_pay_number" | translate}}*</span
+                              >
+      
+                              <span
+                                class="text-danger"
+                                *ngIf="mobilePayValidation(i).controls['pay_number'].errors?.['pattern'] && mobilePayValidation(i).controls['pay_number'].invalid"
+                              >{{"only_numbers_are_allowed" | translate}}*
+                              </span>
+                            </div>
+                          </div>
+                          <ng-container
+                            *ngIf="i === mobilePayDetails.length - 1; else remove"
+                          >
+                            <div class="row_generate row_minus">
+                              <mat-icon
+                                class="minus"
+                                *ngIf="mobilePayDetails.length > 1"
+                                (click)="removeMobPay(i)"
+                                >remove</mat-icon
+                              >
+                            </div>
+                            <div class="row_generate row_add">
+                              <mat-icon class="plus" (click)="addMobPay()"
+                                >add</mat-icon
+                              >
+                            </div>
+                          </ng-container>
+                          <ng-template #remove>
+                            <div class="row_generate row_minus">
+                              <mat-icon class="minus" (click)="removeMobPay(i)"
+                                >remove</mat-icon
+                              >
+                            </div>
+                          </ng-template>
+                        </div>
+                        <br />
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              <!-- <div class="healthcare_network mobile_pay_wrap">
+                <h2>Mobile Pay Details</h2>
+                <ng-container formGroupName="mobile_pay_details">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >Name of Mobile Provider
+                          </label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="provider"
+                            name="provider"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 mb-3">
+                      <div class="form_field_wrapper">
+                        <label
+                          >Mobile Pay Number
+                          </label
+                        >
+                        <mat-form-field appearance="fill">
+                          <input
+                            (keypress)="numberFunc($event)"
+                            (paste)="numberFunc($event)"
+                            matInput
+                            formControlName="pay_number"
+                            name="pay_number"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div> -->
+            </div>
+          </div>
+          <div class="primary_btn btn_wrap mt-5">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              [routerLink]="['/pharmacy/login']"
+            >
+              {{"cancel" | translate}}
+            </button>
+            <button type="submit" mat-stroked-button class="btn btn-primary">
+              {{"save" | translate}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

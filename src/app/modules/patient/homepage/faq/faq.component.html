@@ -1,0 +1,73 @@
+<div class="home_wrapper">
+  <app-header></app-header>
+
+  <div class="breadcum_wrapper" aria-label="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb_title">{{ "faq" | translate }}</div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/patient/homepage']">{{ "home" | translate }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ "faq" | translate }}
+        </li>
+      </ol>
+      <div class="faq-content-block">
+        <!-- <div class="logo"><h1>How can we help you?</h1></div> -->
+          <!-- <div class="search-bar">
+            <div class="input-box">
+          <input
+            type="search"
+            class="search-box"
+            id="search-panel"
+            placeholder="Describe your issues..."
+          />
+        </div>
+        <div class="search-icon">
+          <button type="button" class="btn btn-primary">Search</button>
+        </div>
+      </div> -->
+      <!-- <h3 class="mt-5">Browse Your Topics</h3> -->
+      <div class="accordion accordion-block" id="accordionExample">
+        <div class="accordion-item" *ngFor="let list of showData; let i=index">
+          <h2 class="accordion-header mb-0 p-2">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+           {{list.question}}
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="anchor-block mb-2 pt-2">
+                <a href="javascript:void(0);"> {{list.answer}}
+                </a>
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="main_section">
+      <div class="main_section_inner">
+        <div class="container"> -->
+
+  <!-- </div>
+      </div>
+    </div> -->
+
+  <app-footer></app-footer>
+</div>

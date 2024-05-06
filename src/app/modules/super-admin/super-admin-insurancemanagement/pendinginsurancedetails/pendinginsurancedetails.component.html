@@ -1,0 +1,444 @@
+<div class="insurance_details dashboard_main_content">
+  <div class="button-container">
+    <div class="back_button" [routerLink]="['/super-admin/insurance']">
+      <button class="btn btn-primary">{{ "back" | translate }}</button>
+    </div>
+
+    <div class="back_button">
+      <button class="btn btn-primary">{{ verifyStatus }}</button>
+    </div>
+  </div>
+
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_contact">
+            <div class="profile_image">
+              <img
+                src="{{
+                  profile
+                    ? profile
+                    : '../../../../../../assets/img/default_user.png'
+                }}"
+              />
+              <!-- <img src="../../../assets/img/profile_img.png"> -->
+            </div>
+            <div class="profile_title">{{ fullName }}</div>
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ email }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ dateOfBirth | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">{{ phoneNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">{{ address }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "language" | translate }}</div>
+            <div class="user_value">{{ language }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "role" | translate }}</div>
+            <div class="user_value">{{ role }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_logo" | translate }}</div>
+            <div class="company_logo">
+              <img
+                src="{{
+                  companyLogo
+                    ? companyLogo
+                    : '../../../assets/img/company_logo.png'
+                }}"
+              />
+              <!-- <img src="../../../assets/img/company_logo.png"> -->
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_name" | translate }}</div>
+            <div class="user_value">{{ companyName }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_slogan" | translate }}</div>
+            <div class="user_value">{{ companySlogan }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "type_of_company" | translate }}</div>
+            <div class="user_value">{{ typeOfCompany }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_address" | translate }}</div>
+            <div class="user_value">{{ companyAddress }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "fax_number" | translate }}</div>
+            <div class="user_value" *ngFor="let f of faxNumber">
+              {{ f.fax_number ? f.fax_number : "-" }}
+            </div>
+            <!-- <div class="user_value">
+              <ng-container *ngFor="let f of faxNumber"
+                >{{ f.fax_number ? f.fax_number : "-"}}</ng-container
+              >
+            </div> -->
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "office_phone" | translate }}</div>
+            <div class="user_value" *ngFor="let f of officePhone">
+              {{ f.office_phone_number ? f.office_phone_number : "-" }}
+            </div>
+            <!-- <div class="user_value">
+              <ng-container *ngFor="let f of officePhone"
+                >{{ f.office_phone_number ? f.office_phone_number : "-"}}</ng-container
+              >
+            </div> -->
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">
+              {{ "laws_governing_the_company_activities" | translate }}
+            </div>
+            <div class="user_value">{{ lawsActivity }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "IFU_number" | translate }}</div>
+            <div class="user_value">{{ ifuNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "head_office_address" | translate }}</div>
+            <div class="user_value">{{ headOfcAdd }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "RCCM_number" | translate }}</div>
+            <div class="user_value">{{ rcmNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "other_company_number" | translate }}</div>
+            <div class="user_value">{{ otherCompanyNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "banking_reference" | translate }}</div>
+            <div class="user_value">{{ bankingReference }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">{{ joinedDate | date : "dd/MM/YYYY" }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">
+              {{ "capital" | translate }}
+              <i
+                class="fa fa-info-circle"
+                style="color: #0b4977"
+                ngbTooltip="Company's Inital Capital Amount."
+              ></i>
+            </div>
+            <div class="user_value">
+              {{ capital }}
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h3>{{ "bank_details" | translate }}</h3>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "bank_name" | translate }}</div>
+            <div class="user_value">{{ insuranceDetails?.bank_name }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "account_holder_name" | translate }}</div>
+            <div class="user_value">{{ insuranceDetails?.bank_accName }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "account_number" | translate }}</div>
+            <div class="user_value">{{ insuranceDetails?.accountNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "ifsc" | translate }}</div>
+            <div class="user_value">
+              {{ insuranceDetails?.bank_ifsc }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "bank_address" | translate }}</div>
+            <div class="user_value">
+              {{ insuranceDetails?.bank_address }}
+            </div>
+          </div>
+        </li>
+
+       
+      </ul>
+
+      <h3>{{ "mobile_pay_details" | translate }}</h3>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <ng-container *ngIf="insuranceDetails?.in_mobile_pay?.mobilePay && insuranceDetails.in_mobile_pay.mobilePay.length > 0; else noData">
+              <div class="row" *ngFor="let data of insuranceDetails.in_mobile_pay.mobilePay">
+                <div class="item">
+                  <label>{{ "name_of_mobile_provider" | translate }}</label>
+                  <div class="user_value">
+                    {{ data?.provider || '-' }}
+                  </div>
+                </div>
+                <div class="item">
+                  <label>{{ "mobile_pay_number" | translate }}</label>
+                  <div class="user_value">
+                    {{ data?.pay_number }}
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #noData>
+              <div class="row">
+                <div class="item">
+                  <label>{{ "name_of_mobile_provider" | translate }}</label>
+                  <div class="user_value">
+                    -
+                  </div>
+                </div>
+                <div class="item">
+                  <label>{{ "mobile_pay_number" | translate }}</label>
+                  <div class="user_value">
+                    -
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div> 
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-container *ngIf="tabsId == 0">
+    <div class="primary_btn">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="openVerticallyCenteredreject(reject)"
+      >
+        {{ "reject" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="openVerticallyCenteredapproved(approved)"
+      >
+        {{ "approve" | translate }}
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="tabsId == 1">
+    <div class="primary_btn">
+      <button type="button" class="btn btn-secondary" (click)="backpage()">
+        {{ "back" | translate }}
+      </button>
+      <ng-container *ngIf="giveInnerPermission('assign_role')">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="showPermission()"
+      >
+        {{ "edit_role_permission" | translate }}
+      </button>
+    </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_approve_insurance_admin" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="registerAdmin(1)"
+          >
+            {{ "yes" | translate }}
+          </button>
+          <!-- <button type="button" class=" btn btn-primary" (click)="modal.dismiss('Cross click')"  (click)="openVerticallyCenteredselectclaims(selectclaimscontent)"> Yes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- ---------------------------------------Select Claim modal---------------------------------------- -->
+<div class="select_claim">
+  <ng-template #selectclaimscontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "select_claim_preview_template" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="templateForm" (ngSubmit)="saveAdminTemplate()">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form_field_wrapper">
+                <label>{{ "provider_type" | translate }}</label>
+                <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "select_type" | translate }}</mat-label>
+                  <mat-select disableRipple formControlName="template_id">
+                    <ng-container *ngFor="let item of templateRes">
+                      <mat-option value="{{ item._id }}">{{
+                        item.name
+                      }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && templateFormControl['template_id'].errors?.['required']"
+                >
+                  {{ "please_select_template" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="primary_btn">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Reject modal -->
+<ng-template #reject let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_reject_insurance" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="registerAdmin(0)"
+          >
+            {{ "yes" | translate }}
+          </button>
+          <!-- <button type="button" class=" btn btn-primary"> Yes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

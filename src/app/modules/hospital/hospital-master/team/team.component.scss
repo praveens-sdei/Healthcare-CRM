@@ -1,0 +1,203 @@
+@import '../../../../../assets/css/variable/variable';
+
+.material-icons{
+    cursor: pointer;
+}
+.pt-20 {
+    padding-top: 20px;
+}
+.mat-tab-header {
+    margin: 0 0 40px;
+    border-bottom: none;
+    .mat-tab-list {
+        .mat-tab-labels {
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 7px 12px;
+            .mat-tab-label {
+                font-family: $font_family_body,$font_sans_sarif;
+                height: 40px;
+                padding: 0 30px;
+                min-width: 120px;
+                font-size: 14px;
+                font-weight: 500;
+                color: $bodyopacitylightcolor;
+                opacity: 1;
+            }
+            .mat-tab-label.mat-tab-label-active {
+                font-weight: 700;
+                color: $table_color;
+            }
+        }
+        .mat-ink-bar {
+            background-color: $bodycolor;
+        }
+    }
+}
+.top_bar{
+    margin: 0 0 35px;
+    .left_part{
+        .search_bar{
+            .input-group{
+                background: #F6F8FC;
+                border-radius: 6px;
+                flex-wrap: nowrap;
+                .form-control{
+                    border: none;
+                    background-color: transparent;
+                    padding: 12px 12px 12px 0;
+                    width: 170px;
+                    &::placeholder{
+                        font-weight: 400;
+                        // font-size: $font_small;
+                        line-height: 24px;
+                    }
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+                .btn{
+                    padding: 0;
+                    border: none;
+                    .mat-icon{
+                        line-height: 50px;
+                        height: 50px;
+                        width: 50px;
+                        color: #9B9B9B;
+                        font-size: 24px;
+                    }
+                    &.filter-btn{
+                        .mat-icon{
+                            color: $bodycolor;
+                            border-left: 1px solid #E6E8F0;
+                            font-size: 26px;
+                        }
+                    }
+                }
+            }
+        }
+        .content_wrap{
+            .policy{
+                margin: 0 0 0 20px;
+                label{
+                    margin-right: 12px;
+                }
+                .form_field_wrapper{
+                    display: inline-block;
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            padding: 0;
+                            .mat-form-field-flex{
+                                background-color: #EBF0F4;
+                                border: 1px solid #EBF0F4;
+                                .mat-form-field-infix{
+                                    .mat-select{
+                                        .mat-select-arrow-wrapper{
+                                            transform: translateY(-30%);
+                                        }
+                                        .mat-select-value{
+                                            color: $formfiled_color;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                    width: 150px;
+                                }
+                            }
+                            .mat-form-field-underline{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+              
+            }
+        } 
+
+
+    }
+
+}
+.bottom_bar{
+    table{
+        tr{
+            td{
+                .upload_input{
+                    position: relative;
+                    .upload_input_content{
+                        position: absolute;
+                        top: 0;
+                        bottom: auto;
+                        label{
+                            margin: 0;
+                            border: 1px solid rgba(11, 73, 119, 0.5);
+                            border-radius: 10px;
+                            padding: 10px 20px;
+                            font-weight: 500;
+                            font-size: 12px;
+                            color: $bodycolor;
+                        }
+                    }
+                    .user_upload_input {
+                        opacity: 0;
+                        z-index: 0;
+                        width: 150px;
+                        height: 38px;
+                    }
+                }
+                .info_img{
+                    margin: 0 0 0 5px;
+                    img{
+                        width: 18px;
+                        height: 18px;
+                        line-height: 18px;
+                        padding: 4px;
+                        text-align: center;
+                        display: inline-block;
+                        background: #EBF0F4;
+                        border-radius: 50%; 
+                    }
+                }
+            
+            }
+        }
+    }
+    .mat-expansion-panel{
+        .mat-expansion-panel-header{
+            padding: 0 30px;
+            border-radius: 15px 15px 0 0;
+            background: rgba(11, 73, 119, 0.1);
+        }
+        .expansion_panel {
+            margin-top: 20px;
+            .role_item{
+                margin-bottom: 25px;
+                .form_field_wrapper{
+                    .mat-checkbox{
+                        .mat-checkbox-layout{
+                            display: flex;
+                            .mat-checkbox-inner-container{
+                                width: 20px;
+                                height: 20px;
+                            }
+                            .mat-checkbox-label{
+                                color: $bodycolor;
+                                font-size: 15px;
+                                line-height: 18px;
+                                font-weight: 500;
+                                white-space: normal;
+                            }
+                        }
+                    }
+                    .mat-icon{
+                        color: #130F26;
+                    }
+                }
+            }
+        }
+    }
+    .primary_btn{
+        justify-content: end;
+        margin-top: 15px;
+    }
+}

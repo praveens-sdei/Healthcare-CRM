@@ -1,0 +1,91 @@
+<div class="add_doctor dashboard_main_content">
+  <div class="step_counter">
+    <mat-stepper
+      #mainStepper
+      [orientation]="(stepperOrientation | async)!"
+      linear
+      (selectionChange)="onStepSelectionChange($event)"
+    >
+      <mat-step [completed]="basicInfo">
+        <ng-template matStepLabel>{{ "basic_info" | translate }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 0">
+        <app-basicinfo
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          *ngIf="isEnable"
+        ></app-basicinfo>
+      </ng-template>
+      </mat-step>
+
+      <mat-step [completed]="educationalForm">
+        <ng-template matStepLabel>{{ "educational" | translate }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 1">
+        <app-educational
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          *ngIf="isEnable"
+        ></app-educational>
+      </ng-template>
+      </mat-step>
+
+      <mat-step [completed]="locationForm">
+        <ng-template matStepLabel>{{ "location" | translate }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 2">
+        <app-location
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          *ngIf="isEnable"
+        ></app-location>
+      </ng-template>
+      </mat-step>
+
+      <mat-step [completed]="availability">
+        <ng-template matStepLabel>{{ "availability" | translate }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 3">
+        <app-availability
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          *ngIf="isEnable"
+        ></app-availability>
+        </ng-template>
+      </mat-step>
+
+      <mat-step [completed]="feeManage">
+        <ng-template matStepLabel
+          >{{ "Fee Management" | translate }}
+        </ng-template>
+        <ng-template [ngIf]="stepIndex === 4">
+        <app-feemanagement
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          (childEvent)="getDoctorDetails($event)"
+          *ngIf="isEnable"
+        ></app-feemanagement>
+      </ng-template>
+      </mat-step>
+
+      <mat-step [completed]="docManage">
+        <ng-template matStepLabel>{{
+          "document_manage" | translate
+        }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 5">
+        <app-documentmanage
+          [mstepper]="passToChild"
+          (fromChild)="handleEvent($event)"
+          (childEvent)="getDoctorDetails($event)"
+          *ngIf="isEnable"
+        ></app-documentmanage>
+      </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>{{
+          "manage_permissions" | translate
+        }}</ng-template>
+        <ng-template [ngIf]="stepIndex === 6">
+        <app-managepermission></app-managepermission>
+      </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

@@ -1,0 +1,586 @@
+@import '../.../../../../../../assets/css/variable/variable';
+
+.makeeprescription{
+    .main_title{
+        color: $linkcolor;
+        margin: 0 0 25px;
+    }
+    .top_bar{
+        .search_bar{
+            width: 100%;
+            .input-group{
+                background: #F6F8FC;
+                border-radius: 6px;
+                .form-control{
+                    border: none;
+                    background-color: transparent;
+                    padding: 12px 12px 12px 0;
+                    width: 210px;
+                    &::placeholder{
+                        font-weight: 400;
+                        font-size: $font_medium;
+                        line-height: 24px;
+                    }
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+                .btn{
+                    padding: 0;
+                    border: none;
+                    width: 7%;
+                    .mat-icon{
+                        line-height: 50px;
+                        height: 50px;
+                        width: 50px;
+                        color: #9B9B9B;
+                        font-size: 24px;
+                        
+                    }
+                }
+            }
+        }
+    }
+    .bottom_bar{
+        margin: 30px 0 0;
+        .reimbursement_label{
+            text-align: right;
+            .reimbursement{ 
+                background: rgba(182, 200, 214, 0.3);
+                border-radius: 10px;
+                display: inline-block;
+                vertical-align: top;
+                padding: 13px 35px;
+                font-weight: 500;
+                font-size: $font_small;
+            }
+        }
+        .prescription{
+            margin: 25px 0 0;
+            .item{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: 1px solid #B6C8D6;
+                    border-radius: 5px;
+                    padding: 20px;
+                    margin: 0 0 20px;
+                    .left_part{
+                        h2{
+                            font-size: $font_medium;
+                            font-weight: 600;
+                            color: $linkcolor;
+                            margin: 0 0 5px;
+                        }
+                        .prescribetime{
+                            font-size: $font_small;
+                            font-weight: 400;
+                            color: $bodyopacitycolor;
+                        }
+                    }
+                    .right_part{
+                        .icon_group{
+                            .svgicon{
+                                background: #ffffff;
+                                border-radius: 8px;
+                                padding: 9px 6px;
+                                height: 28px;
+                                width: 28px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                svg{
+                                    fill: #0b4977;
+                                }
+                            }
+                        }
+                    }   
+                }
+                .form_field_wrapper{
+                    label{
+                        color: $bodyopacitycolor;
+                    }
+                }
+                .primary_btn{
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                    .btn{
+                        margin-top: 15px;
+                    }
+                }
+        }
+    }
+
+
+    .prescription_detail{
+        .prescription_inner{
+                border: 1px solid #B6C8D6;
+                border-radius: 15px;
+                overflow: hidden;
+            .prescribe_item{
+                background: #F6F8FC;
+                padding: 20px;
+                border-bottom: 1px solid #B6C8D6;
+                .prescribe_profile{
+                    display: flex;
+                    align-items: center;
+                    .image{
+                        width: 70px;
+                        height: 70px;
+                        line-height: 70px;
+                        border-radius: 50%;
+                        margin: 0 15px 0 0;
+                    }
+                    .desc{
+                        .title{
+                            margin: 0 0 5px;
+                            font-size: $font_ex_large;
+                            line-height: 18px;
+                            font-weight: 700;
+                            color: $table_color;
+                        }
+                        .age{
+                            color: $table_color;
+                            font-weight: 700;
+                            font-size: $font_small;
+                        }
+                    }
+                }
+                .prescribe_title{
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 19px;
+                    color: $table_color;
+                    margin: 0 0 15px;
+                }
+                .mat-radio-group{
+                    .mat-radio-button{
+                        display: block;
+                        label{
+                            margin: 0 0 16px;
+                            .mat-radio-label-content{
+                                padding-left: 12px;
+                            }
+                        }
+                    }
+                }
+                .listing{
+                    padding: 0;
+                    margin: 0 -15px;
+                    list-style: none;
+                    flex-wrap: wrap;
+                        li{
+                            width: auto;
+                            padding: 0 15px;
+                            margin: 0 0 15px;
+                            label{
+                                font-weight: 400;
+                                font-size: $font_small;
+                                line-height: 14px;
+                                margin: 0 0 5px;
+                                color: $linkcolor;
+                            }
+                            .value{
+                                font-weight: 500;
+                                font-size: $font_small;
+                                color: $linkcolor;
+                            }
+                        }
+                }
+                .mat-checkbox{
+                    margin: 0 0 10px;
+                    display: block;
+                    .mat-checkbox-inner-container{
+                        width: 18px;
+                        height: 18px;
+                    }
+                    .mat-checkbox-label{
+                        font-weight: 500;
+                        font-size: $font_medium;
+                        line-height: 19px;
+                        color: $linkcolor;
+                    }
+                }
+                .form_field_wrapper{
+                    label{
+                        font-size: $font_small;
+                        font-weight: 400;
+                        color: $bodyopacitylightcolor;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            .mat-form-field-flex{
+                                border: 1px solid #B6C8D6;
+                                padding: 0 15px;
+                                .mat-form-field-infix{
+                                    .mat-input-element{
+                                        font-size: $font_small;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.profile{
+                    background:$white_color; 
+                }
+                &:last-child{
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+
+// medicine modal css
+.medicine {
+    // .modal-dialog{
+        // max-width: 820px;
+        .medicine_content{
+            background: rgba(182, 200, 214, 0.1);
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+            .row{
+                border-bottom: 1px solid #dddddd;
+                padding: 0;
+                margin: 0;
+                .medicine_item{
+                    padding: 10px 0;
+                    margin: 10px 0;
+                    .item{
+                        margin: 0 15px 0 0;
+                        .label{
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 19px;
+                            color: $table_color;
+                            margin: 0 0 7px;
+                        }
+                        .sub_label{
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: $bodyopacitycolor;
+                            margin: 0 0 5px;
+                        }
+                        .value{
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 19px;
+                            color: $table_color;
+                            a{
+                                color: #2C8BD2;
+                                &:hover{
+                                    color: $bodycolor;
+                                }
+                            }
+                        }
+                    }
+                }
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        
+        }
+    // }
+    
+}
+
+// Rabeprazole modal css
+.rabeprazole{
+    .medicine_content{
+        .dosage_history{
+            border: 1px solid #B6C8D6;
+            border-radius: 10px;
+            .title{
+                padding: 20px;
+                border-bottom:1px solid #B6C8D6;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 22px;
+                color: #0C2F49;
+            }
+            .content{
+                padding: 20px;
+                p{
+                    margin: 0;
+                    padding: 10px;
+                    font-weight: 500;
+                    font-size: $font_small;
+                    color: $bodyopacitylightcolor;
+                    background: #F6F8FC;
+                    border: 1px solid #B6C8D6;
+                    border-radius: 5px;
+                }   
+            }
+        }
+        .subscribe_detail_inner {
+            margin-bottom: 30px;
+            .mat-accordion{
+                .mat-expansion-panel-header{
+                    .mat-expansion-panel-header-description{
+                        justify-content: flex-end;
+                        .mat-icon{
+                            color: rgba(11, 73, 119, 0.5);
+                        }
+                    }
+                }
+                .expansion_panel{
+                    .expansion_panel_inner{
+                        padding: 0;
+                        .dosage_item{
+                            padding: 20px;
+                            border-bottom: 1px solid #B6C8D6;
+                            .primary_btn{
+                                justify-content: flex-start;
+                                margin: 0 0 25px;
+                                .btn{
+                                    color: $bodycolor;
+                                    padding: 5px 25px;
+                                    &:hover{
+                                        color: $white_color; 
+                                    }
+                                }
+                            }
+                                .title{
+                                    display: block;
+                                    color: $table_color;
+                                    font-weight: 500;
+                                    margin: 0 0 20px;
+                                }
+                                .mat-radio-group{
+                                    .mat-radio-button{
+                                        margin: 0 25px 0 0;
+                                        label{
+                                            color: $table_color;
+                                            .mat-radio-label-content{
+                                                padding-left: 12px;
+                                            }
+                                        }
+                                    }
+                                }
+                                .dose_time{
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    align-items: center;
+                                    border: 1px solid #B6C8D6;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+                                    .item{
+                                        display: flex;
+                                        align-items: center;
+                                        padding: 15px;
+                                        border-right: 1px solid #B6C8D6;
+                                        label{
+                                            font-weight: 400;
+                                            color: $table_color;
+                                            margin: 0 15px 0 0;
+                                        }
+                                        .quantity{
+                                            display: flex;
+                                            .mat-icon{
+                                                width: 30px;
+                                                height: 30px;
+                                                min-width: 30px;
+                                                line-height: 30px;
+                                                font-size: $font_ex_large;
+                                                color: $bodycolor;
+                                                background: #F6F8FC;
+                                                border: 1px solid #B6C8D6;
+                                                border-radius: 5px;
+                                                text-align: center;
+                                            }
+                                            .mat-input-element{
+                                                width: 30px;
+                                                height: 30px;
+                                                min-width: 30px;
+                                                line-height: 30px;
+                                                text-align: center;
+                                            }
+                                        }
+                                        &:last-child{
+                                            border: none;
+                                        }
+                                    }
+                                    .mat-button-toggle-group{
+                                        border: none;
+                                        flex-wrap: wrap;
+                                        .mat-button-toggle{
+                                            margin: 0 15px 10px 0;
+                                            background: #FFFFFF;
+                                            border: 1px solid rgba(11, 73, 119, 0.15);
+                                            border-radius: 6px;
+                                            .mat-button-toggle-label-content{
+                                                font-weight: 500;
+                                                font-size: $font_medium;
+                                                white-space: break-spaces;
+                                                color: #214469;        
+                                                padding: 8px 12px;
+                                                line-height: 22px;
+                                                white-space: break-spaces;
+                                            }
+                                            &:hover{
+                                                background-color: $bodycolor;
+                                                border-color: $bodycolor;
+                                                .mat-button-toggle-label-content{
+                                                    color: $white_color;
+                                                }
+                                            }
+                                            &.mat-button-toggle-checked{
+                                                background-color: $bodycolor;
+                                                border-color: $bodycolor;
+                                                .mat-button-toggle-label-content{
+                                                    color: $white_color;
+                                                }
+                                            }
+                                        }
+                                    }
+                            }
+                            &:last-child{
+                                border-bottom: none;
+                            }
+                        }
+                        .take_for_wrapper{
+                            display: flex;
+                            .take_for{
+                                border-right: 1px solid #B6C8D6;
+                                border-bottom: none;
+                                width: 50%;
+                                .mat-radio-button{
+                                    label{
+                                        font-weight: 500;
+                                    }
+                                }
+                                .dose_time{
+                                    border: none;
+                                    .item{
+                                        padding: 0;
+                                        margin: 0 20px 10px 0;
+                                        border-right:none;
+                                    }
+                                }
+                                &:last-child{
+                                    border: none;
+                                }
+                            }
+                            &.recurrence_alternatetaking{
+                                .take_for{
+                                    padding: 0;
+                                    width: 100%;
+                                    .dose_time{
+                                        .item{
+                                            border: none;
+                                            width: auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                margin: 0;
+            }
+        }
+    }
+
+}
+
+
+@media screen and (min-width:$desktop_pro_up) {
+    .rabeprazole {
+        .modal-dialog{
+            max-width: 960px;
+        }
+    }
+}
+@media screen and (min-width:$desktop_up) {
+    .rabeprazole {
+        .modal-dialog{
+            max-width: 1150px;
+        }
+    }
+}
+@media screen and (min-width:$desktop_large_up) {
+    .rabeprazole {
+        .modal-dialog{
+            max-width: 1285px;
+        }
+    }
+}
+@media screen and (max-width:$desktop) {
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .frequency_wrapper .dose_time{
+        border: none;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .frequency_wrapper .dose_time .item,
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .frequency_wrapper .dose_time .item:last-child{
+        width: 50%;
+        border: 1px solid #B6C8D6;
+        margin: -1px 0 0 -1px;
+    }
+    .makeeprescription .bottom_bar .prescription .item{
+        flex-direction: column;
+        align-items: normal;
+    }
+    .makeeprescription .bottom_bar .prescription .item .right_part{
+        margin-top: 15px;
+    }
+}
+@media screen and (max-width:$tablet) {
+    .rabeprazole .modal-dialog .medicine_content > .row >*:not(:last-child){
+        margin: 0 0 30px;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .makeeprescription  > .row > *{
+        margin: 0 0 30px;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .take_for_wrapper {
+        flex-direction: column;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .take_for_wrapper .take_for{
+        width: 100%;
+        border-bottom: 1px solid #B6C8D6;
+        border-right: none;
+    }
+   
+}
+@media screen and (max-width:$medium_iphone) {
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .frequency_wrapper .dose_time .item,
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .frequency_wrapper .dose_time .item:last-child{
+        width: 100%;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .take_for_wrapper .take_for .dose_time{
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 15px;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .dosage_item .dose_time .mat-button-toggle-group{
+        width: 100%;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .dosage_item .dose_time .mat-button-toggle-group .mat-button-toggle{
+        width: 100%;
+        margin: 0 0 10px;
+    }
+    .rabeprazole .medicine_content .subscribe_detail_inner .mat-accordion .expansion_panel .expansion_panel_inner .take_for_wrapper .take_for .dose_time .item{
+        margin: 0 0 10px;
+    }
+    .makeeprescription .bottom_bar .reimbursement_label .reimbursement{
+        display: block;
+    }
+    .makeeprescription .bottom_bar .prescription .primary_btn .btn{
+        margin: 0 0 15px;
+        width: 100%;
+    }
+}
+
+.border_bottom{
+    border-bottom: 2px solid;
+}

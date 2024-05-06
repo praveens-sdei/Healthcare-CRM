@@ -1,0 +1,569 @@
+<div class="details_patient dashboard_main_content">
+  <h1 class="status">
+    {{ "status" | translate }} :- {{ "scheduled" | translate }}
+  </h1>
+  <div class="top_bar">
+    <div class="main_title">
+      <h2 class="m-0 d-flex align-items-center">
+        <mat-icon (click)="gotoOrderList()"> arrow_back_ios </mat-icon>
+        {{ "patient_details" | translate }}
+      </h2>
+    </div>
+    <div
+      class="primary_btn"
+      *ngIf="orderDetails && orderDetails.orderData.insurance_verified"
+    >
+      <button type="button" class="btn btn-primary">
+        <a class="btn_svg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.4281 0.0513632C12.9226 0.181024 12.6216 0.385206 11.5773 1.30668C11.0057 1.81114 10.4989 2.22367 10.4513 2.22345C10.4036 2.22323 9.61383 2.16398 8.69617 2.09176C6.80767 1.94316 6.60045 1.95482 5.98832 2.24409C5.56288 2.44515 5.17492 2.79033 4.96075 3.15839C4.8566 3.33744 3.7728 6.55174 3.7728 6.68167C3.7728 6.69268 3.15125 7.06732 2.39152 7.51417C1.43261 8.07821 0.924086 8.41216 0.728573 8.60621C0.133338 9.19702 -0.130445 10.091 0.0622229 10.8646C0.0973976 11.0059 0.390721 11.7664 0.713913 12.5546L1.30165 13.9877L0.728628 15.3745C0.413478 16.1372 0.120209 16.8959 0.0769383 17.0603C-0.0728962 17.6295 0.0133722 18.2795 0.311674 18.828C0.570479 19.304 1.02956 19.6576 2.5651 20.5635C3.35322 21.0285 4.00841 21.4258 4.02116 21.4464C4.03385 21.467 4.19413 22.1091 4.37728 22.8733C4.56563 23.6593 4.77925 24.4127 4.86907 24.6079C5.07262 25.05 5.54822 25.5314 5.98558 25.738C6.5574 26.008 6.80188 26.0218 8.62221 25.8871C9.52039 25.8206 10.3168 25.7669 10.392 25.7678C10.4885 25.7689 10.7772 25.9881 11.3726 26.5123C11.8366 26.921 12.3166 27.3368 12.4393 27.4363C13.2058 28.0587 14.2345 28.1753 15.0999 27.7381C15.3068 27.6335 15.8057 27.24 16.452 26.6717C17.4088 25.8303 17.4906 25.771 17.695 25.7701C17.8153 25.7695 18.5292 25.8181 19.2814 25.8781C20.9754 26.0131 21.2389 26.0138 21.6542 25.8844C22.2998 25.6833 22.8165 25.2546 23.1085 24.6779C23.236 24.4259 23.489 23.4946 23.8485 21.9538L23.9657 21.4517L25.4528 20.5611C27.028 19.6179 27.4353 19.3025 27.6954 18.8242C27.9913 18.2799 28.0773 17.6288 27.9283 17.0603C27.8853 16.8959 27.5912 16.1372 27.2749 15.3744L26.6997 13.9876L27.3004 12.5311C27.6844 11.5998 27.9241 10.9398 27.965 10.701C28.0917 9.96157 27.8245 9.14916 27.2766 8.60769C27.0846 8.41785 26.5135 8.04152 25.4851 7.42706L23.9756 6.52507L23.6177 5.06163C23.4209 4.25673 23.203 3.47992 23.1334 3.33536C22.8965 2.843 22.3146 2.31631 21.8052 2.13327C21.3078 1.95444 21.0485 1.94984 19.3175 2.08897C18.395 2.16305 17.6005 2.22372 17.5519 2.22378C17.5034 2.22383 17.0479 1.85276 16.5399 1.39916C15.4608 0.435745 15.2498 0.2792 14.8322 0.131689C14.4474 -0.00426813 13.7911 -0.0417755 13.4281 0.0513632ZM15.5282 5.09448C17.4048 5.4367 19.0325 6.2801 20.3457 7.59067C21.6973 8.9394 22.5438 10.5585 22.9008 12.4775C23.0311 13.178 23.0311 14.8144 22.9008 15.5149C22.1875 19.3498 19.3511 22.1888 15.5197 22.9029C14.8199 23.0333 13.185 23.0333 12.4852 22.9029C10.568 22.5456 8.91143 21.6733 7.57473 20.3172C6.25194 18.9752 5.41611 17.3179 5.07733 15.3651C4.98477 14.8316 4.98477 13.1608 5.07733 12.6273C5.7904 8.5174 8.89387 5.5357 13 5.01558C13.524 4.94916 14.9808 4.99467 15.5282 5.09448ZM13.2366 6.63771C12.0225 6.78812 10.8569 7.21849 9.84495 7.89007C9.31717 8.24034 8.25197 9.30653 7.90203 9.83481C7.34383 10.6775 6.95423 11.6171 6.74405 12.6273C6.60964 13.2732 6.60964 14.7192 6.74405 15.3651C7.06374 16.9019 7.69054 18.0772 8.77768 19.1782C9.86651 20.2811 11.0827 20.9379 12.6349 21.2614C13.2724 21.3943 14.7161 21.3942 15.3832 21.2611C16.8595 20.9668 18.0826 20.3111 19.1797 19.2259C20.2815 18.136 20.9376 16.9187 21.2609 15.3651C21.3953 14.7193 21.3953 13.2732 21.2609 12.6273C21.0507 11.6171 20.6611 10.6775 20.1029 9.83481C19.7431 9.29158 18.6833 8.23585 18.1326 7.87194C17.304 7.32439 16.353 6.92731 15.4213 6.73982C15.017 6.65846 13.6027 6.59237 13.2366 6.63771ZM18.4896 10.8211C18.7323 10.9451 18.9258 11.2605 18.9258 11.5322C18.9258 11.625 18.8782 11.7923 18.8201 11.904C18.6892 12.1556 13.768 17.0736 13.5265 17.1941C13.2935 17.3104 13.0573 17.3044 12.8105 17.1757C12.5597 17.045 9.28708 13.7617 9.16646 13.5198C8.83304 12.8511 9.57619 12.1072 10.2443 12.441C10.3406 12.4891 11.0409 13.1481 11.8007 13.9054L13.1821 15.2823L15.3838 13.0843C16.5948 11.8754 17.6594 10.8478 17.7497 10.8007C17.9753 10.6832 18.2334 10.6903 18.4896 10.8211Z"
+              fill="white"
+            /></svg></a
+        >{{ "insurance_verified" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner profile_info_with_img">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              *ngIf="patient_details?.profile_pic"
+              src="{{ patient_details?.profile_pic }}"
+            />
+            <img
+              *ngIf="!patient_details?.profile_pic"
+              src="../../../assets/img/profile_img.png"
+            />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">
+              {{ patient_details?.first_name }}
+              {{ patient_details?.middle_name }}
+              {{ patient_details?.last_name }}
+            </div>
+            <div class="lable">{{ "email" | translate }}</div>
+            <div
+              class="user_value user_email"
+              title="{{ patient_details?.for_portal_user?.email }}"
+            >
+              {{ patient_details?.for_portal_user?.email }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">
+              ({{ patient_details?.for_portal_user?.country_code }})
+              {{ patient_details?.for_portal_user?.mobile }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ patient_details?.dob | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "gender" | translate }}</div>
+            <div class="user_value">{{ patient_details?.gender }}</div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+                <div class="profile_contact">
+                    <div class="lable">Hospital</div>
+                    <div class="user_value">Venus Care Hospital</div>
+                </div>
+            </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">
+              {{ patient_details?.in_location?.address }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insurance_details" *ngIf="subscriber_id !== null">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "insurance_details" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="profile_data insurance">
+              <div class="profile_info">
+                <ul class="profile_info_inner profile_info_with_img">
+                  <li class="col_item profile_image_wrapper">
+                    <div class="profile_image">
+                      <img
+                        *ngIf="subscriberdetails?.insurance_card_id_proof"
+                        src="{{ subscriberdetails?.insurance_card_id_proof }}"
+                      />
+                      <img
+                        *ngIf="!subscriberdetails?.insurance_card_id_proof"
+                        src="../../../assets/img/insurance.png"
+                      />
+                    </div>
+                    <div class="profile_contact">
+                      <div class="lable">{{ "police_ID" | translate }}</div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.policy_id }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "card_ID" | translate }}</div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.card_id }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "employee_ID" | translate }}</div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.employee_id }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">
+                        {{ "insurance_provider" | translate }}
+                      </div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.for_user?.company_name }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">
+                        {{ "reimbursement_rate" | translate }}
+                      </div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.reimbersement_rate }} %
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="profile_info_inner">
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "plan_name" | translate }}</div>
+                      {{ subscriberdetails?.health_plan_for?.name }}
+
+                      <div class="user_value"></div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "insurance_ID" | translate }}</div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.insurance_id }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">
+                        {{ "insurance_holder" | translate }}
+                      </div>
+                      <div class="user_value">
+                        {{ subscriberdetails?.insurance_holder_name }}
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="profile_info_inner insurance_expired">
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "expiry_date" | translate }}</div>
+                      <div class="user_value">
+                        {{ "from" | translate }}
+                        {{
+                          subscriberdetails?.insurance_validity_from
+                            | date : "dd/MM/yyyy"
+                        }}
+                        {{ "to" | translate }}
+                        {{
+                          subscriberdetails?.insurance_validity_to
+                            | date : "dd/MM/yyyy"
+                        }}
+                      </div>
+                    </div>
+                  </li>
+                  <!-- <li class="col_item expired">
+                    <div class="profile_contact">
+                      <div class="lable invisible">Insurance ID</div>
+                      <div class="user_value" *ngIf="!insuranceDetails?.subscription_valid">Subscription Expired</div>
+                    </div>
+                  </li> -->
+                </ul>
+                <!-- <div class="secondary_insured">
+                  <h3 class="profileinfo_title">Secondary Insured Details</h3>
+                  <ul class="profile_info_inner">
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">First Name</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.first_name
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Middle Name</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.middle_name
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Last Name</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.last_name
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Date Of Birth</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.dob | date : "dd/MM/yyyy"
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Gender</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.gender
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Relationship</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.relationship
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <ul class="profile_info_inner">
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Plan Name</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.plan_name || "Not in response"
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Employee ID</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.employee_id
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Insurance ID</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.insurance_id
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Policy ID</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.policy_id
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Card ID</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.card_id
+                          }}
+                        </div>
+                      </div>
+                    </li>
+                    <li class="col_item">
+                      <div class="profile_contact">
+                        <div class="lable">Reimbursement Rate</div>
+                        <div class="user_value">
+                          {{
+                            patient_details?.in_insurance?.secondary_insured
+                              ?.reimbursement_rate
+                          }}%
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="medicine_info">
+    <div class="top_bar">
+      <div class="main_title">{{ userType }} {{ "test" | translate }}</div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 withoutpagination"
+        >
+          <!--  Medicine Name Column -->
+          <ng-container matColumnDef="medicinename">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "test_name" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.name }}
+              <!-- <button type="button" placement="top" ngbTooltip="This Medicine is excluded according to health plan" class=" btn btn-outline-light">
+                            <i class="fa-solid fa-info info"></i>
+                         </button> -->
+            </td>
+          </ng-container>
+
+          <!--  Quantity Prescribed Column -->
+          <ng-container matColumnDef="quantityprescribed">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "quantity_prescribed" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.prescribed }}
+            </td>
+          </ng-container>
+
+          <!-- Quantity Delivered Column -->
+          <ng-container matColumnDef="quantitydelivered">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "quantity_delivered" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.delivered }}
+            </td>
+          </ng-container>
+
+          <!--Frequency Column -->
+          <ng-container matColumnDef="frequency">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "frequency" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.frequency }}
+            </td>
+          </ng-container>
+
+          <!--Duration (Days)  Column -->
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "duration" | translate }} ({{ "days" | translate }})
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.duration }}
+            </td>
+          </ng-container>
+
+          <!--Price Per Unit Column -->
+          <ng-container matColumnDef="priceperunit">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "price_per_unit" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.priceperunit }}
+            </td>
+          </ng-container>
+
+          <!--Total Cost Column -->
+          <ng-container matColumnDef="totalcost">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "total_cost" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.totalcost }}
+            </td>
+          </ng-container>
+
+          <!--Available  Column -->
+          <ng-container matColumnDef="available">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "available" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="availability"
+                >{{ element.available ? "yes" : "no" }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+    <div class="medicine_info_bottom">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "total_test_cost" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                disabled="disabled"
+                (keyup)="calculateCost($event.target)"
+                [(ngModel)]="orderTest.total_cost"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "co_pay" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                disabled="disabled"
+                readonly=""
+                [(ngModel)]="orderTest.copay"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "insurance_to_be_paid" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                disabled="disabled"
+                readonly=""
+                [(ngModel)]="orderTest.insurance_paid"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+    <ng-container *ngIf="giveInnerPermission('cancel')">
+
+        <button type="button" class="btn btn-secondary" (click)="cancelOrder()">
+          {{ "cancel" | translate }}
+        </button>
+    </ng-container>
+    <ng-container *ngIf="giveInnerPermission('complete')">
+    
+        <div class="complete_order_btn">
+          <span class="error-tooltip" *ngIf="confirmOrder == false">
+            <span ngbTooltip="Scheduled not confirm by patient">
+              <i class="fa fa-info-circle" style="color: red"></i>
+            </span>
+          </span>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateOrderData()"
+            [disabled]="confirmOrder == false"
+          >
+            {{ "complete_order" | translate }}
+          </button>
+        </div>
+    </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <span class="single_text">{{
+          "order_completed_successfully" | translate
+        }}</span>
+        <!-- <div class=" primary_btn mt-30">
+                    <button type="button" class=" btn btn-primary" (click)="gotoOrderList()"> Okay</button>
+                </div> -->
+      </div>
+    </div>
+  </div>
+</ng-template>

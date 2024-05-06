@@ -1,0 +1,1241 @@
+<div class="insurance_medicines dashboard_main_content common_space">
+  <div class="user_insurance pt-30">
+    <div class="row">
+      <div class="col-md-6 mt-3 mt-md-0">
+        <div class="user_insurance_block">
+          <p>{{ "this_claim_for" | translate }} :</p>
+          <p class="value">
+            {{
+              allDetails?.insurerType == "primaryInsurer"
+                ? "Primary Insurer"
+                : "Secondary Insurer"
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-3 mt-md-0">
+        <div class="user_insurance_block">
+          <p>{{ "insurance_type" | translate }} :</p>
+          <!-- {{subscriber_details}} -->
+          <p class="value">{{ subscriber_details?.subscriber_type }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="export_list mt-3">
+    <!-- <div class="inner_exprot_list">
+      <div class="primary_btn">
+        <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+          <mat-icon>description</mat-icon>{{ 'download_calim_template' | translate}}
+        </button>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(viewdocumentdetails)">
+          <mat-icon>description</mat-icon>{{ 'view_attached_documents' | translate}}
+        </button>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-6"></div>
+      <div class="col-md-3">
+        <div class="primary_btn">
+          <ng-container *ngIf="giveInnerPermission('download')">
+            <a href="{{allDetails?.previewtemplateUrl}}"> <button type="button" class="btn btn-primary">
+              <mat-icon>download</mat-icon>Download Claim Template
+            </button></a>
+          </ng-container>       
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="primary_btn">
+          <ng-container *ngIf="giveInnerPermission('attachedDocument')">
+            <button
+            type="button"
+            class="btn btn-primary"
+            (click)="openVerticallyCenteredsecond(viewdocumentdetails)"
+          >
+              <mat-icon>description</mat-icon
+            >{{ "view_attached_documents" | translate }}
+            </button>
+          </ng-container>          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "primary_insurer_identity" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "first_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvalue("First Name") == ""
+                          ? "-"
+                          : findvalue("First Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "middle_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvalue("Middle Name") == ""
+                          ? "-"
+                          : findvalue("Middle Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "last_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvalue("Last Name") == ""
+                          ? "-"
+                          : findvalue("Last Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "gender" | translate }}:</p>
+                    <p>
+                      {{
+                        findvalue("Gender") == "" ? "-" : findvalue("Gender")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "date_of_birth" | translate }}:</p>
+                    <p>
+                      {{
+                        findvalue("Date Of Birth") == ""
+                          ? "-"
+                          : (findvalue("Date Of Birth") | date : "MM-dd-YYYY")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "age" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Age") == ""
+                            ? "-"
+                            : findvalue("Age") + " yrs"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Insurance ID") == ""
+                            ? "-"
+                            : findvalue("Insurance ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "insurance_validity" | translate }}:</p>
+                      <p>
+                        From:
+                        {{
+                          findvalue("Insurance From Date") == ""
+                            ? "-"
+                            : (findvalue("Insurance From Date")
+                              | date : "MM-dd-YYYY")
+                        }}
+                        To:
+                        {{
+                          findvalue("Insurance To Date") == ""
+                            ? "-"
+                            : (findvalue("Insurance To Date")
+                              | date : "MM-dd-YYYY")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "policy_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Policy ID") == ""
+                            ? "-"
+                            : findvalue("Policy ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "card_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Card ID") == ""
+                            ? "-"
+                            : findvalue("Card ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "employee_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Employee ID") == ""
+                            ? "-"
+                            : findvalue("Employee ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_holder" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Insurance Holder Name") == ""
+                            ? "-"
+                            : findvalue("Insurance Holder Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reimbursement" | translate }}:</p>
+                      <p>
+                        {{
+                          findvalue("Reimbursement") == ""
+                            ? "-"
+                            : findvalue("Reimbursement") + " %"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>Registration Number:</p>
+                      <p>541287636201320</p>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div
+    class="subscribe_detail_inner mt-30"
+    *ngIf="allDetails?.insurerType == 'secondaryInsurer'"
+  >
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "secondary_insurer_identity" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "first_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvaluesecondary("First Name") == ""
+                          ? "-"
+                          : findvaluesecondary("First Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "middle_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvaluesecondary("Middle Name") == ""
+                          ? "-"
+                          : findvaluesecondary("Middle Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "last_name" | translate }}:</p>
+                    <p>
+                      {{
+                        findvaluesecondary("Last Name") == ""
+                          ? "-"
+                          : findvaluesecondary("Last Name")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "gender" | translate }}:</p>
+                    <p>
+                      {{
+                        findvaluesecondary("Gender") == ""
+                          ? "-"
+                          : findvaluesecondary("Gender")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "date_of_birth" | translate }}:</p>
+                    <p>
+                      {{
+                        findvaluesecondary("Date Of Birth") == ""
+                          ? "-"
+                          : (findvaluesecondary("Date Of Birth")
+                            | date : "MM-dd-YYYY")
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "age" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Age") == ""
+                            ? "-"
+                            : findvaluesecondary("Age") + " yrs"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Insurance ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Insurance ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "insurance_validity" | translate }}:</p>
+                      <p>
+                        {{ "from" | translate }}:
+                        {{
+                          findvaluesecondary("Insurance From Date") == ""
+                            ? "-"
+                            : (findvaluesecondary(
+                                "Insurance From
+                        Date"
+                              ) | date : "MM-dd-YYYY")
+                        }}
+                        {{ "to" | translate }}:
+                        {{
+                          findvaluesecondary(
+                            "Insurance To
+                        Date"
+                          ) == ""
+                            ? "-"
+                            : (findvaluesecondary("Insurance To Date")
+                              | date : "MM-dd-YYYY")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "policy_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Policy ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Policy ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "card_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Card ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Card ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "employee_ID" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Employee ID") == ""
+                            ? "-"
+                            : findvaluesecondary("Employee ID")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "insurance_holder" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Insurance Holder Name") == ""
+                            ? "-"
+                            : findvaluesecondary(
+                                "Insurance Holder
+                        Name"
+                              )
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reimbursement" | translate }}:</p>
+                      <p>
+                        {{
+                          findvaluesecondary("Reimbursement") == ""
+                            ? "-"
+                            : findvaluesecondary("Reimbursement") + " %"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>
+                        {{ "relation_with_the_pirmary_insured" | translate }}:
+                      </p>
+                      <p>
+                        {{
+                          findvaluesecondary(
+                            "Relation With The Primary Insured"
+                          ) == ""
+                            ? "-"
+                            : findvaluesecondary(
+                                "Relation
+                        With The Primary Insured"
+                              )
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="expansion_other_panel">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="outer_detail_block two_block">
+                    <div class="detail_section">
+                      <p>{{ 'relation_with_the_pirmary_insured' | translate}}:</p>
+                      <p>Wife</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "deliver_information" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "deliver_centre" | translate }}:</p>
+                    <p>{{ allDetails?.deliverCenterName }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "deliver_information_name" | translate }}:</p>
+                    <p>
+                      {{ allDetails?.deliverCenterInfo?.deliverFirstName }}
+                      {{ allDetails?.deliverCenterInfo?.deliverMiddleName }}
+                      {{ allDetails?.deliverCenterInfo?.deliverLastName }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "deliver_information_role" | translate }}:</p>
+                    <p>{{ allDetails?.deliverCenterInfo?.deliverTitle }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "prescibing_centre" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "name_of_the_centre" | translate }}:</p>
+                    <p>
+                      {{ allDetails?.prescriberCenterInfo?.prescriberCenter }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "prescriber_last_name" | translate }}:</p>
+                    <p>
+                      {{
+                        allDetails?.prescriberCenterInfo?.prescriberFirstName
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "prescriber_last_name" | translate }}:</p>
+                    <p>
+                      {{ allDetails?.prescriberCenterInfo?.prescriberLastName }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="outer_detail_block last_child">
+                  <div class="detail_section">
+                    <p>{{ "specialist" | translate }}:</p>
+                    <p>
+                      {{
+                        allDetails?.prescriberCenterInfo?.prescriberSpecialty
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{"accident_details" | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel primary-insurer-identity-panel custom-expansion-panel">
+          <div class="expansion_panel_inner">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"is_related_to_an_accident" | translate}} </p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_first_name
+    :claimDetailssubscriberDetails?.subscriber_first_name
+    }} -->
+                        {{
+                        findvalueAccident("Is It Related To An Accident") == ""
+                        ? "-"
+                        : findvalueAccident("Is It Related To An Accident")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"accident_date" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_middle_name
+    :claimDetailssubscriberDetails?.subscriber_middle_name
+    }} -->
+                        {{
+                        findvalueAccident("Accident Date") == ""
+                        ? "-"
+                        : findvalueAccident("Accident Date")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"accident_type" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.subscriber_last_name
+    :claimDetailssubscriberDetails?.subscriber_last_name
+    }} -->
+                        {{
+                        findvalueAccident("Accident Type") == ""
+                        ? "-"
+                        : findvalueAccident("Accident Type")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"reason" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.gender
+    :claimDetailssubscriberDetails?.gender
+    }} -->
+                        {{
+                        findvalueAccident("Comment") == "" ? "-" : findvalueAccident("Comment")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xxl col-lg-12 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{"is_there_an_official_report" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    ( Primarydetails?.primarysubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+    :(claimDetailssubscriberDetails?.date_of_birth | date : "dd-MM-YYYY")
+    }} -->
+                        {{
+                        findvalueAccident("Is There An Official Report") == ""
+                        ? "-"
+                        : findvalueAccident("Is There An Official Report")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"is_there_a_responsible_third_party" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.age
+    :claimDetailssubscriberDetails?.age
+    }} -->
+                        {{
+                        findvalueAccident("Is There A Responsible Third Party") == ""
+                        ? "-"
+                        : findvalueAccident("Is There A Responsible Third Party")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"first_name" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.insurance_id
+    :claimDetailssubscriberDetails?.insurance_id
+    }} -->
+                        {{
+                        findvalueAccident("First Name") == ""
+                        ? "-"
+                        : findvalueAccident("First Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{"last_name" | translate}}</p>
+                      <p>
+                        {{
+                        findvalueAccident("Last Name") == ""
+                        ? "-"
+                        : findvalueAccident("Last Name")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"phone_number" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.policy_id
+    :claimDetailssubscriberDetails?.policy_id
+    }} -->
+                        {{
+                        findvalueAccident("Phone Number") == ""
+                        ? "-"
+                        : findvalueAccident("Phone Number")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{"address" | translate}}</p>
+                      <p>
+                        <!-- {{
+    claimDetailssubscriberDetails?.subscription_for == "Secondary" ?
+    Primarydetails?.primarysubscriberDetails?.card_id
+    :claimDetailssubscriberDetails?.card_id
+    }} -->
+                        {{
+                        findvalueAccident("Address") == ""
+                        ? "-"
+                        : findvalueAccident("Address")
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="subscribe_detail_inner mt-30">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <div class="expansion_panel">
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table
+                mat-table
+                [dataSource]="dataSources"
+                class="mat-elevation-z8"
+              >
+                <ng-container matColumnDef="medicinename">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "medicine_name" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                      >{{ element?.medicineName }}
+                      <span
+                        *ngIf="checkmedicine(element?.medicineName)"
+                        ngbTooltip="This medicine is excluded in your health plan"
+                      >
+                        <i class="fa fa-info-circle" style="color: red"></i
+                      ></span>
+                    </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="totalamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{
+                        element?.totalCost
+                          ? (element?.totalCost | number : "1.2-2") + " CFA"
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="copayment">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "co_pay_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{
+                        element?.coPayment
+                          ? (element?.coPayment | number : "1.2-2") + " CFA"
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="requestedamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "requested_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{
+                        element?.requestAmount
+                          ? (element?.requestAmount | number : "1.2-2") + " CFA"
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="frequency">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "frequency" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{ element?.frequency }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="unitpackprescribed">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "unit/pack_prescribed" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{
+                        element?.quantityPrescribed
+                          ? element?.quantityPrescribed + " Packs"
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="quantitydelivered">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "quantity_delivered" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span
+                      [ngClass]="{
+                        excludedcheck: checkmedicine(element?.medicineName)
+                      }"
+                    >
+                      {{
+                        element?.quantityDelivered
+                          ? element?.quantityDelivered + " Packs"
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container
+                  *ngFor="let column of dynamiccolumns"
+                  [matColumnDef]="column.columnDef"
+                >
+                  <!-- <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell> -->
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ column.header }}
+                  </th>
+                  <td mat-cell *matCellDef="let element; let index = index">
+                    <!-- {{ element[column.columnDef] }} -->
+
+                    <a class="icon_group_status">
+                      <a
+                        class="{{
+                          checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            column.staffRoleID
+                          )?.type == 'approved'
+                            ? 'approved'
+                            : 'rejected'
+                        }}"
+                        >{{
+                          checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            column.staffRoleID
+                          )?.type == "approved"
+                            ? "Approved"
+                            : "Rejected"
+                        }}
+                        {{
+                          checkLoginUser(element.staffData, element._id, column.staffRoleID)?.type == 'approved'
+                          ? ' - Amount: (' + (element?.staffData[0]?.amount ?? '') + ')'
+                          : ''
+                          }}</a
+                      >
+                      &nbsp;
+
+                      <img
+                        class="img-fluid"
+                        src="../../../../../assets/img/insurance-medicines/info_details.svg"
+                        alt="approve"
+                        title="{{
+                          checkLoginUser(
+                            element.staffData,
+                            element._id,
+                            column.staffRoleID
+                          )?.comment
+                        }}"
+                      />
+                    </a>
+                  </td>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="medicalanalysis">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'medical_analysis' | translate}}</th>
+                
+                  <td mat-cell *matCellDef="let element">
+                    <a
+                      class="{{
+                        element?.cfo?.isApproved === null
+                          ? 'pending'
+                          : element?.cfo?.isApproved
+                          ? 'approved'
+                          : 'rejected'
+                      }}"
+                      >{{
+                        element?.cfo?.isApproved === null
+                          ? "Pending"
+                          : element?.cfo?.isApproved
+                          ? "Approved"
+                          : "Rejected"
+                      }}</a
+                    >
+                  </td>
+                
+                </ng-container>
+
+                <ng-container matColumnDef="comment">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'comment' | translate}}</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element?.medicalAdvisor?.comment }}
+                  </td>
+                </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumnss"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumnss"
+                ></tr>
+              </table>
+              <div class="text-center" *ngIf="dataSources.length == 0">
+                <h2>{{ "no_data_found" | translate }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="expansion_panel_inner last_table_data">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="outer_detail_block">
+          <div class="detail_section">
+            <p>{{ "total" | translate }}:</p>
+            <p>
+              {{
+                totalCoPayment
+                  ? (totalCoPayment | number : "1.2-2") + " CFA"
+                  : ""
+              }}
+            </p>
+
+            <!-- <p>{{ totalCost ? (totalCost | number:'1.2-2') + " CFA" : "" }}</p> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="outer_detail_block">
+          <div class="detail_section">
+            <p>{{ "co-payment" | translate }}:</p>
+            <p>
+              {{ totalCost ? (totalCost | number : "1.2-2") + " CFA" : "" }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="outer_detail_block">
+          <div class="detail_section">
+            <p>
+              {{ "total_amount_approved" | translate }} :
+              <span>
+                {{ lastElement ? lastElement : " - " }}
+              </span>
+            </p>
+
+            <p>
+              {{ "total_amount_rejected" | translate }} :
+              <span>
+                {{ totalToBePaidByInsurance - lastElement | number : "1.2-2" }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="outer_detail_block last_child">
+          <div class="detail_section">
+            <p>{{ "to_be_paid_by_the_insurance" | translate }}:</p>
+            <p>
+              {{
+                totalToBePaidByInsurance
+                  ? (totalToBePaidByInsurance | number : "1.2-2") + " CFA"
+                  : "0 CFA"
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="outer_detail_block last_child">
+          <div class="detail_section" *ngFor="let data of uniqueRole">
+            <p>
+              {{ "total_amount_approved_by" | translate }}
+              {{ data.roleInfoData }} :
+              <span>
+                {{ data.amount ? data.amount : " - " }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-3">
+        <div class="outer_detail_block last_child">
+          <div class="detail_section">
+            <p>{{ 'total_approved_amount' | translate}}:</p>
+            <p>
+              {{
+              totalApprovedAmountByCFO
+              ? (totalApprovedAmountByCFO | number:'1.2-2') + " CFA"
+              : "0 CFA"
+              }}
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<ng-template #viewdocumentdetails let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "view_attached_documents" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- {{allDetails.medicineclaimdocs | json}} -->
+      <div class="row">
+        <div
+          class="col-md-2 col-sm-6"
+          *ngFor="let claimdata of allDetails.medicineclaimdocs; let i = index"
+        >
+          <a href="{{ claimdata.document_signed_url }}">
+            <span class="downloadicon">
+              <mat-icon>download</mat-icon>
+            </span></a
+          >
+
+          <img
+            src="{{ claimdata.document_signed_url }}"
+            class="documentimage"
+          />
+          <span>{{ claimdata.fileName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,169 @@
+<div class="complaint_view dashboard_main_content">
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Complain Type Column -->
+          <ng-container matColumnDef="complaintype">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('complaint_subject')"
+            >
+              {{ "complain_type" | translate }}
+              <span
+                *ngIf="sortColumn === 'complaint_subject'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.complaint_subject }}
+            </td>
+          </ng-container>
+          <!-- id compalint-->
+          <ng-container matColumnDef="complaintid">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('complaint_id')"
+            >
+              {{ "complaint_id" | translate }}
+              <span
+                *ngIf="sortColumn === 'complaint_id'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.complaint_id }}</td>
+            <!-- Complain -->
+            <ng-container matColumnDef="complainanttype">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                (click)="onSortData('provider_type_from')"
+              >
+                {{ "complainant_type" | translate }}
+                <span
+                  *ngIf="sortColumn === 'provider_type_from'"
+                  class="material-icons sorticon"
+                  >{{ sortIconClass }}</span
+                >
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.provider_type_from }}
+              </td>
+            </ng-container>
+          </ng-container>
+  
+          <!-- Complain -->
+          <ng-container matColumnDef="complaintreason">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('complaint_body')"
+            >
+              {{ "complain_reason" | translate }}
+              <span
+                *ngIf="sortColumn === 'complaint_body'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.complaint_body }}
+            </td>
+          </ng-container>
+  
+          <!-- Patient Name -->
+          <ng-container matColumnDef="complainantname">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('complaint_from_user_name')"
+            >
+              {{ "complainant_name" | translate }}
+              <span
+                *ngIf="sortColumn === 'complaint_from_user_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.complaint_from_user_name }}
+            </td>
+          </ng-container>
+  
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('status')">
+              {{ "status" | translate }}
+              <span
+                *ngIf="sortColumn === 'status'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <div class="status solved">{{ element.status }}</div> -->
+              <div [ngClass]="{ 'status': true, 'resolved': element.status === 'RESOLVED', 'rejected': element.status === 'REJECT','pending': element.status === 'PENDING' }">{{ element.status }}</div>
+
+            </td>
+          </ng-container>
+  
+          <!-- Date & Time -->
+          <ng-container matColumnDef="dateandtime">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('createdAt')"
+            >
+              {{ "date_and_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.createdAt | date : "dd/MM/YYYY HH:mm" }}
+            </td>
+          </ng-container>
+  
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>{{ "action" | translate }}</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <ng-container >
+                <mat-icon
+                (click)="onNavigate(element)"
+                  >visibility</mat-icon
+                >
+              </ng-container>
+  
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div *ngIf="compalintdataSource?.length === 0" class="text-center">
+        <b>{{ "no_record_found" | translate }}</b>
+      </div>
+  
+      <mat-paginator
+        #paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[20, 50, 100]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  

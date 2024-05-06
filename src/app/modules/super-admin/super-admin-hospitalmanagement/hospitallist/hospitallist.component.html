@@ -1,0 +1,760 @@
+<div class="hospital_list dashboard_main_content">
+  <div class="top_bar">
+    <div class="left_part">
+      <div class="search_bar common_content">
+        <div class="input-group">
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input
+            type="search"
+            class="form-control"
+            placeholder="{{ 'search' | translate }}"
+            aria-label="Search"
+            [ngModel]="searchText"
+            #text
+            (keyup)="handleSearchFilter(text.value)"
+            (search)="handleSearchFilter(text.value)"
+          />
+        </div>
+      </div>
+      <div class="content_wrap">
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                (dateChange)="handleData($event, 'start_date')"
+                [matDatepicker]="picker"
+                placeholder="Start date"
+                [ngModel]="start_date"
+                (dateChange)="
+                  handleSearchDateChange($event.value, 'start_date')
+                "
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker1"
+                placeholder="End date"
+                [ngModel]="end_date"
+                (dateChange)="handleSearchDateChange($event.value, 'end_date')"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-link" (click)="clearFilter()">
+          {{ "clear_all" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <mat-tab-group
+      animationDuration="0ms"
+      (selectedTabChange)="onTabChanged($event)"
+      [(selectedIndex)]="selectedTabIndex"
+      #statusTab
+    >
+      <ng-container *ngIf="giveInnerPermission('pending_list')">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="btn_svg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="21"
+                viewBox="0 0 16 21"
+                fill="none"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.59389 3.11199V6.22398H7.70588H10.8179V3.11199V0H7.70588H4.59389V3.11199ZM8.29864 1.86794V2.51923H8.9655H9.63235V3.11199V3.70475H8.9655H8.29864V4.37161V5.03846H7.70588H7.11312V4.37161V3.70475H6.44627H5.77941V3.11199V2.51923H6.44627H7.11312V1.81148V1.10357L7.70588 1.16018L8.29864 1.21664V1.86794ZM0.177828 5.36448C0.0443084 5.498 0 7.36341 0 12.8481V20.1538H2.81561H5.63122V18.2274V16.3009H7.70588H9.78054V18.2274V20.1538H12.5962H15.4118V12.8481C15.4118 7.36341 15.3675 5.498 15.2339 5.36448C15.1157 5.24622 14.4699 5.18665 13.3075 5.18665H11.5588V6.07579V6.96493H7.70588H3.85294V6.07579V5.18665H2.1043C0.941896 5.18665 0.296083 5.24622 0.177828 5.36448ZM8.74321 9.59531V10.9661H7.70588H6.66855V9.59531V8.22455H7.70588H8.74321V9.59531ZM3.85294 9.63887V10.9791L2.77856 10.9355L1.70419 10.892L1.66136 9.59531L1.61853 8.29864H2.73574H3.85294V9.63887ZM13.7817 9.63235V10.9661H12.6702H11.5588V9.63235V8.29864H12.6702H13.7817V9.63235ZM3.85294 13.5659V14.9802L2.77856 14.9367L1.70419 14.8931L1.66047 13.7206C1.63646 13.0758 1.65099 12.4591 1.69292 12.3499C1.74642 12.2103 2.07733 12.1516 2.81102 12.1516H3.85294V13.5659ZM8.74321 13.5594V14.9672H7.70588H6.66855V13.5594V12.1516H7.70588H8.74321V13.5594ZM13.7076 13.5594V14.8931H12.6702H11.6329L11.5892 13.7206C11.5652 13.0758 11.5809 12.456 11.6242 12.343C11.683 12.19 11.9572 12.1491 12.7052 12.1818L13.7076 12.2257V13.5594Z"
+                />
+              </svg>
+            </div>
+            {{ "pending_request" | translate }}
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngIf="giveInnerPermission('approve_request')">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="btn_svg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="21"
+                viewBox="0 0 16 21"
+                fill="none"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.59389 3.11199V6.22398H7.70588H10.8179V3.11199V0H7.70588H4.59389V3.11199ZM8.29864 1.86794V2.51923H8.9655H9.63235V3.11199V3.70475H8.9655H8.29864V4.37161V5.03846H7.70588H7.11312V4.37161V3.70475H6.44627H5.77941V3.11199V2.51923H6.44627H7.11312V1.81148V1.10357L7.70588 1.16018L8.29864 1.21664V1.86794ZM0.177828 5.36448C0.0443084 5.498 0 7.36341 0 12.8481V20.1538H2.81561H5.63122V18.2274V16.3009H7.70588H9.78054V18.2274V20.1538H12.5962H15.4118V12.8481C15.4118 7.36341 15.3675 5.498 15.2339 5.36448C15.1157 5.24622 14.4699 5.18665 13.3075 5.18665H11.5588V6.07579V6.96493H7.70588H3.85294V6.07579V5.18665H2.1043C0.941896 5.18665 0.296083 5.24622 0.177828 5.36448ZM8.74321 9.59531V10.9661H7.70588H6.66855V9.59531V8.22455H7.70588H8.74321V9.59531ZM3.85294 9.63887V10.9791L2.77856 10.9355L1.70419 10.892L1.66136 9.59531L1.61853 8.29864H2.73574H3.85294V9.63887ZM13.7817 9.63235V10.9661H12.6702H11.5588V9.63235V8.29864H12.6702H13.7817V9.63235ZM3.85294 13.5659V14.9802L2.77856 14.9367L1.70419 14.8931L1.66047 13.7206C1.63646 13.0758 1.65099 12.4591 1.69292 12.3499C1.74642 12.2103 2.07733 12.1516 2.81102 12.1516H3.85294V13.5659ZM8.74321 13.5594V14.9672H7.70588H6.66855V13.5594V12.1516H7.70588H8.74321V13.5594ZM13.7076 13.5594V14.8931H12.6702H11.6329L11.5892 13.7206C11.5652 13.0758 11.5809 12.456 11.6242 12.343C11.683 12.19 11.9572 12.1491 12.7052 12.1818L13.7076 12.2257V13.5594Z"
+                />
+              </svg>
+            </div>
+            {{ "approve" | translate }}
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngIf="giveInnerPermission('reject_request')">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div class="btn_svg">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="21"
+                viewBox="0 0 16 21"
+                fill="none"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.59389 3.11199V6.22398H7.70588H10.8179V3.11199V0H7.70588H4.59389V3.11199ZM8.29864 1.86794V2.51923H8.9655H9.63235V3.11199V3.70475H8.9655H8.29864V4.37161V5.03846H7.70588H7.11312V4.37161V3.70475H6.44627H5.77941V3.11199V2.51923H6.44627H7.11312V1.81148V1.10357L7.70588 1.16018L8.29864 1.21664V1.86794ZM0.177828 5.36448C0.0443084 5.498 0 7.36341 0 12.8481V20.1538H2.81561H5.63122V18.2274V16.3009H7.70588H9.78054V18.2274V20.1538H12.5962H15.4118V12.8481C15.4118 7.36341 15.3675 5.498 15.2339 5.36448C15.1157 5.24622 14.4699 5.18665 13.3075 5.18665H11.5588V6.07579V6.96493H7.70588H3.85294V6.07579V5.18665H2.1043C0.941896 5.18665 0.296083 5.24622 0.177828 5.36448ZM8.74321 9.59531V10.9661H7.70588H6.66855V9.59531V8.22455H7.70588H8.74321V9.59531ZM3.85294 9.63887V10.9791L2.77856 10.9355L1.70419 10.892L1.66136 9.59531L1.61853 8.29864H2.73574H3.85294V9.63887ZM13.7817 9.63235V10.9661H12.6702H11.5588V9.63235V8.29864H12.6702H13.7817V9.63235ZM3.85294 13.5659V14.9802L2.77856 14.9367L1.70419 14.8931L1.66047 13.7206C1.63646 13.0758 1.65099 12.4591 1.69292 12.3499C1.74642 12.2103 2.07733 12.1516 2.81102 12.1516H3.85294V13.5659ZM8.74321 13.5594V14.9672H7.70588H6.66855V13.5594V12.1516H7.70588H8.74321V13.5594ZM13.7076 13.5594V14.8931H12.6702H11.6329L11.5892 13.7206C11.5652 13.0758 11.5809 12.456 11.6242 12.343C11.683 12.19 11.9572 12.1491 12.7052 12.1818L13.7076 12.2257V13.5594Z"
+                />
+              </svg>
+            </div>
+            {{ "reject" | translate }}
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table
+          mat-table
+          [dataSource]="pendingdataSource"
+          class="mat-elevation-z8"
+        >
+          <!-- Hospital Name Column -->
+          <ng-container matColumnDef="hospitalname">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('hospital_name')"
+            >
+              {{ "hospital_name" | translate }}
+              <span
+                *ngIf="sortColumn === 'hospital_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.hospital_name }}
+            </td>
+          </ng-container>
+
+          <!-- Creation Date -->
+          <ng-container matColumnDef="createdAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.createdAt')"
+            >
+              {{ "creation_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.for_portal_user?.createdAt | date : "dd-MM-yyy" }} |
+              <span
+                >{{ element?.for_portal_user?.createdAt | date : "hh:mm a" }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Updated Date -->
+          <ng-container matColumnDef="updatedAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('updatedAt')"
+            >
+              {{ "approval_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'updatedAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.updatedAt | date : "dd-MM-yyy" }} |
+              <span>{{ element?.updatedAt | date : "hh:mm a" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- Rejected Date -->
+          <ng-container matColumnDef="rejectedAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('updatedAt')"
+            >
+              {{ "rejected_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'updatedAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.updatedAt | date : "dd-MM-yyy" }} |
+              <span>{{ element?.updatedAt | date : "hh:mm a" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- IFU Number Column -->
+          <ng-container matColumnDef="ifunumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('ifu_number')"
+            >
+              {{ "IFU_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'ifu_number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.ifu_number ? element?.ifu_number : "-" }}
+            </td>
+          </ng-container>
+
+          <!-- Licence ID Column -->
+          <ng-container matColumnDef="licenceid">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('license.number')"
+            >
+              {{ "licence_id" | translate }}
+              <span
+                *ngIf="sortColumn === 'license.number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.license?.number ? element?.license?.number : "-" }}
+            </td>
+          </ng-container>
+
+          <!-- RCCM Number Column -->
+          <ng-container matColumnDef="rccmnumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('rccm_number')"
+            >
+              {{ "RCCM_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'rccm_number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.rccm_number ? element?.rccm_number : "-" }}
+            </td>
+          </ng-container>
+
+          <!--Email Column -->
+          <ng-container matColumnDef="email">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.email')"
+            >
+              {{ "email" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.email'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="text-transform: lowercase"
+            >
+              {{ element?.for_portal_user?.email }}
+            </td>
+          </ng-container>
+
+          <!--Phone Number Column -->
+          <ng-container matColumnDef="phonenumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.phone_number')"
+            >
+              {{ "phone_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.phone_number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.for_portal_user?.phone_number }}
+            </td>
+          </ng-container>
+
+          <!--Specialty Column -->
+          <!-- <ng-container matColumnDef="specialty">
+            <th mat-header-cell *matHeaderCellDef>Speciality</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.specialty }}
+            </td>
+          </ng-container> -->
+
+          <!--Location Column -->
+          <ng-container matColumnDef="location">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('location')"
+            >
+              {{ "location" | translate }}
+              <span
+                *ngIf="sortColumn === 'location'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.location ? element?.location : "-" }}
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <div class="toggel-slide">
+                <ng-container *ngIf="giveInnerPermission('status')">
+                  <mat-slide-toggle
+                    [checked]="element?.for_portal_user?.isActive"
+                    (change)="
+                      onChangestatus($event, element?.for_portal_user?._id)
+                    "
+                  ></mat-slide-toggle>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Lock User -->
+          <ng-container matColumnDef="lockuser">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "lock_user" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="toggel-slide">
+                <ng-container *ngIf="giveInnerPermission('lock')">
+                  <mat-slide-toggle
+                    [checked]="element?.for_portal_user?.lock_user"
+                    (change)="
+                      handleToggleChange($event, element?.for_portal_user?._id)
+                    "
+                  ></mat-slide-toggle>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <ng-container
+                  *ngIf="giveInnerPermission('view_hospital_profile')"
+                >
+                  <a
+                    class="svgicon"
+                    [routerLink]="[
+                      '/super-admin/hospital/details',
+                      element?._id
+                    ]"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="9"
+                      viewBox="0 0 16 9"
+                      fill="none"
+                    >
+                      <path
+                        d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"
+                      />
+                    </svg>
+                  </a>
+                </ng-container>
+                <a
+                  *ngIf="verifyStatus == 'PENDING'"
+                  class="svgicon reject"
+                  (click)="
+                    openVerticallyCenteredreject(
+                      reject,
+                      element?.for_portal_user?._id
+                    )
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0.732011 0.0273918C0.447072 0.0832955 0.198888 0.27729 0.0752607 0.540672C0.0156383 0.667687 0.00265662 0.734558 0.00265662 0.914713C0.00260185 1.33793 -0.182811 1.12777 2.9456 4.25067L5.71266 7.01287L2.92336 9.80275C0.656614 12.07 0.122038 12.6183 0.0699202 12.7294C-0.0215539 12.9245 -0.0235805 13.2738 0.0656477 13.4679C0.145373 13.6413 0.319666 13.8216 0.495603 13.9124C0.693998 14.0149 1.00909 14.0292 1.23506 13.946C1.39388 13.8874 1.49305 13.792 4.19981 11.0924L7.00026 8.29945L9.78684 11.0782C12.0251 13.3101 12.6004 13.8698 12.7104 13.9222C12.8253 13.977 12.8892 13.9875 13.1075 13.9871C13.3354 13.9868 13.3848 13.9777 13.5057 13.9144C13.6735 13.8264 13.8586 13.6316 13.9383 13.459C14.0237 13.2742 14.0198 12.9204 13.9303 12.7294C13.8782 12.6183 13.3436 12.07 11.0769 9.80275L8.28757 7.01287L11.0546 4.25067C14.183 1.12777 13.9976 1.33793 13.9976 0.914713C13.9976 0.735542 13.9845 0.667769 13.9265 0.544912C13.7048 0.075282 13.1486 -0.118303 12.6839 0.112396C12.6115 0.148307 11.6127 1.12575 9.78679 2.9473L7.00012 5.72741L4.21345 2.9473C2.38758 1.12575 1.38871 0.148307 1.31635 0.112396C1.22367 0.0663931 0.919259 -0.00917537 0.867141 0.000916846C0.858623 0.00255786 0.797796 0.0144552 0.732011 0.0273918Z"
+                      fill="#FF7354"
+                    />
+                  </svg>
+                </a>
+                <a
+                  *ngIf="verifyStatus == 'PENDING'"
+                  class="svgicon approved"
+                  (click)="
+                    openVerticallyCenteredapproved(
+                      approved,
+                      element?.for_portal_user?._id
+                    )
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="13"
+                    viewBox="0 0 18 13"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M16.0599 1.01833C16.0083 1.03131 15.9168 1.06637 15.8565 1.09623C15.7963 1.1261 13.6881 3.17305 11.1711 5.64552L6.59516 10.1405L4.42834 8.01378C2.90597 6.51963 2.21962 5.86623 2.12068 5.81702C1.93063 5.72247 1.62585 5.7201 1.44584 5.81179C1.27792 5.89732 1.11027 6.0835 1.04128 6.26109C0.973349 6.43591 0.990558 6.67834 1.08333 6.85368C1.17701 7.03082 6.14003 11.8938 6.28893 11.9544C6.43815 12.0151 6.75154 12.0152 6.90107 11.9546C7.04975 11.8942 16.8279 2.29847 16.9293 2.11334C17.0233 1.94181 17.0236 1.60932 16.93 1.43668C16.7605 1.12428 16.3752 0.939004 16.0599 1.01833Z"
+                      fill="#72D284"
+                      stroke="#72D284"
+                      stroke-width="0.5"
+                    />
+                  </svg>
+                </a>
+                <ng-container *ngIf="giveInnerPermission('delete_hospital')">
+                  <a
+                    *ngIf="
+                      verifyStatus == 'PENDING' ||
+                      verifyStatus == 'DECLINED' ||
+                      verifyStatus == 'APPROVED'
+                    "
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCentereddetale(
+                        deletemodal,
+                        element?.for_portal_user?._id
+                      )
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="19"
+                      height="19"
+                      viewBox="0 0 19 19"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M15.6025 4.45371C15.8943 4.45371 16.1372 4.69596 16.1372 5.0042V5.2892C16.1372 5.58995 15.8943 5.8397 15.6025 5.8397H3.1726C2.8801 5.8397 2.63721 5.58995 2.63721 5.2892V5.0042C2.63721 4.69596 2.8801 4.45371 3.1726 4.45371H5.35938C5.80359 4.45371 6.19018 4.13796 6.29011 3.69247L6.40463 3.18097C6.58261 2.48423 7.16833 2.02148 7.83866 2.02148H10.9358C11.5988 2.02148 12.1911 2.48423 12.3625 3.14422L12.485 3.69172C12.5842 4.13796 12.9708 4.45371 13.4158 4.45371H15.6025ZM14.4916 14.872C14.7199 12.7443 15.1196 7.68933 15.1196 7.63833C15.1342 7.48383 15.0839 7.33758 14.9839 7.21983C14.8767 7.10958 14.741 7.04433 14.5915 7.04433H4.1886C4.03834 7.04433 3.89537 7.10958 3.79617 7.21983C3.69551 7.33758 3.64591 7.48383 3.65321 7.63833C3.65455 7.6477 3.66889 7.82576 3.69287 8.12345C3.79939 9.44588 4.09608 13.1291 4.2878 14.872C4.42347 16.156 5.26594 16.963 6.48625 16.9922C7.42793 17.014 8.39805 17.0215 9.39005 17.0215C10.3244 17.0215 11.2734 17.014 12.2442 16.9922C13.5069 16.9705 14.3486 16.1777 14.4916 14.872Z"
+                      />
+                    </svg>
+                  </a>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator
+        #paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[2, 5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_approve_this_hospital" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="approveOrRejectHospital('APPROVED')"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Reject modal -->
+<ng-template #reject let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_reject_this_hospital" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="approveOrRejectHospital('DECLINED')"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Reasone for Block modal -->
+<ng-template #reasoneforblock let-modal>
+  <div class="custome_modal action_modals reasoneforblock">
+    <div class="modal-header">
+      <h4 class="modal-title text-center" id="modal-basic-title">
+        {{ "reason_for_block" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form_field_wrapper">
+          <label>{{ "reason" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+        <div class="primary_btn">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "submit" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Lock or Unlock modal -->
+<ng-template #lockOrUnloackmodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ abc }}
+          {{ "this_hospital" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              activeLockDeleteHospital('lock', abc === 'Lock' ? true : false)
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Active or Inactive Status modal -->
+<ng-template #activeOrInactivemodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ def }}
+          {{ "this_hospital" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              updateHospitalstatus('active', def === 'Active' ? true : false)
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Delete modal -->
+<ng-template #deletemodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_delete_hospital" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="activeLockDeleteHospital('delete', true)"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

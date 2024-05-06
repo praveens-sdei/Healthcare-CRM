@@ -1,0 +1,749 @@
+<div class="add_pharmacy dashboard_main_content">
+  <div class="add_pharmacy_inner">
+    <div class="pb-3">
+      <i
+        class="fa fa-angle-left p-2"
+        aria-hidden="true"
+        style="font-size: 20px"
+        routerLink="/super-admin/openhour/hospital"
+      ></i>
+    </div>
+    <div class="custome_modal addonduty">
+      <form [formGroup]="addHospitalForm" (ngSubmit)="onSubmit()">
+        <!-- pharmacyId -->
+
+        <div class="top_part">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "type_of_health_center" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <select2
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                [overlay]="overlay"
+                [data]="healthCenterTypes"
+                formControlName="healthCenter"
+                placeholder="{{ 'select_type' | translate }}"
+                
+              >
+              </select2>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    formControlName="healthCenter"
+                    placeholder="{{ 'select_type' | translate }}"
+                  >
+                    <mat-option
+                      *ngFor="let type of healthCenterTypes"
+                      [value]="type?._id"
+                      >{{ type?.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error
+                    *ngIf="
+                      addHospitalForm.get('healthCenter').hasError('required')
+                    "
+                    >{{
+                      "type_of_health_center_is_required" | translate
+                    }}</mat-error
+                  >
+                </mat-form-field> -->
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "hospital_name" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="hospital_name" />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="
+                  isSubmitted && addHospitalForm.get('hospital_name').hasError('required')
+                  "
+                  >{{ "hospital_name_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "phone_number" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="mobile"
+                    matInput
+                    [maxlength]="10"
+                    formControlName="mobile_phone_number"
+                    #phone
+                    (focus)="onFocus()"
+                    ng2TelInput
+                    placeholder="{{ 'enter_phone_number' | translate }}"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="
+                  isSubmitted && addHospitalForm
+                      .get('mobile_phone_number')
+                      .hasError('required')
+                  "
+                  >{{ "mobile_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "email" | translate }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="email" />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="isSubmitted && addHospitalForm.get('email').hasError('required')"
+                  >{{ "email_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "address" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    #address
+                    matInput
+                    formControlName="address"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="isSubmitted && addHospitalForm.get('address').hasError('required')"
+                  >{{ "address_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "neighborhood" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="neighborhood" />
+                  <!-- <mat-error *ngIf="
+                      addHospitalForm.get('neighborhood').hasError('required')
+                    ">Neighborhood is required.</mat-error> -->
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "country" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_country' | translate }}"
+                    formControlName="nationality"
+                    (selectionChange)="getRegionList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country._id"
+                      >{{ country?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Country"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getRegionList($event.value)"
+                [data]="countryList"
+                formControlName="nationality"
+              >
+              </select2>
+                <mat-error
+                  *ngIf="
+                  isSubmitted && addHospitalForm.get('nationality').hasError('required')
+                  "
+                  >{{ "country_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "region" | translate }}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="region"
+                    (selectionChange)="getProvienceList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let region of regionList"
+                      [value]="region._id"
+                      >{{ region?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Region"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getProvienceList($event.value)"
+                [data]="regionList"
+                formControlName="region"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "province" | translate }}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="province"
+                    (selectionChange)="getDepartmentList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let provience of provienceList"
+                      [value]="provience._id"
+                      >{{ provience?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Province"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getDepartmentList($event.value)"
+                [data]="provienceList"
+                formControlName="province"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "department" | translate }}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_department' | translate }}"
+                    formControlName="department"
+                    (selectionChange)="getCityList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let department of departmentList"
+                      [value]="department._id"
+                      >{{ department?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Department"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getCityList($event.value)"
+                [data]="departmentList"
+                formControlName="department"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "city" | translate }}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_city' | translate }}"
+                    formControlName="city"
+                  >
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city._id"
+                      >{{ city?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select City"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                [data]="cityList"
+                formControlName="city"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "village" | translate }}</label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_village' | translate }}"
+                    formControlName="village"
+                  >
+                    <mat-option
+                      *ngFor="let village of villageList"
+                      [value]="village._id"
+                      >{{ village?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select village"'
+                [overlay]="overlay"
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                [data]="villageList"
+                formControlName="village"
+              >
+              </select2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="bottom_part">
+          <div class="opening_hour hour_section">
+            <div class="week_days opening_hour_content">
+              <div class="modal_title">{{ "opening_hour" | translate }}</div>
+              <div class="week_days_inner">
+                <div class="row">
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "sun" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sun_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sun_start_time' | translate }}"
+                            formControlName="sun_start_time"
+                          />
+                          <ngx-material-timepicker #sun_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('sun_start_time')
+                              .hasError('required')
+                          "
+                          >{{
+                            "add_sunday_start_time" | translate
+                          }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sun_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sun_end_time' | translate }}"
+                            formControlName="sun_end_time"
+                          />
+                          <ngx-material-timepicker #sun_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('sun_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_sunday_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "mon" | translate
+                        }}<span class="danger">*</span></label
+                      >
+
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="mon_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'mon_start_time' | translate }}"
+                            formControlName="mon_start_time"
+                          />
+                          <ngx-material-timepicker #mon_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('mon_start_time')
+                              .hasError('required')
+                          "
+                          >{{
+                            "add_monday_start_time" | translate
+                          }}</mat-error
+                        >
+                      </div>
+
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="mon_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'mon_end_time' | translate }}"
+                            formControlName="mon_end_time"
+                          />
+                          <ngx-material-timepicker #mon_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('mon_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_monday_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "tue" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="tue_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'tue_start_time' | translate }}"
+                            formControlName="tue_start_time"
+                          />
+                          <ngx-material-timepicker #tue_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('tue_start_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_tue_start_time" | translate }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="tue_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'tue_end_time' | translate }}"
+                            formControlName="tue_end_time"
+                          />
+                          <ngx-material-timepicker #tue_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('tue_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_tuesday_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "wed" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="wed_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'wed_start_time' | translate }}"
+                            formControlName="wed_start_time"
+                          />
+                          <ngx-material-timepicker #wed_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('wed_start_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_wed_start_time" | translate }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="wed_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'wed_end_time' | translate }}"
+                            formControlName="wed_end_time"
+                          />
+                          <ngx-material-timepicker #wed_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('wed_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_wed_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "thu" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="thu_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'thu_start_time' | translate }}"
+                            formControlName="thu_start_time"
+                          />
+                          <ngx-material-timepicker #thu_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('thu_start_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_thur_start_time" | translate }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="thu_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'thu_end_time' | translate }}"
+                            formControlName="thu_end_time"
+                          />
+                          <ngx-material-timepicker #thu_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('thu_end_time')
+                              .hasError('required')
+                          "
+                          >{{
+                            "add_thursday_end_time" | translate
+                          }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "fri" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="fri_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'fri_start_time' | translate }}"
+                            formControlName="fri_start_time"
+                          />
+                          <ngx-material-timepicker #fri_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('fri_start_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_fri_start_time" | translate }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="fri_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'thu_start_time' | translate }}"
+                            formControlName="fri_end_time"
+                          />
+                          <ngx-material-timepicker #fri_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('fri_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_fri_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "sat" | translate
+                        }}<span class="danger">*</span></label
+                      >
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sat_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sat_start_time' | translate }}"
+                            formControlName="sat_start_time"
+                          />
+                          <ngx-material-timepicker #sat_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('sat_start_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_sat_start_time" | translate }}</mat-error
+                        >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sat_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sat_end_time' | translate }}"
+                            formControlName="sat_end_time"
+                          />
+                          <ngx-material-timepicker #sat_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                          *ngIf="
+                          isSubmitted && addHospitalForm
+                              .get('sat_end_time')
+                              .hasError('required')
+                          "
+                          >{{ "add_sat_end_time" | translate }}</mat-error
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-3 col-md- week_item"></div>
+          <div class="col-sm-3 col-md- week_item"></div>
+
+          <div class="col-sm-3 col-md- week_item"></div>
+
+          <div class="col-sm-3 col-md-3 week_item">
+            <button
+             (click)="routeBack()"
+              class="btn btn-primary"
+            >
+              {{ "cancel" | translate }}</button
+            >&nbsp;
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </div>
+        </div>
+        <!-- <div class="primary_btn left">
+                    <button type="button" routerLink="/super-admin/openhour" class="btn btn-primary">Cancel</button>
+                </div> -->
+      </form>
+    </div>
+  </div>
+</div>

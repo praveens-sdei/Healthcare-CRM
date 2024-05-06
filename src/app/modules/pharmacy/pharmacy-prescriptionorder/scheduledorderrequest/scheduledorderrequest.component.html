@@ -1,0 +1,294 @@
+<div class="details_patient dashboard_main_content">
+  <div class="top_bar">
+    <div class="main_title">{{ "patient_details" | translate }}</div>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner profile_info_with_img">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              *ngIf="patient_details?.profile_pic"
+              src="{{ patient_details?.profile_pic }}"
+            />
+            <img
+              *ngIf="!patient_details?.profile_pic"
+              src="../../../assets/img/profile_img.png"
+            />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">
+              {{ patient_details?.first_name }}
+              {{ patient_details?.middle_name }}
+              {{ patient_details?.last_name }}
+            </div>
+            <div class="lable">Email</div>
+            <div class="user_value">
+              {{ patient_details?.for_portal_user?.email }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">
+              ({{ patient_details?.for_portal_user?.country_code }})
+              {{ patient_details?.for_portal_user?.mobile }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ patient_details?.dob | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "gender" | translate }}</div>
+            <div class="user_value">{{ patient_details?.gender }}</div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+                <div class="profile_contact">
+                    <div class="lable">Hospital</div>
+                    <div class="user_value">Venus Care Hospital</div>
+                </div>
+            </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">
+              {{ patient_details?.in_location?.address }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insurance_details" *ngIf="length">
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ "payment_details" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expansion_panel">
+          <div class="expansion_panel_inner">
+            <div class="profile_data insurance">
+              <div class="profile_info">
+                <ul class="profile_info_inner profile_info_with_img">
+                  <li class="col_item profile_image_wrapper">
+                    <div class="profile_contact">
+                      <div class="lable">
+                        {{ "transaction_Id" | translate }}
+                      </div>
+                      <div class="user_value">
+                        {{ paymentDetails?.invoice_number }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">
+                        {{ "date_of_payment" | translate }}
+                      </div>
+                      <div class="user_value">
+                        {{ getDateAndTime(paymentDetails?.createdAt) }}
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "payment_mode" | translate }}</div>
+                      <div class="user_value">
+                        {{ paymentDetails?.payment_mode }} ({{
+                          paymentDetails?.payment_type
+                        }})
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "total_amount" | translate }}</div>
+                      <div class="user_value">
+                        {{ paymentDetails?.plan_price }}
+                        {{ paymentDetails?.currency_code }}
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="medicine_info">
+    <div class="top_bar">
+      <div class="main_title">{{ "prescription" | translate }}</div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 withoutpagination"
+        >
+          <!--  Medicine Name Column -->
+          <ng-container matColumnDef="medicinename">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "medicine_name" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ orderDetails.medicineNameObject[element.name] }}
+              <!-- <button type="button" placement="top" ngbTooltip="This Medicine is excluded according to health plan" class=" btn btn-outline-light">
+                            <i class="fa-solid fa-info info"></i>
+                         </button> -->
+            </td>
+          </ng-container>
+
+          <!--  Quantity Prescribed Column -->
+          <ng-container matColumnDef="quantityprescribed">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "quantity_prescribed" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.prescribed }}
+            </td>
+          </ng-container>
+
+          <!-- Quantity Delivered Column -->
+          <ng-container matColumnDef="quantitydelivered">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "quantity_delivered" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.delivered }}
+            </td>
+          </ng-container>
+
+          <!--Frequency Column -->
+          <ng-container matColumnDef="frequency">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "frequency" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.frequency }}
+            </td>
+          </ng-container>
+
+          <!--Duration (Days)  Column -->
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "duration_days" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.duration }}
+            </td>
+          </ng-container>
+
+          <!--Price Per Unit Column -->
+          <ng-container matColumnDef="priceperunit">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "price_per_unit" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.priceperunit }}
+            </td>
+          </ng-container>
+
+          <!--Total Cost Column -->
+          <ng-container matColumnDef="totalcost">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "total_cost" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.totalcost }}
+            </td>
+          </ng-container>
+
+          <!--Available  Column -->
+          <ng-container matColumnDef="available">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "available" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="availability"
+                >{{ element.available ? "yes" : "no" }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+    <div class="medicine_info_bottom">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "total_medicine_cost" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                [(ngModel)]="orderMedicine.total_cost"
+                disabled="disabled"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "co_pay" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                [(ngModel)]="orderMedicine.copay"
+                disabled="disabled"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "insurance_to_be_paid" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                [(ngModel)]="orderMedicine.insurance_paid"
+                disabled="disabled"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <ng-container *ngIf="giveInnerPermission('reject')">
+          <button type="button" class="btn btn-danger" (click)="cancelOrder()">
+            {{ "reject" | translate }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="giveInnerPermission('complete')">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="updateOrderData()"
+          >
+            {{ "complete_order" | translate }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

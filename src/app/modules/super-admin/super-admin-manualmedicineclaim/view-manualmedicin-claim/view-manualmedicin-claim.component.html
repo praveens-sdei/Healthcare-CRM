@@ -1,0 +1,158 @@
+<div class="hospital_details dashboard_main_content">
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              src="{{
+                referenceofFile
+                  ? referenceofFile
+                  : '../../../../../assets/img/profile_img.png'
+              }}"
+            />
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "pharmacy_name" | translate }}</div>
+            <div class="user_value">{{ dataSource?.pharmacyName }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_filling" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.dateofFilling | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "pharmacy_mobile_number" | translate }}</div>
+            <div class="user_value">{{ dataSource?.pharmacyMobile }}</div>
+          </div>
+        </li>
+
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "pharmacy_email" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.pharmacyEmail }}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <hr />
+      <ul class="profile_info_inner hospitalsub_data">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">
+              {{ "date_of_claim_submmition" | translate }}
+            </div>
+            <div class="user_value">
+              {{ dataSource?.dateofClaimSubmittion | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "invoice_date" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.invoiceDate | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "invoice_number" | translate }}</div>
+            <div class="user_value">{{ dataSource?.invoiceNumber }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "claim_number" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.claimNumber }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "insurance_company" | translate }}</div>
+            <div class="user_value">{{ dataSource?.insuranceCompany }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "expected_payment_date" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.expectedPaymentDate | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_payment" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.dateOfPayment | date : "dd/MM/yyyy" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "method_of_payment" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.methodOfPayment }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "requested_amount" | translate }}</div>
+            <div class="user_value">{{ dataSource?.requestedAmount }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "approved_amount" | translate }}</div>
+            <div class="user_value">{{ dataSource?.approvedAmount }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "rejected_amount" | translate }}</div>
+            <div class="user_value">{{ dataSource?.rejectedAmount }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "paid_by_the_insured" | translate }}</div>
+            <div class="user_value">{{ dataSource?.paidbytheInsured }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "reason_of_rejecting" | translate }}</div>
+            <div class="user_value">{{ dataSource?.reasonOfRejecting }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "comments" | translate }}</div>
+            <div class="user_value">{{ dataSource?.comments }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "external_reimbursement" | translate }}</div>
+            <div class="user_value">
+              {{ dataSource?.externalReimbursement }}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <hr class="about_pharmacy_hr" />
+    </div>
+  </div>
+</div>

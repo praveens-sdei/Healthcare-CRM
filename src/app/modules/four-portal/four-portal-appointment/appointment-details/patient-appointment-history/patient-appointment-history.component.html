@@ -1,0 +1,916 @@
+<div class="tab_content">
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="left_part">
+        <div class="main_title">{{ "patient_history" | translate }}</div>
+      </div>
+      <div class="right_part">
+        <div class="primary_btn">
+          <!-- <button
+              type="button"
+              class="btn btn-primary"
+              (click)="openHistoryModal(addHistoryModal, 'add')"
+            >
+              Add History
+            </button> -->
+        </div>
+      </div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="patienthistorydataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Patient History Type  Column -->
+            <ng-container matColumnDef="patienthistorytype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "patient_history_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.type }}
+              </td>
+            </ng-container>
+
+            <!--History Name Column -->
+            <ng-container matColumnDef="historyname">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "history_name" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.name }}
+              </td>
+            </ng-container>
+
+            <!--Start Date Column -->
+            <ng-container matColumnDef="startdate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_date | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element; let index = index">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="openHistoryModal(addHistoryModal, 'edit')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deleteModal,
+                        index,
+                        'patient_history'
+                      )
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="16"
+                      viewBox="0 0 14 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.4224 2.45566C13.7141 2.45566 13.957 2.69791 13.957 3.00616V3.29115C13.957 3.5919 13.7141 3.84165 13.4224 3.84165H0.992421C0.699926 3.84165 0.457031 3.5919 0.457031 3.29115V3.00616C0.457031 2.69791 0.699926 2.45566 0.992421 2.45566H3.17921C3.62342 2.45566 4.01001 2.13992 4.10994 1.69442L4.22446 1.18293C4.40243 0.486183 4.98815 0.0234375 5.65848 0.0234375H8.75558C9.41862 0.0234375 10.0109 0.486183 10.1823 1.14618L10.3049 1.69367C10.4041 2.13992 10.7906 2.45566 11.2356 2.45566H13.4224ZM12.3114 12.874C12.5397 10.7462 12.9394 5.69128 12.9394 5.64028C12.954 5.48578 12.9037 5.33953 12.8038 5.22179C12.6965 5.11154 12.5609 5.04629 12.4113 5.04629H2.00842C1.85816 5.04629 1.7152 5.11154 1.616 5.22179C1.51534 5.33953 1.46574 5.48578 1.47303 5.64028C1.47437 5.64965 1.48872 5.82771 1.5127 6.1254C1.61922 7.44784 1.91591 11.1311 2.10762 12.874C2.24329 14.1579 3.08577 14.9649 4.30608 14.9942C5.24775 15.0159 6.21787 15.0234 7.20988 15.0234C8.14426 15.0234 9.09322 15.0159 10.0641 14.9942C11.3267 14.9724 12.1684 14.1797 12.3114 12.874Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="patienthistorydisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: patienthistorydisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <div *ngIf="patienthistorydataSource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+        <!-- <mat-paginator
+            class="pagination"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="main_title">{{ "allergies" | translate }}</div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="allergiesdataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Allergy Type  Column -->
+            <ng-container matColumnDef="allergytype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "allergy_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.type }}
+              </td>
+            </ng-container>
+
+            <!--Start Date Column -->
+            <ng-container matColumnDef="startdate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_date | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element; let index = index">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="openHistoryModal(addHistoryModal, 'edit')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deleteModal,
+                        index,
+                        'allergy'
+                      )
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="16"
+                      viewBox="0 0 14 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.4224 2.45566C13.7141 2.45566 13.957 2.69791 13.957 3.00616V3.29115C13.957 3.5919 13.7141 3.84165 13.4224 3.84165H0.992421C0.699926 3.84165 0.457031 3.5919 0.457031 3.29115V3.00616C0.457031 2.69791 0.699926 2.45566 0.992421 2.45566H3.17921C3.62342 2.45566 4.01001 2.13992 4.10994 1.69442L4.22446 1.18293C4.40243 0.486183 4.98815 0.0234375 5.65848 0.0234375H8.75558C9.41862 0.0234375 10.0109 0.486183 10.1823 1.14618L10.3049 1.69367C10.4041 2.13992 10.7906 2.45566 11.2356 2.45566H13.4224ZM12.3114 12.874C12.5397 10.7462 12.9394 5.69128 12.9394 5.64028C12.954 5.48578 12.9037 5.33953 12.8038 5.22179C12.6965 5.11154 12.5609 5.04629 12.4113 5.04629H2.00842C1.85816 5.04629 1.7152 5.11154 1.616 5.22179C1.51534 5.33953 1.46574 5.48578 1.47303 5.64028C1.47437 5.64965 1.48872 5.82771 1.5127 6.1254C1.61922 7.44784 1.91591 11.1311 2.10762 12.874C2.24329 14.1579 3.08577 14.9649 4.30608 14.9942C5.24775 15.0159 6.21787 15.0234 7.20988 15.0234C8.14426 15.0234 9.09322 15.0159 10.0641 14.9942C11.3267 14.9724 12.1684 14.1797 12.3114 12.874Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="allergiesdisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: allergiesdisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <div *ngIf="allergiesdataSource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+        <!-- <mat-paginator
+            class="pagination"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="main_title">{{ "lifestyle" | translate }}</div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="lifestyledataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Lifestyle Type  Column -->
+            <ng-container matColumnDef="lifestyletype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "lifestyle_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.type }}
+              </td>
+            </ng-container>
+
+            <!--Lifestyle Type Name Column -->
+            <ng-container matColumnDef="lifestyletypename">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "lifestyle_type_name" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.type_name }}
+              </td>
+            </ng-container>
+
+            <!--Start Date Column -->
+            <ng-container matColumnDef="startdate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_date | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element; let index = index">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="openHistoryModal(addHistoryModal, 'edit')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deleteModal,
+                        index,
+                        'lifestyle'
+                      )
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="16"
+                      viewBox="0 0 14 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.4224 2.45566C13.7141 2.45566 13.957 2.69791 13.957 3.00616V3.29115C13.957 3.5919 13.7141 3.84165 13.4224 3.84165H0.992421C0.699926 3.84165 0.457031 3.5919 0.457031 3.29115V3.00616C0.457031 2.69791 0.699926 2.45566 0.992421 2.45566H3.17921C3.62342 2.45566 4.01001 2.13992 4.10994 1.69442L4.22446 1.18293C4.40243 0.486183 4.98815 0.0234375 5.65848 0.0234375H8.75558C9.41862 0.0234375 10.0109 0.486183 10.1823 1.14618L10.3049 1.69367C10.4041 2.13992 10.7906 2.45566 11.2356 2.45566H13.4224ZM12.3114 12.874C12.5397 10.7462 12.9394 5.69128 12.9394 5.64028C12.954 5.48578 12.9037 5.33953 12.8038 5.22179C12.6965 5.11154 12.5609 5.04629 12.4113 5.04629H2.00842C1.85816 5.04629 1.7152 5.11154 1.616 5.22179C1.51534 5.33953 1.46574 5.48578 1.47303 5.64028C1.47437 5.64965 1.48872 5.82771 1.5127 6.1254C1.61922 7.44784 1.91591 11.1311 2.10762 12.874C2.24329 14.1579 3.08577 14.9649 4.30608 14.9942C5.24775 15.0159 6.21787 15.0234 7.20988 15.0234C8.14426 15.0234 9.09322 15.0159 10.0641 14.9942C11.3267 14.9724 12.1684 14.1797 12.3114 12.874Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="lifestyledisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: lifestyledisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <div *ngIf="lifestyledataSource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+        <!-- <mat-paginator
+            class="pagination"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="main_title">{{ "family_history" | translate }}</div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="familyhistorydataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Relationship  Column -->
+            <ng-container matColumnDef="relationship">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "Relationship" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.relationship }}
+              </td>
+            </ng-container>
+
+            <!--Family History Type Column -->
+            <ng-container matColumnDef="familyhistorytype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "family_history_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.family_history_type }}
+              </td>
+            </ng-container>
+
+            <!--History Name Column -->
+            <ng-container matColumnDef="historyname">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "history_name" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.history_name }}
+              </td>
+            </ng-container>
+
+            <!--Start Date Column -->
+            <ng-container matColumnDef="startdate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "start_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.start_date | date : "dd/MM/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element; let index = index">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="openHistoryModal(addHistoryModal, 'edit')"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="svgicon"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deleteModal,
+                        index,
+                        'family_history'
+                      )
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="16"
+                      viewBox="0 0 14 16"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M13.4224 2.45566C13.7141 2.45566 13.957 2.69791 13.957 3.00616V3.29115C13.957 3.5919 13.7141 3.84165 13.4224 3.84165H0.992421C0.699926 3.84165 0.457031 3.5919 0.457031 3.29115V3.00616C0.457031 2.69791 0.699926 2.45566 0.992421 2.45566H3.17921C3.62342 2.45566 4.01001 2.13992 4.10994 1.69442L4.22446 1.18293C4.40243 0.486183 4.98815 0.0234375 5.65848 0.0234375H8.75558C9.41862 0.0234375 10.0109 0.486183 10.1823 1.14618L10.3049 1.69367C10.4041 2.13992 10.7906 2.45566 11.2356 2.45566H13.4224ZM12.3114 12.874C12.5397 10.7462 12.9394 5.69128 12.9394 5.64028C12.954 5.48578 12.9037 5.33953 12.8038 5.22179C12.6965 5.11154 12.5609 5.04629 12.4113 5.04629H2.00842C1.85816 5.04629 1.7152 5.11154 1.616 5.22179C1.51534 5.33953 1.46574 5.48578 1.47303 5.64028C1.47437 5.64965 1.48872 5.82771 1.5127 6.1254C1.61922 7.44784 1.91591 11.1311 2.10762 12.874C2.24329 14.1579 3.08577 14.9649 4.30608 14.9942C5.24775 15.0159 6.21787 15.0234 7.20988 15.0234C8.14426 15.0234 9.09322 15.0159 10.0641 14.9942C11.3267 14.9724 12.1684 14.1797 12.3114 12.874Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="familyhistorydisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: familyhistorydisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <div *ngIf="familyhistorydataSource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+        <!-- <mat-paginator
+            class="pagination"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------- Delete modal --------------------->
+
+<ng-template #deleteModal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_delete" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="handleDelete()"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-----------Add History Popup Modal-------------------->
+<ng-template #addHistoryModal let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_history" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close">
+        <mat-icon (click)="closePopup()">close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="historyForm">
+        <div class="form_title">{{ "patient_history" | translate }}</div>
+
+        <!--------Patient_history Array--------->
+        <ng-container formArrayName="patient_history">
+          <ng-container
+            *ngFor="let _ of patient_history.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <div class="add_immunization_inner">
+                <div class="row increse_content_inner">
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "patient_history_type" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <!-- <mat-label>Sub-admin</mat-label> -->
+                        <mat-select
+                          disableRipple
+                          formControlName="type"
+                          placeholder="{{ 'select_type' | translate }}"
+                        >
+                          <mat-option
+                            *ngFor="let type of patientHistoryTypeList"
+                            [value]="type.name"
+                            >{{ type.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,1).controls['type'].errors?.['required']"
+                      >{{ "select_type" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "history_name" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <input type="text" matInput formControlName="name" />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,1).controls['name'].errors?.['required']"
+                      >{{ "enter_history_name" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "start_date" | translate }}</label>
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepickerFilter]="myFilter"
+                          [matDatepicker]="picker26"
+                          formControlName="start_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker26"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker26></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,1).controls['start_date'].errors?.['required']"
+                      >{{ "enter_start_date" | translate }}*</span
+                    >
+                  </div>
+                </div>
+                <div class="row_generate row_add" *ngIf="i === 0">
+                  <mat-icon class="plus" (click)="addNewPatient_History()"
+                    >add</mat-icon
+                  >
+                </div>
+                <div class="row_generate row_minus" *ngIf="i !== 0">
+                  <mat-icon class="plus" (click)="deletePatient_History(i)"
+                    >remove</mat-icon
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="form_title">{{ "add_allergies" | translate }}</div>
+
+        <!-----------------Allergies form array------------------->
+        <ng-container formArrayName="allergies">
+          <ng-container *ngFor="let _ of allergies.controls; let i = index">
+            <ng-container [formGroupName]="i">
+              <div class="add_immunization_inner">
+                <div class="row increse_content_inner">
+                  <div class="item col-sm-6 col-md-8">
+                    <div class="form_field_wrapper">
+                      <label>{{ "allergies_type" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <!-- <mat-label>Sub-admin</mat-label> -->
+                        <mat-select
+                          disableRipple
+                          formControlName="type"
+                          placeholder="{{ 'select_allergy_type' | translate }}"
+                        >
+                          <mat-option
+                            *ngFor="let allergy of allergyList"
+                            [value]="allergy.name"
+                            >{{ allergy.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,2).controls['type'].errors?.['required']"
+                      >{{ "select_type" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "start_date" | translate }}</label>
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepickerFilter]="myFilter"
+                          [matDatepicker]="picker25"
+                          formControlName="start_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker25"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker25></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,2).controls['start_date'].errors?.['required']"
+                      >{{ "select_start_date" | translate }}*</span
+                    >
+                  </div>
+                </div>
+                <div class="row_generate row_add" *ngIf="i === 0">
+                  <mat-icon class="plus" (click)="addNewAllergies()"
+                    >add</mat-icon
+                  >
+                </div>
+                <div class="row_generate row_minus" *ngIf="i !== 0">
+                  <mat-icon class="plus" (click)="deleteAllergies(i)"
+                    >remove</mat-icon
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="form_title">{{ "lifestyle" | translate }}</div>
+        <!--------------Lifestyle form array-------------->
+        <ng-container formArrayName="lifestyle">
+          <ng-container *ngFor="let _ of lifestyle.controls; let i = index">
+            <ng-container [formGroupName]="i">
+              <div class="add_immunization_inner">
+                <div class="row increse_content_inner">
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{"lifestyle_type" | translate}}</label>
+                      <mat-form-field appearance="fill">
+                        <!-- <mat-label>Sub-admin</mat-label> -->
+                        <mat-select
+                          disableRipple
+                          formControlName="type"
+                          placeholder="{{ 'select_lifestyle' | translate }}"
+                        >
+                          <mat-option
+                            *ngFor="let style of lifestyleList"
+                            [value]="style.name"
+                            >{{ style.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,3).controls['type'].errors?.['required']"
+                      >{{ "select_type" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "lifestyle_type_name" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="type_name"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,3).controls['type_name'].errors?.['required']"
+                      >{{ "required" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-12 col-md-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "start_date" | translate }}</label>
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepickerFilter]="myFilter"
+                          [matDatepicker]="picker24"
+                          formControlName="start_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker24"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker24></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,3).controls['start_date'].errors?.['required']"
+                      >{{ "enter_date" | translate }}*</span
+                    >
+                  </div>
+                </div>
+                <div class="row_generate row_add" *ngIf="i === 0">
+                  <mat-icon class="plus" (click)="addNewLifestyle()"
+                    >add</mat-icon
+                  >
+                </div>
+                <div class="row_generate row_minus" *ngIf="i !== 0">
+                  <mat-icon class="plus" (click)="deleteLifestyle(i)"
+                    >remove</mat-icon
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <div class="form_title">{{ "family_history" | translate }}</div>
+
+        <!-----------Family history form array------------>
+        <ng-container formArrayName="familial_history">
+          <ng-container
+            *ngFor="let _ of familial_history.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <div class="add_immunization_inner">
+                <div class="row increse_content_inner">
+                  <div class="item col-sm-6 col-md-3">
+                    <div class="form_field_wrapper">
+                      <label>{{ "Relationship" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <!-- <mat-label>Sub-admin</mat-label> -->
+                        <mat-select
+                          disableRipple
+                          formControlName="relationship"
+                          placeholder="{{ 'select_relation' | translate }}"
+                        >
+                          <mat-option
+                            *ngFor="let relation of relationshipList"
+                            [value]="relation.value"
+                            >{{ relation.label }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,4).controls['relationship'].errors?.['required']"
+                      >{{ "select_relation" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-md-3">
+                    <div class="form_field_wrapper">
+                      <label>{{ "family_history_type" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <!-- <mat-label>Sub-admin</mat-label> -->
+                        <mat-select
+                          disableRipple
+                          formControlName="family_history_type"
+                          placeholder="{{ 'select_type' | translate }}"
+                        >
+                          <mat-option
+                            *ngFor="let type of familyHistoryTypeList"
+                            [value]="type.name"
+                            >{{ type.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,4).controls['family_history_type'].errors?.['required']"
+                      >{{ "family_history_type" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-md-3">
+                    <div class="form_field_wrapper">
+                      <label>{{ "history_name" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="history_name"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,4).controls['history_name'].errors?.['required']"
+                      >{{ "enter_history_name" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-md-3">
+                    <div class="form_field_wrapper">
+                      <label>{{ "start_date" | translate }}</label>
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepickerFilter]="myFilter"
+                          [matDatepicker]="picker23"
+                          formControlName="start_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker23"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker23></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && patientHistoryValidation(i,4).controls['start_date'].errors?.['required']"
+                      >{{ "start_date" | translate }}*</span
+                    >
+                  </div>
+                </div>
+                <div class="row_generate row_add" *ngIf="i === 0">
+                  <mat-icon class="plus" (click)="addNewFamilial_history()"
+                    >add</mat-icon
+                  >
+                </div>
+                <div class="row_generate row_minus" *ngIf="i !== 0">
+                  <mat-icon class="plus" (click)="deleteFamilialHistory(i)"
+                    >remove</mat-icon
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </form>
+      <div class="primary_btn">
+        <button class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+        <button class="btn btn-primary" (click)="handleAddPatientHistory()">
+          {{ "save" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

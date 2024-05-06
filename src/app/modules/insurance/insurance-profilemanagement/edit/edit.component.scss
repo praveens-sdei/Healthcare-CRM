@@ -1,0 +1,239 @@
+@import '../../../../../assets/css/variable/variable';
+
+.edit_profile{
+    overflow: hidden;
+    .main_title{
+        color: $black_light_color;
+        margin: 0 0 30px;
+    }
+    .edit_profile_inner{
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;
+        padding: 30px;
+        .profile_img{
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            margin: 0 0 30px;
+            img{
+                border-radius: 10px;
+            }
+            .edit {
+                position: absolute;
+                height: 35px;
+                width: 35px;
+                line-height: 30px;            
+                color: $white_color;
+                background: $bodycolor;
+                border-radius: 50%;
+                text-align: center;
+                font-size: 16px;
+                right: -10px;
+                top: auto;
+                bottom: -10px;
+                border: 3px solid $white_color;
+            }
+        }
+
+        .form_field_wrapper{
+            label{
+                color: $bodycolor;
+            }
+            .fieldicon_wrap{
+                display: flex;
+                justify-content: space-between;
+                .mat-form-field{
+                    width: 85%;
+                }
+                .mat-icon{
+                    border-radius: 5px;
+                    width: 50px;
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    margin-left: 15px;
+                    &.minus{
+                        background: #FDE6E5;
+                        color: #F05A4F;
+                    }
+                    &.plus{
+                        background: #0B4977;
+                        color: #ffffff;  
+                    }
+                }
+            }
+            .mat-form-field{
+                width: 100%;
+                .mat-form-field-wrapper{
+                    // padding-bottom: 30px;
+                    .mat-form-field-flex{
+                        .mat-form-field-infix{
+                            .mat-input-element {
+                                color: $bodyopacitycolor;
+                            }
+                        }
+                    }
+                }
+            } 
+            &.upload_form_field{
+                margin: 0 0 30px;
+                .upload_input{
+                    padding: 11px 15px;
+                    background-color: #ffffff;
+                    border: 1px solid rgba(228, 228, 228, 0.9);
+                    font-size: $font_small;
+                    border-radius: 5px;
+                    position: relative;
+                    .user_upload_input{
+                        opacity: 0;
+                        z-index: 0;
+                    }
+                    .upload_input_content{
+                        display: flex;
+                        align-items: center;
+                        position: absolute;
+                        top: 10px;
+                        bottom: auto;
+                        label{
+                            margin: 0 0 0 10px;
+                        }
+                    }
+                }
+                .upload_output{
+                    background-color: rgba(182, 200, 214, 0.3);
+                    border-radius: 5px;
+                    min-height: 50px;
+                    line-height: 50px;
+                    padding: 0 10px;
+                    position: relative;
+                    .close{
+                        position: absolute;
+                        right: -5px;
+                        left: auto;
+                        top: -5px;
+                        bottom: auto;
+                        color: #ffffff;
+                        background: #FF7354;                   
+                        height: 18px;
+                        width: 18px;
+                        line-height: 18px;
+                        font-size: 14px;
+                        border-radius: 50%;
+                        text-align: center;
+                    }
+                }
+            }
+          
+        }
+        .btn_wrap{
+            justify-content: flex-end;
+           .btn-secondary{
+                margin-left: 15px;
+            }
+        }
+
+        .mobile_paydetails {
+            .modal-body{
+                padding: 0;
+                .paydetail_content {
+                    width: 75%;
+                    margin-bottom: 0;
+                    .modal_content_inner{
+                        width: 100%;
+                    }
+                    .field-wrap-block {
+                        border: 1px solid $formfiledbordercolor;
+                        border-radius: 5px;
+                        .mat-form-field-wrapper {
+                            padding-bottom: 0;
+                        }
+                        .mat-select {
+                            display: inline-flex;
+                            align-items: center;
+                            width: 100px;
+                            padding: 0 10px;
+                            background-color: rgba(0,0,0,.04);
+                        }
+                        .mat-form-field {
+                            width: calc(100% - 80px);
+                            .mat-form-field-flex {
+                                border: none;
+                            }
+                        }
+                    }
+                }
+            }
+            &::after{
+                display: none;
+            }
+        }
+
+    }
+}
+
+// .speciality-select-block {
+   
+//         .select2-label ~ .select2-container > div > .select2-selection--multiple {
+//             ul {
+//                 // width: 400px !important;
+//                 overflow: auto !important;
+//                 position: relative;
+//                 z-index: 10;
+//                 height: 50px;
+//                 li {
+//                     height: 35px;
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: center;
+//                 }
+//             }
+       
+//     }
+// }
+
+@media screen and (max-width:$desktop_medium) {
+    .edit_profile .edit_profile_inner .form_field_wrapper .fieldicon_wrap .mat-form-field {
+        width: 73%;
+    }
+}
+@media screen and (max-width:$desktop) {
+    .edit_profile .edit_profile_inner .form_field_wrapper .fieldicon_wrap .mat-form-field {
+        width: 62%;
+    }
+}
+@media screen and (max-width:$tablet) {
+    .edit_profile .edit_profile_inner .form_field_wrapper .fieldicon_wrap .mat-form-field {
+        width: 66%;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .edit_profile .edit_profile_inner .form_field_wrapper .fieldicon_wrap .mat-form-field {
+        width: 85%;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .edit_profile .edit_profile_inner .form_field_wrapper.upload_form_field .upload_output{
+        margin: 0 0 15px; 
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .edit_profile .edit_profile_inner .form_field_wrapper .fieldicon_wrap .mat-form-field {
+        width: 68%;
+    }
+    .edit_profile .container{
+        padding: 0;
+    }
+}
+
+.image-upload {
+    input {
+        display: none;
+    }
+    img {
+        width: 80px;
+        cursor: pointer;
+    }
+}
+.wrapper_block{
+    margin-bottom: 20px;
+}

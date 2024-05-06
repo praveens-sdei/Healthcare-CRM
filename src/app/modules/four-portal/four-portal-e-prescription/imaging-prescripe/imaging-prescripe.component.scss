@@ -1,0 +1,331 @@
+@import '../.../../../../../../assets/css/variable/variable';
+
+.makeeprescription{
+    .main_title{
+        color: $linkcolor;
+        margin: 0 0 25px;
+    }
+    .top_bar{
+        .search_bar{
+            width: 100%;
+            .input-group{
+                background: #F6F8FC;
+                border-radius: 6px;
+                .form-control{
+                    border: none;
+                    background-color: transparent;
+                    padding: 12px 12px 12px 0;
+                    width: 210px;
+                    &::placeholder{
+                        font-weight: 400;
+                        font-size: $font_medium;
+                        line-height: 24px;
+                    }
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+                .btn{
+                    padding: 0;
+                    border: none;
+                    width: 7%;
+                    .mat-icon{
+                        line-height: 50px;
+                        height: 50px;
+                        width: 50px;
+                        color: #9B9B9B;
+                        font-size: 24px;
+                    }
+                }
+            }
+        }
+    }
+    .bottom_bar{
+        margin: 30px 0 0;
+        .prescription{
+            margin: 25px 0 0;
+            .prescription_title{
+                font-weight: 600;
+                font-size: $font_medium;
+                line-height: 22px;
+                color: $linkcolor;
+                margin: 0 0 15px;
+            }
+            .item{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: 1px solid #B6C8D6;
+                    border-radius: 5px;
+                    padding: 20px;
+                    margin: 0 0 25px;
+                    .left_part{
+                        h2{
+                            font-size: $font_medium;
+                            font-weight: 600;
+                            color: $linkcolor;
+                            margin: 0 0 5px;
+                        }
+                        .prescribetime{
+                            font-size: $font_small;
+                            font-weight: 400;
+                            color: $bodyopacitycolor;
+                        }
+                    }
+                    .right_part{
+                        .icon_group{
+                            .svgicon{
+                                background: #EBF0F4;
+                                border-radius: 8px;
+                                padding: 9px 6px;
+                                height: 28px;
+                                width: 28px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                svg{
+                                    fill: #0b4977;
+                                }
+                            }
+                        }
+                    }   
+                }
+                .form_field_wrapper{
+                    margin: 0 0 10px;
+                    label{
+                        color: $bodyopacitycolor;
+                    }
+                }
+                .primary_btn{
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                    .btn{
+                        margin-top: 10x;
+                    }
+                }
+        }
+    }
+
+
+    .prescription_detail{
+        .prescription_inner{
+                border: 1px solid #B6C8D6;
+                border-radius: 15px;
+                overflow: hidden;
+            .prescribe_item{
+                background: #F6F8FC;
+                padding: 20px;
+                border-bottom: 1px solid #B6C8D6;
+                .prescribe_profile{
+                    display: flex;
+                    align-items: center;
+                    .image{
+                        width: 70px;
+                        height: 70px;
+                        line-height: 70px;
+                        border-radius: 50%;
+                        margin: 0 15px 0 0;
+                    }
+                    .desc{
+                        .title{
+                            margin: 0 0 5px;
+                            font-size: $font_ex_large;
+                            line-height: 18px;
+                            font-weight: 700;
+                            color: $table_color;
+                        }
+                        .age{
+                            color: $table_color;
+                            font-weight: 700;
+                            font-size: $font_small;
+                        }
+                    }
+                }
+                .prescribe_title{
+                    font-weight: 500;
+                    font-size: $font_medium;
+                    line-height: 19px;
+                    color: $table_color;
+                    margin: 0 0 15px;
+                }
+                .mat-radio-group{
+                    .mat-radio-button{
+                        display: block;
+                        label{
+                            margin: 0 0 16px;
+                            .mat-radio-label-content{
+                                padding-left: 12px;
+                            }
+                        }
+                    }
+                }
+                .listing{
+                    padding: 0;
+                    margin: 0 -15px;
+                    list-style: none;
+                    flex-wrap: wrap;
+                        li{
+                            width: auto;
+                            padding: 0 15px;
+                            margin: 0 0 15px;
+                            label{
+                                font-weight: 400;
+                                font-size: $font_small;
+                                line-height: 14px;
+                                margin: 0 0 5px;
+                                color: $linkcolor;
+                            }
+                            .value{
+                                font-weight: 500;
+                                font-size: $font_small;
+                                color: $linkcolor;
+                            }
+                        }
+                }
+                .mat-checkbox{
+                    margin: 0 0 10px;
+                    display: block;
+                    .mat-checkbox-inner-container{
+                        width: 18px;
+                        height: 18px;
+                    }
+                    .mat-checkbox-label{
+                        font-weight: 500;
+                        font-size: $font_medium;
+                        line-height: 19px;
+                        color: $linkcolor;
+                    }
+                }
+                .form_field_wrapper{
+                    label{
+                        font-size: $font_small;
+                        font-weight: 400;
+                        color: $bodyopacitylightcolor;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            .mat-form-field-flex{
+                                border: 1px solid #B6C8D6;
+                                padding: 0 15px;
+                                .mat-form-field-infix{
+                                    .mat-input-element{
+                                        font-size: $font_small;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &.profile{
+                    background:$white_color; 
+                }
+                &:last-child{
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+
+// medicine modal css
+.medicine {
+    // .modal-dialog{
+    //     max-width: 820px;
+        .medicine_content{
+            background: rgba(182, 200, 214, 0.1);
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+            .row{
+                border-bottom: 1px solid #dddddd;
+                padding: 0;
+                margin: 0;
+                .medicine_item{
+                    padding: 10px 0;
+                    margin: 10px 0;
+                    .item{
+                        margin: 0 15px 0 0;
+                        .label{
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 19px;
+                            color: $table_color;
+                            margin: 0 0 7px;
+                        }
+                        .sub_label{
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: $bodyopacitycolor;
+                            margin: 0 0 5px;
+                        }
+                        .value{
+                            font-weight: 500;
+                            font-size: 16px;
+                            line-height: 19px;
+                            color: $table_color;
+                            a{
+                                color: #2C8BD2;
+                                &:hover{
+                                    color: $bodycolor;
+                                }
+                            }
+                        }
+                    }
+                }
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        
+        }
+    // }
+    
+}
+
+
+@media screen and (max-width:$desktop) {
+    .makeeprescription .bottom_bar .prescription .item{
+        flex-direction: column;
+        align-items: normal;
+    }
+    .makeeprescription .bottom_bar .prescription .item .right_part{
+        margin-top: 15px;
+    }
+}
+@media screen and (max-width:$tablet) {
+    .medicine .modal-dialog {
+        max-width: 730px;
+    }
+    .medicine .modal-dialog .medicine_content .row .medicine_item{
+        margin: 5px 0;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .makeeprescription  > .row > *{
+        margin: 0 0 30px;
+    }
+    .medicine .modal-dialog {
+        max-width: 550px;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .medicine .modal-dialog .medicine_content .row .medicine_item .item {
+        margin: 0;
+    }
+    .medicine .modal-dialog .medicine_content .row .medicine_item .item .invisible{
+        display: none;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .makeeprescription .bottom_bar .prescription .primary_btn .btn{
+        margin: 0 0 15px;
+        width: 100%;
+    }
+}
+
+.border_bottom{
+    border-bottom: 2px solid;
+}

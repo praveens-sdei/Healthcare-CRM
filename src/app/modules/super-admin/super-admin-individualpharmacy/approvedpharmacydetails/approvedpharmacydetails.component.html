@@ -1,0 +1,198 @@
+<div class="pharmacy_details dashboard_main_content">
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img src="../../../assets/img/hospital.png" />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">Ace Chemist Direct</div>
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">email@dummy.com</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">(+42) 123 456 7890</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">
+              4517 Washington Ave. Manchester, Kentucky 39495
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">20-10-2021</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>{{ "about" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing
+      </p>
+    </div>
+  </div>
+
+  <h3>{{ "picture" | translate }}</h3>
+  <div class="hospital_img">
+    <div class="row">
+      <div class="item col-sm-3 col-xl-2">
+        <img src="../../../../../assets/img/hospital_img.png" />
+      </div>
+      <div class="item col-sm-3 col-xl-2">
+        <img src="../../../../../assets/img/hospital_img.png" />
+      </div>
+      <div class="item col-sm-3 col-xl-2">
+        <img src="../../../../../assets/img/hospital_img.png" />
+      </div>
+      <div class="item col-sm-3 col-xl-2">
+        <img src="../../../../../assets/img/hospital_img.png" />
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "license" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img src="../../../../../assets/img/doc.png" />
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "license_number" | translate }}</label>
+          <div class="value">123456789</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "licence_validity" | translate }}</label>
+          <div class="value">10-03-2018 To 15-04-2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "document" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img src="../../../../../assets/img/doc.png" />
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "document_name" | translate }}</label>
+          <div class="value">Lorem ipsum dolor</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "issue_date" | translate }}</label>
+          <div class="value">22-05-2018</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "expiration_date" | translate }}</label>
+          <div class="value">22-05-2030</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="primary_btn">
+    <button type="button" class="btn btn-secondary">
+      {{ "edit_role_permission" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="openVerticallyCenteredblock(block)"
+    >
+      {{ "block" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openVerticallyCentereddetale(addsecondsubsriber)"
+    >
+      {{ "delete" | translate }}
+    </button>
+  </div>
+</div>
+
+<!-- Delete modal -->
+
+<ng-template #addsecondsubsriber let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_delete_this_plan" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Block modal -->
+<ng-template #block let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image block">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/block.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_block_this_doctor" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

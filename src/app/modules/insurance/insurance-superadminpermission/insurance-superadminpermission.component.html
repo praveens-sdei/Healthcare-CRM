@@ -1,0 +1,58 @@
+<div class="assignplan dashboard_main_content">
+  <div class="tab_content moreresponsetab assign_plan">
+    <div class="assign_plan_inner">
+      <h1 class="main_title content_item">
+        {{ "superAdmin_permission" | translate }}
+      </h1>
+      <div class="content_item" style="margin-top: 20px">
+        <div class="content_wrap">
+          <input
+            type="checkbox"
+            *ngIf="allowHealthPlan === true"
+            checked
+            (click)="allowHelthPlancheckbox($event)"
+          />
+          <input
+            type="checkbox"
+            *ngIf="allowHealthPlan === false"
+            (click)="allowHelthPlancheckbox($event)"
+          />
+          <label class="main_title content_item label">{{
+            "allow_health_plan" | translate
+          }}</label>
+          <br />
+          <input
+            type="checkbox"
+            *ngIf="allowSubscription === true"
+            checked
+            (click)="allowSubscriptioncheckbox($event)"
+          />
+          <input
+            type="checkbox"
+            *ngIf="allowSubscription === false"
+            (click)="allowSubscriptioncheckbox($event)"
+          />
+          <label class="main_title content_item label">{{
+            "allow_subscriber" | translate
+          }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="primary_btn">
+      <button
+        type="button"
+        (click)="updatesuperadminpermission()"
+        class="btn btn-primary"
+      >
+        {{ "save" | translate }}
+      </button>
+      <button
+        type="button"
+        [routerLink]="['/insurance/profile']" 
+        class="btn btn-primary"
+      >
+        {{ "cancel" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

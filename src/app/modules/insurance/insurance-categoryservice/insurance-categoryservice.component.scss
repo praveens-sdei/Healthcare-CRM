@@ -1,0 +1,127 @@
+@import '../../../../assets/css/variable/variable';
+
+
+.category_service {
+    .top_bar{
+        margin: 0 0 35px;
+        .left_part{
+            display: flex;
+            .search_bar{
+                .input-group{
+                    background: #F6F8FC;
+                    border-radius: 6px;
+                    .form-control{
+                        border: none;
+                        background-color: transparent;
+                        padding: 12px 12px 12px 0;
+                        width: 220px;
+                        &::placeholder{
+                            font-weight: 400;
+                            font-size: $font_small;
+                            line-height: 24px;
+                        }
+                        &:focus{
+                            box-shadow: none;
+                        }
+                    }
+                    .btn{
+                        padding: 0;
+                        border: none;
+                        .mat-icon{
+                            line-height: 50px;
+                            height: 50px;
+                            width: 50px;
+                            color: #9B9B9B;
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .bottom_bar{
+        table{
+            border-radius: 15px;
+        }
+    }
+}
+.add_cat_service {
+    .modal-dialog{
+        max-width: 550px;
+        .custome_modal {
+            .modal-body {
+                .category_service{
+                    .modal_content_inner{
+                        display: flex;
+                        margin: 0 -15px;
+                        .item{
+                            width: auto;
+                            padding: 0 15px;
+                            .mat-form-field-infix{
+                                width: 285px;
+                            }
+                            .mat-slide-toggle{
+                                margin-top: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}
+.edit_cat_service {
+    .modal-dialog{
+        max-width: 550px;
+        .custome_modal {
+            .modal-body {
+                .category_service{
+                    border: none;
+                    margin: 0 0 10px;
+                    .modal_content_inner{
+                        display: flex;
+                        margin: 0 -15px;
+                        padding: 0;
+                        .item{
+                            width: auto;
+                            padding: 0 15px;
+                            .mat-form-field-infix{
+                                width: 370px;
+                            }
+                            .mat-slide-toggle{
+                                margin-top: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    } 
+}
+
+
+
+
+
+
+
+@media screen and (max-width:$medium_iphone) {
+    .add_cat_service .modal-dialog .custome_modal .modal-body .category_service .modal_content_inner .item .mat-form-field-infix {
+        width: 200px;
+    }
+    .edit_cat_service .modal-dialog .custome_modal .modal-body .category_service .modal_content_inner .item .mat-form-field-infix {
+        width: 290px;
+    }
+}
+
+@media screen and (max-width:$medium_phone) {
+    .add_cat_service .modal-dialog .custome_modal .modal-body .category_service .modal_content_inner .item .mat-form-field-infix {
+        width: 100%;
+    }
+    .add_cat_service .modal-dialog .custome_modal .modal-body .category_service .modal_content_inner{
+        padding: 20px;
+    } 
+    .edit_cat_service .modal-dialog .custome_modal .modal-body .category_service .modal_content_inner .item .mat-form-field-infix {
+        width: 100%;
+    }
+}

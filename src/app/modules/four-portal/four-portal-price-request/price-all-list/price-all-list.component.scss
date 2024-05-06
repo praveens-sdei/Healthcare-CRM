@@ -1,0 +1,17 @@
+@import '../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+
+.medicineprice_request{
+    padding: 0;
+    .medicineprice_tab{
+        .mat-tab-header{
+            padding: 30px;
+        }
+        .mat-tab-body-wrapper{
+            overflow: hidden;
+            padding: 30px;
+        } 
+    } 
+}

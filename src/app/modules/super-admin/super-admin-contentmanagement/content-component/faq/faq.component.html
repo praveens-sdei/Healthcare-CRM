@@ -1,0 +1,157 @@
+<div class="content_inner_tab">
+  <mat-tab-group
+    animationDuration="0ms"
+    (selectedTabChange)="langClick($event)"
+  >
+    <mat-tab label="English">
+      <form [formGroup]="faqForm">
+        <div class="faq_tab">
+          <div formArrayName="faqq" class="scroll_div">
+            <ng-container *ngFor="let faqForm of faqq.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="faq_content">
+                  <div class="faq_content_inner">
+                    <div class="item">
+                      <div class="form_field_wrapper">
+                        <label> {{ "question" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="question"
+                          />
+                        </mat-form-field>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && faqqValidations(i).controls['question'].errors?.['required']"
+                          >{{ "enter_question" | translate }}*</span
+                        >
+                      </div>
+                      <div class="form_field_wrapper">
+                        <label>{{ "answer" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="answer"
+                            matInput
+                          />
+                        </mat-form-field>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && faqqValidations(i).controls['answer'].errors?.['required']"
+                          >{{ "enter_answer" | translate }}*</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row_generate row_minus"
+                    *ngIf="i === 0 && faqq.length > 1"
+                  >
+                    <a (click)="remove(i)">
+                      <mat-icon class="minus">remove</mat-icon>
+                    </a>
+                  </div>
+                  <div class="row_generate row_add" *ngIf="i === 0">
+                    <a (click)="addNew()">
+                      <mat-icon class="plus">add</mat-icon>
+                    </a>
+                  </div>
+                  <div class="row_generate row_minus" *ngIf="i !== 0">
+                    <a (click)="remove(i)">
+                      <mat-icon class="minus">remove</mat-icon>
+                    </a>
+                  </div>
+                  &nbsp; &nbsp;
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button class="btn btn-secondary">{{ "cancel" | translate }}</button>
+          <ng-container *ngIf="giveInnerPermission('add')">
+          <button class="btn btn-primary" (click)="addfaq()">
+            {{ "save" | translate }}
+          </button>
+        </ng-container>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="French">
+      <form [formGroup]="faqForm">
+        <div class="faq_tab">
+          <div formArrayName="faqq" class="scroll_div">
+            <ng-container *ngFor="let faqForm of faqq.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="faq_content">
+                  <div class="faq_content_inner">
+                    <div class="item">
+                      <div class="form_field_wrapper">
+                        <label> {{ "question" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="question"
+                          />
+                        </mat-form-field>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && faqqValidations(i).controls['question'].errors?.['required']"
+                          >{{ "enter_question" | translate }}*</span
+                        >
+                      </div>
+                      <div class="form_field_wrapper">
+                        <label>{{ "answer" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="answer"
+                            matInput
+                          />
+                        </mat-form-field>
+                        <span
+                          class="text-danger"
+                          *ngIf="isSubmitted && faqqValidations(i).controls['answer'].errors?.['required']"
+                          >{{ "enter_answer" | translate }}*</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row_generate row_minus"
+                    *ngIf="i === 0 && faqq.length > 1"
+                  >
+                    <a (click)="remove(i)">
+                      <mat-icon class="minus">remove</mat-icon>
+                    </a>
+                  </div>
+                  <div class="row_generate row_add" *ngIf="i === 0">
+                    <a (click)="addNew()">
+                      <mat-icon class="plus">add</mat-icon>
+                    </a>
+                  </div>
+                  <div class="row_generate row_minus" *ngIf="i !== 0">
+                    <a (click)="remove(i)">
+                      <mat-icon class="minus">remove</mat-icon>
+                    </a>
+                  </div>
+                  &nbsp; &nbsp;
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button class="btn btn-secondary">{{ "cancel" | translate }}</button>
+          <ng-container *ngIf="giveInnerPermission('add')">
+          <button class="btn btn-primary" (click)="addfaq()">
+            {{ "save" | translate }}
+          </button>
+        </ng-container>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

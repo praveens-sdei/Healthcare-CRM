@@ -1,0 +1,1398 @@
+<div class="common_information">
+  <div class="top_bar">
+    <div class="row w-100">
+      <div class="col-sm-6 col-md-5 col-lg-5 col-xl-4 item">
+        <div class="search_bar common_content">
+          <label>{{ "search_patient" | translate }}</label>
+          <div class="input-group">
+            <!-- <input type="search" class="form-control" aria-label="Search" #searchName />
+                        <button class="btn search-btn">
+                            <img src="../../../../assets/img/search_medicine.svg">
+                        </button> -->
+            <mat-select (selectionChange)="getpatientId($event)">
+              <mat-option>{{ "select" | translate }}</mat-option>
+              <mat-option
+                *ngFor="let ins of patientList; let i = index"
+                value="{{ ins.for_portal_user }}"
+                >{{ ins.full_name }}</mat-option
+              >
+            </mat-select>
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Number</mat-label>
+                            <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                [formControl]="myControl" [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-5 col-lg-5 col-xl-4 item">
+        <div class="search_bar common_content">
+          <label>{{ "ePrescription_number" | translate }}</label>
+          <div class="input-group">
+            <input
+              type="search"
+              class="form-control"
+              aria-label="Search"
+              #searchName
+            />
+            <button class="btn search-btn">
+              <img src="../../../../assets/img/search_medicine.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="medicinclaim_block">
+    <div class="header_medicin">
+      <h2>{{ "claim_insurance" | translate }}</h2>
+    </div>
+    <div class="sub_content">
+      <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+                {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+              </button> -->
+      <mat-stepper
+        [linear]="isLinear"
+        #stepper
+        class="example-stepper"
+        [orientation]="(nested_stepperOrientation | async)!"
+      >
+        <mat-step [stepControl]="firstFormGroup" label="Step 1 of 5">
+          <form
+            [formGroup]="firstFormGroup"
+            (ngSubmit)="saveStepOne(this.firstFormGroup.value, stepper)"
+          >
+            <div class="step_counter_inner step1">
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "choose_insurance_company" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>{{
+                        "select_insurance_company" | translate
+                      }}</label>
+                      <div class="form_field_wrapper">
+                        <mat-form-field appearance="fill">
+                          <mat-select
+                            formControlName="insuranceId"
+                            placeholder="Select"
+                            (selectionChange)="getInsuranceId($event)"
+                          >
+                            <mat-option
+                              *ngFor="let ins of insuraneList; let i = index"
+                              value="{{ ins._id }}"
+                              >{{ ins.company_name }}</mat-option
+                            >
+                          </mat-select>
+
+                          <mat-error
+                            *ngIf="isSubmitted && stepOneFormControl['insuranceId'].errors?.['required']"
+                          >
+                            {{ "select_insurance_name" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>{{ "request_type" | translate }}</label>
+                      <div class="form_field_wrapper radio">
+                        <mat-radio-group
+                          aria-label="Select an option"
+                          formControlName="requestType"
+                        >
+                          <mat-radio-button value="medical-products">{{
+                            "medical_products" | translate
+                          }}</mat-radio-button>
+                          <mat-radio-button value="pre-auth">{{
+                            "pre-authorization" | translate
+                          }}</mat-radio-button>
+                          <mat-error
+                            *ngIf="isSubmitted && stepOneFormControl['requestType'].errors?.['required']"
+                          >
+                            {{ "select_request_type" | translate }}
+                          </mat-error>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label>{{ "claim_number" | translate }}</label>
+                      <div class="form_field_wrapper">
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="claimNumber"
+                          />
+                          <mat-error
+                            *ngIf="isSubmitted && stepOneFormControl['claimNumber'].errors?.['required']"
+                          >
+                            {{ "enter_claim_number" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="primary_btn">
+              <button class="btn btn-primary" mat-button type="submit">
+                {{ "next" | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Step 2 of 5">
+          <div class="step_counter_inner step2">
+            <form
+              [formGroup]="secondFormGroup"
+              (ngSubmit)="saveStepTwo(this.secondFormGroup.value, stepper)"
+            >
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "insurer_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>{{
+                        "whose_health_expense_is_this" | translate
+                      }}</label>
+                      <div class="form_field_wrapper radio">
+                        <mat-radio-group
+                          formControlName="healthExpense"
+                          aria-label="Select an option"
+                        >
+                          <mat-radio-button value="primaryInsurer">{{
+                            "primary_insurer" | translate
+                          }}</mat-radio-button>
+                          <mat-radio-button value="secondaryInsurer">{{
+                            "secondary_insurer" | translate
+                          }}</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "primary_insured_identity" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <ng-container *ngIf="primaryFieldList.length > 0">
+                      <!-- {{indexOf2d(primaryFieldList,'63be8ee8cea87685c1c8e6f8')}} -->
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63be8ee8cea87685c1c8e6f8'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "first_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="first_name"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0a'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "middle_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="middle_name"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0b'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "last_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="last_name"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <div class="col-sm-12 col-md-6 col-xl-3">
+                        <div class="row">
+                          <ng-container
+                            *ngIf="
+                              indexOf2d(
+                                primaryFieldList,
+                                '63beb2d1f19ab5edb7a72e0c'
+                              )
+                            "
+                          >
+                            <div
+                              class="form_field_wrapper col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                            >
+                              <label>{{ "date_of_birth" | translate }}</label>
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker7"
+                                  formControlName="dob"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker7"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker7></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              indexOf2d(
+                                primaryFieldList,
+                                '63beb2d1f19ab5edb7a72e0d'
+                              )
+                            "
+                          >
+                            <div
+                              class="form_field_wrapper col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                            >
+                              <label>{{ "age" | translate }}</label>
+                              <mat-form-field appearance="fill">
+                                <input
+                                  type="number"
+                                  formControlName="age"
+                                  matInput
+                                />
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0e'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "gender" | translate }}</label>
+                            <mat-form-field
+                              class="inner_label"
+                              appearance="fill"
+                            >
+                              <mat-select formControlName="gender">
+                                <mat-option value="Male">{{
+                                  "male" | translate
+                                }}</mat-option>
+                                <mat-option value="Female">{{
+                                  "female" | translate
+                                }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0f'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "insurance_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="insuranceId"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e10'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "policy_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="policyId"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e11'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "employee_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="employeeId"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e12'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "card_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="cardId"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e13'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "insurance_holder_name" | translate
+                            }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="insHolderName"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e14'
+                          )
+                        "
+                      >
+                        <div class="col-sm-12 col-md-12 col-xl-6 date_picker">
+                          <div class="row">
+                            <label>{{
+                              "insurance_validity" | translate
+                            }}</label>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>{{ 'from' | translate}}</label> -->
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker4"
+                                  placeholder="{{ 'from' | translate }}"
+                                  formControlName="insValidityFrom"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker4"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>{{ 'to' | translate}}</label> -->
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker5"
+                                  placeholder="{{ 'to' | translate }}"
+                                  formControlName="insValidityTo"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker5"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker5></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e15'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "reimbursement" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="reimbursment"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="primaryFieldList.length == 0">
+                      <mat-error>{{
+                        "you_have_not_assigned_any_primary_fields_please_contact_to_healthcare-crm_admin"
+                          | translate
+                      }}</mat-error>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "next" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup" label="Step 3 of 5">
+          <div class="step_counter_inner step2">
+            <form
+              [formGroup]="thirdFormGroup"
+              (ngSubmit)="saveStepThree(this.thirdFormGroup.value, stepper)"
+            >
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "secondary_insurer_patient" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <ng-container *ngIf="secondaryFieldList.length > 0">
+                      <!-- {{indexOf2d(primaryFieldList,'63be8ee8cea87685c1c8e6f8')}} -->
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63be8ee8cea87685c1c8e6f9'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "first_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="first_namet"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e16'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "middle_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="middle_namet"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e17'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "last_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="last_namet"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div class="col-sm-12 col-md-6 col-xl-3">
+                        <div class="row">
+                          <ng-container
+                            *ngIf="
+                              indexOf2d(
+                                secondaryFieldList,
+                                '63beb2d1f19ab5edb7a72e18'
+                              )
+                            "
+                          >
+                            <div
+                              class="form_field_wrapper col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                            >
+                              <label>{{ "date_of_birth" | translate }}</label>
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker7"
+                                  formControlName="dobt"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker7"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker7></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              indexOf2d(
+                                secondaryFieldList,
+                                '63beb2d1f19ab5edb7a72e19'
+                              )
+                            "
+                          >
+                            <div
+                              class="form_field_wrapper col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                            >
+                              <label>{{ "age" | translate }}</label>
+                              <mat-form-field appearance="fill">
+                                <input
+                                  type="number"
+                                  formControlName="aget"
+                                  matInput
+                                />
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1a'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "gender" | translate }}</label>
+                            <mat-form-field
+                              class="inner_label"
+                              appearance="fill"
+                            >
+                              <mat-select formControlName="gendert">
+                                <mat-option value="Male">{{
+                                  "male" | translate
+                                }}</mat-option>
+                                <mat-option value="Female">{{
+                                  "female" | translate
+                                }}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1b'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "insurance_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="insuranceIdt"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1c'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "policy_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="policyIdt"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1d'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "employee_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="employeeIdt"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1e'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "card_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="cardIdt"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1f'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "insurance_holder_name" | translate
+                            }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                formControlName="insHolderNamet"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e20'
+                          )
+                        "
+                      >
+                        <div class="col-sm-12 col-md-12 col-xl-6 date_picker">
+                          <div class="row">
+                            <label>{{
+                              "insurance_validity" | translate
+                            }}</label>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>{{ 'from' | translate}}</label> -->
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker4"
+                                  placeholder="{{ 'from' | translate }}"
+                                  formControlName="insValidityFromt"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker4"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>{{ 'to' | translate}}</label> -->
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker5"
+                                  placeholder="{{ 'to' | translate }}"
+                                  formControlName="insValidityTot"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker5"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker5></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e21'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "reimbursement" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="reimbursmentt"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e22'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "relation_with_the_pirmary_insured" | translate
+                            }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="relationPrimaryt"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="secondaryFieldList.length == 0">
+                      <mat-error>{{
+                        "you_have_not_assigned_any_secondary_fields_please_contact_to_healthcare-crm_admin"
+                          | translate
+                      }}</mat-error>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "next" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="fourthFormGroup" label="Step 4 of 5">
+          <div class="step_counter_inner step2">
+            <form
+              [formGroup]="fourthFormGroup"
+              (ngSubmit)="saveStepFour(this.fourthFormGroup.value, stepper)"
+            >
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "deliver_center_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-8">
+                      <div class="form_field_wrapper">
+                        <label>{{ "deliver_center" | translate }}</label>
+                        <mat-form-field class="inner_label" appearance="fill">
+                          <mat-select formControlName="deliveryCenter">
+                            <mat-option value="{{ loggedId }}">{{
+                              loggedName
+                            }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "deliver_first_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="deliverFName"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "deliver_middle_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="deliverMName"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "deliver_last_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="deliverLName"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "deliver_title" | translate }}</label>
+                        <mat-form-field class="inner_label" appearance="fill">
+                          <mat-select formControlName="deliverTitle">
+                            <mat-option value="option1">{{
+                              "deliver_title" | translate
+                            }}</mat-option>
+                            <mat-option value="option2"
+                              >{{ "deliver_title" | translate }}1</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "prescriber_center_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_center" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberCenter"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_first_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberFName"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{
+                          "prescriber_middle_name" | translate
+                        }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberMName"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_last_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberLName"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_title" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberTitle"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label
+                          >{{ "prescriber_speciality" | translate }}
+                        </label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            formControlName="prescriberSpeciality"
+                            matInput
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "next" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="fifthFormGroup" label="Step 5 of 5">
+          <div class="step_counter_inner step2">
+            <form
+              [formGroup]="fifthFormGroup"
+              (ngSubmit)="saveStepFive(this.fifthFormGroup.value)"
+            >
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "service_type" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e23'
+                          )
+                        "
+                      >
+                        <div class="col-md-12">
+                          <label
+                            >{{
+                              "is_it_related_to_an_accident" | translate
+                            }}?</label
+                          >
+                          <div class="form_field_wrapper radio">
+                            <mat-radio-group
+                              aria-label="Select an option"
+                              formControlName="accidentRelation"
+                            >
+                              <mat-radio-button value="1">{{
+                                "yes" | translate
+                              }}</mat-radio-button>
+                              <mat-radio-button value="2">{{
+                                "no" | translate
+                              }}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e24'
+                          )
+                        "
+                      >
+                        <div class="col-sm-12 col-md-5">
+                          <div class="form_field_wrapper">
+                            <label>{{ "accident_date" | translate }}</label>
+                            <mat-form-field
+                              class="example-full-width"
+                              appearance="fill"
+                            >
+                              <input
+                                matInput
+                                [matDatepickerFilter]="myFilter"
+                                formControlName="accidentDate"
+                                [matDatepicker]="picker15"
+                              />
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker15"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker15></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e25'
+                          )
+                        "
+                      >
+                        <div class="col-md-12">
+                          <label>{{ "accident_type" | translate }}</label>
+                          <div class="form_field_wrapper radio">
+                            <mat-radio-group
+                              aria-label="Select an option"
+                              formControlName="accidentType"
+                            >
+                              <mat-radio-button value="Workplace">{{
+                                "workplace" | translate
+                              }}</mat-radio-button>
+                              <mat-radio-button value="vehicle">{{
+                                "motor_vehicle" | translate
+                              }}</mat-radio-button>
+                              <mat-radio-button value="3">{{
+                                "other" | translate
+                              }}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+                          <div class="form_field_wrapper">
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                formControlName="other"
+                                matInput
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e26'
+                          )
+                        "
+                      >
+                        <div class="col-md-12">
+                          <label>{{
+                            "is_there_an_official_report" | translate
+                          }}</label>
+                          <div class="form_field_wrapper radio">
+                            <mat-radio-group
+                              aria-label="Select an option"
+                              formControlName="officialReport"
+                            >
+                              <mat-radio-button value="1">{{
+                                "yes" | translate
+                              }}</mat-radio-button>
+                              <mat-radio-button value="2">{{
+                                "no" | translate
+                              }}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e27'
+                          )
+                        "
+                      >
+                        <div class="col-md-12">
+                          <label>{{
+                            "is_there_a_responsible_third_party" | translate
+                          }}</label>
+                          <div class="form_field_wrapper radio">
+                            <mat-radio-group
+                              aria-label="Select an option"
+                              formControlName="resThirdParty"
+                            >
+                              <mat-radio-button value="1">{{
+                                "yes" | translate
+                              }}</mat-radio-button>
+                              <mat-radio-button value="2">{{
+                                "no" | translate
+                              }}</mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63be8ee8cea87685c1c8e6fa'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4">
+                          <div class="form_field_wrapper">
+                            <label>{{ "first_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="firstName"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e28'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4">
+                          <div class="form_field_wrapper">
+                            <label>{{ "last_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="lastName"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e29'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-4">
+                          <div class="form_field_wrapper">
+                            <label>{{ "phone_number" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="number"
+                                matInput
+                                formControlName="phoneNumber"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container
+                        *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e2a'
+                          )
+                        "
+                      >
+                        <div class="col-sm-6 col-md-8">
+                          <div class="form_field_wrapper">
+                            <label>{{ "address" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input
+                                type="text"
+                                matInput
+                                formControlName="address"
+                              />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "next" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+      </mat-stepper>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-primary" mat-button matStepperNext>
+          {{ "save_&_continue" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

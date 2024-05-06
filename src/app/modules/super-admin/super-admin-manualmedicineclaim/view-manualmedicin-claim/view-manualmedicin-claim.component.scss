@@ -1,0 +1,375 @@
+@import '../../../../../assets/css/variable/variable';
+
+.hospital_details{
+    .primary_btn{
+        margin: 0 0 30px;
+    }
+    h3{
+        font-size: 18px;
+        font-weight: 600;
+        color: rgba(12, 47, 73, 0.8);
+    }
+    .profile_data{
+        background: #ffffff;
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;
+        background: #ffffff;
+        margin: 0 0 25px;
+        .profile_info{
+            position: relative; 
+            ul{
+                display: grid;
+                align-items: center;
+                grid-gap: 15px;
+                grid-template-columns: 320px repeat(5, 1fr);
+                margin-bottom: 0;
+                padding: 25px;
+                .col_item{
+                    display: flex;
+                    align-items: flex-start;
+                    min-height: 60px;
+                    .profile_image{
+                        width: 95px;
+                        height: 95px;
+                        margin: 0 20px 0 0;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                    .profile_contact{
+                        .profile_title{
+                            font-size: 20px;
+                            font-weight: 600;
+                            line-height: 24px;
+                            letter-spacing: 0em;
+                            color: $linkcolor;
+                            margin: 0 0 15px;
+                        }
+                        .lable{
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            letter-spacing: 0.05em;
+                            color: $bodyopacitylightcolor;
+                            margin: 0 0 6px;
+                        }
+                        .user_value{
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: $linkcolor;
+                            letter-spacing: 0.05em;
+                        }
+                    }
+                }
+                &:last-child{
+                    border-bottom:none;
+                    margin-bottom: 0;
+                }
+                &.hospitalsub_data{
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+            p{
+                padding: 25px;
+            }
+            .row{
+                align-items: center;
+                padding: 0px 25px;            
+                .item_info{
+                    width: auto;
+                    min-width: 15%;
+                    margin: 0 0 20px;
+                    .user_img{
+                        width: 200px;
+                        height: 99px;
+                        border-radius: 15px;
+                        overflow: hidden;
+                    }
+                    label{
+                        font-weight: 400;
+                        margin: 0 0 5px;
+                    }
+                    .value{
+                        font-weight: 500;
+                        color: #26323C;
+                    }
+                }
+            }
+        }
+        &.bank_details{
+            .profile_info {
+                .user_img_wrap{
+                    display: flex;
+                    align-items: center;
+                    .user_img{
+                        border: 1px solid #B6C8D6;
+                        border-radius: 15px;
+                        width: 75px;
+                        height: 65px;
+                        line-height: 65px;
+                        margin: 0 15px 0 0;
+                        text-align: center;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+    .primary_btn{
+        justify-content: flex-end;
+    }
+    .hospital_img{
+        margin: 0 0 25px;
+    }
+    .border_right{
+        border-right: 1px solid #b6c8d6;     
+    }
+    .about_pharma {
+        min-height: 185px;
+         padding: 25px 0;
+    p{
+        padding: 0 !important;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 32px;
+       
+    }
+    h4{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        margin-bottom: 10px;
+    }
+    .pr-5{
+        padding-right: 10px;
+    }
+    }
+      hr{
+        margin:1rem 25px;
+      }
+    
+      .about_pharmacy_hr{
+        margin:0 25px ;
+      }
+      .licence_block{
+        padding: 15px 25px;
+      }
+    .heading_listing{
+       p{
+        padding: 0 !important;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        color: #0C2F49;
+       }
+    }
+      ul{
+        list-style: none;
+      &.common_list{
+        display: grid;
+        padding: 0 !important;
+        grid-template-columns: repeat(5,1fr) !important;
+       li{
+        p{
+            padding: 0 !important;
+        }
+       }
+       .list_detail{
+        .detail_block{
+            margin-left: 9px;
+          
+        }
+        p{
+            margin: 0;
+       }
+       h4{
+           margin: 0;
+       }
+       }
+      }
+    }
+    
+.Pharma_list{
+    padding: 0 !important;
+    margin: 25px 0 !important;
+    display: grid;
+    grid-template-columns: repeat(4,1fr) !important;
+    grid-gap: 25px !important;
+    .pharmacy_detail{
+        background-color: #F5F7FB;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        padding: 18px;
+        .detail_pharma{
+            p{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 18px;
+                margin: 0 0 0 10px; 
+                padding: 0;
+            }
+        }
+    }
+}
+}
+.edit_pharma_btn{
+    text-align: right;
+}
+
+// Add pharmacy modal css
+.add_pharmacy {
+    .search_bar{
+        margin: 0 0 15px;
+        .input-group{
+            background: #F6F8FC;
+            border-radius: 6px;
+            .form-control{
+                border: none;
+                background-color: transparent;
+                padding: 12px 12px 12px 0;
+                width: 190px;
+                &::placeholder{
+                    font-weight: 400;
+                    font-size: $font_small;
+                    line-height: 24px;
+                }
+                &:focus{
+                    box-shadow: none;
+                }
+            }
+            .btn{
+                padding: 0;
+                border: none;
+                .mat-icon{
+                    line-height: 50px;
+                    height: 50px;
+                    width: 50px;
+                    color: #9B9B9B;
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+    .add_pharmacy_content{
+        padding: 10px;
+        background: #FFFFFF;
+        border: 1px solid rgba(182, 200, 214, 0.38);
+        box-shadow: 0px 11px 28px rgba(11, 73, 119, 0.11);
+        border-radius: 8px;
+        margin: 0 0 30px;
+        .pharmacy_content_inner{
+            padding: 13px 10px;
+            height: 350px;
+            overflow-y: scroll;  
+            &::-webkit-scrollbar{
+                background: #F1F2F4;
+                border-radius: 4px;
+                width: 6px;
+            }
+            &::-webkit-scrollbar-thumb{
+                background-color: #3D596D; 
+                border-radius: 4px;
+                width: 6px;
+            }
+            .mat-checkbox {
+                display: block;
+                margin: 0 0 15px;
+                label {
+                    font-size: $font_small;
+                    font-weight: 500;
+                    white-space: normal;
+                    color: $linkcolor;
+                    .mat-checkbox-inner-container{
+                        width: 20px;
+                        height: 20px;
+                    }
+                    .mat-checkbox-label{
+                        line-height: 20px;
+                    }
+                }
+            }
+        }
+       
+     
+    }
+}
+@media screen and (max-width:1440px){
+    .hospital_details .Pharma_list {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .hospital_details .Pharma_list .pharmacy_detail .detail_pharma p {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width:$desktop) {
+    .hospital_details .profile_data .profile_info ul{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .hospital_details .profile_data .profile_info ul .col_item{
+        min-height: 70px;
+    }
+    .hospital_details .profile_data .profile_info ul.hospitalsub_data {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .hospital_details ul.common_list {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .hospital_details .Pharma_list {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+   
+}
+@media screen and (max-width:$large_phone) {
+    .hospital_details .profile_data .profile_info ul,
+    .hospital_details .profile_data .profile_info ul.hospitalsub_data{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .hospital_details .profile_data .profile_info ul .col_item{
+        min-height: 55px;
+    }
+    .hospital_details .Pharma_list {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+    .hospital_details .Pharma_list .pharmacy_detail {
+        justify-content: left;
+    }
+    .hospital_details ul.common_list {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .hospital_details .border_right {
+        border-right: none;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .hospital_details .hospital_img .item{
+        width: 33.33%;
+        margin: 0 0 25px;
+    }
+    .hospital_details .profile_data .profile_info ul,
+    .hospital_details .profile_data .profile_info ul.hospitalsub_data{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .hospital_details ul.common_list {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .hospital_details .hospital_img .item{
+        width: 50%;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .hospital_details .hospital_img .item{
+        width: 100%;
+    }
+    .hospital_details .profile_data .profile_info ul .profile_image_wrapper {
+        flex-direction: column;
+    }
+    .hospital_details .profile_data .profile_info ul .profile_image_wrapper .profile_image{
+        width: 70px;
+        height: 70px;
+        margin: 0 0 20px;
+    }
+}

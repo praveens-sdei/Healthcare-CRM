@@ -1,0 +1,174 @@
+<div class="validate_prescription dashboard_main_content">
+  <div class="validate_content">
+    <div class="validate_content_inner">
+      <div class="top_part part">
+        <div class="left_part">
+          <h2>Dr. Ronald Richards</h2>
+          <div class="address">
+            6391 Elgin St. Celina, Delaware 10299 <br />
+            Wade Warren
+          </div>
+        </div>
+        <div class="right_part">
+          <div class="immunization_img">
+            <img src="../../../../../../assets/img/immunization_img.png" />
+          </div>
+          <div class="immunization_info">
+            <h2>{{ "great_plains_community_hospital" | translate }}</h2>
+            <div class="address">1901 Thornridge Cir. Shiloh, Hawaii 81063</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom_part part">
+        <div class="part_wrapper row">
+          <div class="left_part">
+            <div class="profile_data">
+              <div class="profile_info">
+                <ul class="profile_info_inner profile_info_with_img">
+                  <li class="col_item profile_image_wrapper">
+                    <div class="profile_image">
+                      <img src="../../../assets/img/profile_img.png" />
+                    </div>
+                    <div class="profile_contact">
+                      <div class="profile_title">Jacob Jones</div>
+                      <div class="lable">{{ "date_of_birth" | translate }}</div>
+                      <div class="user_value">03/05/1994</div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "age" | translate }}</div>
+                      <div class="user_value">28 Year</div>
+                    </div>
+                  </li>
+                  <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">{{ "gender" | translate }}</div>
+                      <div class="user_value">Male</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="right_part">
+            <div class="date">October 17, 2022</div>
+          </div>
+        </div>
+
+        <div class="validate_info">
+          <div class="row">
+            <div class="col-md-8">
+              <ol class="prescrib_list">
+                <li>
+                  <div class="prescrib_text">{{ "measles" | translate }}</div>
+                  <div class="prescrib_text2 prescrib_text">1st Dose</div>
+                  <div class="prescrib_unit prescrib_text">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <div class="col-md-4">
+              <div class="prescription_content">
+                <div class="prescription_no">
+                  {{ "number_of_prescription" | translate }} : <span>01</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="validate_secondary_info">
+          <div class="signature">
+            <div class="primary_btn">
+              <button
+                class="btn btn-primary"
+                (click)="openVerticallyCenteredaddsignature(addsignature)"
+              >
+                {{ "add_signature" | translate }}
+              </button>
+            </div>
+          </div>
+          <div class="qr_code">
+            <img src="../../../../../assets/img/qr.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add signature modal  -->
+
+<ng-template #addsignature let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_signature" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="signature_content">
+        <ul class="row">
+          <li>
+            <label>{{ "first_name" | translate }}:</label>
+            <div class="value">Ronald</div>
+          </li>
+          <li>
+            <label>{{ "first_name" | translate }}:</label>
+            <div class="value">Ronald</div>
+          </li>
+          <li>
+            <label>{{ "date" | translate }}:</label>
+            <div class="value">09-22-2022</div>
+          </li>
+          <li>
+            <label>{{ "time" | translate }}</label>
+            <div class="value">12:40 PM</div>
+          </li>
+        </ul>
+      </div>
+      <div class="form_field_wrapper signature_part">
+        <label>{{ "signature" | translate }}</label>
+        <div class="signature">
+          <div class="uploaded_img">
+            <img
+              src="../../../../../../assets/img/upload_signature1.png"
+              width="175px"
+              height="53px"
+            />
+          </div>
+          <div class="upload_input">
+            <div class="upload_input_content">
+              <img src="../../../../../assets/img/upload_signature.png" />
+            </div>
+            <input
+              class="ng-hide user_upload_input"
+              id="input-file-id"
+              multiple
+              type="file"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button
+          class="btn btn-primary"
+          routerLink="/individual-doctor/eprescription/validatevaccinationsignature"
+        >
+          {{ "add" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,474 @@
+<div class="hospital_details dashboard_main_content">
+  <div class="button-container">
+    <div class="back_button" [routerLink]="['/super-admin/hospital']">
+      <button class="btn btn-primary">{{ "back" | translate }}</button>
+    </div>
+
+    <div class="back_button">
+      <button class="btn btn-primary">{{ verifyStatus }}</button>
+    </div>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              src="{{
+                hospitalDetails?.profile_picture
+                  ? hospitalDetails?.profile_picture
+                  : '../../../../assets/img/vector.png'
+              }}"
+            />
+          </div>
+          <div class="profile_contact">
+            <div class="user_value">
+              {{ hospitalDetails?.hospital_name }}
+            </div>
+            <div class="lable">Email</div>
+            <div class="user_value">
+              {{ hospitalDetails?.for_portal_user?.email }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">
+              {{ hospitalDetails?.for_portal_user?.mobile }}
+            </div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+                    <div class="profile_contact">
+                        <div class="lable">Role</div>
+                        <div class="user_value">Hospital</div>
+                    </div>
+                </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">
+              {{ addressName ? addressName + "," : "" }}
+              {{ cityName ? cityName + "," : "" }}
+              {{ departmentName ? departmentName + "," : "" }}
+              {{ provinceName ? provinceName + "," : "" }}
+              {{ countryName ? countryName + "," : "" }}
+              {{ pincode ? pincode : "" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner hospitalsub_data">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "type_of_health_centre" | translate }}</div>
+            <div class="user_value">{{ doctorCount }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "type_of_health_centre" | translate }}</div>
+            <div class="user_value">
+              {{
+                hospitalDetails?.type_of_health_center
+                  ? hospitalDetails?.type_of_health_center?.name
+                  : "-"
+              }}
+            </div>
+          </div>
+        </li>
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">Specialty</div>
+            <div class="user_value">Speciality 1</div>
+          </div>
+        </li> -->
+        <!-- <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">Department</div>
+            <div class="user_value">Test Department</div>
+          </div>
+        </li> -->
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">
+              {{ hospitalDetails?.createdAt | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>{{ "about" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <p>
+        {{
+          hospitalDetails?.about_hospital
+            ? hospitalDetails?.about_hospital
+            : "-"
+        }}
+      </p>
+    </div>
+  </div>
+
+  <h3>{{ "hospital_picture" | translate }}</h3>
+  <div
+    class="text-center"
+    *ngIf="hospitalDetails?.hospitalPictures.length === 0"
+  >
+    <b> {{ "no_pictures_available" | translate }}</b>
+  </div>
+  <div class="hospital_img">
+    <div class="row">
+      <!-- <div class="item col-sm-3 col-xl-2">
+        <img src="{{ picture }}" />
+      </div> -->
+      <div
+        class="item col-sm-3 col-xl-2"
+        *ngFor="let picture of hospitalDetails?.hospitalPictures"
+      >
+        <img src="{{ picture }}" />
+      </div>
+      <!-- <div class="item col-sm-3 col-xl-2">
+              <img src="../../../../../assets/img/hospital_img.png" />
+            </div>
+            <div class="item col-sm-3 col-xl-2">
+              <img src="../../../../../assets/img/hospital_img.png" />
+            </div> -->
+    </div>
+  </div>
+
+  <h3>{{ "license" | translate }}</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img
+              [src]="
+                licensepicture
+                  ? licensepicture
+                  : '../../../../../assets/img/hospital_img.png'
+              "
+            />
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "license_number" | translate }}</label>
+          <div class="value">{{ hospitalDetails?.license?.number }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "licence_validity" | translate }}</label>
+          <div class="value">
+            {{ hospitalDetails?.license?.expiry_date | date : "dd/MM/YYYY" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <h3>Document</h3>
+  <div class="profile_data">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info">
+          <div class="user_img">
+            <img src="../../../../../assets/img/doc.png" />
+          </div>
+        </div>
+        <div class="item_info">
+          <label>Document Name</label>
+          <div class="value">Lorem ipsum dolor</div>
+        </div>
+        <div class="item_info">
+          <label>Issue Date</label>
+          <div class="value">22-05-2018</div>
+        </div>
+        <div class="item_info">
+          <label>Expiration Date</label>
+          <div class="value">22-05-2030</div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <h3>{{ "subscription_plan" | translate }}</h3>
+
+  <div class="profile_data">
+    <div class="text-center" *ngIf="subscriptionPlans.length === 0">
+      <b>{{ "no_plan_purchased" | translate }}</b>
+    </div>
+
+    <div class="profile_info" *ngFor="let plan of subscriptionPlans">
+      <div class="row">
+        <div class="item_info">
+          <label>{{ "plan" | translate }}</label>
+          <div class="value">{{ plan?.subscription_plan_name }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "status" | translate }}</label>
+          <div class="value">
+            <span class="status {{ checkForExpiry(plan?.expiry_date) }}"
+              >{{ checkForExpiry(plan?.expiry_date) }}
+            </span>
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "features" | translate }}</label>
+          <div
+            class="value"
+            *ngFor="let statement of planServiceStatement(plan?.services)"
+          >
+            {{ statement }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "plan_price" | translate }}</label>
+          <div class="value">
+            {{ plan?.currency_code }} {{ plan?.plan_price }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "plan_type" | translate }}</label>
+          <div class="value">{{ plan?.plan_type }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "purchase_date" | translate }}</label>
+          <div class="value">{{ plan?.createdAt | date : "dd/MM/YYYY" }}</div>
+        </div>
+        <div class="item_info">
+          <label>{{ "expiry_date" | translate }}</label>
+          <div class="value">
+            {{ plan?.expiry_date | date : "dd/MM/YYYY" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "mobile_pay_details" | translate }}</h3>
+  <div class="profile_data">
+    <div class="text-center" *ngIf="hospitalDetails?.in_mobile_pay === null">
+      <b>{{ "no_details_found" | translate }}</b>
+    </div>
+
+    <div class="profile_info" *ngIf="hospitalDetails?.in_mobile_pay != null">
+      <div class="row">
+        <div class="item_info">
+          <label>{{ "name_of_mobile_provider" | translate }}</label>
+          <div class="value">
+            {{ hospitalDetails?.in_mobile_pay?.mobilePay[0]?.provider }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "mobile_pay_number" | translate }}</label>
+          <div class="value">
+            {{ hospitalDetails?.in_mobile_pay?.mobilePay[0]?.pay_number }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>{{ "bank_details" | translate }}</h3>
+  <div class="profile_data bank_details">
+    <div class="profile_info">
+      <div class="row">
+        <div class="item_info user_img_wrap">
+          <div class="user_img">
+            <img src="../../../../../assets/img/bank_img.png" />
+          </div>
+          <div class="user_img_info">
+            <label>{{ "bank_name" | translate }}</label>
+            <div class="value">
+              {{
+                hospitalDetails?.in_bank?.bank_name
+                  ? hospitalDetails?.in_bank?.bank_name
+                  : "-"
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "account_holder_name" | translate }}</label>
+          <div class="value">
+            {{
+              hospitalDetails?.in_bank?.account_holder_name
+                ? hospitalDetails?.in_bank?.account_holder_name
+                : "-"
+            }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "account_number" | translate }}</label>
+          <div class="value">
+            {{
+              hospitalDetails?.in_bank?.account_number
+                ? hospitalDetails?.in_bank?.account_number
+                : "-"
+            }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "ifsc" | translate }}</label>
+          <div class="value">
+            {{
+              hospitalDetails?.in_bank?.ifsc_code
+                ? hospitalDetails?.in_bank?.ifsc_code
+                : "-"
+            }}
+          </div>
+        </div>
+        <div class="item_info">
+          <label>{{ "bank_address" | translate }}</label>
+          <div class="value">
+            {{
+              hospitalDetails?.in_bank?.bank_address
+                ? hospitalDetails?.in_bank?.bank_address
+                : "-"
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="primary_btn" *ngIf="approvalStatus === 'PENDING'">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="openVerticallyCenteredreject(reject)"
+    >
+      {{ "reject" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openVerticallyCenteredapproved(approved)"
+    >
+      {{ "approve" | translate }}
+    </button>
+  </div>
+
+  <div class="primary_btn" *ngIf="approvalStatus != 'PENDING'">
+    <ng-container *ngIf="giveInnerPermission('assign_role')">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="routeNext()"        
+      >
+        {{ "edit_role_permission" | translate }}
+      </button>
+    </ng-container>
+    <button type="button" class="btn btn-primary" (click)="backpage()">
+      {{ "back" | translate }}
+    </button>
+  </div>
+
+  <!-- Approved modal -->
+  <ng-template #approved let-modal>
+    <div class="custome_modal action_modals">
+      <div class="modal-body">
+        <div class="delete_screen text-center">
+          <div class="image approved">
+            <img
+              class="img-fluid"
+              src="../../../../assets/img/approved.svg"
+              alt=""
+            />
+          </div>
+          <p class="heading">{{ "are_you_sure" | translate }}</p>
+          <p>{{ "you_want_to_approve_this_hospital" | translate }}</p>
+          <div class="primary_btn mt-30">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "no" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="approveOrRejectHospital('APPROVED')"
+            >
+              {{ "yes" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Reject modal -->
+  <ng-template #reject let-modal>
+    <div class="custome_modal action_modals">
+      <div class="modal-body">
+        <div class="delete_screen text-center">
+          <div class="image delete">
+            <img
+              class="img-fluid"
+              src="../../../../assets/img/reject.svg"
+              alt=""
+            />
+          </div>
+          <p class="heading">{{ "are_you_sure" | translate }}</p>
+          <p>{{ "you_want_to_reject_this_hospital" | translate }}</p>
+          <div class="primary_btn mt-30">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "no" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="approveOrRejectHospital('DECLINED')"
+            >
+              {{ "yes" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #addsecondsubsriber let-modal>
+    <div class="custome_modal action_modals">
+      <div class="modal-body">
+        <div class="delete_screen text-center">
+          <div class="image delete">
+            <img
+              class="img-fluid"
+              src="../../../../assets/img/delete.svg"
+              alt=""
+            />
+          </div>
+          <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+          <p>{{ "you_want_to_delete_this_plan" | translate }}</p>
+          <div class="primary_btn mt-30">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "no" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="activeLockDeleteHospital('DELETE')"
+            >
+              {{ "yes" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

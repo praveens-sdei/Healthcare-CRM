@@ -1,0 +1,27 @@
+.material-icons{
+    cursor: pointer;
+}
+.top_bar {
+    margin: 0 0 35px;
+    .input-group {
+        background: #F6F8FC;
+        border-radius: 6px;
+        .btn {
+            padding: 0;
+            border: none;
+            .mat-icon {
+                line-height: 50px;
+                height: 50px;
+                width: 50px;
+                color: #9B9B9B;
+                font-size: 24px;
+            }
+        }
+        .form-control {
+            border: none;
+            background-color: transparent;
+            padding: 12px 12px 12px 0;
+            width: 210px;
+        }
+    }
+}

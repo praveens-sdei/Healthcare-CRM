@@ -1,0 +1,152 @@
+<div class="step_counter_inner">
+    <div class="educational">
+      <form [formGroup]="locationForm">
+        <ng-container formArrayName="location">
+          <ng-container *ngFor="let _ of location.controls; let i = index">
+            <ng-container [formGroupName]="i">
+              <div class="form">
+                <div class="increse_content">
+                  <div class="row increse_content_inner">
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form_field_wrapper">
+                        <label> {{"Hospital" | translate}}</label>
+  
+                        <mat-form-field appearance="fill">
+                          <!-- <mat-label>Sub-admin</mat-label> -->
+                          <!-- <mat-select
+                            disableRipple
+                            placeholder="Select Hospital"
+                            formControlName="hospital_name"
+                          >
+                            <mat-option value="Hospital1">Hospital1</mat-option>
+                            <mat-option value="Hospital2">Hospital2</mat-option>
+                            <mat-option value="Hospital3">Hospital3</mat-option>
+                          </mat-select> -->
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="hospital_name"
+                            [readonly]="true"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <span
+                        class="text-danger"
+                        *ngIf="isSubmitted && f['hospital_name'].errors?.['required']"
+                      >
+                        {{"select_hospital" | translate}}*
+                      </span>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form_field_wrapper">
+                        <label>Location</label>
+                        <mat-form-field appearance="fill">
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="location"
+                            [readonly]="true"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <span
+                        class="text-danger"
+                        *ngIf="isSubmitted && f['location'].errors?.['required']"
+                      >
+                        {{"enter_location" | translate}}*
+                      </span>
+                    </div>
+  
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form_field_wrapper">
+                        <label>City </label>
+                        <mat-form-field appearance="fill">
+                          <!-- <mat-label>Sub-admin</mat-label> -->
+                          <!-- <mat-select
+                            disableRipple
+                            placeholder="Select City"
+                            formControlName="city"
+                          >
+                            <mat-option
+                              *ngFor="let city of cityList"
+                              [value]="city._id"
+                              >{{ city?.name }}</mat-option
+                            >
+                          </mat-select> -->
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="city"
+                            [readonly]="true"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <span
+                        class="text-danger"
+                        *ngIf="isSubmitted && f['city'].errors?.['required']"
+                      >
+                        {{"select_city" | translate}}*
+                      </span>
+                    </div>
+  
+                    <div class="col-sm-6 col-md-6">
+                      <div class="form_field_wrapper">
+                        <label>{{"Country" | translate}} </label>
+                        <mat-form-field appearance="fill">
+                          <!-- <mat-label>Sub-admin</mat-label> -->
+                          <!-- <mat-select
+                            disableRipple
+                            placeholder="Select Country"
+                            formControlName="country"
+                          >
+                            <mat-option
+                              *ngFor="let country of countryList"
+                              [value]="country._id"
+                              >{{ country?.name }}</mat-option
+                            >
+                          </mat-select> -->
+                          <input
+                            type="text"
+                            matInput
+                            formControlName="country"
+                            [readonly]="true"
+                          />
+                        </mat-form-field>
+                      </div>
+                      <span
+                        class="text-danger"
+                        *ngIf="isSubmitted && f['country'].errors?.['required']"
+                      >
+                        {{"select_country" | translate}}*
+                      </span>
+                    </div>
+                  </div>
+                  <!-- <div class="row_generate row_add" *ngIf="i===0">
+                    <mat-icon class="plus" (click)="addNewLocation()">add</mat-icon>
+                  </div>
+                  <div class="row_generate row_minus" *ngIf="i!==0">
+                      <mat-icon class="minus" (click)="removeLoc(i)">remove</mat-icon>
+                    </div> -->
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </form>
+    </div>
+    <div class="primary_btn btn_wrap">
+      <button type="button" class="btn btn-secondary"  (click)="previousPage()">Back</button>
+      <button type="button" class="btn btn-primary" (click)="saveLocation()">
+        {{"save_and_next" | translate}}
+      </button>
+      <button
+      type="button"
+      class="btn btn-danger"
+      style="margin-left: 10px"
+      [routerLink]="['/hospital/manage-paramedical-professions']"
+    >
+      {{"exit" | translate}}
+    </button>
+    </div>
+  </div>
+  

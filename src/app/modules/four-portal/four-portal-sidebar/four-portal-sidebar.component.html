@@ -1,0 +1,659 @@
+<div class="sidebar_main">
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel"
+  >
+    <div class="offcanvas-header">
+      <button
+        type="button"
+        class="close text-reset d-lg-none d-md-block"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="inner_sidebar">
+        <div class="header_logo">
+          <img
+            class="img-flui"
+            src="../../../../assets/img/logo.svg"
+            alt="logo"
+          />
+        </div>
+        <div class="menu_list" id="sidebar">
+          <ul class="menu_list_main">
+            <ng-container *ngFor="let menu of userMenu | keyvalue">
+              <li
+                class="nav-item"
+                *ngIf="menu.value['children'].length === 0"
+                (click)="
+                  handleNavigationClick(
+                    menu.value['route_path'],
+                    menu.value['name']
+                  )
+                "
+              >
+                <!-- <a  class="nav-link {{menu.value['route_path'] == activeMenu ? 'active' : ''}}" [routerLink]="[menu.value['route_path']]"> -->
+                <a
+                  class="nav-link {{
+                    menu.value['route_path'] == activeMenu ? 'active' : ''
+                  }}"
+                  (click)="handleRouting(menu.value['route_path'])"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/{{
+                          menu.value['icon']
+                        }}"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/{{
+                          menu.value['icon_hover']
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                    <span>{{ menu.value["name"] | translate }}</span>
+                  </div>
+                </a>
+              </li>
+              <li
+                #itemEl
+                class="nav-item sidebar-dropdown dropmenu"
+                *ngIf="menu.value['children'].length > 0"
+              >
+                <a (click)="showSubmenu(itemEl)" class="nav-link">
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/{{
+                          menu.value['icon']
+                        }}"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/{{
+                          menu.value['icon_hover']
+                        }}"
+                        alt=""
+                      />
+                    </div>
+                    <span>{{ menu.value["name"] | translate }}</span>
+                  </div>
+                </a>
+                <div class="sidebar-submenu">
+                  <ul>
+                    <li *ngFor="let childMenu of menu.value['children']">
+                      <!-- <a class="{{childMenu.route_path == activeMenu ? 'active' : ''}}" [routerLink]="[childMenu.route_path]" (click)="handleNavigationClick(childMenu.route_path,childMenu.name)">{{childMenu.name}}</a> -->
+                      <a
+                        class="{{
+                          childMenu.route_path == activeMenu ? 'active' : ''
+                        }}"
+                        (click)="handleRouting(childMenu.route_path)"
+                        (click)="
+                          handleNavigationClick(
+                            childMenu.route_path,
+                            childMenu.name
+                          )
+                        "
+                        >{{ childMenu.name | translate }}</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ng-container>
+
+            <!-- <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/dashboard']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/dashboard.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/dashboard_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Dashboard</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/appointment']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/calender.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/calender_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Appointment</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/eprescription']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/eprescription.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/eprescription_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>ePrescription</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/revenuemanagement']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/revenue.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/revenue_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Revenue Management</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/complaint']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/complaints.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/complaints_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Complaints</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/ratingandreview']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/star.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/star_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Rating and Reviews</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/subscriptionplan']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/subscriptionplan.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/subscriptionplan_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Subscription Plan</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/myprofile']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/profile.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/profile_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>My Profile</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="doctorRole === 'INDIVIDUAL_DOCTOR'">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/staffmanagement']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/staffmanagement.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/staffmanagement_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Staff Management</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="doctorRole === 'INDIVIDUAL_DOCTOR'">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/roleandpermission']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/rolepermissions.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/rolepermissions_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Role Permissions</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/patientmanagement']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/patient_management.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/patient_management_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Patient Management</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/userinvitaion']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/userinvitation.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/userinvitation_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>User Invitation</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/medicalproductstests']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/medicalprotest.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/medicalprotest_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Medical Products & Tests</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/individual-doctor/leaves']">
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/leaves.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/leaves_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Leaves</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/mydocument']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/mydocument.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/mydocument_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>My Document</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/notification']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/notification.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/notification_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Notification</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/paymenthistory']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/paymenthistory.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/paymenthistory_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Payment History</span>
+                  </div>
+                </a>
+              </li>
+              <li #itemEl class="sidebar-dropdown nav-item dropmenu">
+                <a (click)="showSubmenu(itemEl)" class="nav-link">
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/master.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/master_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Master</span>
+                  </div>
+                </a>
+                <div class="sidebar-submenu">
+                  <ul>
+                    <li>
+                      <a [routerLink]="['/individual-doctor/templatebuilder']"
+                        >Templates Builder</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        [routerLink]="[
+                          '/individual-doctor/templatebuilder/questionnaire'
+                        ]"
+                        >Questionnaire Management</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        [routerLink]="[
+                          '/individual-doctor/templatebuilder/appointmentreason'
+                        ]"
+                        >Appointment Reasons</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        [routerLink]="['/individual-doctor/templatebuilder/logs']"
+                        >Logs</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="sidebar-dropdown nav-item dropmenu">
+                <a class="nav-link">
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/claims.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/claims_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Claims</span>
+                  </div>
+                </a>
+                <div class="sidebar-submenu" style="display: none">
+                  <ul>
+                    <li>
+                      <a [routerLink]="['/individual-doctor/claims']"
+                        >Medical Consultation</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        [routerLink]="[
+                          '/individual-doctor/claims/hospitalizationclaims'
+                        ]"
+                        >Hospitalization Claims</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/preauthhospitalization']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/claims.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/claims_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Pre-Authorization Hospitalization</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/individual-doctor/otherpreauthrization']"
+                >
+                  <div class="menu_list_block">
+                    <div class="sidebar_icon">
+                      <img
+                        class="icon"
+                        src="../../../../assets/img/sidebaricon/claims.svg"
+                        alt=""
+                      />
+                      <img
+                        class="icon_hover"
+                        src="../../../../assets/img/sidebaricon/claims_hover.svg"
+                        alt=""
+                      />
+                    </div>
+                    <span>Other Pre Authorization</span>
+                  </div>
+                </a>
+              </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Role Popup -->
+<ng-template #confirmationModel let-modal>
+  <div class="custome_modal approver">
+    <div class="modal-header">
+      <!-- <h4 class="modal-title" id="modal-basic-title">Requested Amount</h4> -->
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="image_block">
+        <img
+          class="img-fluid"
+          src="../../../../../assets/img/insurance-medicines/apprv.svg"
+          alt="approve"
+        />
+      </div>
+      <p class="mt-4">{{ "no_plan_purchased" | translate }}</p>
+
+      <div class="primary_btn mt-4">
+        <button type="button" class="btn btn-secondary" (click)="handleClose()">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="purchasePlan()">
+          {{ "purchase_plan" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

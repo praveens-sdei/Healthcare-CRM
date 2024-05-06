@@ -1,0 +1,2034 @@
+<div
+  class="profile_manage dashboard_main_content"
+  *ngIf="userRole !== 'PHARMACY_STAFF'"
+>
+  <div class="pb-2">
+    <i
+      class="fa fa-angle-left p-2"
+      aria-hidden="true"
+      style="font-size: 20px"
+      routerLink="/pharmacy/dashboard"
+    ></i>
+  </div>
+  <div class="profile_tab">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="21"
+              viewBox="0 0 18 21"
+              fill="none"
+            >
+              <path
+                d="M8.57471 13.8359C3.95001 13.8359 0 14.5503 0 17.4057C0 20.2633 3.92489 21.0023 8.57471 21.0023C13.1994 21.0023 17.1494 20.2879 17.1494 17.4325C17.1494 14.5749 13.2245 13.8359 8.57471 13.8359Z"
+              ></path>
+              <path
+                d="M8.57473 11.1129C11.7245 11.1129 14.2486 8.64103 14.2486 5.55647C14.2486 2.4719 11.7245 0 8.57473 0C5.42614 0 2.90088 2.4719 2.90088 5.55647C2.90088 8.64103 5.42614 11.1129 8.57473 11.1129Z"
+              ></path>
+            </svg>
+          </div>
+          {{ "profile_setting" | translate }}
+        </ng-template>
+        <div class="tab_content">
+          <div class="profile_setting">
+            <div class="profile_top">
+              <div class="left part">
+                <div class="user_image_upload">
+                  <input
+                    class="ng-hide user_upload_input"
+                    id="input-file-id"
+                    multiple
+                    type="file"
+                  />
+                  <div class="user_upload_block">
+                    <span class="user_upload_wrapper">
+                      <span class="user_upload_icon"
+                        ><img
+                          src="{{
+                            profilePicture
+                              ? profilePicture
+                              : '../../../../../assets/img/profile_pharmacy.png'
+                          }}"
+                      /></span>
+                    </span>
+                    <!-- <span class="edit_upload_wrapper">
+                                            <span class="edit_upload_icon"><img
+                                                    src="../../../assets/img/edit_profile.svg" /></span>
+                                        </span> -->
+                  </div>
+                </div>
+                <div class="user_info">
+                  <div class="user_title">
+                    {{ profileDetails?.adminData?.pharmacy_name }}
+                  </div>
+                  <div class="user_email">
+                    {{
+                      profileDetails?.portalUserData?.first_name +
+                        " " +
+                        profileDetails?.portalUserData?.middle_name +
+                        " " +
+                        profileDetails?.portalUserData?.last_name
+                    }}
+                  </div>
+                  <div class="user_email">
+                    {{ profileDetails?.portalUserData?.email }}
+                  </div>
+                </div>
+              </div>
+              <div class="right part">
+                <div class="status-toggle-block">
+                  <div class="open_twentyfourhour">
+                  <div class="toggel-slide">
+                    <mat-slide-toggle
+                      [checked]="profileDetails?.portalUserData?.notification"
+                      (change)="
+                        handleToggleChangeForActive(
+                          profileDetails?.portalUserData,
+                          $event.checked
+                        )
+                      "
+                    >
+                      {{ "notification_status" | translate }}</mat-slide-toggle
+                    >
+                  </div>
+                  </div>
+                  <div class="open_twentyfourhour">
+                  <div class="toggel-slide">
+                    <mat-slide-toggle
+                      (change)="sethours($event)"
+                      [checked]="profileDetails?.adminData?.hoursset"
+                      >{{ "open_24_hrs" | translate }}</mat-slide-toggle
+                    >
+                  </div>
+                  </div>
+                </div>
+                <div class="primary_btn">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="handleEditProfile()"
+                  >
+                    {{ "edit_profile" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="profile_contact">
+              <ul class="profile_contact_inner row">
+                <!-- <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                                    <label>Main Phone Number</label>
+                                    <div class="value">(671) 555-0110</div>
+                                </li> -->
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "mobile_phone_number" | translate }}</label>
+                  <div class="value">
+                    {{ profileDetails?.portalUserData?.phone_number }}
+                  </div>
+                </li>
+                <li
+                  class="col-sm-6 col-md-4 col-lg-4 col-xl-3"
+                  *ngFor="
+                    let num of profileDetails?.adminData
+                      ?.additional_phone_number;
+                    let i = index
+                  "
+                >
+                  <label
+                    >{{ "additional_phone_number" | translate }}
+                    {{ i + 1 }}</label
+                  >
+                  <div class="value">{{ num }}</div>
+                </li>
+                <!-- <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                                    <label>Additional Phone Number</label>
+                                    <div class="value">(217) 555-0113</div>
+                                </li> -->
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "address" | translate }}</label>
+                  <div class="value">
+                    {{ profileDetails?.locationData?.address }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "neighborhood" | translate }}</label>
+                  <div class="value">
+                    {{ profileDetails?.locationData?.neighborhood }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "country" | translate }}</label>
+                  <div class="value">{{ country }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "region" | translate }}</label>
+                  <div class="value">{{ region }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "province" | translate }}</label>
+                  <div class="value">{{ province }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "department" | translate }}</label>
+                  <div class="value">{{ department }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "city" | translate }}</label>
+                  <div class="value">{{ city }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "village" | translate }}</label>
+                  <div class="value">{{ village }}</div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "pincode" | translate }}</label>
+                  <div class="value">
+                    {{ profileDetails?.locationData?.pincode }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="about_us_section">
+              <div class="about_us_section_inner">
+                <div class="row about_row">
+                  <div class="aboutus about_us_item col-sm-6">
+                    <label>{{ "about" | translate }}</label>
+                    <p>{{ profileDetails?.adminData?.about_pharmacy }}</p>
+                  </div>
+                  <div class="pharmacy_slogan about_us_item col-sm-6">
+                    <label>{{ "slogan" | translate }}</label>
+                    <p>{{ profileDetails?.adminData?.slogan }}</p>
+                  </div>
+                  <div class="medicine_request about_us_item col-sm-6">
+                    <label>{{ "medicine_request_accepted" | translate }}</label>
+                    <div class="row">
+                      <div
+                        class="item col-sm-6"
+                        *ngIf="
+                          profileDetails?.adminData?.medicine_request
+                            ?.prescription_order
+                        "
+                      >
+                        {{ "prescription_order" | translate }}
+                      </div>
+                      <div
+                        class="item col-sm-6"
+                        *ngIf="
+                          profileDetails?.adminData?.medicine_request
+                            ?.medicine_price_request
+                        "
+                      >
+                        {{ "medicine_price_request" | translate }}
+                      </div>
+                      <div
+                        class="item col-sm-6"
+                        *ngIf="
+                          profileDetails?.adminData?.medicine_request
+                            ?.request_medicine_available
+                        "
+                      >
+                        {{ "request_medicine_availability" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="license about_us_item col-sm-6">
+                    <label>{{ "license" | translate }}</label>
+                    <div class="row">
+                      <div class="item col-sm-6">
+                        <label>{{ "license_number" }}</label>
+                        <div class="value">
+                          {{
+                            profileDetails?.adminData?.licence_details
+                              ?.id_number
+                          }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6">
+                        <label>{{ "expiry_date" | translate }}</label>
+                        <div class="value">
+                          {{
+                            profileDetails?.adminData?.licence_details
+                              ?.expiry_date | date : "dd/MM/YYYY"
+                          }}
+                        </div>
+                      </div>
+                      <div class="item col-sm-6">
+                        <label>{{ "license_picture" | translate }}</label>
+                        <div class="value">
+                          <img
+                            src="{{
+                              license_Picture
+                                ? license_Picture
+                                : '../../../../../assets/img/doc.png'
+                            }}"
+                            style="width: 150px; height: 150px"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="picture_section">
+              <div class="picture_section_inner">
+                <label>{{ "picture" | translate }}</label>
+                <div class="image_wrapper">
+                  <div class="item">
+                    <!-- <div class="user_image_upload">
+                                            <input class="ng-hide user_upload_input" id="input-file-id" multiple
+                                                type="file" />
+                                            <div class="user_upload_block">
+                                                <span class="user_upload_wrapper">
+                                                    <mat-icon>add</mat-icon>
+                                                    <label>Add Phothos</label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                  </div>
+                  <div class="item" *ngFor="let picture of pharmacyPictures">
+                    <div class="image">
+                      <img src="{{ picture }}" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bank_details">
+              <div class="back_details_inner">
+                <label>{{ "bank_details" | translate }}</label>
+                <div class="row">
+                  <div class="item_info user_img_wrap">
+                    <div class="user_img">
+                      <img src="../../../../../assets/img/bank_img.png" />
+                    </div>
+                    <div class="user_img_info">
+                      <div class="user_img_info">
+                        <label>{{ "bank_name" | translate }}</label>
+                        <div class="value">
+                          {{ profileDetails?.bankDetails?.bank_name }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item_info">
+                    <label>{{ "account_holder_name" | translate }}</label>
+                    <div class="value">
+                      {{ profileDetails?.bankDetails?.account_holder_name }}
+                    </div>
+                  </div>
+                  <div class="item_info">
+                    <label>{{ "ifsc" | translate }}</label>
+                    <div class="value">
+                      {{ profileDetails?.bankDetails?.ifsc_code }}
+                    </div>
+                  </div>
+                  <div class="item_info">
+                    <label>{{ "bank_address" | translate }}</label>
+                    <div class="value">
+                      {{ profileDetails?.bankDetails?.bank_address }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mobile_pay_details">
+              <div class="mobile_pay_details_inner">
+                <label>{{ "mobile_pay_details" | translate }} </label>
+                <div class="row" *ngFor="let data of profileDetails?.mobilePayData?.mobilePay">
+                  <div class="item">
+                    <label>{{ "name_of_mobile_provider" | translate }}</label>
+                    <div class="value">
+                      {{ data?.provider }}
+                    </div>
+                  </div>
+                  <div class="item">
+                    <label>{{ "mobile_pay_number" | translate }}</label>
+                    <div class="value">
+                      {{ data?.pay_number }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile_common_section">
+              <div class="profile_common_section_inner">
+                <div class="item">
+                  <label>{{ "association_or_group" | translate }}</label>
+                  <div class="value">
+                    {{
+                      profileDetails?.adminData?.association?.enabled === true
+                        ? "Yes"
+                        : "No"
+                    }}
+                  </div>
+                </div>
+                <div class="item">
+                  <label>{{ "name" | translate }}</label>
+                  <div class="value">
+                    {{ associationGroupname }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile_common_section">
+              <div class="profile_common_section_inner">
+                <div class="item">
+                  <label>{{ "on_duty_group" | translate }}</label>
+                  <div class="value">
+                    {{
+                      profileDetails?.adminData?.duty_group?.enabled === true
+                        ? "Yes"
+                        : "No"
+                    }}
+                  </div>
+                </div>
+                <div class="item">
+                  <label
+                    >{{ "on_duty_group" | translate }}
+                    {{ "number_city" | translate }}</label
+                  >
+                  <div class="value">{{ onDutyCity }}-{{ onDutyGroupNo }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="29"
+              height="28"
+              viewBox="0 0 29 28"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M22.7087 2.07454C22.0115 2.24543 22.204 2.06706 16.4406 7.88365L11.0386 13.3354L10.8523 13.2542C10.5246 13.1114 9.98851 12.9699 9.46859 12.889C5.57606 12.2832 2.02054 15.3589 2.0001 19.3494C1.99813 19.7342 2.0248 20.2205 2.05928 20.43C2.37303 22.333 3.4224 23.9423 5.03613 24.9955C6.59116 26.0103 8.70039 26.2803 10.5031 25.6951C12.6403 25.0015 14.2834 23.228 14.8363 21.018C15.1457 19.781 15.0761 18.3155 14.6542 17.1817L14.5209 16.8236L15.7722 15.5582L17.0235 14.2927L18.1824 15.4544C19.5327 16.8082 19.6283 16.8683 20.4322 16.8683C21.0238 16.8683 21.3886 16.7268 21.8072 16.3348C22.4882 15.6971 22.6638 14.7715 22.2692 13.8997C22.1594 13.6573 21.9158 13.3771 21.0311 12.4758L19.9296 11.3538L20.7385 10.5358L21.5473 9.71773L22.6568 10.8317C23.548 11.7265 23.825 11.9728 24.0647 12.0838C24.9271 12.4831 25.8387 12.3089 26.4645 11.6253C26.8606 11.1926 27 10.8284 27 10.2261C27 9.41314 26.9404 9.31609 25.6039 7.95254L24.457 6.7825L24.8923 6.33144C25.4948 5.70724 25.6643 5.34031 25.6918 4.60135C25.7084 4.15439 25.6921 4.00427 25.596 3.71615C25.3125 2.86684 24.6748 2.27434 23.8268 2.07217C23.4203 1.97523 23.1112 1.97588 22.7087 2.07454ZM9.47955 16.4136C10.7105 16.8029 11.6066 18.045 11.617 19.3763C11.6239 20.2595 11.3297 20.9929 10.72 21.6127C9.4779 22.8755 7.55165 22.8747 6.30068 21.6109C5.69288 20.9968 5.39873 20.2647 5.40288 19.3763C5.40959 17.9273 6.42255 16.6572 7.82984 16.3329C8.27365 16.2307 9.01615 16.2669 9.47955 16.4136Z"
+              />
+            </svg>
+          </div>
+          {{ "change_password" | translate }}
+        </ng-template>
+
+        <div class="tab_content">
+          <div class="change_pass">
+            <div class="changepass_inner">
+              <form
+                [formGroup]="changePasswordForm"
+                (ngSubmit)="handleChangePassword()"
+              >
+                <div class="form_field_wrapper">
+                  <label>{{ "current_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="old_password"
+                      placeholder="{{ 'current_password' | translate }}"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['old_password'].errors?.['required']"
+                >
+                  {{ "enter_current_password" | translate }}*
+                </span>
+                <div class="form_field_wrapper">
+                  <label>{{ "new_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="new_password"
+                      placeholder="{{ 'new_password' | translate }}"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['new_password'].errors?.['required']"
+                >
+                  {{ "enter_password" | translate }}*
+                </span>
+                <div
+                  class="text-danger"
+                  *ngIf=" f['new_password'].errors?.['minlength']"
+                >
+                  {{ "must_be_atleast_8_char" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasNumber']"
+                >
+                  {{ "must_contain_atleast_1_number" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasCapitalCase']"
+                >
+                  {{ "must_contain_atleast_1_capcase" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasSmallCase']"
+                >
+                  {{ "must_contain_atleast_1_smallcase" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasSpecialCharacters']"
+                >
+                  {{ "must_contain_atleast_1_specialchar" | translate }}
+                </div>
+                <div class="form_field_wrapper">
+                  <label>{{ "confirm_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="confirm_password"
+                      placeholder="{{ 'confirm_password' | translate }}"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['confirm_password'].errors?.['required']"
+                >
+                  {{ "enter_confirm_password" | translate }}*
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="f['confirm_password'].errors?.['matching']"
+                >
+                  {{ "confim_password_does_not_match" | translate }}
+                </span>
+
+                <div class="form-btn primary_btn">
+                  <button type="submit" class="login_btn btn btn-primary">
+                    {{ "reset_password" | translate }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="26"
+              viewBox="0 0 24 26"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M17.5136 1.46077L17.5148 2.3978C20.9581 2.66767 23.2327 5.01399 23.2364 8.61219L23.25 19.1444C23.2549 23.0674 20.7903 25.4812 16.8398 25.4875L7.18985 25.5C3.26399 25.505 0.768521 23.0337 0.763584 19.0994L0.750008 8.6909C0.745072 5.06896 2.93941 2.72889 6.38271 2.41279L6.38148 1.47576C6.38025 0.926039 6.78752 0.512497 7.33055 0.512497C7.87358 0.511247 8.28085 0.923541 8.28209 1.47327L8.28332 2.34783L15.6142 2.33783L15.613 1.46327C15.6118 0.913546 16.019 0.501252 16.5621 0.500003C17.0928 0.498753 17.5124 0.911047 17.5136 1.46077ZM2.65187 9.07599L21.3371 9.051V8.61372C21.284 5.92756 19.9363 4.51827 17.5173 4.30837L17.5186 5.27039C17.5186 5.80762 17.1002 6.23366 16.5695 6.23366C16.0265 6.23491 15.618 5.81012 15.618 5.27289L15.6167 4.2609L8.28581 4.27089L8.28704 5.28164C8.28704 5.82012 7.88101 6.2449 7.33798 6.2449C6.79494 6.24615 6.38644 5.82261 6.38644 5.28413L6.3852 4.32212C3.97859 4.56325 2.64693 5.97754 2.65064 8.68743L2.65187 9.07599ZM16.0496 14.754V14.7677C16.0619 15.3425 16.5309 15.7785 17.0999 15.766C17.6552 15.7522 18.0983 15.2762 18.086 14.7015C18.06 14.1518 17.6145 13.7033 17.0604 13.7045C16.4927 13.717 16.0484 14.1793 16.0496 14.754ZM17.0693 20.3637C16.5016 20.3513 16.0437 19.8777 16.0425 19.303C16.0302 18.7283 16.4856 18.2523 17.0533 18.2386H17.0656C17.6457 18.2386 18.1159 18.7121 18.1159 19.2993C18.1171 19.8865 17.6482 20.3625 17.0693 20.3637ZM10.9655 14.7745C10.9901 15.3492 11.4603 15.7977 12.0281 15.7727C12.5834 15.7465 13.0265 15.2717 13.0018 14.697C12.9882 14.1348 12.5316 13.6975 11.9762 13.6988C11.4085 13.7238 10.9642 14.1998 10.9655 14.7745ZM12.033 20.3083C11.4653 20.3333 10.9963 19.8848 10.9704 19.3101C10.9704 18.7354 11.4135 18.2606 11.9812 18.2344C12.5366 18.2331 12.9944 18.6704 13.0068 19.2314C13.0327 19.8073 12.5884 20.2821 12.033 20.3083ZM5.88061 14.8178C5.90529 15.3925 6.37551 15.8423 6.94322 15.8161C7.49859 15.7911 7.94166 15.3151 7.91574 14.7404C7.9034 14.1781 7.44676 13.7409 6.89015 13.7421C6.32244 13.7671 5.87938 14.2431 5.88061 14.8178ZM6.94811 20.3151C6.38039 20.3413 5.91141 19.8915 5.88549 19.3168C5.88426 18.7421 6.32856 18.2661 6.89627 18.2411C7.45164 18.2398 7.90952 18.6771 7.92186 19.2393C7.94777 19.8141 7.50471 20.2901 6.94811 20.3151Z"
+              />
+            </svg>
+          </div>
+          {{ "opening_hours" | translate }}
+        </ng-template>
+        <form
+          [formGroup]="weekDaysForm"
+          (ngSubmit)="saveOpeningHours(this.weekDaysForm.value)"
+        >
+          <div class="tab_content">
+            <div class="opening_hour">
+              <div class="week_days opening_hour_content">
+                <div class="title">{{ "week_days" | translate }}</div>
+                <div formArrayName="weekDays">
+                  <ng-container
+                    *ngFor="let row of weekForms.controls; let i = index"
+                  >
+                    <ng-container [formGroupName]="i">
+                      <div class="week_days_inner">
+                        <div class="row">
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "sun" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="sun_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="sun_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #sun_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="sun_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="sun_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #sun_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "mon" | translate }}</label>
+
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="mon_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="mon_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #mon_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="mon_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="mon_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #mon_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "tue" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="tue_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="tue_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #tue_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="tue_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="tue_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #tue_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "wed" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="wed_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="wed_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #wed_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="wed_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="wed_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #wed_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "thu" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="thu_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="thu_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #thu_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="thu_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="thu_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #thu_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "fri" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="fri_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="fri_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #fri_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="fri_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="fri_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #fri_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-3 week_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "sat" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="sat_start_time"
+                                  placeholder="Start Time"
+                                  type="time"
+                                  [ngxTimepicker]="sat_start_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #sat_start_time
+                                ></ngx-material-timepicker>
+                              </div>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  formControlName="sat_end_time"
+                                  placeholder="End Time"
+                                  type="time"
+                                  [ngxTimepicker]="sat_end_time"
+                                  [format]="24"
+                                />
+                                <ngx-material-timepicker
+                                  #sat_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-container
+                          *ngIf="i === weekForms.length - 1; else remove"
+                        >
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeWeek(i)"
+                            *ngIf="weekForms.length > 1"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                          <div
+                            class="row_generate row_add"
+                            (click)="addNewWeek()"
+                          >
+                            <mat-icon class="plus">add</mat-icon>
+                          </div>
+                        </ng-container>
+                        <ng-template #remove>
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeWeek(i)"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="open_date_time opening_hour_content">
+                <div class="title">{{ "open_date_time" | translate }}</div>
+                <div formArrayName="openDateTime">
+                  <ng-container
+                    *ngFor="let row of openDateForms.controls; let i = index"
+                  >
+                    <ng-container [formGroupName]="i">
+                      <div class="date_time_inner">
+                        <div class="row">
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "date" | translate }}</label>
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker8"
+                                  formControlName="open_any_date"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker8"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker8></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "start_time" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  [ngxTimepicker]="open_start_tme"
+                                  [format]="24"
+                                  placeholder="{{ 'start_time' | translate }}"
+                                  type="time"
+                                  formControlName="open_start_tme"
+                                />
+                                <ngx-material-timepicker
+                                  #open_start_tme
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "end_time" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  [ngxTimepicker]="open_end_time"
+                                  placeholder="{{ 'end_time' | translate }}"
+                                  type="time"
+                                  [format]="24"
+                                  formControlName="open_end_time"
+                                />
+                                <ngx-material-timepicker
+                                  #open_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-container
+                          *ngIf="i === openDateForms.length - 1; else remove"
+                        >
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeOpendate(i)"
+                            *ngIf="openDateForms.length > 1"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                          <div
+                            class="row_generate row_add"
+                            (click)="addNewOpenDate()"
+                          >
+                            <mat-icon class="plus">add</mat-icon>
+                          </div>
+                        </ng-container>
+                        <ng-template #remove>
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeOpendate(i)"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+
+              <div class="open_date_time opening_hour_content">
+                <div class="title">{{ "close_date_time" | translate }}</div>
+                <div formArrayName="closeDateTime">
+                  <ng-container
+                    *ngFor="let row of closeDateForms.controls; let i = index"
+                  >
+                    <ng-container [formGroupName]="i">
+                      <div class="date_time_inner">
+                        <div class="row">
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "date" | translate }}</label>
+                              <mat-form-field
+                                class="example-full-width"
+                                appearance="fill"
+                              >
+                                <input
+                                  matInput
+                                  formControlName="close_any_date"
+                                  [matDatepickerFilter]="myFilter"
+                                  [matDatepicker]="picker10"
+                                />
+                                <mat-datepicker-toggle
+                                  matSuffix
+                                  [for]="picker10"
+                                ></mat-datepicker-toggle>
+                                <mat-datepicker #picker10></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "start_time" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  [ngxTimepicker]="close_start_tme"
+                                  placeholder="{{ 'start_time' | translate }}"
+                                  type="time"
+                                  [format]="24"
+                                  formControlName="close_start_tme"
+                                />
+                                <ngx-material-timepicker
+                                  #close_start_tme
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                            <div class="form_field_wrapper">
+                              <label>{{ "end_time" | translate }}</label>
+                              <div class="time">
+                                <input
+                                  class="form-control"
+                                  [ngxTimepicker]="close_end_time"
+                                  placeholder="{{ 'end_time' | translate }}"
+                                  type="time"
+                                  [format]="24"
+                                  formControlName="close_end_time"
+                                />
+                                <ngx-material-timepicker
+                                  #close_end_time
+                                ></ngx-material-timepicker>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-container
+                          *ngIf="i === closeDateForms.length - 1; else remove"
+                        >
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeClosedate(i)"
+                            *ngIf="closeDateForms.length > 1"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                          <div
+                            class="row_generate row_add"
+                            (click)="addCloseOpenDate()"
+                          >
+                            <mat-icon class="plus">add</mat-icon>
+                          </div>
+                        </ng-container>
+                        <ng-template #remove>
+                          <div
+                            class="row_generate row_minus"
+                            (click)="removeClosedate(i)"
+                          >
+                            <mat-icon class="plus">remove</mat-icon>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="primary_btn">
+              <button class="btn btn-secondary">
+                {{ "cancel" | translate }}
+              </button>
+              <button type="submit" class="btn btn-primary">
+                {{ "save" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="26"
+              viewBox="0 0 24 26"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M17.5136 1.46077L17.5148 2.3978C20.9581 2.66767 23.2327 5.01399 23.2364 8.61219L23.25 19.1444C23.2549 23.0674 20.7903 25.4812 16.8398 25.4875L7.18985 25.5C3.26399 25.505 0.768521 23.0337 0.763584 19.0994L0.750008 8.6909C0.745072 5.06896 2.93941 2.72889 6.38271 2.41279L6.38148 1.47576C6.38025 0.926039 6.78752 0.512497 7.33055 0.512497C7.87358 0.511247 8.28085 0.923541 8.28209 1.47327L8.28332 2.34783L15.6142 2.33783L15.613 1.46327C15.6118 0.913546 16.019 0.501252 16.5621 0.500003C17.0928 0.498753 17.5124 0.911047 17.5136 1.46077ZM2.65187 9.07599L21.3371 9.051V8.61372C21.284 5.92756 19.9363 4.51827 17.5173 4.30837L17.5186 5.27039C17.5186 5.80762 17.1002 6.23366 16.5695 6.23366C16.0265 6.23491 15.618 5.81012 15.618 5.27289L15.6167 4.2609L8.28581 4.27089L8.28704 5.28164C8.28704 5.82012 7.88101 6.2449 7.33798 6.2449C6.79494 6.24615 6.38644 5.82261 6.38644 5.28413L6.3852 4.32212C3.97859 4.56325 2.64693 5.97754 2.65064 8.68743L2.65187 9.07599ZM16.0496 14.754V14.7677C16.0619 15.3425 16.5309 15.7785 17.0999 15.766C17.6552 15.7522 18.0983 15.2762 18.086 14.7015C18.06 14.1518 17.6145 13.7033 17.0604 13.7045C16.4927 13.717 16.0484 14.1793 16.0496 14.754ZM17.0693 20.3637C16.5016 20.3513 16.0437 19.8777 16.0425 19.303C16.0302 18.7283 16.4856 18.2523 17.0533 18.2386H17.0656C17.6457 18.2386 18.1159 18.7121 18.1159 19.2993C18.1171 19.8865 17.6482 20.3625 17.0693 20.3637ZM10.9655 14.7745C10.9901 15.3492 11.4603 15.7977 12.0281 15.7727C12.5834 15.7465 13.0265 15.2717 13.0018 14.697C12.9882 14.1348 12.5316 13.6975 11.9762 13.6988C11.4085 13.7238 10.9642 14.1998 10.9655 14.7745ZM12.033 20.3083C11.4653 20.3333 10.9963 19.8848 10.9704 19.3101C10.9704 18.7354 11.4135 18.2606 11.9812 18.2344C12.5366 18.2331 12.9944 18.6704 13.0068 19.2314C13.0327 19.8073 12.5884 20.2821 12.033 20.3083ZM5.88061 14.8178C5.90529 15.3925 6.37551 15.8423 6.94322 15.8161C7.49859 15.7911 7.94166 15.3151 7.91574 14.7404C7.9034 14.1781 7.44676 13.7409 6.89015 13.7421C6.32244 13.7671 5.87938 14.2431 5.88061 14.8178ZM6.94811 20.3151C6.38039 20.3413 5.91141 19.8915 5.88549 19.3168C5.88426 18.7421 6.32856 18.2661 6.89627 18.2411C7.45164 18.2398 7.90952 18.6771 7.92186 19.2393C7.94777 19.8141 7.50471 20.2901 6.94811 20.3151Z"
+              />
+            </svg>
+          </div>
+          {{ "on_duty" | translate }}
+        </ng-template>
+        <form
+          [formGroup]="onDutyForm"
+          (ngSubmit)="saveOnDuty(this.onDutyForm.value)"
+        >
+          <div class="tab_content">
+            <div class="on_duty">
+              <div class="title">{{ "on_duty" | translate }}</div>
+              <div formArrayName="onDuty">
+                <ng-container
+                  *ngFor="let row of DutyForms.controls; let i = index"
+                >
+                  <ng-container [formGroupName]="i">
+                    <div class="on_duty_inner">
+                      <div class="row">
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "from_date" | translate }}</label>
+                            <mat-form-field
+                              class="example-full-width"
+                              appearance="fill"
+                            >
+                              <input
+                                matInput
+                                [matDatepickerFilter]="myFilter"
+                                [matDatepicker]="picker"
+                                formControlName="from_date"
+                              />
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "time" | translate }}</label>
+                            <div class="time">
+                              <input
+                                class="form-control"
+                                type="time"
+                                [ngxTimepicker]="pickernew"
+                                [format]="24"
+                                formControlName="from_date_tme"
+                              />
+                              <ngx-material-timepicker
+                                #pickernew
+                              ></ngx-material-timepicker>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "to_date" | translate }}</label>
+                            <mat-form-field
+                              class="example-full-width"
+                              appearance="fill"
+                            >
+                              <input
+                                matInput
+                                [matDatepickerFilter]="myFilter"
+                                [matDatepicker]="picker1"
+                                formControlName="to_date"
+                              />
+                              <mat-datepicker-toggle
+                                matSuffix
+                                [for]="picker1"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "time" | translate }}</label>
+                            <div class="time">
+                              <input
+                                class="form-control"
+                                type="time"
+                                [ngxTimepicker]="pickerData"
+                                [format]="24"
+                                formControlName="to_date_tme"
+                              />
+                              <ngx-material-timepicker
+                                #pickerData
+                              ></ngx-material-timepicker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <ng-container
+                        *ngIf="i === DutyForms.length - 1; else remove"
+                      >
+                        <div
+                          class="row_generate row_minus"
+                          (click)="removeOnDuty(i)"
+                          *ngIf="DutyForms.length > 1"
+                        >
+                          <mat-icon class="plus">remove</mat-icon>
+                        </div>
+                        <div
+                          class="row_generate row_add"
+                          (click)="addNewOnDuty()"
+                        >
+                          <mat-icon class="plus">add</mat-icon>
+                        </div>
+                      </ng-container>
+                      <ng-template #remove>
+                        <div
+                          class="row_generate row_minus"
+                          (click)="removeOnDuty(i)"
+                        >
+                          <mat-icon class="plus">remove</mat-icon>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <!-- <div class="on_duty_inner">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-6 col-xl-3">
+                                    <div class="form_field_wrapper">
+                                        <label>From Date</label>
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker3">
+                                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 col-xl-3">
+                                    <div class="form_field_wrapper">
+                                        <label>Time</label>
+                                        <div class="time">
+                                            <input class="form-control">
+                                            <mat-icon class="time_icon">access_time</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 col-xl-3">
+                                    <div class="form_field_wrapper">
+                                        <label>To Date</label>
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker4">
+                                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker4></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 col-xl-3">
+                                    <div class="form_field_wrapper">
+                                        <label>Time</label>
+                                        <div class="time">
+                                            <input class="form-control">
+                                            <mat-icon class="time_icon">access_time</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row_generate row_minus">
+                                <mat-icon>remove</mat-icon>
+                            </div>
+                        </div> -->
+            </div>
+            <div class="primary_btn">
+              <button class="btn btn-secondary">
+                {{ "cancel" | translate }}
+              </button>
+              <button type="submit" class="btn btn-primary">
+                {{ "save" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- ------------------------------------------Staff-------------------------------------------- -->
+<div
+  class="profile_manage dashboard_main_content"
+  *ngIf="userRole === 'PHARMACY_STAFF'"
+>
+  <div class="profile_tab">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="21"
+              viewBox="0 0 18 21"
+              fill="none"
+            >
+              <path
+                d="M8.57471 13.8359C3.95001 13.8359 0 14.5503 0 17.4057C0 20.2633 3.92489 21.0023 8.57471 21.0023C13.1994 21.0023 17.1494 20.2879 17.1494 17.4325C17.1494 14.5749 13.2245 13.8359 8.57471 13.8359Z"
+              ></path>
+              <path
+                d="M8.57473 11.1129C11.7245 11.1129 14.2486 8.64103 14.2486 5.55647C14.2486 2.4719 11.7245 0 8.57473 0C5.42614 0 2.90088 2.4719 2.90088 5.55647C2.90088 8.64103 5.42614 11.1129 8.57473 11.1129Z"
+              ></path>
+            </svg>
+          </div>
+          {{ "profile" | translate }}
+        </ng-template>
+        <div class="tab_content">
+          <div class="profile_setting">
+            <div class="profile_top">
+              <div class="left part">
+                <div class="user_image_upload">
+                  <input
+                    class="ng-hide user_upload_input"
+                    id="input-file-id"
+                    multiple
+                    type="file"
+                  />
+                  <div class="user_upload_block">
+                    <span class="user_upload_wrapper">
+                      <span class="user_upload_icon"
+                        ><img
+                          src="{{
+                            staffProfileUrl
+                              ? staffProfileUrl
+                              : '../../../../../../../assets/img/defaultimg.png'
+                          }}"
+                      /></span>
+                    </span>
+                    <span class="edit_upload_wrapper">
+                      <span class="edit_upload_icon"
+                        ><img src="../../../assets/img/edit_profile.svg"
+                      /></span>
+                    </span>
+                  </div>
+                </div>
+                <div class="user_info">
+                  <div class="user_title">{{ staffInfo?.staff_name }}</div>
+                  <div class="user_email">
+                    {{ profileData?.email }}
+                  </div>
+                </div>
+              </div>
+              <div class="right part">
+                <div class="primary_btn">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="handleEditProfile()"
+                  >
+                    {{ "edit_profile" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="profile_contact">
+              <ul class="profile_contact_inner row">
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "phone_number" | translate }}</label>
+                  <div class="value">
+                    {{ profileData?.phone_number }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "date_of_birth" | translate }}</label>
+                  <div class="value">
+                    {{ staffInfo?.dob | date : "dd/MM/YYYY" }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "date_of_joined" | translate }}*</label>
+                  <div class="value">
+                    {{ staffInfo?.doj | date : "dd/MM/YYYY" }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "address" | translate }}</label>
+                  <div class="value">
+                    {{ in_location?.address }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "neighborhood" | translate }}</label>
+                  <div class="value">
+                    {{ in_location?.neighborhood }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "country" | translate }}</label>
+                  <div class="value">
+                    {{ country }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "region" | translate }}</label>
+                  <div class="value">
+                    {{ region }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "province" | translate }}</label>
+                  <div class="value">
+                    {{ province }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "department" | translate }}</label>
+                  <div class="value">
+                    {{ department }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "city" | translate }}</label>
+                  <div class="value">
+                    {{ city }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "village" }}</label>
+                  <div class="value">
+                    {{ village }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "pincode" | translate }}</label>
+                  <div class="value">
+                    {{ in_location?.pincode }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "language" | translate }}</label>
+                  <div class="value">
+                    {{ staffInfo?.language }}
+                  </div>
+                </li>
+                <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                  <label>{{ "degree" | translate }}</label>
+                  <div class="value">
+                    {{ staffInfo?.degree }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="about_us_section">
+              <div class="about_us_section_inner">
+                <label>{{ "about_us" | translate }}</label>
+                <div class="value">
+                  {{ staffInfo?.about }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="29"
+              height="28"
+              viewBox="0 0 29 28"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M22.7087 2.07454C22.0115 2.24543 22.204 2.06706 16.4406 7.88365L11.0386 13.3354L10.8523 13.2542C10.5246 13.1114 9.98851 12.9699 9.46859 12.889C5.57606 12.2832 2.02054 15.3589 2.0001 19.3494C1.99813 19.7342 2.0248 20.2205 2.05928 20.43C2.37303 22.333 3.4224 23.9423 5.03613 24.9955C6.59116 26.0103 8.70039 26.2803 10.5031 25.6951C12.6403 25.0015 14.2834 23.228 14.8363 21.018C15.1457 19.781 15.0761 18.3155 14.6542 17.1817L14.5209 16.8236L15.7722 15.5582L17.0235 14.2927L18.1824 15.4544C19.5327 16.8082 19.6283 16.8683 20.4322 16.8683C21.0238 16.8683 21.3886 16.7268 21.8072 16.3348C22.4882 15.6971 22.6638 14.7715 22.2692 13.8997C22.1594 13.6573 21.9158 13.3771 21.0311 12.4758L19.9296 11.3538L20.7385 10.5358L21.5473 9.71773L22.6568 10.8317C23.548 11.7265 23.825 11.9728 24.0647 12.0838C24.9271 12.4831 25.8387 12.3089 26.4645 11.6253C26.8606 11.1926 27 10.8284 27 10.2261C27 9.41314 26.9404 9.31609 25.6039 7.95254L24.457 6.7825L24.8923 6.33144C25.4948 5.70724 25.6643 5.34031 25.6918 4.60135C25.7084 4.15439 25.6921 4.00427 25.596 3.71615C25.3125 2.86684 24.6748 2.27434 23.8268 2.07217C23.4203 1.97523 23.1112 1.97588 22.7087 2.07454ZM9.47955 16.4136C10.7105 16.8029 11.6066 18.045 11.617 19.3763C11.6239 20.2595 11.3297 20.9929 10.72 21.6127C9.4779 22.8755 7.55165 22.8747 6.30068 21.6109C5.69288 20.9968 5.39873 20.2647 5.40288 19.3763C5.40959 17.9273 6.42255 16.6572 7.82984 16.3329C8.27365 16.2307 9.01615 16.2669 9.47955 16.4136Z"
+              />
+            </svg>
+          </div>
+          {{ "change_password" | translate }}
+        </ng-template>
+
+        <div class="tab_content">
+          <div class="change_pass">
+            <div class="changepass_inner">
+              <form
+                [formGroup]="changePasswordForm"
+                (ngSubmit)="handleChangePassword()"
+              >
+                <div class="form_field_wrapper">
+                  <label>{{ "current_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="old_password"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['old_password'].errors?.['required']"
+                >
+                  {{ "enter_current_password" | translate }}*
+                </span>
+                <div class="form_field_wrapper">
+                  <label>{{ "new_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="new_password"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['new_password'].errors?.['required']"
+                >
+                  {{ "enter_password" | translate }}*
+                </span>
+                <div
+                  class="text-danger"
+                  *ngIf=" f['new_password'].errors?.['minlength']"
+                >
+                  {{ "must_be_atleast_8_char" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasNumber']"
+                >
+                  {{ "must_contain_atleast_1_number" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasCapitalCase']"
+                >
+                  {{ "must_contain_atleast_1_capcase" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasSmallCase']"
+                >
+                  {{ "must_contain_atleast_1_smallcase" | translate }}
+                </div>
+                <div
+                  class="text-danger"
+                  *ngIf="f['new_password'].errors?.['hasSpecialCharacters']"
+                >
+                  {{ "must_contain_atleast_1_specialchar" | translate }}
+                </div>
+                <div class="form_field_wrapper">
+                  <label>{{ "confirm_password" | translate }}</label>
+                  <mat-form-field appearance="fill">
+                    <input
+                      type="password"
+                      matInput
+                      formControlName="confirm_password"
+                    />
+                  </mat-form-field>
+                </div>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && f['confirm_password'].errors?.['required']"
+                >
+                  {{ "enter_confirm_password" | translate }}*
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="f['confirm_password'].errors?.['matching']"
+                >
+                  {{ "confim_password_does_not_match" | translate }}
+                </span>
+
+                <div class="form-btn primary_btn">
+                  <button type="submit" class="login_btn btn btn-primary">
+                    {{ "reset_password" | translate }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- -----------------------------------------EDit Staff------------------------------------------------- -->
+
+<div class="edit_staff">
+  <ng-template #editstaffcontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "edit_staff" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="handleClose()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editStaff" (ngSubmit)="onSubmit()">
+          <div class="profile_img">
+            <img
+              src="{{ staffProfileUrl ? staffProfileUrl : profileIcon }}"
+              width="100px"
+              height="100px"
+            />
+            <mat-icon
+              class="closeicon"
+              *ngIf="staffProfileUrl"
+              (click)="removeSelectpic()"
+              >close</mat-icon
+            >
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              (change)="onGroupIconChange($event)"
+            />
+          </div>
+          <div class="row">
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "first_name" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'enter_first_name' | translate }}"
+                    formControlName="first_name"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="editStaff.get('first_name').hasError('required')"
+                  >{{ "first_name_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "middle_name" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'enter_middle_name' | translate }}"
+                    formControlName="middle_name"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "last_name" | translate }}
+                  <span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'enter_last_name' | translate }}"
+                    formControlName="last_name"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="editStaff.get('last_name').hasError('required')"
+                  >{{ "last_name_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "date_of_birth" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    matInput
+                    [matDatepickerFilter]="myFilter"
+                    [matDatepicker]="picker"
+                    placeholder="{{ 'date_of_birth' | translate }}"
+                    formControlName="dob"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="editStaff.get('dob').hasError('required')">{{
+                  "date_of_birth_is_required" | translate
+                }}</mat-error>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper speciality-select-block">
+                <label
+                  >{{ "spoken_Language" | translate
+                  }}</label
+                >
+                <select2
+                class="test"
+                [overlay]="overlay"
+                multiple="multiple"
+                [limitSelection]="0"
+                [minCountForSearch]="0"                   
+                [data]="spokenLanguages"
+                [(ngModel)]="selectedLanguages"
+                formControlName="language"
+                (update)="onSelectionChange($event)"
+              >
+              </select2>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    placeholder="Select Language"
+                    formControlName="language"
+                    multiple
+                    (selectionChange)="onSelectionChange($event)"
+                  >
+                    <mat-option
+                      *ngFor="let language of spokenLanguages"
+                      [value]="language.value"
+                    >
+                      {{ language.label }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                <mat-error
+                  *ngIf="editStaff.get('language').hasError('required')"
+                  >{{ "language_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "address" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'enter_address' | translate }}"
+                    id="address"
+                    formControlName="address"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="editStaff.get('address').hasError('required')"
+                  >{{ "address_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "neighborhood" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'enter_neighbourhood' | translate }}"
+                    formControlName="neighbourhood"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "country" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "country" | translate }}</mat-label>
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_country' | translate }}"
+                    formControlName="country"
+                    (selectionChange)="getRegionList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country._id"
+                      >{{ country?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select Country'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                (update)="getRegionList($event.value)"
+                [data]="countryList"
+                formControlName="country"
+              >
+              </select2>
+                <mat-error
+                  *ngIf="editStaff.get('country').hasError('required')"
+                  >{{ "country_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "region" | translate }}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "region" | translate }}</mat-label>
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="region"
+                    (selectionChange)="getProvienceList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let region of regionList"
+                      [value]="region._id"
+                      >{{ region?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+
+                <select2
+                [placeholder] ="'Select Region'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                (update)="getProvienceList($event.value)"
+                [data]="regionList"
+                formControlName="region"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "province" | translate }}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "province" | translate }}</mat-label>
+                  <mat-select
+                    disableRipple
+                    (selectionChange)="getDepartmentList($event.value)"
+                    formControlName="province"
+                  >
+                    <mat-option
+                      *ngFor="let provience of provienceList"
+                      [value]="provience._id"
+                      >{{ provience?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select province'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                (update)="getDepartmentList($event.value)"
+                [data]="provienceList"
+                formControlName="province"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "department" | translate }}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_department' | translate }}"
+                    formControlName="department"
+                    (selectionChange)="getCityList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let department of departmentList"
+                      [value]="department._id"
+                    >
+                      {{ department?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+
+                <select2
+                [placeholder] ="'Select department'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                (update)="getCityList($event.value)"
+                [data]="departmentList"
+                formControlName="department"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "city" | translate }}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "city" | translate }}</mat-label>
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_city' | translate }}"
+                    formControlName="city"
+                  >
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city._id"
+                      >{{ city?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select city'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [data]="cityList"
+                formControlName="city"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "village" | translate }}</label>
+                <!-- <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "village" | translate }}</mat-label>
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_village' | translate }}"
+                    formControlName="village"
+                  >
+                    <mat-option
+                      *ngFor="let village of villageList"
+                      [value]="village._id"
+                      >{{ village?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] ="'Select village'"
+                [overlay]="true"
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [data]="villageList"
+                formControlName="village"
+              >
+              </select2>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label>{{ "pincode" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    placeholder="{{ 'enter_pincode' | translate }}"
+                    matInput
+                    formControlName="pincode"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "degree" | translate
+                  }}</label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    placeholder="{{ 'degree' | translate }}"
+                    formControlName="degree"
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="editStaff.get('degree').hasError('required')"
+                  >{{ "degree_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "phone_number" | translate
+                  }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    id="mobile"
+                    (focus)="onFocus()"
+                    formControlName="phone"
+                    ng2TelInput
+                    placeholder="{{ 'enter_phone_number' | translate }}"
+                    matInput
+                  />
+                </mat-form-field>
+                <mat-error
+                  *ngIf="editStaff.get('phone').hasError('required')"
+                  >{{ "phone_number_is_required" | translate }}</mat-error
+                >
+              </div>
+            </div>
+            <div class="item col-sm-6 col-md-3">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "email" | translate }}<span class="danger">*</span></label
+                >
+                <mat-form-field appearance="fill" class="disabled">
+                  <input
+                    type="text"
+                    readonly=""
+                    matInput
+                    placeholder="{{ 'enter_email' | translate }}"
+                    formControlName="email"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="item col-md-12">
+              <div class="form_field_wrapper">
+                <label>{{ "about_staff" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <textarea
+                    matInput
+                    placeholder="{{ 'describe_about_staff' | translate }}*"
+                    formControlName="about"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="primary_btn">
+          <button
+            type="button"
+            (click)="handleClose()"
+            class="btn btn-secondary"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="onSubmit()">
+            {{ "update_staff" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Actiate DeActivate modal -->
+<ng-template #activateDeactivate let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you" | translate }} {{ notificationStatus }}
+          {{ "to_receive_further_notifica" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateNotificationStatus()"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

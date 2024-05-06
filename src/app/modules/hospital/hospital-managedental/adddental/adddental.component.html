@@ -1,0 +1,57 @@
+<div class="add_doctor dashboard_main_content">
+    <div class="step_counter">
+
+
+        <mat-stepper #mainStepper [orientation]="(stepperOrientation | async)!" linear (selectionChange)="onStepSelectionChange($event)">
+            <mat-step [completed]="basicInfo">
+                <ng-template matStepLabel>Basic Info</ng-template>
+                <ng-template [ngIf]="stepIndex === 0">
+                <app-basicinfo-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-basicinfo-dental>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="educationalForm">
+                <ng-template matStepLabel>Educational</ng-template>
+                <ng-template [ngIf]="stepIndex === 1">
+                <app-educational-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-educational-dental>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="locationForm">
+                <ng-template matStepLabel>Location</ng-template>
+                <ng-template [ngIf]="stepIndex === 2">
+                <app-location-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-location-dental>
+            </ng-template>
+            </mat-step>
+            
+            <mat-step [completed]="availability">
+                <ng-template matStepLabel>Availability</ng-template>
+                <ng-template [ngIf]="stepIndex === 3">
+                <app-availability-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-availability-dental>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="feeManage">
+                <ng-template matStepLabel>Fee Management </ng-template>
+                <ng-template [ngIf]="stepIndex === 4">
+                <app-feemanagement-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-feemanagement-dental>
+            </ng-template>
+            </mat-step>
+
+            <mat-step [completed]="docManage">
+                <ng-template matStepLabel>Document Manage</ng-template>
+                <ng-template [ngIf]="stepIndex === 5">
+                <app-documentmanage-dental [mstepper]="passToChild" (fromChild)="handleEvent($event)" *ngIf="isEnable"></app-documentmanage-dental>
+            </ng-template>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Manage Permissions</ng-template>
+                <ng-template [ngIf]="stepIndex === 6">
+                <app-managepermission-dental ></app-managepermission-dental>
+            </ng-template>
+            </mat-step>
+
+        </mat-stepper>
+    </div>
+</div>

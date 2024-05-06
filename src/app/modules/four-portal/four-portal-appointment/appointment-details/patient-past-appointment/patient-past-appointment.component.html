@@ -1,0 +1,138 @@
+<div class="tab_content">
+  <div class="tab_content_item">
+    <div class="top_bar">
+      <div class="main_title">{{ "past_appointment" | translate }}</div>
+    </div>
+    <div class="bottom_bar">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="pastappointmentdataSource"
+            class="mat-elevation-z8"
+          >
+            <!--Doctor  Column -->
+            <ng-container matColumnDef="doctor">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "doctor" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="user_image_wrapper">
+                  <img
+                    class="user_image"
+                    src="../../../../../assets/img/default_user.png"
+                  />
+                </span>
+                <span class="name_user"> {{ element?.doctor_name }} </span>
+              </td>
+            </ng-container>
+
+            <!--Order ID Column -->
+            <ng-container matColumnDef="orderid">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "order_id" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.order_id }}
+              </td>
+            </ng-container>
+
+            <!--Date & Time Column -->
+            <ng-container matColumnDef="dateandtime">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "date_and_time" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.consultation_date }}
+                {{ element?.consultation_time }}
+              </td>
+            </ng-container>
+
+            <!--Consultation Type Column -->
+            <ng-container matColumnDef="consultationtype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "consultation_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.consultation_type }}
+              </td>
+            </ng-container>
+
+            <!--Fee Column -->
+            <ng-container matColumnDef="fee">
+              <th mat-header-cell *matHeaderCellDef>{{ "fee" | translate }}</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.fee }}
+              </td>
+            </ng-container>
+
+            <!-- Status -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "status" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="status past">{{ element?.status }}</div>
+              </td>
+            </ng-container>
+
+            <!--Action column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "action" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="viewOtherAppointment(element?.appointment_id)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="17"
+                      height="9"
+                      viewBox="0 0 17 9"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.73047 0C3.48167 0 0.730469 3.88286 0.730469 4.5C0.730469 5.11554 3.48167 9 8.73047 9C13.9785 9 16.7305 5.11554 16.7305 4.5C16.7305 3.88286 13.9785 0 8.73047 0ZM8.73047 7.96098C6.76647 7.96098 5.17447 6.4117 5.17447 4.5C5.17447 2.5883 6.76647 1.03741 8.73047 1.03741C10.6945 1.03741 12.2857 2.5883 12.2857 4.5C12.2857 6.4117 10.6945 7.96098 8.73047 7.96098ZM8.73047 4.5C8.40487 4.1408 9.26087 2.76911 8.73047 2.76911C7.74807 2.76911 6.95207 3.54455 6.95207 4.5C6.95207 5.45545 7.74807 6.23089 8.73047 6.23089C9.71207 6.23089 10.5089 5.45545 10.5089 4.5C10.5089 4.06045 9.00727 4.80455 8.73047 4.5Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="pastappointmentdisplayedColumns"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: pastappointmentdisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+        <div
+          *ngIf="pastappointmentdataSource?.length === 0"
+          class="text-center"
+        >
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+        <!-- <mat-paginator
+          class="pagination"
+          [length]="totalLength"
+          (page)="handlePageEvent($event)"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="primary_btn btn_consultation">
+      <button class="btn btn-primary">Start Consultation</button>
+    </div> -->
+</div>

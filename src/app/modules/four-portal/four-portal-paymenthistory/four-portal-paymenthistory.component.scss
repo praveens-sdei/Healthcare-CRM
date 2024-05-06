@@ -1,0 +1,70 @@
+@import "../../../../assets/css/variable/variable";
+
+.payment_history {
+    .top_bar{
+        margin: 0 0 35px;
+        align-items: flex-end;
+            .content_wrap{
+                .policy{
+                    margin: 20px 0 0;
+                    label{
+                        margin-right: 12px;
+                    }
+                    .mat-form-field{
+                        .mat-form-field-wrapper{
+                            padding: 0;
+                            .mat-form-field-flex{
+                                background-color: #EBF0F4;
+                                border: 1px solid #EBF0F4;
+                                .mat-form-field-infix{
+                                    &::placeholder{
+                                        color: rgba(15, 18, 63, 0.5);
+                                    }
+                                }
+                            }
+                            .mat-form-field-underline{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+               
+            }
+            .primary_btn{
+                .btn {
+                    min-width: 120px;
+                }
+            }
+    }
+    .bottom_bar{
+        h2{
+            font-weight: 600;
+            color: #26323C;
+            span{
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
+    margin: 0;
+}
+
+@media screen and (max-width:$large_phone) {
+    .payment_history .top_bar{
+        align-items: center;
+    }
+    .payment_history .top_bar .primary_btn{
+        margin-top: 20px;
+    }
+    .payment_history .top_bar .content_wrap {
+        margin-top: 0;
+    }
+}
+
+
+
+
+

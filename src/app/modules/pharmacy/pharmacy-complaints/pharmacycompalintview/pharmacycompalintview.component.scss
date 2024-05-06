@@ -1,0 +1,28 @@
+.top_bar {
+  margin: 0 0 35px;
+  .left_part {
+    display: flex;
+    .search_bar {
+      .input-group {
+        background: #f6f8fc;
+        border-radius: 6px;
+        flex-wrap: nowrap;
+
+        .btn {
+          padding: 0;
+          border: none;
+          .mat-icon {
+            line-height: 50px;
+            height: 50px;
+            width: 50px;
+            color: #9b9b9b;
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+.material-icons{
+    cursor: pointer;
+}

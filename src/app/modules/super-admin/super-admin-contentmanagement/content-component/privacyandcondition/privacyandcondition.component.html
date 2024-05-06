@@ -1,0 +1,63 @@
+<div class="content_inner_tab">
+  <mat-tab-group
+    animationDuration="0ms"
+    (selectedTabChange)="handleLanguageType($event)"
+  >
+    <mat-tab label="English">
+      <div class="editor">
+        <form [formGroup]="pncEnForm">
+          <div class="editor_inner">
+            <ngx-editor-menu
+              [editor]="privacyandconditioneditoren"
+              [toolbar]="toolbar"
+            >
+            </ngx-editor-menu>
+            <ngx-editor
+              [editor]="privacyandconditioneditoren"
+              formControlName="editorContentEn"
+            >
+            </ngx-editor>
+          </div>
+          <div class="primary_btn">
+            <button mat-button class="btn btn-secondary">
+              {{ "cancel" | translate }}
+            </button>
+            <ng-container *ngIf="giveInnerPermission('add')">
+            <button mat-button class="btn btn-primary" (click)="editEn()">
+              {{ "save" | translate }}
+            </button>
+          </ng-container>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+    <mat-tab label="French">
+      <div class="editor">
+        <form [formGroup]="pncFrForm">
+          <div class="editor_inner">
+            <ngx-editor-menu
+              [editor]="privacyandconditioneditor"
+              [toolbar]="toolbar"
+            >
+            </ngx-editor-menu>
+            <ngx-editor
+              [editor]="privacyandconditioneditor"
+              formControlName="editorContentFr"
+            >
+            </ngx-editor>
+          </div>
+          <div class="primary_btn">
+            <button mat-button class="btn btn-secondary">
+              {{ "cancel" | translate }}
+            </button>
+            <ng-container *ngIf="giveInnerPermission('add')">
+            <button mat-button class="btn btn-primary" (click)="editFr()">
+              {{ "save" | translate }}
+            </button>
+          </ng-container>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

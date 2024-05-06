@@ -1,0 +1,779 @@
+<div class="add_staff dashboard_main_content">
+  <div class="main_title">{{ "edit_association_group" | translate }}</div>
+  <div class="image-upload">
+    <label for="file-input">
+      <img
+        class="img-fluid mb-4"
+        src="{{
+          groupIcon ? groupIcon : '../../../../../assets/img/default_user.png'
+        }}"
+        width="100px"
+        height="100px"
+      />
+    </label>
+
+    <input
+      id="file-input"
+      type="file"
+      accept="image/*"
+      (change)="onGroupIconChange($event)"
+    />
+  </div>
+
+  <form [formGroup]="associationForm">
+    <div class="row">
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "association_group_name" | translate
+            }}<span class="danger">*</span></label
+          >
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'Association Group' | translate }}"
+              formControlName="group_name"
+            />
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['group_name'].errors?.['required']"
+        >
+          {{ "enter_group_name" | translate }}*
+        </span>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "email" | translate }}<span class="danger">*</span></label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'email' | translate }}"
+              formControlName="email"
+            />
+          </mat-form-field>
+        </div>
+        <div *ngIf="isSubmitted && f['email'].invalid" class="text-danger">
+          <div class="text-danger" *ngIf="f['email'].errors?.['required']">
+            {{ "enter_email" | translate }}*
+          </div>
+          <div *ngIf="f['email'].errors['pattern']">
+            {{ "please_enter_valid_email" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper speciality-select-block">
+          <label
+            >{{ "language" | translate }}<span class="danger">*</span></label
+          >
+          <select2
+            class="test"
+            [overlay]="overlay"
+            multiple="multiple"
+            [limitSelection]="0"
+            [minCountForSearch]="0"
+            [data]="spokenLanguages"
+            [(ngModel)]="selectedLanguages"
+            formControlName="language"
+            (update)="onSelectionChange($event)"
+          >
+          </select2>
+          <!-- <mat-form-field appearance="fill">
+              <mat-select
+                placeholder="{{ 'select_language' | translate }}"
+                formControlName="language"
+                multiple
+                (selectionChange)="onSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let language of spokenLanguages"
+                  [value]="language.value"
+                >
+                  {{ language.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['language'].errors?.['required']"
+        >
+          {{ "select_language" | translate }}*
+        </span>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "mobile_phone_number" | translate
+            }}<span class="danger">*</span></label
+          >
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              maxlength="10"
+              #phone
+              (focus)="onFocus()"
+              formControlName="mobile_phone"
+              ng2TelInput
+              placeholder="{{ 'enter_mobile' | translate }}"
+              matInput
+            />
+          </mat-form-field>
+        </div>
+        <div
+          *ngIf="isSubmitted && f['mobile_phone'].invalid"
+          class="text-danger"
+        >
+          <div *ngIf="f['mobile_phone'].errors['required']">
+            {{ "mobile_number_is_required" | translate }}
+          </div>
+          <div *ngIf="f['mobile_phone'].errors['pattern']">
+            {{ "please_enter_10_digit_mobile_number" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "additional_phone_number" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="number"
+              matInput
+              placeholder="{{ 'enter_additional_phone_number' | translate }}"
+              formControlName="additional_phone"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-8">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "address" | translate }}<span class="danger">*</span></label
+          >
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              #address
+              name="address"
+              placeholder="{{ 'enter_address' | translate }}"
+              formControlName="address"
+            />
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['address'].errors?.['required']"
+        >
+          {{ "enter_address" | translate }}*
+        </span>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "neighborhood" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              matInput
+              placeholder="{{ 'neighborhood' | translate }}"
+              formControlName="neighborhood"
+            />
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['neighborhood'].errors?.['required']"
+        >
+          {{ "enter_neighbourhood" | translate }}*
+        </span>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "country" | translate }}<span class="danger">*</span></label
+          >
+          <mat-form-field class="inner_label" appearance="fill">
+            <mat-label>{{ "country" | translate }}</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_country' | translate }}"
+              formControlName="country"
+              (selectionChange)="getRegionList($event.value)"
+            >
+              <mat-option
+                *ngFor="let country of countryList"
+                [value]="country._id"
+                >{{ country?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['country'].errors?.['required']"
+        >
+          {{ "enter_country" | translate }}*
+        </span>
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "region" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_region' | translate }}"
+              formControlName="region"
+              (selectionChange)="getProvienceList($event.value)"
+            >
+              <mat-option
+                *ngFor="let region of regionList"
+                [value]="region._id"
+                >{{ region?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['region'].errors?.['required']">
+            Enter Region*
+          </span> -->
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "province" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <mat-label>Provience</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_region' | translate }}"
+              formControlName="province"
+              (selectionChange)="getDepartmentList($event.value)"
+            >
+              <mat-option
+                *ngFor="let provience of provienceList"
+                [value]="provience._id"
+                >{{ provience?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['province'].errors?.['required']">
+            Enter Provience*
+          </span> -->
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "department" | translate }}</label>
+          <mat-form-field class="inner_label" appearance="fill">
+            <mat-label>{{ "department" | translate }}</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_department' | translate }}"
+              formControlName="department"
+              (selectionChange)="getCityList($event.value)"
+            >
+              <mat-option
+                *ngFor="let department of departmentList"
+                [value]="department._id"
+                >{{ department?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['department'].errors?.['required']">
+            Select Department*
+          </span> -->
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "city" | translate }}</label>
+          <mat-form-field class="inner_label" appearance="fill">
+            <mat-label>{{ "city" | translate }}</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_city' | translate }}"
+              formControlName="city"
+            >
+              <mat-option *ngFor="let city of cityList" [value]="city._id">{{
+                city?.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['city'].errors?.['required']">
+            Select City*
+          </span> -->
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "village" | translate }}</label>
+          <mat-form-field class="inner_label" appearance="fill">
+            <mat-label>{{ "village" | translate }}</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_village' | translate }}"
+              formControlName="village"
+            >
+              <mat-option
+                *ngFor="let village of villageList"
+                [value]="village._id"
+                >{{ village?.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['village'].errors?.['required']">
+            Select Village*
+          </span> -->
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label>{{ "pincode" | translate }}</label>
+          <mat-form-field appearance="fill">
+            <input
+              type="text"
+              placeholder="{{ 'enter_pincode' | translate }}"
+              matInput
+              formControlName="pincode"
+            />
+          </mat-form-field>
+        </div>
+        <!-- <span class="text-danger" *ngIf="isSubmitted && f['pincode'].errors?.['required']">
+            Enter Pincode*
+          </span> -->
+      </div>
+      <!-- <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "password" | translate }}<span class="danger">*</span></label
+          >
+          <mat-form-field appearance="fill">
+            <input
+              type="password"
+              matInput
+              placeholder="{{ 'password' | translate }}"
+              formControlName="password"
+            />
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['password'].errors?.['required']"
+        >
+          {{ "enter_password" | translate }}
+        </span>
+        <span class="text-danger" *ngIf=" f['password'].errors?.['minlength']">
+          {{ "must_be_atleast_8_char" | translate }}
+        </span>
+        <span class="text-danger" *ngIf="f['password'].errors?.['hasNumber']">
+          {{ "must_contain_atleast_1_number" | translate }}
+        </span>
+        <span
+          class="text-danger"
+          *ngIf="f['password'].errors?.['hasCapitalCase']"
+        >
+          {{ "must_contain_atleast_1_capcase" | translate }}
+        </span>
+        <span
+          class="text-danger"
+          *ngIf="f['password'].errors?.['hasSmallCase']"
+        >
+          {{ "must_contain_atleast_1_smallcase" | translate }}
+        </span>
+        <span
+          class="text-danger"
+          *ngIf="f['password'].errors?.['hasSpecialCharacters']"
+        >
+          {{ "must_contain_atleast_1_specialchar" | translate }}
+        </span>
+      </div> -->
+      <!-- <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "confirm_password" | translate
+            }}<span class="danger">*</span></label
+          >
+          <mat-form-field appearance="fill">
+            <input
+              type="password"
+              matInput
+              placeholder="{{ 'confirm_password' | translate }}"
+              formControlName="confirm_password"
+            />
+          </mat-form-field>
+        </div>
+    
+      </div> -->
+      <div class="col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <label
+            >{{ "association_group_type" | translate
+            }}<span class="danger">*</span></label
+          >
+          <mat-form-field class="inner_label" appearance="fill">
+            <mat-label>{{ "group_type" | translate }}</mat-label>
+            <mat-select
+              disableRipple
+              placeholder="{{ 'select_group_type' | translate }}"
+              formControlName="association_group_type"
+              [disabled]="true"
+            >
+              <mat-option value="pharmacy">{{
+                "pharmacy" | translate
+              }}</mat-option>
+              <mat-option value="hospital">{{
+                "hospital" | translate
+              }}</mat-option>
+              <!-- <mat-option value="insurance">insurance</mat-option>
+                <mat-option value="hospital">hospital</mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <span
+          class="text-danger"
+          *ngIf="isSubmitted && f['association_group_type'].errors?.['required']"
+        >
+          {{ "select_association_type" | translate }}*
+        </span>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "about" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <textarea
+                matInput
+                placeholder="{{ 'describe_yourself' | translate }}*"
+                formControlName="about_group"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <!-- <span class="text-danger" *ngIf="isSubmitted && f['about_group'].errors?.['required']">
+              Required*
+            </span> -->
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "association_group_slogan" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <textarea
+                matInput
+                placeholder="{{ 'group_slogan' | translate }}"
+                formControlName="group_slogan"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <span
+            class="text-danger"
+            *ngIf="isSubmitted && f['group_slogan'].errors?.['required']"
+          >
+            {{ "required" | translate }}*
+          </span>
+        </div>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "license" | translate }}</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "license_number" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="number"
+                  matInput
+                  placeholder="{{ 'license_number' | translate }}"
+                  formControlName="license_number"
+                />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['license_number'].errors?.['required']"
+            >
+              {{ "enter_license_number" | translate }}*
+            </span>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "expiry_date" | translate }}</label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
+                  [matDatepicker]="picker"
+                  placeholder="{{ 'expiry_date' | translate }}"
+                  formControlName="license_expiry"
+                  name="license_expiry"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <!-- <span class="text-danger" *ngIf="isSubmitted && f['license_expiry'].errors?.['required']">
+                Select Expiry Date*
+              </span> -->
+          </div>
+          <div class="col-sm-12 col-md-4 upload_item">
+            <div class="form_field_wrapper">
+              <label>{{ "upload_license_card" | translate }}</label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <label>{{ "upload_license_card" | translate }}</label>
+                </div>
+                <input
+                  class="ng-hide user_upload_input"
+                  id="input-file-id"
+                  multiple
+                  type="file"
+                  (change)="onFileChnage($event)"
+                />
+              </div>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['license_expiry'].errors?.['required']"
+            >
+              {{ "required" | translate }}*
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "bank_details" | translate }}</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "bank_name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="bank_name" />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['bank_name'].errors?.['required']"
+            >
+              {{ "enter_bank_name" | translate }}*
+            </span>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "account_holder_name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  matInput
+                  formControlName="bank_account_holder_name"
+                />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['bank_account_holder_name'].errors?.['required']"
+            >
+              {{ "enter_account_holder_name" | translate }}*
+            </span>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "account_number" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  matInput
+                  formControlName="bank_account_number"
+                />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['bank_account_number'].errors?.['required']"
+            >
+              {{ "enter_account_number" | translate }}*
+            </span>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "ifsc" | translate }} </label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="bank_ifsc_code" />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['bank_ifsc_code'].errors?.['required']"
+            >
+              {{ "enter_ifsc" | translate }}*
+            </span>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "address" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="bank_address" />
+              </mat-form-field>
+            </div>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && f['bank_address'].errors?.['required']"
+            >
+              {{ "enter_address" | translate }}*
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="licence_block">
+        <div class="heading_listing">
+          <p>{{ "mobile_pay_details" | translate }}</p>
+        </div>
+        <div class="sdadd">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "name_of_mobile_provider" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="mobilepay_provider_name"
+                  />
+                </mat-form-field>
+              </div>
+              <!-- <span class="text-danger" *ngIf="isSubmitted && f['mobilepay_provider_name'].errors?.['required']">
+                  Enter Provider Name*
+                </span> -->
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "mobile_pay_number" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="number"
+                    matInput
+                    formControlName="mobilepay_number"
+                    [maxlength]="10"
+                  />
+                </mat-form-field>
+              </div>
+              <!-- <div *ngIf="isSubmitted && f['mobilepay_number'].invalid" class="text-danger">
+                  <div *ngIf="f['mobilepay_number'].errors['required']">
+                    Mobile Number is required.
+                  </div>
+                  <div *ngIf="f['mobilepay_number'].errors['pattern']">
+                    Please, Enter 10 digit Mobile Number.
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="primary_btn">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="['/super-admin/profile']"
+      >
+        {{ "cancel" | translate }}
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="openVerticallyCenteredaddpharmacy(editpharmacycontent)"
+      >
+        {{ "save_association" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Edit pharmacy modal -->
+<div class="edit_pharmacy">
+  <ng-template #editpharmacycontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "edit_pharmacy" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closePopup()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="search_bar">
+          <div class="input-group">
+            <button class="btn search-btn">
+              <mat-icon>search</mat-icon>
+            </button>
+            <input
+              type="search"
+              class="form-control"
+              placeholder="{{ 'search' | translate }}"
+              aria-label="Search"
+              [ngModel]="searchText"
+              (keyup)="handleSearchFilter($event)"
+              (search)="handleSearchFilter($event)"
+            />
+          </div>
+        </div>
+        <div class="add_pharmacy_content">
+          <div class="pharmacy_content_inner">
+            <mat-checkbox
+              class="example-margin"
+              aria-label="Select All"
+              [checked]="isChecked()"
+              [indeterminate]="isIndeterminate()"
+              (change)="$event ? toggleAll($event) : null"
+            >
+              {{ "select_all_pharmacy" | translate }}
+            </mat-checkbox>
+            <div *ngFor="let item of pharmacyList">
+              <mat-checkbox
+                class="example-margin"
+                (click)="$event.stopPropagation()"
+                (change)="$event ? toggle(item, $event) : null"
+                [checked]="exists(item?.for_portal_user)"
+              >
+                {{ item?.pharmacy_name }}
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closePopup()"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updateAssociationGroup()"
+          >
+            {{ "save" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

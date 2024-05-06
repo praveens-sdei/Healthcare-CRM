@@ -1,0 +1,239 @@
+<div class="tab_content medical_doc">
+  <div class="top_bar">
+    <h3 class="profileinfo_title">{{ "medical_document" | translate }}</h3>
+    <div class="primary_btn">
+      <!-- <button
+          type="button"
+          class="btn btn-primary"
+          (click)="openDocumentModal(documentModal)"
+        >
+          Add Document
+        </button> -->
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <div class="row">
+      <div class="item col-sm-4 col-md-3" *ngFor="let doc of medicalDocuments">
+        <div *ngIf="medicalDocuments?.length === 0" class="text-center">
+          <b>{{ "no_docs_found" | translate }}</b>
+        </div>
+        <div class="item_inner">
+          <div class="doc_img">
+            <img src="{{ doc?.image_signed_url }}" />
+            <span
+              class="quick_view"
+              (click)="
+                openVerticallyCenteredquickview(
+                  quick_view,
+                  doc?.image_signed_url
+                )
+              "
+              ><img src="../../../../assets/img/quick_view.svg"
+            /></span>
+          </div>
+          <div class="doc_desc">
+            <div class="name">{{ doc?.name }}</div>
+            <div class="date">
+              {{ "date" | translate }} -
+              {{ doc?.issue_date | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quickview Modal -->
+<ng-template #quick_view let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="docview_img">
+        <img src="{{ setDocToView }}" width="600px" height="500px" />
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- ---------------------------------------Add Document Model ---------------------------------------- -->
+<ng-template #documentModal let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_medical_document" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="medicalDocumentForm">
+        <div class="form_title">{{ "medical_document" | translate }}</div>
+
+        <!----------------Medical document form array------------>
+        <ng-container formArrayName="medical_document">
+          <ng-container
+            *ngFor="let doc of medical_document.controls; let i = index"
+          >
+            <ng-container [formGroupName]="i">
+              <div class="add_immunization_inner">
+                <div class="row increse_content_inner">
+                  <div class="item col-sm-6 col-lg-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "document_name" | translate }}</label>
+                      <mat-form-field appearance="fill">
+                        <input type="text" matInput formControlName="name" />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && medDocValidation(i).controls['name'].errors?.['required']"
+                      >{{ "enter_doc_name" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-lg-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "issue_date" | translate }}</label>
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepicker]="picker30"
+                          formControlName="issue_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker30"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker30></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && medDocValidation(i).controls['issue_date'].errors?.['required']"
+                      >{{ "required" | translate }}*</span
+                    >
+                  </div>
+                  <div class="item col-sm-6 col-lg-4">
+                    <div class="form_field_wrapper">
+                      <label
+                        >{{ "expiration_date" | translate }} ({{
+                          "optional" | translate
+                        }})</label
+                      >
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <input
+                          matInput
+                          [matDatepicker]="picker31"
+                          formControlName="expiration_date"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker31"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker31></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="item upload_item col-sm-6 col-lg-4">
+                    <div class="form_field_wrapper">
+                      <label>{{ "upload_document" | translate }}</label>
+                      <div class="upload_input">
+                        <div class="upload_input_content">
+                          <label
+                            *ngIf="
+                              medicalDocumentForm.value.medical_document[i]
+                                .image
+                            "
+                            >{{ "file_added" | translate }}</label
+                          >
+                          <label
+                            *ngIf="
+                              !medicalDocumentForm.value.medical_document[i]
+                                .image
+                            "
+                            >{{ "upload_image" | translate }}</label
+                          >
+                        </div>
+                        <!-- <div class="upload_input_content">
+                            <label>File Added</label>
+                          </div> -->
+                        <input
+                          class="ng-hide user_upload_input"
+                          id="input-file-id"
+                          multiple
+                          type="file"
+                          (change)="onMedicalDocChange($event, i)"
+                        />
+                      </div>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && medDocValidation(i).controls['image'].errors?.['required']"
+                      >{{ "select_file" | translate }}*</span
+                    >
+                  </div>
+                </div>
+                <ng-container
+                  *ngIf="i === medical_document.length - 1; else remove"
+                >
+                  <div
+                    class="row_generate row_minus"
+                    *ngIf="medical_document.length > 1"
+                  >
+                    <mat-icon class="plus" (click)="deleteMedicalDoc(i)"
+                      >remove</mat-icon
+                    >
+                  </div>
+                  <div class="row_generate row_add">
+                    <mat-icon class="plus" (click)="addNewMedicalDocument()"
+                      >add</mat-icon
+                    >
+                  </div>
+                </ng-container>
+                <ng-template #remove>
+                  <div class="row_generate row_minus">
+                    <mat-icon class="plus" (click)="deleteMedicalDoc(i)"
+                      >remove</mat-icon
+                    >
+                  </div>
+                </ng-template>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </form>
+
+      <div class="primary_btn">
+        <button class="btn btn-secondary" (click)="closePopup()">
+          {{ "cancel" | translate }}
+        </button>
+        <button class="btn btn-primary" (click)="handleAddMedicalDocuments()">
+          {{ "add" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

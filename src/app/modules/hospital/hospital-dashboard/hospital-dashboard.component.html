@@ -1,0 +1,532 @@
+<div class="hospital_dashboad dashboard_main_content">
+  <div class="top_bar up_bar common_space">
+    <div class="content_wrap">
+      <div class="policy">
+        <label>{{ "date" | translate }}:</label>
+        <div class="form_field_wrapper">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+            matInput
+            [matDatepickerFilter]="myFilter"
+            placeholder="Date"
+            (dateChange)="getSelectedDate($event)"
+            [matDatepicker]="picker"
+          />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="policy">
+        <label>{{ "doctor" | translate }}:</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select>
+              <mat-option value="option1">{{
+                "primary" | translate
+              }}</mat-option>
+              <mat-option value="option2">{{
+                "secondary" | translate
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy">
+        <label>{{ "specialty" | translate }}:</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select>
+              <mat-option value="option1">{{"policy" | translate}}</mat-option>
+              <mat-option value="option2">{{"policy" | translate}}1</mat-option>
+              <mat-option value="option3">{{"policy" | translate}}2</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy">
+        <label>{{ "type" | translate }}:</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select>
+              <mat-option value="option1">{{ "all" | translate }}</mat-option>
+              <mat-option value="option2">{{ "unit" | translate }}</mat-option>
+              <mat-option value="option3">{{
+                "service" | translate
+              }}</mat-option>
+              <mat-option value="option3">{{
+                "department" | translate
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+      <div class="col-md col-sm-4">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{totalStaffCount ? totalStaffCount : 0}}</div>
+              <div class="counter_title">
+                {{ "total" | translate }}<br />{{ "staff" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="more_action">
+                <mat-icon
+                  class="more"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >more_horiz</mat-icon
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" (click)="handledoctor('/hospital/staffmanagement')">{{
+                      "view" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard12.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md col-sm-4">
+        <div class="cust_col light_orang">
+          <div class="cust_col_inner">
+            <div class="left">
+              <div class="counter">{{totalDoctorforHospitalCount ? totalDoctorforHospitalCount : 0}}</div>
+              <div class="counter_title">
+                {{ "total" | translate }}<br />
+                {{ "doctor" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="more_action">
+                <mat-icon
+                  class="more"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >more_horiz</mat-icon
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" (click)="handledoctor('/hospital/managedoctor')">{{
+                      "view" | translate
+                    }}</a>
+                  </li>
+                  <!-- <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li> -->
+                </ul>
+              </div>
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard40.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md col-sm-4">
+        <div class="cust_col light_violet">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{totalRevenue ? totalRevenue : 0}}</div>
+              <div class="counter_title">
+                {{ "total" | translate }}<br />
+                {{ "revenue" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="more_action">
+                <mat-icon
+                  class="more"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >more_horiz</mat-icon
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" (click)="handledoctor('/hospital/revenuemanagement')">{{
+                      "view" | translate
+                    }}</a>
+                  </li>
+                  <!-- <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li> -->
+                </ul>
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard41.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md col-sm-4">
+        <div class="cust_col light_yellow">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{allAppointmentCount ? allAppointmentCount : 0}}</div>
+              <div class="counter_title">
+                {{ "total" | translate }}<br />
+                {{ "appointments" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard42.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md col-sm-4">
+        <div class="cust_col light_green">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{totalSubmitedClaim ? totalSubmitedClaim : 0}}</div>
+              <div class="counter_title">
+                {{ "total_cliams" | translate }}<br />
+                {{ "submitted" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="more_action">
+                <mat-icon
+                  class="more"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >more_horiz</mat-icon
+                >
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" (click)="handledoctor('hospital/claims/hospitalizationclaims')">{{
+                      "hospitalization_claims" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" (click)="handledoctor('/hospital/claims')">{{
+                      "medical_consultation_claim" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard43.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="claim_section pb-5">
+    <div class="row">
+      <div class="cost_details col-xl-5">
+        <div class="cost_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "total_appointments" | translate }}</div>
+            <div class="icons">
+              <mat-icon
+              (click)="openVerticallyCenteredclaimlistpopup(barchartpopup)"
+              >open_in_full</mat-icon>
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="bar_chart">
+            <div class="chart-container">
+              <canvas
+                baseChart
+                height="235"
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [type]="'bar'"
+              >
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7">
+        <div class="claim_by_month common_space">
+          <div class="top_bar right_bar">
+            <div class="title_wrap">
+              <div class="main_title">{{ "total_cliams" | translate }}</div>
+            </div>
+            <div class="content_wrap">
+              <div class="policy_wrapper">
+                <div class="policy">
+                  <label>{{ "year" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select placeholder="{{ 'select_year' | translate }}" [(ngModel)]="graphYear">
+                        <mat-option *ngFor="let year of years" [value]="year" (click)="getGraphYear(year)">{{year}}</mat-option>
+                      </mat-select>
+                      
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="icons">
+                  <mat-icon 
+                  (click)="openVerticallyCenteredclaimlistpopup(linechartpopup)"
+                  >open_in_full</mat-icon>
+                  <div class="more_action">
+                    <button
+                      class="btn btn-outline-light"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "view" | translate
+                        }}</a>
+                      </li>
+                      <!-- <li>
+                        <a class="dropdown-item" href="#">{{
+                          "another_action" | translate
+                        }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "something_else_here" | translate
+                        }}</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+                <!-- <div class="policy">
+                  <label>{{ "sort_by" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select>
+                        <mat-option value="option1">{{
+                          "monthly" | translate
+                        }}</mat-option>
+                        <mat-option value="option2">{{
+                          "yearly" | translate
+                        }}</mat-option>
+                        <mat-option value="option3">{{
+                          "weekly" | translate
+                        }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+                <!-- <div class="policy">
+                  <label>{{ "claims_by" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select>
+                        <mat-option value="Doctor">{{
+                          "Doctor" | translate
+                        }}</mat-option>
+                        <mat-option value="Dental">{{
+                          "Dental" | translate
+                        }}</mat-option>
+                        <mat-option value="Optical">{{
+                          "Optical" | translate
+                        }}</mat-option>
+                        <mat-option value="Paramedical-Professions">{{
+                          "Paramedical-Professions" | translate
+                        }}</mat-option>
+                        <mat-option value="Laboratory-Imaging">{{
+                          "Laboratory-Imaging" | translate
+                        }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div> -->
+              </div>
+
+              
+            </div>
+          </div>
+
+          <div style="display: block">
+            <canvas
+              baseChart
+              [type]="'line'"
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend"
+            >
+            </canvas>
+          </div>
+
+          <div class="chart_label">
+            <ul>
+              <!-- <li>
+                <div class="d-flex me-3">
+                  <div class="squer green"></div>
+                  {{ "all_claim" | translate }}
+                </div>
+              </li> -->
+              <!-- <li>
+                <div class="d-flex me-3">
+                  <div class="squer blue"></div>
+                  {{ "pre_authorization_hospitalization" | translate }}
+                </div>
+              </li> -->
+              <li>
+                <div class="d-flex me-3">
+                  <div class="squer skyblue"></div>
+                  {{ "hospitalization" | translate }}
+                </div>
+              </li>
+              <li>
+                <div class="d-flex me-3">
+                  <div class="squer cyan"></div>
+                  {{ "medical_consultation" | translate }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--vertical barchart modal-->
+<ng-template #barchartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "average_cost_claim" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="bar_chart">
+        <div class="chart-container">
+          <canvas
+            baseChart
+            height="235"
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--vertical linechart modal -->
+<ng-template #linechartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "average_cost_claim" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="display: block">
+        <canvas
+          baseChart
+          [type]="'line'"
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+</ng-template>

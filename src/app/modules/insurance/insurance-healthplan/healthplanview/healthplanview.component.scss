@@ -1,0 +1,327 @@
+@import '../.../../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+
+.health_plan{
+    overflow: hidden;
+    .top_bar{
+        margin: 0 0 35px;
+        .left_part{
+            .search_bar{
+                .input-group{
+                    background: #F6F8FC;
+                    border-radius: 6px;
+                    flex-wrap: nowrap;
+                    .form-control{
+                        border: none;
+                        background-color: transparent;
+                        padding: 12px 12px 12px 0;
+                        width: 170px;
+                        &::placeholder{
+                            font-weight: 400;
+                            font-size: $font_small;
+                            line-height: 24px;
+                        }
+                        &:focus{
+                            box-shadow: none;
+                        }
+                    }
+                    .btn{
+                        padding: 0;
+                        border: none;
+                        .mat-icon{
+                            line-height: 50px;
+                            height: 50px;
+                            width: 50px;
+                            color: #9B9B9B;
+                            font-size: 24px;
+                        }
+                        &.filter-btn{
+                            .mat-icon{
+                                color: $bodycolor;
+                                border-left: 1px solid #E6E8F0;
+                                font-size: 26px;
+                            }
+                        }
+                    }
+                }
+            }
+            .content_wrap{
+                .policy{
+                    width: 100%;
+                    .form_field_wrapper{
+                        width: calc(100% - 142px);
+                        @media screen and (max-width: 576px) {
+                            width: 100%;
+                        }
+                        .mat-form-field{
+                            .mat-form-field-wrapper{
+                                padding: 0;
+                                .mat-form-field-flex{
+                                    background-color: #EBF0F4;
+                                    border: 1px solid #EBF0F4;
+                                    .mat-form-field-infix{
+                                        .mat-select{
+                                            .mat-select-arrow-wrapper{
+                                                transform: translateY(0);
+                                            }
+                                            .mat-select-value{
+                                                color: $formfiled_color;
+                                                font-weight: 500;
+                                            }
+                                        }
+                                        width: 160px;
+                                    }
+                                }
+                                .mat-form-field-underline{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                  
+                }
+            } 
+
+
+        }
+    
+    }
+}
+.custome_modal{
+    .modal-body{
+        .modal_content{
+            &.service{
+                .modal_content_inner {
+                    .item{      
+                        width:auto;
+                        @media screen and (max-width: 992px) {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            &.exclusion{
+                .modal_content_inner {
+                    width: 100%;
+                }
+            }
+        }
+    
+        .add_healthplan_option{
+            .mat-radio-group{
+                .mat-radio-button{
+                    margin: 0 20px 0 0;
+                    label{
+                        font-weight: 600;
+                        font-size: 16px;
+                        white-space: normal;
+                        .mat-radio-label-content{
+                            padding-left: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+
+// Add healthplan modal css
+.add_health_plan {
+    .custome_modal{
+        .add_healthplan_tab{
+            .mat-tab-header{
+                margin: 0 0 28px;
+                border-bottom: none;
+                .mat-tab-list{
+                    .mat-tab-labels{
+                        display: inline-flex;
+                        .mat-tab-label {
+                            font-family: $font_family_body,$font_sans_sarif;
+                            height: 55px;
+                            padding: 0 10px;
+                            min-width: 200px;
+                            font-size: $font_medium;
+                            font-weight: 500;
+                            color: $bodycolor;
+                            background-color: $white_color;
+                            border: 1px solid rgba(11, 73, 119, 0.15);
+                            border-radius: 10px;
+                            justify-content: flex-start;
+                            opacity: 1;
+                            margin-left: 20px;
+                            &:first-child{
+                                margin-left: 0;
+                            }
+                            .mat-tab-label-content{
+                                .btn_svg {
+                                    height: 35px;
+                                    width: 35px;
+                                    line-height: 35px;
+                                    margin-right: 10px;
+                                    background-color: #0B4977;
+                                    border-radius: 9px;
+                                    svg{
+                                        fill: #ffffff;
+                                        width: 20px;
+                                        height: 20px;
+                                    }
+                                }
+                            }
+                        }
+                        .mat-tab-label.mat-tab-label-active{
+                            color: $white_color;
+                            background-color: $bodycolor;
+                            .mat-tab-label-content{
+                                .btn_svg {
+                                    background-color: #EBF0F4;
+                                    svg{
+                                        fill: #0B4977;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .mat-ink-bar{
+                        display: none;
+                    }
+                    .mat-ink-bar{
+                        background-color: $bodycolor;
+                    }
+                }
+            }
+            .mat-tab-body-content{
+                overflow: hidden;
+                .modal_body_title_wrap {
+                    margin: 15px 0 15px;
+                }
+            }
+        }
+        .modal_content{
+            .item{
+                &.repayment{
+                    .repayment_wrap{
+                        border: 1px solid rgba(228, 228, 228, 0.9);
+                        border-radius: 5px;
+                        padding: 5px 10px 0;
+                        margin: 0 0 15px;
+                        .repayment_inner{
+                            margin: 0 -7px;
+                            .item_inner{
+                                width: auto;
+                                padding: 0 7px;
+                                .form_field_wrapper{
+                                    display: flex;
+                                    align-items: center;
+                                    .mat-form-field{
+                                        width: 100%;
+                                        .mat-form-field-wrapper{
+                                            padding-bottom: 10px;
+                                            .mat-form-field-infix{
+                                                width: 75px;
+                                            }
+                                        }
+                                      
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  
+                  
+                }
+            }
+        }
+    }  
+}
+
+.scroll_div{
+    max-height: 450px;
+    overflow-y: scroll;
+}
+// Master Modal css
+
+.master_modal {
+    &.Import{
+        .import_services{
+            form{
+                .upload_item{
+                    .form_field_wrapper{
+                        label{
+                            padding: 11px 15px;
+                            background-color: #ffffff;
+                            color: $bodycolor;
+                            border: 1px solid rgba(228, 228, 228, 0.9);
+                            font-size: 16px;
+                            font-weight: 500;
+                            border-radius: 5px;
+                            position: relative;
+                        }
+                        .upload_input{
+                            position: absolute;
+                            top: 0;
+                            bottom: auto;
+                            display: flex;
+                            flex-direction: column;
+                            width: 200px;
+                           .user_upload_input {
+                            opacity: 0;
+                            z-index: 0;
+                            min-height: 45px;
+                           }
+                        }
+                    }
+                }
+               .primary_btn{
+                margin: 15px 0 0;
+                flex-wrap: wrap;
+                    .btn{
+                        margin: 15px 0 0 15px;
+                        &:first-child{
+                            margin-left: 0;
+                        }
+                    }
+               } 
+            }
+        }
+    }
+}
+.table-inner{
+    margin-bottom: -4px;
+}
+
+@media screen and (max-width:$desktop) {
+    .health_plan .top_bar{
+        flex-direction: column;
+    }
+    .health_plan .top_bar .right_part{
+        margin-top: 20px;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .health_plan .top_bar .left_part .search_bar .input-group .form-control{
+        width: 100px;
+    }
+    .health_plan .top_bar .content_wrap {
+        margin-top: 0;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .health_plan .top_bar .left_part{
+        flex-direction: column;
+    }
+    .health_plan .top_bar .left_part .content_wrap .policy .form_field_wrapper .mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+        width: 220px;
+    }
+    .master_modal.Import .import_services form .upload_item{
+        margin: 0 0 30px;
+    }
+}
+
+@media screen and (max-width:$small_phone) {
+    .add_health_plan .custome_modal .modal_content .item.repayment .repayment_wrap .repayment_inner .item_inner{
+        width: 100%;
+    }
+}

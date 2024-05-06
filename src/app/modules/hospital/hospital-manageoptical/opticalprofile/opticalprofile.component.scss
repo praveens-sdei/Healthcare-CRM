@@ -1,0 +1,534 @@
+@import '../../../../../assets/css/variable/variable';
+
+.view_profile{
+    .top_bar{
+        margin: 0 0 35px;
+        justify-content: flex-end;
+    } 
+}
+
+
+.profile_data{
+    background: #ffffff;
+    border: 1px solid #B6C8D6;
+    border-radius: 15px;
+    background: #ffffff;
+    .profile_item{
+        position: relative; 
+        padding: 25px;  
+        border-bottom: 1px solid #B6C8D6;
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0 -15px;
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                padding: 0 15px;
+                margin: 0 0 15px;
+                label{
+                    font-size: $font_small;
+                    margin: 0 0 5px;
+                    line-height: 17px;
+                }
+                .user_value{
+                    color: $linkcolor;
+                }
+            }
+        }
+        &.profile_info{
+            .profile_top{
+                display: flex;
+                align-items: center;
+                margin: 0 0 40px;
+                .user_image_upload{
+                    margin: 0 40px 0 0;
+                    .user_upload_input{
+                        width: 117px;
+                        height: 117px;
+                    }
+                    .user_upload_block{
+                        margin-left: -117px;
+                        .user_upload_wrapper{
+                            width: 117px;
+                            height: 117px;
+                            line-height: 117px;
+                            border-radius: 20px;
+                            background: transparent;
+                            .user_upload_icon{
+                                img{
+                                    width: 117px;
+                                    height: 117px;
+                                    line-height: 117px;
+                                    border-radius: 20px;
+                                }
+                            }
+                        }
+                        .edit_upload_wrapper{
+                            background: #0B4977;
+                            border: 3px solid #ffffff;
+                            right: -10px;
+                            bottom: -10px;
+                        }
+                    }
+                }
+                .user_info{
+                    .user_title{
+                        font-weight: 700;
+                        font-size: 24px;
+                        line-height: 29px;
+                        color: $bodyopacitylightcolor;
+                        margin: 0 0 7px;
+                    }
+                    .user_email{
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 19px;
+                        color: $bodyopacitylightcolor;
+                    }   
+                }
+            }
+            ul{
+                list-style: none;
+                margin-bottom: 0;
+                padding: 0;
+                li{
+                    margin: 0 0 20px;
+                    label{
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: rgba(12, 47, 73, 0.75);
+                        margin: 0 0 5px;
+                    }
+                    .value{
+                        font-weight: 600;
+                        font-size: 18px;
+                        line-height: 22px;
+                        color: rgba(12, 47, 73, 0.75);
+                    }
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        &.about_doctor{
+            label{
+                font-size: $font_small;
+            }
+            p{
+                margin: 0;
+            }
+        }
+        &.medical_act{
+            ul{
+                li{
+                    label{
+                        color: rgba(12, 47, 73, 0.8);
+                    }
+                    .user_value{
+                        font-size: $font_large;
+                        font-weight: 600;
+                        color: rgba(12, 47, 73, 0.8);
+                    }
+                }
+            }
+        }
+        &.mobile_pay_details{
+            .mobile_label{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 19px;
+                color: rgba(12, 47, 73, 0.8);
+            }
+        }
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+}
+.subscribe_detail_inner {
+    .expansion_panel {
+        .expansion_panel_inner {
+            .item{
+                width: auto;
+                min-width: 200px;
+                display: flex;
+                align-items: center;
+                .outer_detail_block {
+                    padding: 10px 15px 10px 0;
+                    .detail_section{
+                        flex-direction: column;
+                        p{
+                            margin: 0 0 5px;
+                            &:last-child{
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.availability{
+        .mat-accordion{
+            .mat-expansion-panel-header{
+                height: auto;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                .mat-content{
+                    align-items: center;
+                    .right_part {
+                        display: flex;
+                        .item{
+                            display: flex;
+                            align-items: center;
+                            margin: 0 25px 0 0;
+                            label{
+                                margin: 0 12px 0 0;
+                            }
+                            .form_field_wrapper{
+                                .mat-form-field{
+                                    .mat-form-field-wrapper{
+                                        padding-bottom: 0;
+                                        .mat-form-field-flex {
+                                            background: #EBF0F4;
+                                            border-radius: 12px;
+                                            border: none;
+                                            .mat-form-field-infix{
+                                                width: 88px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+             
+                &.mat-expanded{
+                    height: auto;
+                }
+            }
+            .mat-expansion-panel-body{
+                .expansion_panel {
+                    .expansion_panel_inner{
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                        .item{
+                            width: auto;
+                            display: block;
+                            margin: 0 0 24px;   
+                            .day{
+                                border: 1px solid #B6C8D6;
+                                border-radius: 15px;
+                                .section{
+                                    padding: 15px;
+                                    &.top_section{
+                                        background: rgba(182, 200, 214, 0.15);
+                                        text-align: center;
+                                        .title{
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            line-height: 22px;
+                                            color: $table_color;
+                                        }
+                                    }   
+                                    &.bottom_section{
+                                        border-bottom: 1px solid #B6C8D6;
+                                        .time{
+                                            color: rgba(38, 50, 60, 0.75);                            
+                                            margin: 0 0 5px;
+                                        }
+                                        &:last-child{
+                                            border-bottom: none;
+                                        }
+                                    }    
+                                }
+                                
+                            }
+                        }
+                    }
+                
+                }
+            }
+        }
+    }
+    &.fee_management{
+        .mat-accordion{
+            .mat-expansion-panel-header{
+                height: auto;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                .mat-content{
+                    align-items: center;
+                    .right_part {
+                        display: flex;
+                        .item{
+                            display: flex;
+                            align-items: center;
+                            margin: 0 25px 0 0;
+                            label{
+                                margin: 0 12px 0 0;
+                            }
+                            .form_field_wrapper{
+                                .mat-form-field{
+                                    .mat-form-field-wrapper{
+                                        padding-bottom: 0;
+                                        .mat-form-field-flex {
+                                            background: #EBF0F4;
+                                            border-radius: 12px;
+                                            border: none;
+                                            .mat-form-field-infix{
+                                                width: 88px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+             
+                &.mat-expanded{
+                    height: auto;
+                }
+            }
+            .mat-expansion-panel-body{
+                .expansion_panel {
+                    .expansion_panel_inner{
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                        .item{
+                            width: auto;
+                            display: block;
+                            margin: 0 0 24px;   
+                            .day{
+                                border: 1px solid #B6C8D6;
+                                border-radius: 15px;
+                                .section{
+                                    padding: 15px;
+                                    &.top_section{
+                                        background: rgba(182, 200, 214, 0.15);
+                                        text-align: center;
+                                        .title{
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            line-height: 22px;
+                                            color: $table_color;
+                                        }
+                                    }   
+                                    &.bottom_section{
+                                        border-bottom: 1px solid #B6C8D6;
+                                        .time{
+                                            color: rgba(38, 50, 60, 0.75);                            
+                                            margin: 0 0 5px;
+                                        }
+                                        &:last-child{
+                                            border-bottom: none;
+                                        }
+                                    }    
+                                }
+                                
+                            }
+                        }
+                    }
+                
+                }
+            }
+        }
+    }
+    &.document {
+        .expansion_panel {
+            .outer_detail_block{
+                .detail_section{
+                    .doc_img{
+                        border-radius: 15px;
+                        overflow: hidden;
+                        width: 215px;
+                    }
+                }
+                &:after{
+                    display: none;
+                }
+                &.user_img_wrap{
+                    display: flex;
+                    align-items: center;
+                    .user_img{
+                        border: 1px solid #B6C8D6;
+                        border-radius: 15px;
+                        width: 76px;
+                        height: 68px;
+                        line-height: 68px;
+                        margin: 0 20px 0 0;
+                        text-align: center;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+ 
+}
+@media screen and (max-width:$desktop) {
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part{
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding: 0 0 10px;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .profile_data .profile_item.profile_info .profile_top{
+        flex-direction: column;
+        align-items: flex-start;    
+        margin: 0 0 25px;
+    }
+    .profile_data .profile_item.profile_info .profile_top .user_image_upload{
+        margin: 0 0 20px;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .right_part{
+        overflow-x: hidden;
+        overflow-y: hidden;
+        padding: 0;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part{
+        flex-direction: column;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .item{
+        margin: 0 0 10px;
+        justify-content: flex-end;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .item .form_field_wrapper .mat-form-field-type-mat-select .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix{
+        width: 115px;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .item label{
+        min-width: 80px;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content{
+        flex-direction: column;
+    }
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header .mat-expansion-panel-header-title{
+        margin: 0 0 10px;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header.mat-expanded,
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header{
+        align-items: flex-start;
+    }
+
+}
+@media screen and (max-width:$small_phone) {
+    .profile_data .profile_item.profile_info .profile_top .user_info .user_title{
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .profile_data .profile_item.profile_info .profile_top .user_info .user_email{
+        font-size: $font_small;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .item{
+        flex-direction: column;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .item label{
+        margin: 0 0 15px;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part{
+        width: 100%;
+    }
+    .subscribe_detail_inner.availability .mat-accordion .mat-expansion-panel-header .mat-content .right_part .form_field_wrapper{
+        width: 100%;
+    }
+}
+
+.right_part {
+    display: flex;
+    justify-content: right;
+    .item{
+        display: flex;
+        align-items: center;
+        margin: 0 25px 0 0;
+        label{
+            margin: 0 12px 0 0;
+        }
+        .form_field_wrapper{
+            .mat-form-field{
+                .mat-form-field-wrapper{
+                    padding-bottom: 0;
+                    .mat-form-field-flex {
+                        background: #EBF0F4;
+                        border-radius: 12px;
+                        border: none;
+                        .mat-form-field-infix{
+                            width: 88px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.subscribe_detail_inner {
+    .expansion_panel {
+        .expansion_panel_inner {
+            padding: 20px 30px;
+            .item{
+                width: auto;
+                display: block;
+                margin: 0 0 24px;
+                .day {
+                    border: 1px solid #B6C8D6;
+                    border-radius: 15px;
+                    .bottom_section {
+                        .time {
+                            color: rgba(38, 50, 60, 0.75);
+                            margin: 0 0 5px;
+                        }
+                    }
+                    .bottom_section:last-child {
+                        border-bottom: none;
+                        padding: 15px;
+                    }
+                    .top_section {
+                        background: rgba(182, 200, 214, 0.15);
+                        text-align: center;
+                        padding: 15px;
+                        .title {
+                            font-weight: 500;
+                            font-size: 18px;
+                            line-height: 22px;
+                            color: #0C2F49;
+                        }
+                    }
+                }
+                .outer_detail_block {
+                    padding: 10px 15px 10px 0;
+                    .detail_section{
+                        flex-direction: column;
+                        p{
+                            margin: 0 0 5px;
+                            &:last-child{
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.right_part {
+    .item {
+        .form_field_wrapper {
+            .mat-form-field {
+                .mat-form-field-wrapper {
+                    .mat-form-field-flex {
+                        background: #EBF0F4;
+                        border-radius: 12px;
+                        border: none;
+                        .mat-form-field-infix {
+                            width: 88px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

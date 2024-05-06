@@ -1,0 +1,17 @@
+@import '../../../../../assets/css/variable/variable';
+.material-icons{
+    cursor: pointer;
+}
+
+.presciption_order{
+    padding: 0;
+    .prescription_tab{
+        .table-wrap {
+            padding: 0 30px;
+        }
+        .mat-tab-body-wrapper{
+            overflow: hidden;
+            padding: 30px;
+        } 
+    } 
+}

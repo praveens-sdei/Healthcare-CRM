@@ -1,0 +1,366 @@
+
+   <div class="row login_time" [formGroup]="personalDetails">
+    <div class="col-sm-12 col-md-8 display-flex mb-3">
+        <div class="form_field_wrapper">
+          <label>Address</label>
+          <mat-form-field appearance="fill">
+            <input
+            formControlName="address"
+              type="text"
+              matInput
+              #address
+              name="address"
+            />
+            <input formControlName="loc" hidden>
+          </mat-form-field>
+        </div>
+        <!-- <mat-error
+        class="text-danger"
+        *ngIf="
+        personalDetails.controls['address']
+          .hasError('required')
+      "
+        >Address is required*</mat-error
+      > -->
+      </div>
+    
+       
+        
+        <div class="col-sm-12 col-md-4 mb-3">
+            <div class="form_field_wrapper">
+              <label>Neighborhood</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  matInput
+                  formControlName="neighborhood"
+                  name="neighborhood"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        <div class="col-sm-12 col-md-4 mb-3">
+            <div class="form_field_wrapper">
+              <label>Country</label>
+              <!-- <mat-form-field appearance="fill">
+                <mat-select
+                  disableRipple
+                  formControlName="country"
+                  name="nationality"
+                  [(value)]="defaultCountry"
+                  (selectionChange)="getCountryData($event.value)"
+                  (change)="getCountryData($event)"
+                >
+                  <mat-option value="" >Select Country</mat-option>
+                  <mat-option *ngFor="let countries of countryList; let i=index" [value]="countries._id">{{countries.name}}</mat-option>
+                
+                </mat-select>
+              </mat-form-field> -->
+              <select2
+              [placeholder] ="'Select Country'"
+              [limitSelection]="0"
+              [minCountForSearch]="1"
+              [data] = "countryList"
+              formControlName="country"
+              [overlay]="true"
+              (update) = "getCountryData($event.value)"
+              >
+              </select2>
+              <!-- <mat-error
+              class="text-danger"
+              *ngIf="
+              personalDetails.controls['country']
+                .hasError('required')
+            "
+              >Country is required*</mat-error
+            > -->
+            </div>
+          </div>
+      
+        <div class="col-sm-12 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>Region</label>
+          
+            <!-- <mat-form-field appearance="fill">
+                <mat-select
+                disableRipple
+                formControlName="region"
+                name="region"
+                value=""
+                (selectionChange)="getRegionData($event.value)"
+              >
+                <mat-option  value="" >Select Region</mat-option>
+                <mat-option *ngFor="let region of regionlist; let i=index" [value]="region._id">{{region.name}}</mat-option>
+              
+              </mat-select>
+            </mat-form-field> -->
+            <select2
+            [placeholder] ="'Select region'"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data] = "regionlist"
+            formControlName="region"
+            [overlay]="true"
+            (update) = "getRegionData($event.value)"
+            >
+            </select2>
+          </div>
+        </div>
+    
+        <div class="col-sm-12 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>Province</label>
+            <!-- <mat-form-field appearance="fill">
+              <mat-select
+              disableRipple
+              formControlName="province"
+              name="province"
+              value=""
+              (selectionChange)="getProvinceData($event.value)"
+            >
+              <mat-option  value="" >Select Province</mat-option>
+              <mat-option *ngFor="let province of provincelist; let i=index" [value]="province._id">{{province.name}}</mat-option>
+            </mat-select>
+            </mat-form-field> -->
+
+            <select2
+            [placeholder] ="'Select province'"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data] = "provincelist"
+            formControlName="province"
+            [overlay]="true"
+            (update) = "getProvinceData($event.value)"
+            >
+            </select2>
+          </div>
+        </div>
+    
+        <div class="col-sm-12 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>Department</label>
+            <!-- <mat-form-field appearance="fill">
+              <mat-select
+              disableRipple
+              formControlName="department"
+              name="department"
+              value=""
+              (selectionChange)="getDepartmentData($event.value)"
+            >
+              <mat-option  value="" >Select Department</mat-option>
+              <mat-option *ngFor="let department of departmentlist; let i=index" [value]="department._id">{{department.name}}</mat-option>
+            </mat-select>
+            </mat-form-field> -->
+
+            <select2
+            [placeholder] ="'Select department'"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data] = "departmentlist"
+            formControlName="department"
+            [overlay]="true"
+            (update) = "getDepartmentData($event.value)"
+            >
+            </select2>
+          </div>
+        </div>
+    
+        <div class="col-sm-12 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>City</label>
+            <!-- <mat-form-field appearance="fill">
+              <mat-select
+              disableRipple
+              formControlName="city"
+              name="city"
+              value=""
+            >
+              <mat-option  value="" >Select City</mat-option>
+              <mat-option *ngFor="let city of citylist; let i=index" [value]="city._id">{{city.name}}</mat-option>
+            </mat-select>
+            </mat-form-field> -->
+
+            <select2
+            [placeholder] ="'Select city'"
+            [limitSelection]="0"
+            [minCountForSearch]="1"
+            [data] = "citylist"
+            formControlName="city"
+            [overlay]="true"
+            >
+            </select2>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 mb-3">
+            <div class="form_field_wrapper">
+              <label>Village</label>
+              <!-- <mat-form-field appearance="fill">
+                <mat-select
+                disableRipple
+                formControlName="village"
+                name="village"
+                value=""
+              >
+                <mat-option  value="" >Select Village</mat-option>
+                <mat-option *ngFor="let village of villagelist; let i=index" [value]="village._id">{{village.name}}</mat-option>
+              </mat-select>
+              </mat-form-field> -->
+              <select2
+              [placeholder] ="'Select village'"
+              [limitSelection]="0"
+              [minCountForSearch]="1"
+              [data] = "villagelist"
+              formControlName="village"
+              [overlay]="true"
+              >
+              </select2>
+            </div>
+          </div>
+    
+        <div class="col-sm-12 col-md-4 mb-3">
+          <div class="form_field_wrapper">
+            <label>Pincode </label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                matInput
+                formControlName="pincode"
+                name="pincode"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      
+    
+    </div>
+
+
+
+    <!-- <div class="col-sm-6 col-md-8">
+                  <div class="form_field_wrapper">
+                    <label>Address</label>
+                    <mat-form-field appearance="fill">
+                      <input type="text" matInput formControlName="address" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Neighborhood</label>
+                    <mat-form-field appearance="fill">
+                      <input
+                        type="text"
+                        matInput
+                        formControlName="neighborhood"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Country</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="country"
+                        placeholder="Select Country"
+                      >
+                        <mat-option value="India">India</mat-option>
+                        <mat-option value="Australia">Australia</mat-option>
+                        <mat-option value="HongKong">HongKong</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Region</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="region"
+                        placeholder="Select Region"
+                      >
+                        <mat-option value="Region1">Region1</mat-option>
+                        <mat-option value="Region2">Region2</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Province</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="province"
+                        placeholder="Select Province"
+                      >
+                        <mat-option value="Maharashtra">Maharashtra</mat-option>
+                        <mat-option value="Gujarat">Gujarat</mat-option>
+                        <mat-option value="Panjab">Panjab</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Department</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="department"
+                        placeholder="Select Department"
+                      >
+                        <mat-option value="Department1">Department1</mat-option>
+                        <mat-option value="Department2">Department1</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>City</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="city"
+                        placeholder="Select City"
+                      >
+                        <mat-option value="Nagpur">Nagpur</mat-option>
+                        <mat-option value="Ramtek">Ramtek</mat-option>
+                        <mat-option value="Wardha">Wardha</mat-option>
+                        <mat-option value="Amravati">Amravati</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Village</label>
+                    <mat-form-field appearance="fill">
+                      
+                      <mat-select
+                        disableRipple
+                        formControlName="village"
+                        placeholder="Select Village"
+                      >
+                        <mat-option value="Village1">Village1</mat-option>
+                        <mat-option value="Village2">Village2</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                  <div class="form_field_wrapper">
+                    <label>Pincode</label>
+                    <mat-form-field appearance="fill">
+                      <input type="number" matInput formControlName="pincode" />
+                    </mat-form-field>
+                  </div>
+                </div> -->

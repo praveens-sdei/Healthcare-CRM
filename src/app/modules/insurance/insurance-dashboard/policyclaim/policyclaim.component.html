@@ -1,0 +1,589 @@
+<div class="policy_claims dashboard_main_content">
+  <div class="top_bar common_space">
+    <div class="main_title">{{ "policy_claims_analysis" | translate }}</div>
+    <div class="content_wrap">
+      <div class="policy">
+        <label>{{ "claim_type" | translate }}</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select [(value)]="claimTypeFilterData"  (selectionChange)="claimTypeFilter($event)">
+              <mat-option value="medicine">{{
+                "medicine" | translate
+              }}</mat-option>
+              <mat-option value="hospitalization">{{
+                "hospitalization" | translate
+              }}</mat-option>
+              <mat-option value="medicalConsultation">{{
+                "medical_consultation" | translate
+              }}</mat-option>
+              <mat-option value="Dental">{{
+                "dental" | translate
+              }}</mat-option>
+              <mat-option value="Optical">{{
+                "optical" | translate
+              }}</mat-option>
+              <mat-option value="Laboratory-Imaging">{{
+                "laboratory_imaging" | translate
+              }}</mat-option>
+              <mat-option value="Paramedical-Professions">{{
+                "paramedical_professions" | translate
+              }}</mat-option>
+              
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="primary_btn">
+          <button type="button" (click)="clearclaimType()" class="btn btn-link">
+            {{ "clear_all" | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="policy">
+        <label>{{ "select_year" | translate }}</label>
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select
+            placeholder="{{ 'select_year' | translate }}"
+            [(ngModel)]="selectedYear"
+          >
+            <mat-option
+              (click)="getYear1(year)"
+              *ngFor="let year of years"
+              [value]="year"
+              >{{ year }}</mat-option
+            >
+          </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{ statusCountDataTotal ? statusCountDataTotal : "0" }}</div>
+              <div class="counter_title">{{ "total_claim" | translate }}</div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard1.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_green">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{
+                  statusCountData?.approved ? statusCountData?.approved : "0"
+                }}
+              </div>
+              <div class="counter_title">
+                {{ "approved_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard2.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_orange">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.reject ? statusCountData?.reject : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "rejected_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard3.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_yellow">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.pending ? statusCountData?.pending : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "pending_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard4.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section claims_wrapper common_space">
+    <div class="row">
+      <div class="col-sm-6 col-md-3 claims1">
+        <div class="cust_col light_blue">
+          <div class="claim_title">{{ "claims" | translate }}</div>
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+
+            <div class="left">
+              <div class="counter_wrapper">
+                <div class="counter">
+                  {{
+                    mothCountData?.total_currentMonth_eclaim
+                      ? mothCountData?.total_currentMonth_eclaim
+                      : "0"
+                  }}
+                </div>
+                <div class="counter_title">
+                  {{ "current_month" | translate }}
+                </div>
+              </div>
+              <div class="counter_wrapper">
+                <div class="counter">
+                  {{
+                    mothCountData?.total_previousMonth_eclaim
+                      ? mothCountData?.total_previousMonth_eclaim
+                      : "0"
+                  }}
+                </div>
+                <div class="counter_title">
+                  {{ "previous_month" | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard5.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_violet">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{
+                  countof_eclaim?.total_provider_eclaim
+                    ? countof_eclaim?.total_provider_eclaim
+                    : "0"
+                }}
+              </div>
+              <div class="counter_title">
+                {{ "healthcare_provider_eClaim" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard6.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_skyblue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{
+                  countof_eclaim?.total_patient_eclaim
+                    ? countof_eclaim?.total_patient_eclaim
+                    : "0"
+                }}
+              </div>
+              <div class="counter_title">
+                {{ "patient_eClaim" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard7.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">
+                {{ statusCountData?.preauth ? statusCountData?.preauth : "0" }}
+              </div>
+              <div class="counter_title">
+                {{ "pre_authorization" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="assets/img/dashboard/dashboard8.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="claim_section">
+    <div class="row">
+      <div class="claim_details col-md-6">
+        <div class="claim_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "claims_details" | translate }}</div>
+            <div class="icons">
+              <mat-icon
+                (click)="openVerticallyCenteredclaimlistpopup(claimlistpopup)"
+                >open_in_full</mat-icon
+              >
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                class="mat-elevation-z8 withoutpagination"
+              >
+                <!-- Claim Date Column -->
+                <ng-container matColumnDef="claimdate">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_date" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.claimdate | date : "dd-MM-yyyy HH:mm" }}
+                  </td>
+                </ng-container>
+
+                <!-- Policy Type -->
+                <ng-container matColumnDef="policytype">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_type" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.claimType }}
+                  </td>
+                </ng-container>
+
+                <!-- Claim Amount -->
+                <ng-container matColumnDef="claimamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "claim_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.claimCost }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cost_details col-md-6">
+        <div class="cost_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "average_cost_claim" | translate }}</div>
+            <div class="icons">
+              <mat-icon (click)="openVerticallyCenteredbarChart(barchartpopup)"
+                >open_in_full</mat-icon
+              >
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" (click)="generatePdf()">{{
+                      "export_pdf" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="bar_chart" #pdfContent>
+            <!-- <div class="main_title"></div> -->
+            <div class="chart-container">
+              <div *ngIf="barChartData; else noData">
+                <canvas
+                  baseChart
+                  height="235"
+                  [data]="barChartData"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [type]="'bar'"
+                >
+                </canvas>
+              </div>
+              <ng-template #noData>
+                <p>{{ "no_data_available" | translate }}</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="claim_by_month">
+    <div class="top_bar common_space">
+      <div class="title_wrap">
+        <div class="main_title">{{ "claim_per_month" | translate }}</div>
+        <div class="sub_title">{{ "overall_progress" | translate }}</div>
+      </div>
+      <div class="content_wrap">
+        <div class="policy_wrapper">
+          <div class="policy">
+            <label>{{ "select_year" | translate }}</label>
+            <div class="form_field_wrapper">
+              <mat-form-field appearance="fill">
+                <mat-select
+                  placeholder="{{ 'select_year' | translate }}"
+                  [(ngModel)]="selectedYear"
+                >
+                  <mat-option
+                    (click)="getYear(year)"
+                    *ngFor="let year of years"
+                    [value]="year"
+                    >{{ year }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="icons">
+            <mat-icon>open_in_full</mat-icon>
+            <div class="more_action">
+              <button
+                class="btn btn-outline-light"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" href="#">{{ "action" | translate }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "another_action" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "something_else_here" | translate
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="policy">
+                        <label>{{'sort_by'|translate}}</label>
+                        <div class="form_field_wrapper">
+                            <mat-form-field appearance="fill">
+                                <mat-select>
+                                    <mat-option value="option1">{{'monthly'|translate}}</mat-option>
+                                    <mat-option value="option2">{{'yearly'|translate}}</mat-option>
+                                    <mat-option value="option3">{{'weekly'|translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+        </div>
+
+       
+      </div>
+    </div>
+
+    <div class="month_barchart common_space">
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="monthbarChartData"
+          [options]="monthbarChartOptions"
+          [plugins]="monthbarChartPlugins"
+          [legend]="monthbarChartLegend"
+          [type]="'bar'"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #barchartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "average_cost_claim" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="bar_chart">
+        <div class="chart-container">
+          <div *ngIf="barChartData; else noData">
+            <canvas
+              baseChart
+              height="235"
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [type]="'bar'"
+            >
+            </canvas>
+          </div>
+          <ng-template #noData>
+            <p>{{ "no_data_available" | translate }}</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #claimlistpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "claims_details" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="table-wrap">
+        <div class="table-inner">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 withoutpagination"
+          >
+            <!-- Claim Date Column -->
+            <ng-container matColumnDef="claimdate">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "claim_date" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.claimdate | date : "dd-MM-yyyy HH:mm" }}
+              </td>
+            </ng-container>
+
+            <!-- Policy Type -->
+            <ng-container matColumnDef="policytype">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "claim_type" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.claimType }}
+              </td>
+            </ng-container>
+
+            <!-- Claim Amount -->
+            <ng-container matColumnDef="claimamount">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "claim_amount" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.claimCost }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

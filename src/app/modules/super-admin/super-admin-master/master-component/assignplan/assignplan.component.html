@@ -1,0 +1,163 @@
+<div class="tab_content moreresponsetab assign_plan">
+  <div class="assign_plan_inner">
+    <div class="main_title content_item">
+      {{ "assign_plan_master_to_insurance" | translate }}
+    </div>
+    <div class="content_item">
+      <div class="content_wrap">
+        <div class="policy">
+          <label>{{ "select_insurance" | translate }}</label>
+          <div class="form_field_wrapper">
+            <mat-form-field appearance="fill">
+              <mat-select (selectionChange)="onSelected($event.value)">
+                <mat-option value="">{{ "select" | translate }}</mat-option>
+                <mat-option
+                  *ngFor="let item of insAdminList; let i = index"
+                  value="{{ item.id }}"
+                  >{{ item.name }}</mat-option
+                >
+                <!-- <mat-option value="option2">Insurance2</mat-option> -->
+                <!-- <mat-option value="option3">Insurance3</mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content_item accordion">
+      <div class="subscribe_detail_inner accodion_item">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ "services" | translate }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion_panel">
+              <div class="expansion_panel_inner">
+                <div class="listing_section">
+                  <div class="listing_section_inner">
+                    <div class="row">
+                      <div class="title col-md-4">
+                        {{ "type_of_services" | translate }}
+                      </div>
+                      <div class="title col-md-4">
+                        {{ "category_of_services" | translate }}
+                      </div>
+
+                      <div class="title col-md-4">
+                        {{ "action" | translate }}
+                      </div>
+                    </div>
+                    <!-- {{selectedServices|json}} -->
+                    <ng-container
+                      *ngFor="let service of serviceList; let i = index"
+                    >
+                      <ng-container *ngIf="service.status">
+                        <div class="row">
+                          <div class="item col-md-4">{{ service.name }}</div>
+                          <div class="item col-md-4">
+                            {{ service.in_category.name }}
+                          </div>
+
+                          <div class="item col-md-4">
+                            <!-- {{selectedServices[i]}} {{i}} -->
+                            <mat-checkbox
+                              [checked]="selectedServices[i]"
+                              class="example-margin"
+                              (change)="
+                                onChange(
+                                  service._id,
+                                  service.in_category._id,
+                                  $event,
+                                  false
+                                )
+                              "
+                            ></mat-checkbox>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+
+    <div class="content_item accordion">
+      <div class="subscribe_detail_inner accodion_item">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ "exclusion" | translate }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion_panel">
+              <div class="expansion_panel_inner">
+                <div class="listing_section exclusion">
+                  <div class="listing_section_inner">
+                    <div class="row">
+                      <div class="title col-md-3">
+                        {{ "category_of_exclusion" | translate }}
+                      </div>
+                      <div class="title col-md-3">
+                        {{ "exclusion_name" | translate }}
+                      </div>
+
+                      <div class="title col-md-3">
+                        {{ "comments" | translate }}
+                      </div>
+
+                      <div class="title col-md-3">
+                        {{ "action" | translate }}
+                      </div>
+                    </div>
+
+                    <ng-container
+                      *ngFor="let exclu of exclusionList; let j = index"
+                    >
+                      <ng-container *ngIf="exclu.status">
+                        <div class="row">
+                          <div class="item col-md-3">
+                            {{ exclu.in_exclusion.name }}
+                          </div>
+                          <div class="item col-md-3">
+                            {{ exclu.brand_name }}
+                          </div>
+                          <div class="item col-md-3">{{ exclu.comment }}</div>
+
+                          <div class="item col-md-3">
+                            <mat-checkbox
+                              class="example-margin"
+                              [checked]="
+                                checkExclu(exclu._id, exclu.in_exclusion._id)
+                              "
+                              (change)="
+                                exclusionOnChange(
+                                  exclu._id,
+                                  exclu.in_exclusion._id,
+                                  $event
+                                )
+                              "
+                            ></mat-checkbox>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+
+    <div class="content_item primary_btn">
+      <button class="btn btn-secondary">{{ "cancel" | translate }}</button>
+      <button class="btn btn-primary" (click)="saveAssignInsurance()">
+        {{ "save" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

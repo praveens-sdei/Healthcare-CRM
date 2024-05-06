@@ -1,0 +1,251 @@
+<div class="payment_history dashboard_main_content">
+  <div class="top_bar">
+    <div class="content_wrap row">
+      <div class="policy col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <input
+              matInput
+              placeholder="{{ 'patient_name' | translate }}"
+              [(ngModel)]="searchTextP"
+              (keyup)="handleSearchFilterPatient($event)"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+         <mat-form-field appearance="fill">
+            <input
+              matInput
+              placeholder="{{ 'appointment_for' | translate }}"
+              [(ngModel)]="searchTextD"
+              (keyup)="handleSearchFilterDoctor($event)"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- <div class="policy col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select placeholder="{{ 'select_range' | translate }}">
+              <mat-option value="option1">{{"select_range" | translate}}1</mat-option>
+              <mat-option value="option2">{{"select_range" | translate}}2</mat-option>
+              <mat-option value="option3">{{"select_range" | translate}}3</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> -->
+      <div class="policy col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <mat-form-field appearance="fill">
+            <mat-select
+              placeholder="{{ 'appointment_status' | translate }}"
+              [(ngModel)]="appointmentStatus"
+              (selectionChange)="selectAppointmentStatus($event)"
+            >
+              <mat-option value="">{{
+                "select_appointment_status" | translate
+              }}</mat-option>
+              <mat-option value="NEW">{{ "new" | translate }}</mat-option>
+              <mat-option value="APPROVED">{{
+                "approved" | translate
+              }}</mat-option>
+              <mat-option value="MISSED">{{ "missed" | translate }}</mat-option>
+              <mat-option value="PAST">{{ "past" | translate }}</mat-option>
+              <mat-option value="REJECTED">{{
+                "rejected" | translate
+              }}</mat-option>
+              <mat-option value="NA">{{ "na" | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy date col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [matDatepicker]="picker"
+              placeholder="{{ 'appointment_start_date_range' | translate }}"
+              [(ngModel)]="appointmentStartDate"
+              (dateChange)="handleSelectStartDateFilter($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="policy date col-sm-6 col-md-4">
+        <div class="form_field_wrapper">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [matDatepicker]="picker1"
+              placeholder="{{ 'appointment_end_date_range' | translate }}"
+              [(ngModel)]="appointmentEndDate"
+              (dateChange)="handleSelectEndDateFilter($event)"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="primary_btn">
+      <button type="button" class="btn btn-link">
+        {{ "clear_all" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <h2>
+      <span>{{ "total_amount" | translate }}:</span> {{totalAmount}} CFA
+    </h2>
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="patientname">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('patientDetails.patientFullName')">
+              {{ "patient_name" | translate }}
+              <span
+              *ngIf="sortColumn === 'patientDetails.patientFullName'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <span class="user_image_wrapper">
+                <img
+                  class="user_image"
+                  src="../../../assets/img/user_profile.svg"
+                />
+              </span> -->
+              <span class="name_user">{{ element.patientname }} </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="doctorname">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('full_name')">
+              {{ "appointment_for" | translate }}
+              <span
+              *ngIf="sortColumn === 'full_name'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.doctorname }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="portaltype">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('portal_type')">
+              {{ "type" | translate }}
+              <span
+              *ngIf="sortColumn === 'portal_type'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.portaltype.replace("_", " ") }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="appointmentdatetime">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('consultationDate')">
+              {{ "appointment_date_time" | translate }}
+              <span
+              *ngIf="sortColumn === 'consultationDate'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.appointmentDate }}|{{ element.appointmentTime }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="payment">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('paymentDetails.doctorFees')">
+              {{ "payment" | translate }}
+              <span
+              *ngIf="sortColumn === 'paymentDetails.doctorFees'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element?.payment?.doctorFees ? element?.payment?.doctorFees : "-" }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentdate">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "payment_date" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.paymentdate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentmode">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('paymentMode')">
+              {{ "payment_mode" | translate }}
+              <span
+              *ngIf="sortColumn === 'paymentMode'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.paymentmode }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="appointmentstatus">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('status')">
+              {{ "appointment_status" | translate }}
+              <span
+              *ngIf="sortColumn === 'status'"
+              class="material-icons sorticon"
+              >{{ sortIconClass }}</span
+            >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.appointmentstatus }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="transactionid">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "transaction_Id" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.payment?.transactionID ? element?.payment?.transactionID : "-" }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div class="text-center" *ngIf="dataSource?.length > 0 ? false : true">
+          <h4>{{ "no_record_found" | translate }}</h4>
+        </div>
+      </div>
+      <mat-paginator
+        class="pagination"
+        [length]="totalCount"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        (page)="handlePageEvent($event)"
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

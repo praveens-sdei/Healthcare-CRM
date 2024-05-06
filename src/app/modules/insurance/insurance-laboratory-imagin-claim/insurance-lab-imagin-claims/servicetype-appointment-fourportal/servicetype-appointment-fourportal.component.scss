@@ -1,0 +1,250 @@
+@import '../../../../../../assets/css/variable/variable';
+
+
+.select21 .select2-selection__rendered {
+    color: red !important;
+    /* Change the color for the first select2 */
+}
+
+.disabled {
+
+    pointer-events: none;
+
+    opacity: 1;
+
+}
+
+.servicetype {
+    .medicinclaim_block {
+        background: #ffffff;
+        border: 1px solid #b6c8d6;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .header_medicin {
+            border-bottom: 1px solid #b6c8d6;
+            background: #ffffff;
+            padding: 20px;
+
+            h2 {
+                margin-bottom: 0;
+                font-weight: 700;
+                font-size: 22px;
+                line-height: 28px;
+                color: #0c2f49;
+            }
+        }
+
+        .sub_content {
+            position: relative;
+
+            .claim_content {
+                padding: 20px;
+
+                .sub_heading {
+                    h3 {
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 22px;
+                        color: #0c2f49;
+                        margin-bottom: 0;
+                    }
+
+                    .primary_btn {
+                        justify-content: flex-start;
+                        margin-top: 30px;
+                    }
+                }
+
+                &.medicine_claim_content {
+                    padding: 0;
+
+                    .medicine_claim_content_inner {
+                        display: flex;
+                        align-items: stretch;
+                        justify-content: space-between;
+                        padding: 20px 20px 10px;
+                        border-bottom: 1px solid #dddddd;
+
+                        .item {
+                            width: auto;
+
+                            .form_field_wrapper {
+                                label {
+                                    font-size: 14px;
+                                }
+
+                                .mat-form-field {
+                                    .mat-form-field-wrapper {
+                                        .mat-form-field-flex {
+                                            .mat-form-field-infix {
+                                                width: 70px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // .select2-container{
+                                //     .select2-selection{
+                                //         height: 55px !important;
+                                //     }
+                                // }
+                            }
+                        }
+
+                        .row_generate {
+                            border-radius: 5px;
+                            height: auto;
+                            margin: 12px 0 12px 20px;
+
+                            .mat-icon {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                min-width: 50px;
+                                width: 50px;
+                                height: 100%;
+                            }
+
+                            &.row_add {
+                                background: #0B4977;
+
+                                .mat-icon {
+                                    color: #ffffff;
+                                }
+                            }
+
+                            &.row_minus {
+                                background: #FDE6E5;
+
+                                .mat-icon {
+                                    color: #F05A4F;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+                }
+
+                &.table_content {
+                    padding: 0;
+
+                    .form_content {
+                        .table-inner {
+                            border-radius: unset;
+
+                            table {
+                                border-width: 1px 0;
+                                border-radius: unset;
+
+                                tr {
+                                    height: 50px;
+
+                                    .mat-header-cell {
+                                        background: transparent;
+                                    }
+
+                                    td {
+                                        .form_field_wrapper {
+                                            .mat-form-field {
+                                                .mat-form-field-wrapper {
+                                                    padding-bottom: 0;
+                                                }
+                                            }
+                                        }
+
+                                        .icon_group {
+                                            .mat-icon {
+                                                height: 50px;
+                                                width: 50px;
+                                                font-size: 26px;
+                                                border: 1px solid rgba(228, 228, 228, 0.9);
+
+                                                &.add {
+                                                    background: #0B4977;
+                                                    color: #ffffff;
+                                                    border-color: #0B4977;
+                                                }
+
+                                                &.remove {
+                                                    background: #ffffff;
+                                                    color: #0B4977;
+                                                }
+                                            }
+                                        }
+
+                                        &:last-child {
+                                            vertical-align: top;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .primary_btn {
+                    justify-content: flex-end;
+                    flex-wrap: wrap;
+
+                    .btn {
+                        margin-top: 15px;
+                    }
+                }
+
+                &.upload_content {
+                    border-bottom: 1px solid #dddddd;
+                }
+            }
+
+        }
+    }
+}
+
+
+// Prescription Details Modal css
+
+.prescription_details {
+    .modal-body {
+        .table-wrap {
+            .table-inner {
+                table {
+                    tr {
+                        .mat-footer-cell {
+                            font-size: 12px;
+                            font-weight: 600;
+                            background: #F6F8FC;
+                            color: #0C2F49;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            position: relative;
+
+                            &::after {}
+
+                            &:last-child {
+                                text-align: left;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .primary_btn {
+            margin-top: 20px;
+        }
+    }
+}
+
+
+
+
+
+@media screen and (max-width:$medium_iphone) {
+    .servicetype .medicinclaim_block .sub_content .claim_content.medicine_claim_content .medicine_claim_content_inner .item {
+        width: 100%;
+    }
+}

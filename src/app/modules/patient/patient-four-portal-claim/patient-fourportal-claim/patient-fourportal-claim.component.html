@@ -1,0 +1,53 @@
+<div class="pharmacy_medicine_claims dashboard_main_content">
+  <div class="pharmacy_medicine_inner">
+    <mat-stepper
+      class="example-stepper"
+      #mainStepper
+      [orientation]="(stepperOrientation | async)!"
+    >
+      <mat-step
+        [stepControl]="firstFormGroup"
+        label="{{ 'common_information' | translate }}"
+      >
+        <div class="step_counter_inner">
+          <app-commoninformation-four-portal
+            [mstepper]="mainStepper"
+          ></app-commoninformation-four-portal>
+        </div>
+      </mat-step>
+
+      <mat-step
+        [stepControl]="secondFormGroup"
+        label="{{ 'service_type' | translate }}"
+      >
+        <div class="step_counter_inner">
+          <app-servicetype-four-portal
+            [mstepper]="mainStepper"
+          ></app-servicetype-four-portal>
+        </div>
+      </mat-step>
+
+      <mat-step
+        [stepControl]="thirdFormGroup"
+        label="{{ 'document_upload' | translate }}"
+      >
+        <div class="step_counter_inner">
+          <app-documentupload-four-portal
+            [mstepper]="mainStepper"
+          ></app-documentupload-four-portal>
+        </div>
+      </mat-step>
+
+      <mat-step
+        [stepControl]="thirdFormGroup"
+        label="{{ 'eSignature' | translate }}"
+      >
+        <div class="step_counter_inner">
+          <app-esignature-four-portal
+            [mstepper]="mainStepper"
+          ></app-esignature-four-portal>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

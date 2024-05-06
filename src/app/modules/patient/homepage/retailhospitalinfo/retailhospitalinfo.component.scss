@@ -1,0 +1,445 @@
+@import '../../../../../assets/css/variable/variable';
+// .back_button {
+//     margin-left: 10%;
+//     margin-top: 10px;
+//   }
+
+// mat radiobtn common css
+.home_wrapper .mat-radio-button.mat-accent.mat-radio-checked{
+    .mat-radio-label{
+        color: $homepage_hovercolor;
+    }
+    .mat-radio-outer-circle{
+        border-color: $homepage_hovercolor;
+    }
+    .mat-radio-inner-circle{
+        background-color: $homepage_hovercolor;
+    }
+    .mat-radio-persistent-ripple{
+        background-color: $homepage_hovercolor;
+    }
+}
+.home_wrapper .mat-radio-button .mat-radio-ripple{
+    display: none;
+}
+.home_wrapper .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.home_wrapper .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.home_wrapper .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple{
+    background-color: $homepage_hovercolor;
+}
+// mat Checkbox common css
+.home_wrapper .mat-checkbox .mat-checkbox-ripple{
+    display: none;
+}
+.home_wrapper .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, 
+.home_wrapper .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element{
+    background: $homepage_hovercolor;
+}
+.home_wrapper .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, 
+.home_wrapper .mat-checkbox-checked.mat-accent .mat-checkbox-background{
+    background: $homepage_hovercolor;
+}
+
+
+.main_section{
+    margin-top: 40px;
+    .main_section_inner{
+        .content_area {
+            position: relative;
+            margin: auto;
+            .bottom_section{
+                .appointment_hospital_details{
+                    margin: 0 0 30px;
+                    .appointment_hospital{
+                        border-style: solid;
+                        border-color: #B6C8D6;
+                        border-width: 1px;
+                        border-radius: 15px;
+                        .medicine_details{
+                            display: flex;
+                            padding: 25px;
+                            .image{
+                                margin: 0 25px 0 0;
+                                cursor: pointer;
+                                img{
+                                    border-radius: 10px;
+                                    width: 133px;
+                                    min-width: 133px;
+                                    height: 133px;
+                                }
+                            }
+                            .medicine_info{
+                                width: 100%;
+                                h2{
+                                    font-weight: 500;
+                                    font-size: 22px;
+                                    line-height: 26px;
+                                    color: $table_color;
+                                    margin: 0 0 8px;
+                                    cursor: pointer;
+                                }
+                                .desc_wrapper{
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-bottom: 22px;
+                                    .desc{
+                                        font-size: $font_medium;
+                                        line-height: 20px;
+                                        font-weight: 600;
+                                    }
+                                    .rating_section{
+                                        text-align: right;
+                                        .ratings-star{
+                                            font-weight: 400;
+                                            font-size: 16px;
+                                            line-height: 19px;
+                                            color: $table_color;
+                                            i{
+                                                color: $star_color;
+                                            }
+                                        }
+                                    }
+                                }
+                                .content_list{
+                                    list-style: none;
+                                    padding: 0;
+                                    margin: 0 -20px 0;
+                                    align-items: center;
+                                    .content_item{
+                                        width: auto;
+                                        margin: 0 0 10px;
+                                        padding: 0 20px;
+                                        .title{
+                                            font-size: $font_small;
+                                            color: $table_color;
+                                        }
+                                        .content_desc{
+                                            font-weight: 600;
+                                            font-size: $font_small;
+                                            line-height: 19px;
+                                            color: $table_color;
+                                            a{
+                                                color: #3DA7C8;
+                                                text-decoration: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                         
+               
+                    }
+                }
+                .hospital_search_section{
+                    .hospital_search_inner{
+                        border: 1px solid #B6C8D6;
+                        border-radius: 15px;
+                        padding: 20px 10px;
+                        .row{
+                            margin: 0;
+                            .search_bar{
+                                .input-group{
+                                    border-radius: 10px;
+                                    border: 1px solid #B6C8D6;
+                                    .form-control{
+                                        border: none;
+                                        background-color: transparent;
+                                        padding: 12px 12px 12px 0;
+                                        &::placeholder{
+                                            font-weight: 400;
+                                            font-size: $font_small;
+                                            line-height: 24px;
+                                        }
+                                        &:focus{
+                                            box-shadow: none;
+                                        }
+                                    }
+                                    .btn{
+                                        padding: 0;
+                                        border: none;
+                                        .mat-icon{
+                                            line-height: 50px;
+                                            height: 50px;
+                                            width: 50px;
+                                            color: #9B9B9B;
+                                            font-size: 24px;
+                                        }
+                                    }
+                                }
+                            }
+                            .content_wrap{
+                                    label{
+                                        color: $bodyopacitylightcolor;
+                                    }
+                                    .form_field_wrapper{
+                                        .mat-form-field{
+                                            .mat-form-field-wrapper{
+                                                padding: 0;
+                                                .mat-form-field-flex{
+                                                    border-radius: 10px;
+                                                    border: 1px solid #B6C8D6;
+                                                    .mat-form-field-infix{
+                                                        .mat-select{
+                                                            .mat-select-arrow-wrapper{
+                                                                transform: translateY(0);
+                                                            }
+                                                            .mat-select-value{
+                                                                color: $formfiled_color;
+                                                                font-weight: 500;
+                                                            }
+                                                        }
+                                                        width: 100%;
+                                                    }
+                                                }
+                                                .mat-form-field-underline{
+                                                    display: none;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    select2 {
+                                        .select2-container {
+                                            // .select2-selection__placeholder {
+                                            //     margin: 0 0 0 0px;
+                                            // }
+                                            .select2-selection__rendered{
+                                                padding-left: 46px;
+                                            }
+                                        }
+                                    }
+                            } 
+                        }
+                        .doctor_list{
+                            margin-top: 25px;
+                            .doctor_list_inner{
+                                .item{
+                                    border: 1px solid #B6C8D6;
+                                    border-radius: 15px;
+                                    padding: 20px;
+                                    margin: 0 0 15px;
+                                    .item_inner{
+                                        display: flex;
+                                        align-items: center;
+                                        cursor: pointer;
+                                        .image{
+                                            width: 70px;
+                                            height: 70px;
+                                            min-width: 70px;
+                                            line-height: 70px;
+                                            border-radius: 50%;
+                                            margin: 0 15px 0 0;
+                                        }   
+                                        .desc{
+                                            h2{
+                                                font-weight: 600;
+                                                color: $table_color;
+                                                margin: 0 0 5px;
+                                                line-height: 20px;
+                                            }
+                                            .info{
+                                                font-size: $font_small;
+                                                font-weight: 500;
+                                                line-height: 20px;
+                                                color: $bodyopacitylightcolor;
+                                            }
+                                        }
+                                    }
+                                    &:last-child{
+                                        margin-bottom: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                    .continue_btn{              
+                        margin: 30px 0;
+                        justify-content: flex-end;
+                    }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .main_section .main_section_inner .content_area .bottom_section .appointment_hospital_details .appointment_hospital .medicine_details .medicine_info .desc_wrapper .rating_section{
+        text-align: left;
+        margin: 15px 0 0;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .main_section .main_section_inner .content_area .bottom_section .hospital_search_section .hospital_search_inner .content_wrap{
+        margin: 15px 0 0;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .main_section .main_section_inner .content_area .bottom_section .appointment_hospital_details .appointment_hospital .medicine_details{
+        flex-direction: column;
+    }
+    .main_section .main_section_inner .content_area .bottom_section .appointment_hospital_details .appointment_hospital .medicine_details .image{
+        margin: 0 0 15px;
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .main_section .main_section_inner .content_area .bottom_section .continue_btn .btn {
+        width: 100%;
+    }
+    .main_section .main_section_inner .content_area .bottom_section .hospital_search_section .hospital_search_inner .doctor_list .doctor_list_inner .item .item_inner .image{
+        margin: 0 0 15px;
+    }
+    .main_section .main_section_inner .content_area .bottom_section .hospital_search_section .hospital_search_inner .doctor_list .doctor_list_inner .item .item_inner .desc h2{
+        font-size: $font_medium;
+    }
+    .main_section .main_section_inner .content_area .bottom_section .hospital_search_section .hospital_search_inner .doctor_list .doctor_list_inner .item .item_inner{
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+
+.main_outer{
+    overflow: hidden;
+   .about_section,.association_grp,.contact_info,.accept_insurance,.reviews_outer{
+    padding: 25px;
+   }
+    .header_section{
+        p{
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 20px;
+            color: #0C2F49;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+    }
+    .content{
+        p{
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 30px;
+            color: #0C2F49;
+        }
+    }
+   
+    hr {
+        margin: 0rem 0;
+    }
+    .list_group_section{
+        ul{
+            padding: 0;
+            margin: 0 -15px;
+            li{
+                list-style: none;
+                display: inline-block;
+                margin: 0 0 15px;
+                padding: 0 15px;
+            img{
+                border-radius: 5px;   
+                width: 205px;
+                height: 187px;
+            }
+
+             p{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 22px;
+                color: #0C2F49;
+             }
+             h2{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 22px;
+                color: #0C2F49;
+
+             }
+             .small_text{
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19px;
+                color: #0C2F49;
+                margin-bottom: 10px;
+             }
+
+            }
+        }
+    }
+    .accept_insurance{
+        .companies{
+            font-weight: 500;
+            font-size: $font_small;
+            line-height: 22px;
+            text-align: center;
+            text-transform: uppercase;
+            background: #FFFFFF;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            min-width: 130px;
+            line-height: 26px;
+            padding: 12px;
+            p{
+                margin: 0;
+                text-transform: uppercase;
+            }
+        }
+        ul{
+            li{
+                margin: 0 0 15px;
+            }
+        }
+    }
+    .our_team{
+        .cat_list_item{
+            padding: 30px;
+            border-bottom: 1px solid #B6C8D6;
+            .cat_title{
+                font-weight: 600;
+                color: $table_color;
+            }
+            .item {
+                margin: 0 0 15px;
+                .item_inner{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    background: #F5F7FB;
+                    border-radius: 15px;
+                    padding: 20px;
+                    .image{
+                        width: 70px;
+                        height: 70px;
+                        min-width: 70px;
+                        line-height: 70px;
+                        border-radius: 50%;
+                        margin: 0 20px 0 0;
+                    }   
+                    .desc{
+                        .title{
+                            font-size: $font_medium;
+                            font-weight: 600;
+                            line-height: 20px;
+                            color: $table_color;
+                            margin: 0 0 5px;
+                        }
+                        .desc{
+                            font-size: $font_small;
+                            font-weight: 500;
+                            color: $bodyopacitylightcolor;
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+
+
+@media screen and(min-width : 1140px) {
+    .res_col{
+        width: 33%;
+    }
+}

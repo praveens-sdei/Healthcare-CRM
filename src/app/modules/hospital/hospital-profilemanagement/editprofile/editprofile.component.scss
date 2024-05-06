@@ -1,0 +1,527 @@
+@import '../../../../../assets/css/variable/variable';
+
+.edit_profile {
+    .create_profile{
+        overflow: hidden;
+        .main_title{
+            color: $black_light_color;
+            margin: 0 0 30px;
+        }
+        .create_profile_inner{
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 30px;
+            .user_image_upload{
+                margin: 0 0 30px;
+                .user_upload_input{
+                    width: 95px;
+                    height: 95px;
+                }
+                .user_upload_block{
+                    margin-left: -95px;
+                    .user_upload_wrapper{
+                        width: 95px;
+                        height: 95px;
+                        line-height: 15px;
+                        border-radius: 10px;
+                        background: transparent;
+                        .user_upload_icon{
+                            img{
+                                width: 95px;
+                                height: 95px;
+                                line-height: 95px;
+                                border-radius: 10px;
+                            }
+                        }
+                    }  
+                    .edit_upload_wrapper{
+                        background: #0B4977;
+                        border: 3px solid #ffffff;
+                        right: -10px;
+                        bottom: -10px;
+                    }
+                    .edit_upload_icon{
+                        color: #ffffff;
+                        width: 24px;
+                    }
+                }  
+            
+            }
+           
+            .form_field_wrapper{
+                label{
+                    color: $bodycolor;
+                    font-weight: 400;
+                }
+                .fieldicon_wrap{
+                    display: flex;
+                    justify-content: space-between;
+                    .mat-icon{
+                        border-radius: 5px;
+                        width: 50px;
+                        height: 50px;
+                        min-width: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        margin-left: 15px;
+                        &.minus{
+                            background: #FDE6E5;
+                            color: #F05A4F;
+                        }
+                        &.plus{
+                            background: #0B4977;
+                            color: #ffffff;  
+                        }
+                    }
+                }
+                .mat-form-field{
+                    width: 100%;
+                    .mat-form-field-wrapper{
+                        // padding-bottom: 25px;
+                        .mat-form-field-flex{
+                            .mat-form-field-infix{
+                                width: 100%;
+                                .mat-input-element {
+                                    color: $bodyopacitycolor;
+                                }
+                            }
+                        }
+                    }
+                } 
+                // .upload_input{
+                //     min-height: 50px;
+                //     margin-bottom: 30px;
+                //     background-color: #ffffff;
+                //     border: 1px solid rgba(228, 228, 228, 0.9);
+                //     font-size: $font_small;
+                //     border-radius: 5px;
+                //     width: 100%;
+                //     position: relative;
+                //     .user_upload_input{
+                //         opacity: 0;
+                //         z-index: 0;
+                //         min-height: 50px;
+                //         width: 100%;
+                //     }
+                //     .upload_input_content{
+                //         display: flex;
+                //         align-items: center;
+                //         justify-content: center;
+                //         position: absolute;
+                //         top: 0;
+                //         bottom: 0;
+                //         left: 0;
+                //         right: 0;
+                //         height: 100%;
+                //         label{
+                //              color: #3DA7C8;
+                //              margin: 0;
+                //         }
+                //     }
+                // }
+                
+            }
+            .healthcare_network{
+                padding: 30px 0 20px 0;
+                margin: -1px 0 0;
+                position: relative;
+                &::before{
+                  content: "";
+                  height: 1px;
+                  background: #B6C8D6;  
+                  position: absolute;
+                  left:-18px;
+                  right: -18px;
+                  top: 0;
+                  bottom: auto;
+                }
+                &::after{
+                    content: "";
+                    height: 1px;
+                    background: #B6C8D6;  
+                    position: absolute;
+                    left:-18px;
+                    right: -18px;
+                    top: auto;
+                    bottom: 0;
+                }
+                h2{
+                    font-size: $font_large;
+                }
+                &.association{
+                    .association_inner{
+                        margin-bottom: 15px;
+                        .item{
+                            width: auto;
+                            .mat-radio-group{
+                                .mat-radio-button{
+                                    margin: 0 20px 0 0;
+                                }
+                            }
+                        }
+                    }
+                    .form_field_wrapper{
+                        .mat-form-field {
+                            .mat-form-field-flex{
+                                .mat-form-field-infix{
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                &.performed_section{
+                    padding-bottom: 15px;
+                    h2{
+                        margin: 0 0 12px;
+                        font-size: 16px;
+                    }
+                    .form_field_wrapper{
+                        .mat-form-field {
+                            .mat-form-field-wrapper{
+                                padding-bottom: 15px;
+                            }
+                        }
+                    } 
+                }
+                &.picture_section{
+                    .image_wrapper {
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin: 0 -15px;
+                        .item{
+                            padding: 0 15px;
+                            margin: 0 0 30px;
+                            .user_image_upload{
+                                margin: 0;
+                                .user_upload_input{
+                                    width: 171px;
+                                    height: 156px;
+                                }
+                                .user_upload_block{
+                                    margin-left: 0;
+                                    position: absolute;
+                                    left: 0;
+                                    .user_upload_wrapper{
+                                        width: 171px;
+                                        height: 156px;
+                                        line-height: 156px;
+                                        border-radius: 10px;
+                                        background: rgba(182, 200, 214, 0.5);
+                                        flex-direction: column;
+                                        .mat-icon{
+                                            color: #728b9d;
+                                            height: 30px;
+                                            width: 30px;
+                                            font-size: 30px;
+                                            label{
+                                                margin: 10px 0 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .boxes_wrapper {
+                        display: flex;
+                        flex-direction: column;
+                        .boxes {
+                            background: #B6C8D6;
+                            opacity: 0.5;
+                            border-radius: 5px;
+                            width: 150px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            .inner_boxes{
+                                text-align: center;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                                p{
+                                margin-bottom: 0;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: #0C2F49;
+                                }
+                            }
+                        }
+                        .preview-img{
+                            //   margin: 0 15px;
+                            img{
+                                height: 110px;
+                                width: 110px;
+                                border-radius: 5px;
+                            }
+                        }
+                        .images-preview {
+                            display: flex;
+                            gap: 12px;
+                            flex-wrap: wrap;
+                            .preview-img {
+                                position: relative;
+                            }
+                        }
+                    }
+                    .add_image {
+                    .mat-form-field .mat-form-field-wrapper .mat-form-field-flex {
+                        border: none;
+                        padding: 0;
+                    }
+                    }
+                    .boxes {
+                        height: auto;
+                        padding: 8px 5px;
+                    }
+                    .user_image_upload {
+                        margin: 0;
+                        width: 100%;
+                        display: flex;
+                        position: relative;
+                        input {
+                            height: auto;
+                            width: 100%;
+                            opacity: 0;
+                            position: absolute;
+                            cursor: pointer;
+                        }
+                        .user_upload_block {
+                            margin: 0;
+                            width: 100%;
+                        }
+                        .user_upload_wrapper {
+                            height: inherit;
+                            width: inherit;
+                            line-height: inherit;
+                            mat-icon {
+                                position: relative;
+                                top: 3px;
+                            }
+                            p {
+                                margin: 0;
+                                line-height: inherit;
+                                label {
+                                    margin: 0;
+                                }
+                            }
+                        }
+                    }
+              }
+                &:last-child{
+                    &::before,&::after{
+                        display: none;
+                    }
+                }
+                &.mobile_paydetails {
+                    .modal-body{
+                        padding: 0;
+                        .paydetail_content {
+                            width: 75%;
+                            margin-bottom: 0;
+                            .modal_content_inner{
+                                width: 100%;
+                            }
+                            .field-wrap-block {
+                                border: 1px solid rgba(228, 228, 228, 0.9);;
+                                border-radius: 5px;
+                                .mat-form-field-wrapper {
+                                    padding-bottom: 0;
+                                }
+                                .mat-select {
+                                    display: inline-flex;
+                                    align-items: center;
+                                    width: 100px;
+                                    padding: 0 10px;
+                                    background-color: rgba(0,0,0,.04);
+                                }
+                                .mat-form-field {
+                                    width: calc(100% - 80px);
+                                    .mat-form-field-flex {
+                                        border: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &::after{
+                        display: none;
+                    }
+                } 
+            }
+            .btn_wrap{
+                justify-content: center;
+                margin: 30px 0 0;
+               .btn-secondary{
+                    margin-left: 15px;
+                }
+            }
+    
+    
+        }
+        .upload_text{
+            display: flex;
+            justify-content: center;
+        }
+        .boxes {
+            background: #B6C8D6;
+            opacity: 0.5;
+            border-radius: 5px;
+            height: 110px;
+            width: 110px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            .inner_boxes{
+                text-align: center;
+               p{
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 17px;
+                color: #0C2F49;
+               }
+            }
+        }
+    }
+    .primary_btn{
+        justify-content: flex-end;
+        margin-top: 30px;
+    }
+}
+
+.form_field_wrapper{
+    .mat-form-field{
+        .mat-form-field-wrapper{
+            .mat-form-field-subscript-wrapper{
+                .error-block{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+// .mat-error {
+//     position: relative;
+//     top: -25px;
+// }
+
+.quick_view
+{
+  position: absolute;
+//   margin-left: 84px;
+  top: 5px;
+  right: -5px;
+  z-index: 1;
+  background: #0B4977;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-top: -12px;
+  color: white;
+  .material-icons {
+    font-size: 18px;
+    position: relative;
+    top: 3.5px;
+    left: 0.5px;
+  }
+}
+.create_profile {
+    .create_profile_inner {
+        .healthcare_network {
+            .association_field {
+                padding-bottom: 30px;
+                margin-top: 15px;
+                .row {
+                    margin: 0 -25px;
+                    .association_item {
+                        padding: 0 25px;
+                        margin: 0 0 15px;
+                        .form_field_wrapper {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            .row_add {
+                                background: #0B4977;
+                                .mat-icon {
+                                    color: #ffffff;
+                                    height: 50px;
+                                    width: 50px;
+                                    line-height: 50px;
+                                    text-align: center;
+                                }
+                            }
+                            .row_minus {
+                                background: #FDE6E5;
+                                .mat-icon {
+                                    color: #F05A4F;
+                                    height: 50px;
+                                    width: 50px;
+                                    line-height: 50px;
+                                    text-align: center;
+                                }
+                            }
+                            .row_generate {
+                                margin: 0 0 0 10px;
+                                border-radius: 5.1416px;
+                            }
+                            select2 {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.select2-selection {
+    margin: 0 !important;
+}
+.mobile_paydetails {
+    .modal-body {
+        .modal_content .modal_content_inner {
+            margin: 0 -7px;
+            padding: 20px;
+            width: 100%;
+        }
+        .paydetail_content {
+            width: 75%;
+            margin-bottom: 0;
+            .field-wrap-block {
+                border: 1px solid rgba(228, 228, 228, 0.9);
+                border-radius: 5px;
+                .mat-form-field {
+                    width: calc(100% - 80px);
+                    .mat-form-field-flex {
+                        border: none;
+                        .mat-form-field-infix {
+                            width: 115px;
+                        }
+                    }
+                    .mat-form-field-wrapper {
+                        padding-bottom: 0 !important;
+                    }
+                }
+                .mat-select {
+                    display: inline-flex;
+                    align-items: center;
+                    width: 100px;
+                    padding: 0 10px;
+                    background-color: rgba(0, 0, 0, 0.04);
+                }
+            }
+        }
+    }
+}
+.cross_icon_block {
+    .quick_view .material-icons {
+        font-size: 18px;
+        position: relative;
+        top: 3.5px;
+        left: 3.5px;
+    }
+}

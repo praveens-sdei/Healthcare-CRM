@@ -1,0 +1,215 @@
+@import "../../../../../assets/css/variable/variable";
+
+.pharmacy_medicine_claims {
+    mat-stepper {
+        background-color: transparent;
+        .mat-horizontal-stepper-header-container {
+            padding: 15px;
+            margin: 0 0 15px;
+            .mat-step-header {
+                flex-direction: column;
+                padding: 0 10px;
+                width: 165px;
+                height: 100px;
+                overflow: visible;
+                box-sizing: border-box;
+                &:hover,
+                &:focus {
+                    background: transparent;
+                }
+                .mat-step-icon {
+                    height: 45px;
+                    width: 45px;
+                    line-height: 18px;
+                    margin: 0 0 13px;
+                    background-color: #ffffff;
+                    border: 5px solid #F2F7FA;
+                    position: relative;
+                    &::after{
+                        content: "";
+                        display: block;
+                        border: 8px solid #F2F7FA;
+                        border-radius: 50%;
+                        position: absolute;
+                        left: -12px;
+                        right: -12px;
+                        top: -12px;
+                        bottom: -12px;
+                    }
+                    .mat-step-icon-content {
+                        font-size: 12px;
+                        font-weight: 600;
+                        background-color: #ffffff;
+                        color: #26323C;
+                    }
+                    &.mat-step-icon-selected {
+                        background-color: #ffffff;
+                        border-color: #3DA7C8;
+                        border-width: 5px;
+                    }
+                }
+                .mat-step-label {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: rgba(38, 50, 60, 0.75);
+                    white-space: normal;
+                    text-align: center;
+                    &.mat-step-label-selected{
+                        color: $table_color;       
+                        font-weight: 600;
+                    }
+                }
+            }
+            .mat-stepper-horizontal-line {
+                border-color: #F2F7FA;
+                border-top-width: 7px;
+                margin: -55px -85px 0;
+            }
+        }
+        .mat-horizontal-content-container {
+            padding: 0;
+            .btn-wrapper {
+                margin-bottom: 15px;
+                text-align: right;
+                .add_more {
+                    font-size: $font_small;
+                    font-weight: 400;
+                    line-height: 22px;
+                    border-radius: 10px;
+                    padding: 12px 22px;
+                }
+            }
+            .form-btn {
+                .stepbtn {
+                    font-size: 18px;
+                    padding: 12px 20px;
+                    border-radius: 15px;
+                }
+            }
+            .mat-horizontal-stepper-content {
+                .medication_first {
+                    padding: 0;
+                    .medication_first_inner {
+                        padding: 0 15px;
+                    }
+                }
+            }
+            .white-card {
+                table {
+                    tr {
+                        height: 48px;
+                    }
+                }
+                .add_more {
+                    font-size: 14px;
+                    min-width: 200px;
+                    padding: 15px 22px;
+                    margin: 25px 0 0;
+                }
+            }
+        }
+    }
+    .mat-step-header {
+        pointer-events: none;
+      }
+      .medicinclaim_block{
+        .mat-step-header[tabindex="-1"] {
+            display: none;
+        }
+        
+        .mat-step-header[tabindex="0"] {
+            display: flex;
+        }
+      }
+      
+    .mat-stepper-vertical{
+        .mat-step{
+            .mat-step-header{
+                padding-left: 10px;
+                padding-right: 10px;
+                &:hover,
+                &:focus {
+                        background: transparent;
+                        &:not([aria-disabled]){
+                            background-color: transparent;  
+                        }
+                    }
+                    .mat-step-icon {
+                        height: 30px;
+                        width: 30px;
+                        background-color: #ffffff;
+                        border: 2px solid rgba(55, 103, 177, 0.5);
+                        .mat-step-icon-content {
+                            font-size: 0;
+                            background-color: #ffffff;
+                        }
+                        &.mat-step-icon-selected {
+                            background-color: #ffffff; 
+                            border-color: #3DA7C8;
+                            border-width: 3px;
+
+                        }
+                    }
+                    .mat-step-label {
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 16px;
+                        color: #0C2F49;
+                        white-space: normal;
+                    }
+            }
+            .mat-vertical-content-container{
+                margin-left: 25px;
+                .mat-vertical-content{
+                    padding: 0 0 20px 20px;
+                    .btn-wrapper {
+                        margin-bottom: 15px;
+                        text-align: right;
+                        .add_more {
+                            font-size: $font_small;
+                            font-weight: 400;
+                            line-height: 22px;
+                            border-radius: 10px;
+                            padding: 12px 22px;
+                        }
+                    }
+                    .form-btn {
+                        .stepbtn{
+                            font-size: 18px;
+                            padding: 12px 20px;
+                            border-radius: 15px;
+                        }
+                    }
+                    .white-card {
+                        table {
+                            tr {
+                                height: 48px;
+                            }
+                        }
+                        .add_more {
+                            font-size: 14px;
+                            min-width: 200px;
+                            padding: 15px 22px;
+                            margin: 25px 0 0;
+                        }
+                    }
+                }
+            }
+            .mat-stepper-vertical-line{
+                &::before{
+                    border-color: #3DA7C8;
+                    border-width: 2px;
+                    top: -22px;
+                    bottom: -22px;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+

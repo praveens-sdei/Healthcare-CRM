@@ -1,0 +1,905 @@
+<div class="view_profile dashboard_main_content">
+  <div class="top_bar">
+    <div
+      class="primary_btn"
+      *ngIf="profileDetails?.for_portal_user?.role != 'INDIVIDUAL_DOCTOR'"
+    >
+      <button
+        type="button"
+        class="btn btn-primary"
+        [routerLink]="['/hospital/managedoctor/edit', doctorId]"
+      >
+        {{ "edit" | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <div class="profile_data">
+      <div class="profile_info profile_item">
+        <div class="profile_top">
+          <div class="user_image_upload">
+            <input
+              class="ng-hide user_upload_input"
+              id="input-file-id"
+              multiple
+              type="file"
+            />
+            <div class="user_upload_block">
+              <span class="user_upload_wrapper">
+                <span class="user_upload_icon"
+                  ><img
+                    src="{{
+                      profileImage
+                        ? profileImage
+                        : 'assets/img/hospital_create_profile.png'
+                    }}"
+                /></span>
+              </span>
+              <!-- <span class="edit_upload_wrapper">
+                <span class="edit_upload_icon"
+                  ><img src="../../../assets/img/edit_profile.svg"
+                /></span>
+              </span> -->
+            </div>
+          </div>
+          <div class="user_info">
+            <div class="user_title">{{ profileDetails?.full_name }}</div>
+            <div class="user_email">
+              {{ profileDetails?.for_portal_user?.email }}
+            </div>
+          </div>
+        </div>
+        <ul class="profile_contact_inner row">
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "phone_number" | translate }}</label>
+            <div class="value">
+             (  {{ profileDetails?.for_portal_user?.country_code }}) {{ profileDetails?.for_portal_user?.mobile }}
+            </div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "date_of_birth" | translate }}</label>
+            <div class="value">
+              {{ profileDetails?.dob | date : "dd/MM/YYYY" }}
+            </div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "gender" | translate }}</label>
+            <div class="value">{{ profileDetails?.gender }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "date_of_joined" | translate }}*</label>
+            <div class="value">
+              {{ profileDetails?.createdAt | date : "dd/MM/YYYY" }}
+            </div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "address" | translate }}</label>
+            <div class="value">{{ profileDetails?.in_location?.address }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "neighbourhood" | translate }}</label>
+            <div class="value">
+              {{ profileDetails?.in_location?.neighborhood }}
+            </div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "country" | translate }}*</label>
+            <div class="value">{{ country }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "region" | translate }}</label>
+            <div class="value">{{ region }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "province" | translate }}</label>
+            <div class="value">{{ province }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "department" | translate }}</label>
+            <div class="value">{{ department }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "city" | translate }}</label>
+            <div class="value">{{ city }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "village" | translate }}</label>
+            <div class="value">{{ village }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "pincode" | translate }}</label>
+            <div class="value">{{ profileDetails?.in_location?.pincode }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "designation" | translate }}</label>
+            <div class="value">{{ designation }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "title" | translate }}</label>
+            <div class="value">{{ title }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "team" | translate }}</label>
+            <div class="value">{{ team }}</div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "years_of_experience" | translate }}*</label>
+            <div class="value">
+              {{ profileDetails?.years_of_experience + " Years" }}
+            </div>
+          </li>
+          <li class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <label>{{ "language" | translate }}</label>
+            <div class="value">{{ profileDetails?.spoken_language }}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="about_doctor profile_item">
+        <label>{{ "about_doctor" | translate }}</label>
+        <p>{{ profileDetails?.about }}</p>
+      </div>
+      <div class="about_doctor profile_item">
+        <div class="item">
+          <label>{{ "appointment_accepted" | translate }}</label>
+          <div
+            class="value"
+            *ngIf="profileDetails?.appointment_accepted?.online"
+          >
+            {{ "online_consulation" | translate }}
+          </div>
+          <div
+            class="value"
+            *ngIf="profileDetails?.appointment_accepted?.homevisit"
+          >
+            {{ "home_visit" | translate }}
+          </div>
+          <div
+            class="value"
+            *ngIf="profileDetails?.appointment_accepted?.hospitalvisit"
+          >
+            {{ "hospital_visit" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="profile_item">
+        <ul class="profile_info_inner">
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "specialty" | translate }}</label>
+              <div class="user_value"  *ngFor="let data of profileDetails?.speciality">
+                {{
+                  data?.specilization
+                    ? data?.specilization
+                    : "-"
+                }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "services" | translate }}</label>
+              <div class="user_value">
+                {{ profileDetails?.services?.service }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "department" | translate }}</label>
+              <div class="user_value">
+                {{ profileDetails?.department?.department }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "unit" | translate }}</label>
+              <div class="user_value">{{ profileDetails?.unit?.unit }}</div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "expertise" | translate }}</label>
+              <div class="user_value">
+                {{ profileDetails?.expertise?.expertise }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="profile_item medical_act">
+        <ng-container *ngIf="updatedPathologyTests.length > 0">
+          <ul class="profile_info_inner">
+            <li class="col_item" *ngFor="let test of updatedPathologyTests">
+              <div class="profile_contact">
+                <label>{{ test.typeOfTest }}</label>
+                <div
+                  class="user_value"
+                  *ngFor="let testName of test.nameOfTests"
+                >
+                  {{ testName }}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="updatedPathologyTests.length === 0">
+          <h3>{{ "no_tests_available" | translate }}</h3>
+        </ng-container>
+
+        <!-- <ul class="profile_info_inner">
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>Medical act Performed</label>
+              <div class="user_value">
+                {{ profileDetails?.medical_act_performed }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>Lab Test</label>
+              <div class="user_value">
+                {{ profileDetails?.lab_test_performed }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>Imaging</label>
+              <div class="user_value">
+                {{ profileDetails?.imaging_performed }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>Vaccination</label>
+              <div class="user_value">
+                {{ profileDetails?.vaccination_performed }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>Other Test</label>
+              <div class="user_value">{{ profileDetails?.other_test }}</div>
+            </div>
+          </li>
+        </ul> -->
+      </div>
+      <div class="profile_item medical_act mobile_pay_details">
+        <label class="mobile_label"
+          >{{ "mobile_pay_details" | translate }}
+        </label>
+        <ul
+          class="profile_info_inner"
+          *ngFor="let data of profileDetails?.in_mobile_pay?.mobilePay"
+        >
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "name_of_mobile_provider" | translate }}</label>
+              <div class="user_value">{{ data?.provider ? data?.provider : "-" }}</div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <label>{{ "mobile_pay_number" | translate }}</label>
+              <div class="user_value">{{ data?.pay_number ? data?.pay_number : "-" }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subscribe_detail_inner availability mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "availability" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="text-center" *ngIf="availabilityArray.length === 0">
+              <b>{{ "no_availabilities_present" | translate }}</b>
+            </div>
+            <div class="expansion_panel_inner">
+              <div class="right_part">
+                <div class="item me-3">
+                  <label>{{ "location" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select [(value)]="selectedLocation">
+                        <mat-option
+                          *ngFor="let loc of inHospitalLocations"
+                          [value]="loc?.hospital_id"
+                          >{{ loc?.hospital_name }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="item">
+                  <label>{{ "availability" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select
+                        [(value)]="selected"
+                        (selectionChange)="handleSelectAvailabilty($event)"
+                      >
+                        <mat-option value="ONLINE">{{
+                          "online" | translate
+                        }}</mat-option>
+                        <mat-option value="HOME_VISIT">{{
+                          "home_visit" | translate
+                        }}</mat-option>
+                        <mat-option value="FACE_TO_FACE">{{
+                          "clinic" | translate
+                        }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="availabilityArray.length != 0">
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "sunday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let sun of availability?.Sun"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(sun?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(sun?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "monday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let mon of availability?.Mon"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(mon?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(mon?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "tuesday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let Tue of availability?.Tue"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(Tue?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(Tue?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "wednsday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let Wed of availability?.Wed"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(Wed?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(Wed?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "thursday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let thu of availability?.Thu"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(thu?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(thu?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "friday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let fri of availability?.Fri"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(fri?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(fri?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="day">
+                    <div class="top_section section">
+                      <div class="title">{{ "saturday" | translate }}</div>
+                    </div>
+                    <div
+                      class="bottom_section section"
+                      *ngFor="let sat of availability?.Sat"
+                    >
+                      <div class="time">
+                        {{ "start_time" | translate }} :
+                        {{ returnWithAmPm(sat?.start_time) }}
+                      </div>
+                      <div class="time">
+                        {{ "end_time" | translate }} :
+                        {{ returnWithAmPm(sat?.end_time) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner fee_management mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "Fee Management" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="right_part">
+                <div class="item me-3">
+                  <label>{{ "location" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select [(value)]="selectedLocation">
+                        <mat-option
+                          *ngFor="let loc of inHospitalLocations"
+                          [value]="loc?.hospital_id"
+                          >{{ loc?.hospital_name }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="item">
+                  <label>{{ "consulation" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select
+                        [(value)]="selected"
+                        (selectionChange)="handleSelectConsulation($event.value)"
+                      >
+                        <mat-option value="online">{{
+                          "online" | translate
+                        }}</mat-option>
+                        <mat-option value="home_visit">{{
+                          "home_visit" | translate
+                        }}</mat-option>
+                        <mat-option value="f2f">{{
+                          "f2f" | translate
+                        }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "consultation_fee" | translate }}</p>
+                      <p>
+                        $
+                        {{
+                          selectedData?.basic_fee
+                            ? selectedData?.basic_fee
+                            : "-"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div
+                        class="item"
+                        *ngIf="
+                          selectedData?.travel_fee !== undefined &&
+                          selectedData?.travel_fee !== ''
+                        "
+                      >
+                  <div class="outer_detail_block">
+                  <div class="detail_section">
+                    <p>{{ "travel_fee" | translate }}</p>
+                    <p>
+                      $
+                      {{
+                        selectedData?.travel_fee
+                          ? selectedData?.travel_fee
+                          : "-"
+                      }}
+                    </p>
+                  </div>
+                </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner document mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ "document" | translate }} </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div
+                class="row"
+                *ngFor="
+                  let doc of profileDetails?.in_document_management
+                    ?.document_details
+                "
+              >
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <div class="doc_img">
+                        <img src="{{ doc.image_url }}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "document_name" | translate }}</p>
+                      <p>{{ doc?.doc_name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "issue_date" | translate }}</p>
+                      <p>{{ doc?.issue_date | date : "dd/MM/YYYY" }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "expiration_date" | translate }}</p>
+                      <p>{{ doc?.expiration_date | date : "dd/MM/YYYY" }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner document mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ "license" | translate }} </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <div class="doc_img">
+                        <img
+                          src="{{ profileDetails?.license_details?.image_url }}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "license_number" | translate }}</p>
+                      <p>
+                        {{ profileDetails?.license_details?.license_number }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "date" | translate }}</p>
+                      <p>
+                        {{
+                          profileDetails?.license_details?.license_expiry_date
+                            | date : "dd/MM/YYYY"
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner document bank_details mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "bank_details" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <div class="item">
+                  <div class="outer_detail_block user_img_wrap">
+                    <div class="user_img">
+                      <img src="../../../../../assets/img/bank_img.png" />
+                    </div>
+                    <div class="detail_section">
+                      <p>{{ "bank_name" | translate }}</p>
+                      <p>{{ profileDetails?.in_bank?.bank_name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "account_holder_name" | translate }}</p>
+                      <p>{{ profileDetails?.in_bank?.account_holder_name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "account_number" | translate }}</p>
+                      <p>{{ profileDetails?.in_bank?.account_number }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "ifsc" | translate }}</p>
+                      <p>{{ profileDetails?.in_bank?.ifsc_code }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "bank_address" | translate }}</p>
+                      <p>{{ profileDetails?.in_bank?.bank_address }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner document mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ "assign_staff" | translate }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div
+                class="row"
+                *ngFor="let staff of profileDetails?.assign_staff"
+              >
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "name" | translate }}</p>
+                      <p>{{ staff?.full_name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "staff_role" | translate }}</p>
+                      <p>{{ staff?.role }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "email" | translate }}</p>
+                      <p>{{ staff?.email }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "phone_number" | translate }}</p>
+                      <p>{{ staff?.mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <!-- 
+    <div class="subscribe_detail_inner document mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Assign Doctor </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div
+                class="row"
+                *ngFor="let doctor of profileDetails?.assign_doctor"
+              >
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Name</p>
+                      <p>{{ doctor?.full_name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Staff Role</p>
+                      <p>{{ doctor?.role }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Email</p>
+                      <p>{{ doctor?.email }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Phone Number</p>
+                      <p>{{ doctor?.mobile }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div> -->
+
+    <!-- <div class="subscribe_detail_inner document mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Manage Permissions </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Name</p>
+                      <p>Kathryn Murphy</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Staff Role</p>
+                      <p>Doctor</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Email</p>
+                      <p>deanna.curtis@example.com</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>Phone Number</p>
+                      <p>(208) 555-0112</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div> -->
+  </div>
+</div>

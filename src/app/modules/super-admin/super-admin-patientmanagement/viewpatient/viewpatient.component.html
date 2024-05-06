@@ -1,0 +1,588 @@
+<div class="view_patient dashboard_main_content">
+  <div class="top_bar">
+    <div class="left_part">
+      <div class="search_bar common_content">
+        <div class="input-group">
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input
+            type="search"
+            class="form-control"
+            placeholder="{{ 'search' | translate }}"
+            aria-label="Search"
+            [ngModel]="searchText"
+            #text
+            (keyup)="handleSearchFilter(text.value)"
+            (search)="handleSearchFilter(text.value)"
+          />
+        </div>
+      </div>
+      <div class="content_wrap">
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker"
+                placeholder="{{ 'start_date' | translate }}"
+                (dateChange)="handleSelectStartDateFilter($event)"
+                [(ngModel)]="startDateFilter"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker1"
+                placeholder="{{ 'end_date' | translate }}"
+                (dateChange)="handleSelectEndDateFilter($event)"
+                [(ngModel)]="endDateFilter"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="policy">
+          <!-- <label>Select Role:</label> -->
+          <div class="form_field_wrapper">
+            <mat-form-field class="inner_label" appearance="fill">
+              <mat-label>{{ "active_inactive" | translate }}</mat-label>
+              <mat-select
+                (valueChange)="handleFilter($event)"
+                [(ngModel)]="statusValue"
+              >
+                <mat-option value="true">{{ "active" | translate }}</mat-option>
+                <mat-option value="false">{{
+                  "in_active" | translate
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-link" (click)="clearAll()">
+          {{ "clear_all" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <div class="primary_btn">
+      <ng-container *ngIf="giveInnerPermission('all_request')">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="activebutton == '' ? 'active' : ''"
+        (click)="allPatients('')"
+      >
+        <a class="btn_svg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="25"
+            viewBox="0 0 23 25"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.8267 0.0366651C13.3167 0.164095 12.9255 0.472794 12.7041 0.922558C12.5529 1.22969 12.5283 1.35333 12.455 2.17759C12.4103 2.68044 12.3639 3.12236 12.352 3.15953C12.3354 3.21148 11.9863 3.22717 10.8485 3.22717H9.36665L9.22704 3.35655C9.15026 3.42776 9.07093 3.57369 9.05086 3.68088C9.00368 3.93217 9.14052 4.54113 9.33505 4.94582C9.63303 5.56565 10.3773 6.12364 11.085 6.25783C11.2495 6.28905 12.5703 6.31145 14.2428 6.31145C16.8631 6.31145 17.1497 6.30269 17.4752 6.21243C17.9236 6.08809 18.2846 5.87814 18.6105 5.55223C18.8988 5.26404 19.0517 4.99192 19.197 4.50899C19.4071 3.81042 19.4007 3.60605 19.161 3.36639L19.0218 3.22717H17.5233H16.0248L15.9421 2.2613C15.8486 1.16876 15.7555 0.878134 15.378 0.500714C14.9892 0.111932 14.3231 -0.0873015 13.8267 0.0366651ZM14.4964 0.984244C15.1281 1.31091 14.8957 2.25784 14.1854 2.25129C13.9285 2.24891 13.759 2.15876 13.6226 1.95195C13.4191 1.6432 13.5116 1.24327 13.8372 1.0238C14.0509 0.879865 14.2692 0.866717 14.4964 0.984244ZM7.12849 4.11279C6.56033 4.26603 6.0966 4.68209 5.87253 5.2398C5.7708 5.49304 5.75479 5.65921 5.73661 6.64964C5.71713 7.71101 5.72146 7.77238 5.81544 7.77129C5.8701 7.77064 6.19487 7.63061 6.53711 7.46016L7.15938 7.15016L7.18806 6.47378C7.20381 6.10178 7.23757 5.75293 7.26306 5.69855C7.33887 5.53692 7.53334 5.4998 8.30371 5.4998C8.70602 5.4998 9.02711 5.48124 9.01715 5.45857C9.00725 5.43584 8.93171 5.28249 8.84935 5.11778C8.76694 4.95307 8.6584 4.64291 8.60808 4.42858L8.51663 4.03882L7.9462 4.04245C7.63252 4.0445 7.26452 4.07616 7.12849 4.11279ZM19.7461 4.46196C19.677 4.70119 19.5622 5.02282 19.4908 5.17671C19.4196 5.33054 19.3612 5.4662 19.3612 5.4781C19.3612 5.49006 19.7276 5.4998 20.1753 5.4998C20.9676 5.4998 20.993 5.50337 21.1223 5.63264L21.2551 5.76543L21.2543 14.0333C21.254 18.5805 21.2401 22.3516 21.2234 22.4134C21.2068 22.4752 21.1243 22.5665 21.04 22.6163C20.9 22.699 20.4957 22.7069 16.3674 22.7069H11.848L11.4756 23.0563C11.028 23.4761 10.3185 24.0596 10.2555 24.0596C10.2306 24.0596 10.2253 24.084 10.2437 24.1137C10.292 24.1919 20.7497 24.1874 21.1775 24.109C21.8023 23.9946 22.2691 23.6294 22.5464 23.038L22.689 22.7339V14.1033V5.47274L22.5464 5.16864C22.3463 4.74182 22.0596 4.44746 21.6453 4.24352C21.3095 4.07821 21.2499 4.06723 20.5807 4.0477L19.8718 4.02697L19.7461 4.46196ZM7.65054 7.4205C6.42906 8.28891 3.95486 9.04104 0.963757 9.45309C0.502467 9.51662 0.109086 9.59443 0.0895518 9.62598C0.0235373 9.73252 -0.0246207 11.1432 0.0134729 11.8545C0.241277 16.1089 1.7062 19.6137 4.36984 22.2767C4.77317 22.68 5.28581 23.1547 5.50902 23.3316C5.73222 23.5086 5.92702 23.6666 5.9419 23.6828C5.95678 23.699 6.26115 23.9079 6.61828 24.1472C7.34352 24.633 7.84171 24.9254 7.94409 24.9254C7.98153 24.9254 8.30279 24.749 8.65797 24.5335C12.6693 22.0995 15.0596 18.3552 15.7137 13.4811C15.8162 12.717 15.8538 10.437 15.7731 9.8738L15.7292 9.56732L15.4485 9.53172C12.995 9.2208 11.2145 8.81221 9.7379 8.22144C9.11114 7.97064 8.37941 7.59186 8.07888 7.36265L7.91146 7.23495L7.65054 7.4205ZM12.5563 8.50687C12.6199 8.57039 14.1953 8.85377 15.0865 8.96194C15.8472 9.0543 19.7998 9.01643 19.9212 8.91567C20.0574 8.80247 20.0329 8.61163 19.8727 8.53868C19.7725 8.49302 18.7504 8.47586 16.1301 8.47586C14.1475 8.47586 12.5393 8.48982 12.5563 8.50687ZM9.16146 9.55877C10.5282 10.1045 11.8162 10.4373 13.9989 10.8088L14.3992 10.8769L14.3663 11.8273C14.2849 14.173 13.7894 16.1752 12.8096 18.1161C12.0182 19.6838 10.5802 21.3687 9.08095 22.4848C8.14938 23.1784 7.98294 23.2719 7.8251 23.1907C7.66369 23.1077 6.85783 22.5313 6.51006 22.2503C4.16438 20.3543 2.6027 17.839 1.88861 14.8068C1.62444 13.6849 1.45226 12.3078 1.45124 11.308L1.45075 10.8665L1.84305 10.8027C4.21746 10.4167 6.14319 9.86753 7.47847 9.19564L7.90291 8.98212L8.2075 9.14077C8.37508 9.22805 8.80433 9.41614 9.16146 9.55877ZM16.297 10.0045C16.3149 10.0715 16.3299 10.181 16.3303 10.248L16.3311 10.3697H18.0662C19.1587 10.3697 19.84 10.349 19.9059 10.3137C19.9653 10.2819 20.0106 10.2008 20.0106 10.1262C20.0106 10.0516 19.9653 9.97055 19.9059 9.93873C19.8399 9.9034 19.1484 9.88273 18.0328 9.88273H16.2644L16.297 10.0045ZM6.86178 12.8047V13.9951H5.67135H4.48092V15.0503V16.1054H5.67135H6.86178V17.2936V18.4817L7.89452 18.4975C8.46252 18.5062 8.93734 18.5032 8.94967 18.4908C8.96196 18.4784 8.97208 17.9366 8.97208 17.2868V16.1054H10.1535C10.8033 16.1054 11.345 16.0953 11.3574 16.083C11.3699 16.0707 11.3729 15.5959 11.3642 15.0279L11.3484 13.9951H10.1602H8.97208V12.8047V11.6143H7.91693H6.86178V12.8047ZM16.2066 13.6274C16.1898 13.7526 16.188 13.8743 16.2027 13.898C16.2497 13.9741 19.6943 13.9488 19.8482 13.8712C20.0289 13.7801 20.0505 13.5963 19.8934 13.4863C19.7866 13.4115 19.5337 13.3999 18.0036 13.3999H16.2371L16.2066 13.6274ZM15.9861 14.9759C15.9675 15.0689 15.9523 15.1784 15.9523 15.2194C15.9523 15.2811 16.2799 15.2938 17.8768 15.2938C19.0999 15.2938 19.8394 15.2734 19.9059 15.2378C19.9653 15.2059 20.0106 15.1249 20.0106 15.0503C20.0106 14.9756 19.9653 14.8946 19.9059 14.8628C19.8395 14.8272 19.1104 14.8068 17.9106 14.8068H16.0199L15.9861 14.9759ZM14.7993 18.5315C14.749 18.6457 14.7078 18.7674 14.7078 18.802C14.7078 18.8929 19.676 18.8919 19.8754 18.801C19.9816 18.7526 20.0119 18.7035 19.9997 18.5994C19.9684 18.3328 19.898 18.3256 17.3019 18.3247L14.8909 18.3239L14.7993 18.5315ZM14.0386 19.9461C13.9602 20.0645 13.8961 20.1741 13.8961 20.1896C13.8961 20.2051 15.2426 20.2178 16.8884 20.2178C19.1436 20.2178 19.8967 20.2018 19.9456 20.1529C20.045 20.0535 20.0229 19.8494 19.9059 19.7868C19.8376 19.7503 18.8247 19.7308 16.9912 19.7308H14.1811L14.0386 19.9461Z"
+            /></svg></a
+        >{{ "all_patients" | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="giveInnerPermission('uninsured_patient_request')">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="allPatients('true')"
+        [ngClass]="activebutton == 'true' ? 'active' : ''"
+      >
+        <a class="btn_svg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="25"
+            viewBox="0 0 23 25"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.8267 0.0366651C13.3167 0.164095 12.9255 0.472794 12.7041 0.922558C12.5529 1.22969 12.5283 1.35333 12.455 2.17759C12.4103 2.68044 12.3639 3.12236 12.352 3.15953C12.3354 3.21148 11.9863 3.22717 10.8485 3.22717H9.36665L9.22704 3.35655C9.15026 3.42776 9.07093 3.57369 9.05086 3.68088C9.00368 3.93217 9.14052 4.54113 9.33505 4.94582C9.63303 5.56565 10.3773 6.12364 11.085 6.25783C11.2495 6.28905 12.5703 6.31145 14.2428 6.31145C16.8631 6.31145 17.1497 6.30269 17.4752 6.21243C17.9236 6.08809 18.2846 5.87814 18.6105 5.55223C18.8988 5.26404 19.0517 4.99192 19.197 4.50899C19.4071 3.81042 19.4007 3.60605 19.161 3.36639L19.0218 3.22717H17.5233H16.0248L15.9421 2.2613C15.8486 1.16876 15.7555 0.878134 15.378 0.500714C14.9892 0.111932 14.3231 -0.0873015 13.8267 0.0366651ZM14.4964 0.984244C15.1281 1.31091 14.8957 2.25784 14.1854 2.25129C13.9285 2.24891 13.759 2.15876 13.6226 1.95195C13.4191 1.6432 13.5116 1.24327 13.8372 1.0238C14.0509 0.879865 14.2692 0.866717 14.4964 0.984244ZM7.12849 4.11279C6.56033 4.26603 6.0966 4.68209 5.87253 5.2398C5.7708 5.49304 5.75479 5.65921 5.73661 6.64964C5.71713 7.71101 5.72146 7.77238 5.81544 7.77129C5.8701 7.77064 6.19487 7.63061 6.53711 7.46016L7.15938 7.15016L7.18806 6.47378C7.20381 6.10178 7.23757 5.75293 7.26306 5.69855C7.33887 5.53692 7.53334 5.4998 8.30371 5.4998C8.70601 5.4998 9.02711 5.48124 9.01715 5.45857C9.00725 5.43584 8.93171 5.28249 8.84935 5.11778C8.76694 4.95307 8.6584 4.64291 8.60808 4.42858L8.51663 4.03882L7.9462 4.04245C7.63252 4.0445 7.26452 4.07616 7.12849 4.11279ZM19.7461 4.46196C19.677 4.70119 19.5622 5.02282 19.4908 5.17671C19.4196 5.33054 19.3612 5.4662 19.3612 5.4781C19.3612 5.49006 19.7276 5.4998 20.1753 5.4998C20.9676 5.4998 20.993 5.50337 21.1223 5.63264L21.2551 5.76543L21.2543 14.0333C21.254 18.5805 21.2401 22.3516 21.2234 22.4134C21.2068 22.4752 21.1243 22.5665 21.04 22.6163C20.9 22.699 20.4957 22.7069 16.3674 22.7069H11.848L11.4756 23.0563C11.028 23.4761 10.3185 24.0596 10.2555 24.0596C10.2306 24.0596 10.2253 24.084 10.2437 24.1137C10.292 24.1919 20.7497 24.1874 21.1775 24.109C21.8023 23.9946 22.2691 23.6294 22.5464 23.038L22.689 22.7339V14.1033V5.47274L22.5464 5.16864C22.3463 4.74182 22.0596 4.44746 21.6453 4.24352C21.3095 4.07821 21.2499 4.06723 20.5807 4.0477L19.8718 4.02697L19.7461 4.46196ZM7.65054 7.4205C6.42906 8.28891 3.95486 9.04104 0.963757 9.45309C0.502467 9.51662 0.109086 9.59443 0.0895518 9.62598C0.0235373 9.73252 -0.0246207 11.1432 0.0134729 11.8545C0.241277 16.1089 1.7062 19.6137 4.36984 22.2767C4.77317 22.68 5.28581 23.1547 5.50902 23.3316C5.73222 23.5086 5.92702 23.6666 5.9419 23.6828C5.95678 23.699 6.26115 23.9079 6.61828 24.1472C7.34352 24.633 7.84171 24.9254 7.94409 24.9254C7.98153 24.9254 8.30279 24.749 8.65797 24.5335C12.6693 22.0995 15.0596 18.3552 15.7137 13.4811C15.8162 12.717 15.8538 10.437 15.7731 9.8738L15.7292 9.56732L15.4485 9.53172C12.995 9.2208 11.2145 8.81221 9.7379 8.22144C9.11114 7.97064 8.37941 7.59186 8.07888 7.36265L7.91146 7.23495L7.65054 7.4205ZM12.5563 8.50687C12.6199 8.57039 14.1953 8.85377 15.0865 8.96194C15.8472 9.0543 19.7998 9.01642 19.9212 8.91567C20.0574 8.80247 20.0329 8.61163 19.8727 8.53868C19.7725 8.49302 18.7504 8.47586 16.1301 8.47586C14.1475 8.47586 12.5393 8.48982 12.5563 8.50687ZM9.16146 9.55877C10.5282 10.1045 11.8162 10.4373 13.9989 10.8088L14.3992 10.8769L14.3663 11.8273C14.2849 14.173 13.7894 16.1752 12.8096 18.1161C12.0182 19.6838 10.5802 21.3687 9.08095 22.4848C8.14938 23.1784 7.98294 23.2719 7.8251 23.1907C7.66369 23.1077 6.85783 22.5313 6.51006 22.2503C4.16438 20.3543 2.6027 17.839 1.88861 14.8068C1.62444 13.6849 1.45226 12.3078 1.45124 11.308L1.45075 10.8665L1.84305 10.8027C4.21746 10.4167 6.14319 9.86752 7.47847 9.19564L7.90291 8.98212L8.2075 9.14077C8.37508 9.22805 8.80433 9.41614 9.16146 9.55877ZM16.297 10.0045C16.3149 10.0715 16.3299 10.181 16.3303 10.248L16.3311 10.3697H18.0662C19.1587 10.3697 19.84 10.349 19.9059 10.3137C19.9653 10.2819 20.0106 10.2008 20.0106 10.1262C20.0106 10.0516 19.9653 9.97055 19.9059 9.93873C19.8399 9.9034 19.1484 9.88273 18.0328 9.88273H16.2644L16.297 10.0045ZM16.2066 13.6274C16.1898 13.7526 16.188 13.8743 16.2027 13.898C16.2497 13.9741 19.6943 13.9488 19.8482 13.8712C20.0289 13.7801 20.0505 13.5963 19.8934 13.4863C19.7866 13.4115 19.5337 13.3999 18.0036 13.3999H16.2371L16.2066 13.6274ZM15.9861 14.9759C15.9675 15.0689 15.9523 15.1784 15.9523 15.2194C15.9523 15.2811 16.2799 15.2938 17.8768 15.2938C19.0999 15.2938 19.8394 15.2734 19.9059 15.2378C19.9653 15.2059 20.0106 15.1249 20.0106 15.0503C20.0106 14.9756 19.9653 14.8946 19.9059 14.8628C19.8395 14.8272 19.1104 14.8068 17.9106 14.8068H16.0199L15.9861 14.9759ZM14.7993 18.5315C14.749 18.6457 14.7078 18.7674 14.7078 18.802C14.7078 18.8929 19.676 18.8919 19.8754 18.801C19.9816 18.7526 20.0119 18.7035 19.9997 18.5994C19.9684 18.3328 19.898 18.3256 17.3019 18.3247L14.8909 18.3239L14.7993 18.5315ZM14.0386 19.9461C13.9602 20.0645 13.8961 20.1741 13.8961 20.1896C13.8961 20.2051 15.2426 20.2178 16.8884 20.2178C19.1436 20.2178 19.8967 20.2018 19.9456 20.1529C20.045 20.0535 20.0229 19.8494 19.9059 19.7868C19.8376 19.7503 18.8247 19.7308 16.9912 19.7308H14.1811L14.0386 19.9461Z"
+            /></svg></a
+        >{{ "uninsured_patients" | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="giveInnerPermission('insured_patient_request')">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="allPatients('false')"
+        [ngClass]="activebutton == 'false' ? 'active' : ''"
+      >
+        <a class="btn_svg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="25"
+            viewBox="0 0 23 25"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.8267 0.0366651C13.3167 0.164095 12.9255 0.472794 12.7041 0.922558C12.5529 1.22969 12.5283 1.35333 12.455 2.17759C12.4103 2.68044 12.3639 3.12236 12.352 3.15953C12.3354 3.21148 11.9863 3.22717 10.8485 3.22717H9.36665L9.22704 3.35655C9.15026 3.42776 9.07093 3.57369 9.05086 3.68088C9.00368 3.93217 9.14052 4.54113 9.33505 4.94582C9.63303 5.56565 10.3773 6.12364 11.085 6.25783C11.2495 6.28905 12.5703 6.31145 14.2428 6.31145C16.8631 6.31145 17.1497 6.30269 17.4752 6.21243C17.9236 6.08809 18.2846 5.87814 18.6105 5.55223C18.8988 5.26404 19.0517 4.99192 19.197 4.50899C19.4071 3.81042 19.4007 3.60605 19.161 3.36639L19.0218 3.22717H17.5233H16.0248L15.9421 2.2613C15.8486 1.16876 15.7555 0.878134 15.378 0.500714C14.9892 0.111932 14.3231 -0.0873015 13.8267 0.0366651ZM14.4964 0.984244C15.1281 1.31091 14.8957 2.25784 14.1854 2.25129C13.9285 2.24891 13.759 2.15876 13.6226 1.95195C13.4191 1.6432 13.5116 1.24327 13.8372 1.0238C14.0509 0.879865 14.2692 0.866717 14.4964 0.984244ZM7.12849 4.11279C6.56033 4.26603 6.0966 4.68209 5.87253 5.2398C5.7708 5.49304 5.75479 5.65921 5.73661 6.64964C5.71713 7.71101 5.72146 7.77238 5.81544 7.77129C5.8701 7.77064 6.19487 7.63061 6.53711 7.46016L7.15938 7.15016L7.18806 6.47378C7.20381 6.10178 7.23757 5.75293 7.26306 5.69855C7.33887 5.53692 7.53334 5.4998 8.30371 5.4998C8.70601 5.4998 9.02711 5.48124 9.01715 5.45857C9.00725 5.43584 8.93171 5.28249 8.84935 5.11778C8.76694 4.95307 8.6584 4.64291 8.60808 4.42858L8.51663 4.03882L7.9462 4.04245C7.63252 4.0445 7.26452 4.07616 7.12849 4.11279ZM19.7461 4.46196C19.677 4.70119 19.5622 5.02282 19.4908 5.17671C19.4196 5.33054 19.3612 5.4662 19.3612 5.4781C19.3612 5.49006 19.7276 5.4998 20.1753 5.4998C20.9676 5.4998 20.993 5.50337 21.1223 5.63264L21.2551 5.76543L21.2543 14.0333C21.254 18.5805 21.2401 22.3516 21.2234 22.4134C21.2068 22.4752 21.1243 22.5665 21.04 22.6163C20.9 22.699 20.4957 22.7069 16.3674 22.7069H11.848L11.4756 23.0563C11.028 23.4761 10.3185 24.0596 10.2555 24.0596C10.2306 24.0596 10.2253 24.084 10.2437 24.1137C10.292 24.1919 20.7497 24.1874 21.1775 24.109C21.8023 23.9946 22.2691 23.6294 22.5464 23.038L22.689 22.7339V14.1033V5.47274L22.5464 5.16864C22.3463 4.74182 22.0596 4.44746 21.6453 4.24352C21.3095 4.07821 21.2499 4.06723 20.5807 4.0477L19.8718 4.02697L19.7461 4.46196ZM7.65054 7.4205C6.42906 8.28891 3.95486 9.04105 0.963757 9.45309C0.502467 9.51662 0.109086 9.59443 0.0895518 9.62598C0.0235373 9.73252 -0.0246207 11.1432 0.0134729 11.8545C0.241277 16.1089 1.7062 19.6137 4.36984 22.2767C4.77317 22.68 5.28581 23.1547 5.50902 23.3316C5.73222 23.5086 5.92702 23.6666 5.9419 23.6828C5.95678 23.699 6.26115 23.9079 6.61828 24.1472C7.34352 24.633 7.84171 24.9254 7.94409 24.9254C7.98153 24.9254 8.30279 24.749 8.65797 24.5335C12.6693 22.0995 15.0596 18.3552 15.7137 13.4811C15.8162 12.717 15.8538 10.437 15.7731 9.8738L15.7292 9.56732L15.4485 9.53172C12.995 9.2208 11.2145 8.81221 9.7379 8.22144C9.11114 7.97064 8.37941 7.59186 8.07888 7.36265L7.91146 7.23495L7.65054 7.4205ZM12.5563 8.50687C12.6199 8.57039 14.1953 8.85377 15.0865 8.96194C15.8472 9.0543 19.7998 9.01642 19.9212 8.91567C20.0574 8.80247 20.0329 8.61163 19.8727 8.53868C19.7725 8.49302 18.7504 8.47586 16.1301 8.47586C14.1475 8.47586 12.5393 8.48982 12.5563 8.50687ZM9.16146 9.55877C10.5282 10.1045 11.8162 10.4373 13.9989 10.8088L14.3992 10.8769L14.3663 11.8273C14.2849 14.173 13.7894 16.1752 12.8096 18.1161C12.0182 19.6838 10.5802 21.3687 9.08095 22.4848C8.14938 23.1784 7.98294 23.2719 7.8251 23.1907C7.66369 23.1077 6.85783 22.5313 6.51006 22.2503C4.16438 20.3543 2.6027 17.839 1.88861 14.8068C1.62444 13.6849 1.45226 12.3078 1.45124 11.308L1.45075 10.8665L1.84305 10.8027C4.21746 10.4167 6.14319 9.86753 7.47847 9.19564L7.90291 8.98212L8.2075 9.14077C8.37508 9.22805 8.80433 9.41614 9.16146 9.55877ZM16.297 10.0045C16.3149 10.0715 16.3299 10.181 16.3303 10.248L16.3311 10.3697H18.0662C19.1587 10.3697 19.84 10.349 19.9059 10.3137C19.9653 10.2819 20.0106 10.2008 20.0106 10.1262C20.0106 10.0516 19.9653 9.97055 19.9059 9.93873C19.8399 9.9034 19.1484 9.88273 18.0328 9.88273H16.2644L16.297 10.0045ZM16.2066 13.6274C16.1898 13.7526 16.188 13.8743 16.2027 13.898C16.2497 13.9741 19.6943 13.9488 19.8482 13.8712C20.0289 13.7801 20.0505 13.5963 19.8934 13.4863C19.7866 13.4115 19.5337 13.3999 18.0036 13.3999H16.2371L16.2066 13.6274ZM15.9861 14.9759C15.9675 15.0689 15.9523 15.1784 15.9523 15.2194C15.9523 15.2811 16.2799 15.2938 17.8768 15.2938C19.0999 15.2938 19.8394 15.2734 19.9059 15.2378C19.9653 15.2059 20.0106 15.1249 20.0106 15.0503C20.0106 14.9756 19.9653 14.8946 19.9059 14.8628C19.8395 14.8272 19.1104 14.8068 17.9106 14.8068H16.0199L15.9861 14.9759ZM14.7993 18.5315C14.749 18.6457 14.7078 18.7674 14.7078 18.802C14.7078 18.8929 19.676 18.8919 19.8754 18.801C19.9816 18.7526 20.0119 18.7035 19.9997 18.5994C19.9684 18.3328 19.898 18.3256 17.3019 18.3247L14.8909 18.3239L14.7993 18.5315ZM14.0386 19.9461C13.9602 20.0645 13.8961 20.1741 13.8961 20.1896C13.8961 20.2051 15.2426 20.2178 16.8884 20.2178C19.1436 20.2178 19.8967 20.2018 19.9456 20.1529C20.045 20.0535 20.0229 19.8494 19.9059 19.7868C19.8376 19.7503 18.8247 19.7308 16.9912 19.7308H14.1811L14.0386 19.9461Z"
+            />
+            <path
+              d="M7.48137 17.8593C7.30131 17.8593 7.12125 17.791 6.9838 17.6535L5.0763 15.746C4.80139 15.4711 4.80139 15.0258 5.0763 14.7517C5.35121 14.4768 5.79573 14.476 6.07064 14.7509L7.48137 16.1616L10.7996 12.8434C11.0745 12.5685 11.519 12.5685 11.7939 12.8434C12.0688 13.1183 12.0688 13.5636 11.7939 13.8385L7.97894 17.6535C7.84149 17.791 7.66143 17.8593 7.48137 17.8593Z"
+            /></svg></a
+        >{{ "insured_patient" | translate }}
+      </button>
+    </ng-container>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Patient Name Column -->
+          <ng-container matColumnDef="patientname">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('first_name')"
+            >
+              {{ "patient_name" | translate }}
+              <span
+                *ngIf="sortColumn === 'first_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.first_name + " " + element.last_name }}
+              <!-- <span class="user_image_wrapper">
+                        <img
+                          class="user_image"
+                          src="../../../../../assets/img/user_profile.svg"
+                        />
+                      </span> -->
+              <!-- <span class="name_user"> {{ element?.full_name }} </span> -->
+            </td>
+          </ng-container>
+
+          <!-- Gender Column -->
+          <ng-container matColumnDef="gender">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('gender')"
+            >
+              {{ "gender" | translate }}
+              <span
+                *ngIf="sortColumn === 'gender'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.gender }}
+            </td>
+          </ng-container>
+
+          <!--User Name Column -->
+          <!-- <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef>User Name</th>
+                    <td mat-cell *matCellDef="let element">
+                            {{element.username}} 
+                    </td>
+                    </ng-container> -->
+
+          <!--Date of Birth Column -->
+          <ng-container matColumnDef="dateofbirth">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('dob')">
+              {{ "date_of_birth" | translate }}
+              <span
+                *ngIf="sortColumn === 'dob'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.dob | date : "dd/MM/yyyy" }}
+            </td>
+          </ng-container>
+
+          <!--Joined Date Column -->
+          <ng-container matColumnDef="joineddate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('createdAt')"
+            >
+              {{ "joined_date" | translate }}
+              <span
+                *ngIf="sortColumn === 'createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.createdAt | date : "dd/MM/YYYY" }}
+            </td>
+          </ng-container>
+
+          <!--Insurance Provider Column -->
+          <ng-container matColumnDef="insuranceprovider">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('companyName')"
+            >
+              {{ "insurance_provider" | translate }}
+              <span
+                *ngIf="sortColumn === 'companyName'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.companyName ? element?.companyName : "-" }}
+            </td>
+          </ng-container>
+
+          <!--Phone Number Column -->
+          <ng-container matColumnDef="phonenumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('portalusers.mobile')"
+            >
+              {{ "phone_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'portalusers.mobile'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.portalusers?.mobile }}
+            </td>
+          </ng-container>
+
+          <!--Email Column -->
+          <ng-container matColumnDef="email">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('portalusers.email')"
+            >
+              {{ "email" | translate }}
+              <span
+                *ngIf="sortColumn === 'portalusers.email'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="text-transform: lowercase"
+            >
+              {{ element?.portalusers?.email }}
+            </td>
+          </ng-container>
+
+          <!--Time appointment Column -->
+          <!-- <ng-container matColumnDef="timeappointment">
+                    <th mat-header-cell *matHeaderCellDef>Time appointment</th>
+                    <td mat-cell *matCellDef="let element">
+                            {{element.timeappointment}} sadsad
+                    </td>
+                    </ng-container> -->
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <div class="toggel-slide">
+                            <mat-slide-toggle></mat-slide-toggle>
+                        </div> -->
+                        <ng-container *ngIf="giveInnerPermission('status_request')">
+              <div class="toggel-slide">
+                <mat-slide-toggle
+                  [checked]="element?.portalusers?.isActive"
+                  (change)="
+                    handleToggleChangeForActive(
+                      $event.checked,
+                      element?.for_portal_user
+                    )
+                  "
+                ></mat-slide-toggle>
+              </div>
+            </ng-container>
+            </td>
+          </ng-container>
+
+          <!-- Lock User -->
+          <ng-container matColumnDef="lockuser">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "lock_user" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <div class="toggel-slide">
+                            <mat-slide-toggle></mat-slide-toggle>
+                        </div> -->
+                        <ng-container *ngIf="giveInnerPermission('lock_user_request')">
+              <div class="toggel-slide">
+                <mat-slide-toggle
+                  [checked]="element?.portalusers?.lock_user"
+                  (change)="
+                    handleToggleChangeForLock(
+                      $event.checked,
+                      element?.for_portal_user
+                    )
+                  "
+                ></mat-slide-toggle>
+              </div>
+            </ng-container>
+            </td>
+          </ng-container>
+
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <!-- <a
+                  class="svgicon"
+                  (click)="
+                    openVerticallyCentereddetale(
+                      addsecondsubsriber,
+                      element?.for_portal_user
+                    )
+                  "
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M13.2153 2.93223C13.5071 2.93223 13.75 3.17447 13.75 3.48272V3.76772C13.75 4.06846 13.5071 4.31821 13.2153 4.31821H0.78539C0.492895 4.31821 0.25 4.06846 0.25 3.76772V3.48272C0.25 3.17447 0.492895 2.93223 0.78539 2.93223H2.97217C3.41639 2.93223 3.80298 2.61648 3.90291 2.17098L4.01743 1.65949C4.1954 0.962745 4.78112 0.5 5.45145 0.5H8.54855C9.21158 0.5 9.80387 0.962745 9.97528 1.62274L10.0978 2.17023C10.197 2.61648 10.5836 2.93223 11.0286 2.93223H13.2153ZM12.1044 13.3505C12.3327 11.2228 12.7324 6.16784 12.7324 6.11684C12.747 5.96235 12.6967 5.8161 12.5967 5.69835C12.4895 5.5881 12.3538 5.52285 12.2043 5.52285H1.80139C1.65113 5.52285 1.50817 5.5881 1.40897 5.69835C1.30831 5.8161 1.25871 5.96235 1.266 6.11684C1.26734 6.12621 1.28168 6.30428 1.30566 6.60197C1.41219 7.92441 1.70888 11.6076 1.90059 13.3505C2.03626 14.6345 2.87874 15.4415 4.09905 15.4708C5.04072 15.4925 6.01084 15.5 7.00284 15.5C7.93722 15.5 8.88619 15.4925 9.85704 15.4708C11.1197 15.449 11.9614 14.6563 12.1044 13.3505Z"
+                    /></svg></a> -->
+                    <ng-container *ngIf="giveInnerPermission('view_request')">
+                <a
+                  class="svgicon"
+                  [routerLink]="[
+                    '/super-admin/patient/details',
+                    element?.for_portal_user
+                  ]"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="9"
+                    viewBox="0 0 16 9"
+                    fill="none"
+                  >
+                    <path
+                      d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"
+                    />
+                  </svg>
+                </a>
+                    </ng-container>
+                    <ng-container *ngIf="giveInnerPermission('delete')">
+                <a
+                  class="svgicon"
+                  (click)="
+                    openVerticallyCentereddetale(
+                      deletemodal,
+                      element?.for_portal_user
+                    )
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19"
+                    height="19"
+                    viewBox="0 0 19 19"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M15.6025 4.45371C15.8943 4.45371 16.1372 4.69596 16.1372 5.0042V5.2892C16.1372 5.58995 15.8943 5.8397 15.6025 5.8397H3.1726C2.8801 5.8397 2.63721 5.58995 2.63721 5.2892V5.0042C2.63721 4.69596 2.8801 4.45371 3.1726 4.45371H5.35938C5.80359 4.45371 6.19018 4.13796 6.29011 3.69247L6.40463 3.18097C6.58261 2.48423 7.16833 2.02148 7.83866 2.02148H10.9358C11.5988 2.02148 12.1911 2.48423 12.3625 3.14422L12.485 3.69172C12.5842 4.13796 12.9708 4.45371 13.4158 4.45371H15.6025ZM14.4916 14.872C14.7199 12.7443 15.1196 7.68933 15.1196 7.63833C15.1342 7.48383 15.0839 7.33758 14.9839 7.21983C14.8767 7.10958 14.741 7.04433 14.5915 7.04433H4.1886C4.03834 7.04433 3.89537 7.10958 3.79617 7.21983C3.69551 7.33758 3.64591 7.48383 3.65321 7.63833C3.65455 7.6477 3.66889 7.82576 3.69287 8.12345C3.79939 9.44588 4.09608 13.1291 4.2878 14.872C4.42347 16.156 5.26594 16.963 6.48625 16.9922C7.42793 17.014 8.39805 17.0215 9.39005 17.0215C10.3244 17.0215 11.2734 17.014 12.2442 16.9922C13.5069 16.9705 14.3486 16.1777 14.4916 14.872Z"
+                    />
+                  </svg>
+                </a>
+                    </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div *ngIf="patientlistsource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+
+        <mat-paginator
+          #paginator
+          class="pagination"
+          [length]="totalLength"
+          (page)="handlePageEvent($event)"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[20, 50, 100]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete modal -->
+
+<ng-template #deletemodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_delete_this_patient" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="activeLockDeleteDoctor('delete', true)"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Actiate DeActivate modal -->
+<ng-template #activateDeactivate let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ efg }}
+          {{ "this_patient" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              activeLockDeleteDoctor(
+                'active',
+                efg === 'Deactivate' ? false : true
+              )
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Lock or Unlock modal -->
+<ng-template #lockOrUnloackmodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ abc }}
+          {{ "this_patient" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              activeLockDeleteDoctor('lock', abc === 'Lock' ? true : false)
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

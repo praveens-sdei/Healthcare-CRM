@@ -1,0 +1,271 @@
+@import '../../../../../assets/css/variable/variable';
+
+.appointment_detail{
+    .top_bar{
+        margin: 0 0 20px;
+    }
+    .profileinfo_title{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 19px;
+        color: $table_color;
+    }
+    .profile_data{
+        background: #ffffff;
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;
+        background: #ffffff;
+        margin: 0 0 30px;
+        .profile_info{
+            padding: 25px 25px 25px;
+            position: relative; 
+            ul{
+                display: grid;
+                align-items: end;
+                grid-gap: 15px;
+                grid-template-columns: repeat(4, 1fr);
+                border-bottom: 1px solid #C4CDEA;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
+                padding-left: 0;
+                padding-right: 0;
+                .col_item{
+                    display: flex;
+                    align-items:center;
+                    min-height: 60px;
+                    .profile_image{
+                        width: 95px;
+                        height: 95px;
+                        min-width: 95px;
+                        margin: 0 20px 0 0;
+                        border-radius: 50%;
+                        overflow: hidden;
+                    }
+                    .profile_contact{
+                        .profile_title{
+                            font-size: 20px;
+                            font-weight: 600;
+                            line-height: 24px;
+                            letter-spacing: 0em;
+                            color: $linkcolor;
+                            margin: 0 0 15px;
+                        }
+                        .lable{
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 16px;
+                            letter-spacing: 0.05em;
+                            color: $bodyopacitylightcolor;
+                            margin: 0 0 6px;
+                        }
+                        .user_value{
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 20px;
+                            color: $linkcolor;
+                            letter-spacing: 0.05em;
+                        }
+                    }
+                }
+                &.profile_info_with_img{
+                    grid-template-columns: 285px repeat(5, 1fr);
+                }
+                &:last-child{
+                    border-bottom: none;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+    .profile_appoint_details{
+        .profile_info{
+            .profile_info_inner{
+                grid-template-columns: repeat(5, 1fr);
+                .col_item{
+                    &.consult_type{
+                        .user_value{
+                            display: flex;
+                            align-items: center;
+                            svg{
+                                margin: 0 5px 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .primary_btn{
+        justify-content: flex-end;
+    }
+    
+}
+
+// Assign nurse modal
+.assign_healthcare{
+    .modal-content{
+        border-radius: 26px;
+        .searchbar{
+            margin: 0 0 20px;
+            .searchbox {
+                .input-group{
+                    border: 1px solid #B6C8D6;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    .btn {
+                        padding: 5px 15px;
+                    }
+                    .form-control{
+                        border: none;
+                        padding: 10px 10px 10px 0;
+                        &::placeholder{
+                            font-weight: 500;
+                            color: $bodyopacitycolor;
+                        }
+                    }
+                }
+            }
+        }
+        .assign_item_wrapper{
+            overflow-y: scroll;
+            height: 400px;
+            &::-webkit-scrollbar{
+                width: 3px; 
+            }
+            &::-webkit-scrollbar-thumb{
+                background-color: #B5C8D8; 
+                border-radius: 10px;
+            }
+            .assign_item{
+                background: $white_color;
+                border: 1px solid #B6C8D6;
+                border-radius: 10px;
+                padding: 15px;
+                margin: 0 0 20px;
+                .assign_item_inner{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 16px;
+                    color: $bodyopacitycolor; 
+                    .left_part{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        .chat_img{
+                            margin: 0 14px 0 0;
+                            height: 47px;
+                            width: 47px;
+                            min-width: 47px;
+                            position: relative;
+                        }
+                        .chat_detail{
+                            .chat_name{
+                                font-weight: 700;
+                                font-size: 18px;
+                                line-height: 133.5%;
+                                letter-spacing: 0.02em;
+                                color: $table_color;
+                                text-transform: capitalize;
+                                margin: 0 0 3px;
+                            }
+                        }
+                    }
+                }
+                &.active{
+                    background-color: $bodycolor;
+                    border-color: $bodycolor;
+                    box-shadow: 0px 4px 10px rgba(61, 57, 137, 0.05);
+                        .assign_item_inner{
+                            color: $white_color;
+                            .chat_detail {
+                                .chat_name{
+                                    color: $white_color;
+                                }
+                            }
+                        } 
+                }
+                &:hover{
+                    background-color: $bodycolor;
+                    border-color: $bodycolor;
+                    box-shadow: 0px 4px 10px rgba(61, 57, 137, 0.05);
+                        .assign_item_inner{
+                            color: $white_color;
+                            .chat_detail {
+                                .chat_name{
+                                    color: $white_color;
+                                }
+                            }
+                        }   
+                }
+            }
+        }
+        .primary_btn{
+            justify-content: center;
+            .btn{
+                width: 100%;
+                border-radius: 15px;
+                padding: 15px;
+                font-weight: 600;
+                font-size: $font_large;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:$desktop_medium) {
+    .appointment_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: 285px repeat(4, 1fr);
+    }
+    .appointment_detail .profile_appoint_details .profile_info .profile_info_inner{
+        grid-template-columns: repeat(4, 1fr);   
+    }
+}
+@media screen and (max-width:$desktop) {
+    .appointment_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: 285px repeat(2, 1fr);
+    }
+    .appointment_detail .profile_appoint_details .profile_info .profile_info_inner{
+        grid-template-columns: repeat(3, 1fr);   
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .appointment_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: 285px repeat(1, 1fr);
+    }
+    .appointment_detail .profile_appoint_details .profile_info .profile_info_inner{
+        grid-template-columns: repeat(2, 1fr);   
+    }
+    .appointment_detail .profile_data .profile_info ul{
+        grid-template-columns: repeat(2, 1fr);   
+    }
+    .appointment_detail .primary_btn{
+        margin-top: 15px;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .appointment_detail .profile_data .profile_info ul.profile_info_with_img{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .appointment_detail .profile_appoint_details .profile_info .profile_info_inner{
+        grid-template-columns: repeat(1, 1fr);   
+    }
+    .appointment_detail .profile_data .profile_info ul{
+        grid-template-columns: repeat(1, 1fr);   
+    }
+}
+@media screen and (max-width:$small_phone) {
+    .appointment_detail .profile_data .profile_info ul .col_item .profile_image{
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+    }
+    .appointment_detail .profile_data .profile_info ul .col_item .profile_contact .profile_title{
+        margin: 0 0 10px;
+        font-size: 18px;
+    }   
+}

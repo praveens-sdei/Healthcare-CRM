@@ -1,0 +1,769 @@
+<div class="pharmacy_listing dashboard_main_content">
+  <div class="top_bar common_space">
+    <div class="left_part">
+      <div class="search_bar common_content">
+        <div class="input-group">
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input type="search" class="form-control" placeholder="{{ 'search' | translate }}"
+            (keyup)="handleSearchFilter($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="right_part">
+      <div class="primary_btn">
+        <ng-container *ngIf="giveInnerPermission('import')">
+          <button type="button" class="btn btn-primary import"
+            (click)="openVerticallyCenteredEditplan(imporsubscriber, 'Group')">
+            <a class="btn_svg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M13.7483 0.132293C12.7171 0.320002 11.8725 0.954904 11.4392 1.86806C11.1937 2.38535 11.1513 2.58522 11.1506 3.22619L11.15 3.78073L9.20028 4.68031L7.25059 5.57988L6.96454 5.27119C6.35823 4.61697 5.64986 4.22442 4.77014 4.05512C4.32376 3.96921 3.56124 4.00391 3.09868 4.13121C1.46181 4.58158 0.314035 6.01294 0.227059 7.71229C0.149869 9.22138 0.992204 10.6718 2.34015 11.3506C3.8111 12.0914 5.52473 11.8515 6.75499 10.7325L6.95088 10.5543L8.42093 11.4527C9.67105 12.2167 9.88852 12.3621 9.87446 12.4242C9.86537 12.4644 9.81502 12.637 9.76262 12.8077C9.41896 13.9276 9.54467 15.2396 10.095 16.2762C10.6606 17.3414 11.6296 18.1742 12.7302 18.541C13.2858 18.7262 13.6137 18.7778 14.2354 18.7778C14.857 18.7778 15.1849 18.7262 15.7406 18.541C17.0697 18.098 18.2096 16.9605 18.649 15.6385C18.8375 15.0714 18.8888 14.747 18.8888 14.1227C18.8888 13.4984 18.8375 13.174 18.649 12.6068C18.2096 11.2848 17.0697 10.1473 15.7406 9.70437C15.1818 9.51812 14.8572 9.46717 14.2354 9.46812C13.6293 9.46903 13.2846 9.52108 12.7748 9.68852C12.1288 9.9007 11.4072 10.3479 10.9367 10.8276L10.7233 11.0451L9.25702 10.1414C8.12849 9.44584 7.79183 9.22182 7.79559 9.16896C7.79826 9.1312 7.83587 8.9688 7.87917 8.80808C7.9821 8.42583 8.01774 7.75466 7.9568 7.34498C7.93168 7.17594 7.91634 7.02508 7.92273 7.00971C7.92912 6.99433 8.81049 6.57712 9.88133 6.08256L11.8283 5.18335L12.0551 5.40915C12.7288 6.07996 13.6374 6.40523 14.5549 6.30402C14.9785 6.2573 15.3152 6.15356 15.7142 5.94693C15.9826 5.80791 16.1097 5.7098 16.4079 5.41131C16.7915 5.02745 16.9475 4.80015 17.1223 4.37038C17.2937 3.94912 17.3515 3.58495 17.328 3.07585C17.3042 2.56024 17.2445 2.31738 17.0315 1.86806C16.5325 0.815885 15.5161 0.152236 14.3449 0.113883C14.114 0.106323 13.8455 0.114614 13.7483 0.132293Z" />
+              </svg></a>
+            {{ "import_on_duty_group_list" | translate }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="giveInnerPermission('importPharmacy')">
+          <button type="button" class="btn btn-primary import" (click)="
+            openVerticallyCenteredEditplan(imporsubscriber, 'Pharmacy Group')
+          ">
+            <a class="btn_svg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M13.7483 0.132293C12.7171 0.320002 11.8725 0.954904 11.4392 1.86806C11.1937 2.38535 11.1513 2.58522 11.1506 3.22619L11.15 3.78073L9.20028 4.68031L7.25059 5.57988L6.96454 5.27119C6.35823 4.61697 5.64986 4.22442 4.77014 4.05512C4.32376 3.96921 3.56124 4.00391 3.09868 4.13121C1.46181 4.58158 0.314035 6.01294 0.227059 7.71229C0.149869 9.22138 0.992204 10.6718 2.34015 11.3506C3.8111 12.0914 5.52473 11.8515 6.75499 10.7325L6.95088 10.5543L8.42093 11.4527C9.67105 12.2167 9.88852 12.3621 9.87446 12.4242C9.86537 12.4644 9.81502 12.637 9.76262 12.8077C9.41896 13.9276 9.54467 15.2396 10.095 16.2762C10.6606 17.3414 11.6296 18.1742 12.7302 18.541C13.2858 18.7262 13.6137 18.7778 14.2354 18.7778C14.857 18.7778 15.1849 18.7262 15.7406 18.541C17.0697 18.098 18.2096 16.9605 18.649 15.6385C18.8375 15.0714 18.8888 14.747 18.8888 14.1227C18.8888 13.4984 18.8375 13.174 18.649 12.6068C18.2096 11.2848 17.0697 10.1473 15.7406 9.70437C15.1818 9.51812 14.8572 9.46717 14.2354 9.46812C13.6293 9.46903 13.2846 9.52108 12.7748 9.68852C12.1288 9.9007 11.4072 10.3479 10.9367 10.8276L10.7233 11.0451L9.25702 10.1414C8.12849 9.44584 7.79183 9.22182 7.79559 9.16896C7.79826 9.1312 7.83587 8.9688 7.87917 8.80808C7.9821 8.42583 8.01774 7.75466 7.9568 7.34498C7.93168 7.17594 7.91634 7.02508 7.92273 7.00971C7.92912 6.99433 8.81049 6.57712 9.88133 6.08256L11.8283 5.18335L12.0551 5.40915C12.7288 6.07996 13.6374 6.40523 14.5549 6.30402C14.9785 6.2573 15.3152 6.15356 15.7142 5.94693C15.9826 5.80791 16.1097 5.7098 16.4079 5.41131C16.7915 5.02745 16.9475 4.80015 17.1223 4.37038C17.2937 3.94912 17.3515 3.58495 17.328 3.07585C17.3042 2.56024 17.2445 2.31738 17.0315 1.86806C16.5325 0.815885 15.5161 0.152236 14.3449 0.113883C14.114 0.106323 13.8455 0.114614 13.7483 0.132293Z" />
+              </svg></a>
+            {{ "import_pharmacy_list" | translate }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="giveInnerPermission('add')">
+          <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredaddonduty(addonduty)">
+            <a class="btn_svg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M10.9911 5.18656C10.9911 7.56595 9.04407 9.47273 6.61442 9.47273C4.18565 9.47273 2.2377 7.56595 2.2377 5.18656C2.2377 2.80718 4.18565 0.900391 6.61442 0.900391C9.04407 0.900391 10.9911 2.80718 10.9911 5.18656ZM0 14.3258C0 12.1232 3.04697 11.5722 6.6144 11.5722C10.2012 11.5722 13.2288 12.1422 13.2288 14.3465C13.2288 16.5491 10.1818 17.1002 6.6144 17.1002C3.0276 17.1002 0 16.5302 0 14.3258ZM12.7563 5.26508C12.7563 6.47676 12.3847 7.60738 11.733 8.54654C11.6652 8.64313 11.7251 8.77336 11.8431 8.79405C12.0069 8.82079 12.1751 8.83717 12.3468 8.84062C14.0552 8.88461 15.5884 7.80746 16.012 6.18527C16.6399 3.77829 14.7976 1.61709 12.4507 1.61709C12.1962 1.61709 11.9523 1.64296 11.7145 1.69039C11.6819 1.69729 11.6467 1.71282 11.6291 1.74041C11.6062 1.77577 11.6229 1.82148 11.6458 1.85167C12.3512 2.82015 12.7563 3.99906 12.7563 5.26508ZM15.5855 10.5317C16.7339 10.7516 17.4886 11.1992 17.8012 11.8521C18.0663 12.3868 18.0663 13.0077 17.8012 13.5424C17.323 14.5531 15.7802 14.8783 15.1805 14.9619C15.0563 14.9792 14.9568 14.8757 14.97 14.7532C15.2764 11.9521 12.8397 10.624 12.2092 10.3187C12.1828 10.3041 12.1766 10.2834 12.1793 10.2696C12.181 10.2609 12.1925 10.2471 12.2127 10.2446C13.5768 10.2187 15.044 10.4024 15.5855 10.5317Z" />
+              </svg></a>
+            {{ "add_on_duty_group" | translate }}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="right_part">
+    <div class="primary_btn pharm_del_btn" style="margin : 20px 32px !important;">
+      <ng-container *ngIf="giveInnerPermission('deleteAll')">
+        <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(deletePopupAll, '')"
+          [disabled]="dataSource?.length === 0">
+          <mat-icon>delete</mat-icon>{{ "delete_all_onduty" | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="giveInnerPermission('selectedDelete')">
+        <button type="button" class="btn btn-primary" (click)="openVerticallyCenteredsecond(deletePopupSelected, '')"
+          [disabled]="selectedLabs?.length === 0">
+          <mat-icon>delete</mat-icon>{{ "delete_selected_onduty" | translate }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+
+  <div class="bottom_bar common_space border_radius_block">
+    <div class="table-wrap">
+      <div class="table-inner without_pagination_block_three">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Creation Date -->
+          <ng-container matColumnDef="creationDate">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('date_of_creation')">
+              {{ "date_of_creation" | translate }}
+              <span *ngIf="sortColumn === 'date_of_creation'" class="material-icons sorticon">{{ sortIconClass }}</span>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.date_of_creation | date : "dd-MM-yyyy" }}
+            </td>
+          </ng-container>
+
+          <!-- On duty Group number Column -->
+          <ng-container matColumnDef="ondutygroupnumber">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('onDutyGroupNumber')">
+              {{ "on_duty_group_number" | translate }}
+              <span *ngIf="sortColumn === 'onDutyGroupNumber'" class="material-icons sorticon">{{ sortIconClass
+                }}</span>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.ondutygroupnumber }}
+            </td>
+          </ng-container>
+
+          <!-- City -->
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef (click)="onSortData('city')">
+              {{ "city" | translate }}
+              <span *ngIf="sortColumn === 'city'" class="material-icons sorticon">{{ sortIconClass }}</span>
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element?.city }}</td>
+          </ng-container>
+
+          <!-- Start Date -->
+          <ng-container matColumnDef="startdate">
+            <!-- <th mat-header-cell *matHeaderCellDef>Start Date</th>
+            <td mat-cell *matCellDef="let element">{{ element?.startdate| date: 'MM-dd-yyyy' }}</td> -->
+          </ng-container>
+
+          <!-- Start Time -->
+          <ng-container matColumnDef="starttime">
+            <!-- <th mat-header-cell *matHeaderCellDef>Start Time</th>
+            <td mat-cell *matCellDef="let element">{{ element?.starttime }}</td> -->
+          </ng-container>
+
+          <!-- End Date -->
+          <ng-container matColumnDef="enddate">
+            <!-- <th mat-header-cell *matHeaderCellDef>End Date</th>
+            <td mat-cell *matCellDef="let element">{{ element?.enddate | date: 'MM-dd-yyyy'}}</td> -->
+          </ng-container>
+
+          <!-- Start Time -->
+          <ng-container matColumnDef="endtime">
+            <!-- <th mat-header-cell *matHeaderCellDef>End Time</th>
+            <td mat-cell *matCellDef="let element">{{ element?.endtime }}</td> -->
+          </ng-container>
+
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+              <mat-checkbox (change)="makeSelectAll($event)" style="margin-left: 10px"
+                [checked]="isAllSelected()"></mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <ng-container *ngIf="giveInnerPermission('addPharmacy')">
+                  <a class="svgicon" (click)="getGroupDetails(element.id, 'View')">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M7.53112 0.0103461C6.86055 0.0948683 6.16298 0.349069 5.63846 0.700033C5.35895 0.88709 5.27594 0.956335 4.95821 1.26774C4.38164 1.83291 3.97413 2.58718 3.79274 3.42506C3.70692 3.82149 3.70692 4.6964 3.79274 5.09282C4.16269 6.80165 5.44648 8.07996 7.16264 8.44833C7.56077 8.53379 8.43943 8.53379 8.83756 8.44833C10.5557 8.07952 11.8371 6.80362 12.2075 5.09282C12.2933 4.6964 12.2933 3.82149 12.2075 3.42506C11.8367 1.71233 10.5531 0.434825 8.83756 0.070986C8.59282 0.0190852 7.76618 -0.0193068 7.53112 0.0103461ZM3.73626 8.09416C3.10753 8.41171 2.64723 8.7551 2.13048 9.29205C1.3487 10.1044 0.806527 11.1554 0.593176 12.272C0.534387 12.5796 0.518475 12.8142 0.505444 13.5651C0.487824 14.5805 0.506147 14.7574 0.663556 15.0923C0.784753 15.3502 1.10962 15.6865 1.35935 15.8125C1.73611 16.0026 1.65973 15.999 5.32666 15.9995L8.69968 16L8.35826 15.658C8.17047 15.47 7.92118 15.181 7.80427 15.016C6.73982 13.5133 6.64365 11.4884 7.561 9.89598C7.74313 9.57981 7.74119 9.57344 7.45937 9.56577C7.39227 9.56393 7.18123 9.53151 6.99039 9.49372C6.03096 9.30373 5.16088 8.86931 4.39333 8.19707C4.22436 8.0491 4.08116 7.92816 4.0751 7.92832C4.069 7.92846 3.91655 8.0031 3.73626 8.09416ZM11.2334 8.56561C10.4285 8.68232 9.68269 9.0553 9.10595 9.62954C7.70508 11.0244 7.63054 13.2172 8.93279 14.7238C9.64925 15.5526 10.8065 16.0466 11.9002 15.9902C12.5144 15.9586 12.9628 15.8377 13.5015 15.5584C15.1059 14.7265 15.8805 12.828 15.3169 11.1088C14.8806 9.77794 13.7077 8.78655 12.3214 8.57695C11.9745 8.52448 11.5476 8.52005 11.2334 8.56561ZM12.0455 10.7523C12.2404 10.8972 12.2703 10.9743 12.2824 11.3631L12.2936 11.7248L12.6569 11.736C12.9605 11.7454 13.0354 11.7585 13.1126 11.816C13.2883 11.9468 13.3431 12.0533 13.3431 12.2642C13.3431 12.4751 13.2883 12.5817 13.1126 12.7124C13.0354 12.7699 12.9605 12.7831 12.6569 12.7924L12.2936 12.8036L12.2824 13.1653C12.2702 13.5561 12.2408 13.6309 12.0405 13.7798C11.9108 13.8762 11.593 13.8762 11.4633 13.7798C11.263 13.6309 11.2336 13.5561 11.2214 13.1653L11.2102 12.8036L10.8469 12.7924C10.4545 12.7803 10.3794 12.751 10.2298 12.5516C10.133 12.4224 10.133 12.106 10.2298 11.9769C10.3796 11.7771 10.4542 11.7481 10.8498 11.7359L11.2159 11.7246V11.4129C11.2159 10.9871 11.2913 10.8204 11.5342 10.7084C11.6677 10.6468 11.9344 10.6698 12.0455 10.7523Z" />
+                    </svg>
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="giveInnerPermission('view')">
+                  <a class="svgicon" (click)="getGroupDetails(element.id, 'View')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
+                      <path
+                        d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"
+                        fill="#0B4977" />
+                    </svg>
+                  </a>
+                </ng-container>
+                <!-- openVerticallyCenterededitonduty(editonduty) -->
+                <ng-container *ngIf="giveInnerPermission('edit')">
+                  <a class="svgicon" (click)="getGroupDetails(element.id, 'Edit')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M10.5142 0.852998C10.3428 0.887441 10.1536 0.971554 10.0166 1.07425C9.94218 1.13009 9.72307 1.33536 9.52976 1.53043L9.17827 1.88509L10.063 2.77052L10.9477 3.65594L11.3237 3.28068C11.7438 2.86143 11.8395 2.73767 11.9242 2.50438C12.0906 2.04553 11.979 1.55103 11.6302 1.202C11.3334 0.904967 10.9118 0.773132 10.5142 0.852998ZM6.64187 4.42464C5.03559 6.03389 4.6412 6.44087 4.62404 6.50694C4.61229 6.55211 4.52518 6.97971 4.43044 7.45717C4.31571 8.0355 4.26371 8.34701 4.27468 8.39039C4.29571 8.47347 4.36459 8.54243 4.44763 8.56347C4.5351 8.58567 6.32498 8.22981 6.41623 8.1721C6.45238 8.14924 7.36806 7.24261 8.4511 6.15737L10.4203 4.18422L9.54134 3.30433C9.05794 2.82042 8.65701 2.42447 8.65039 2.42447C8.64378 2.42447 7.73994 3.32454 6.64187 4.42464ZM1.27858 2.84912C0.801035 2.91978 0.368127 3.23955 0.154276 3.67962C-0.00886787 4.01529 -0.00024066 3.78264 0.000204767 7.83719C0.000673638 11.9193 -0.00959462 11.6643 0.168764 12.0206C0.339315 12.3613 0.644737 12.6245 1.03519 12.7672L1.20715 12.8301H4.99328H8.7794L8.96695 12.7664C9.45195 12.6016 9.813 12.2172 9.9558 11.7136C9.99568 11.573 9.99847 11.4202 9.99847 9.37926V7.19542L9.92778 7.08097C9.82569 6.91573 9.65157 6.82638 9.46356 6.84281C9.29873 6.85719 9.17157 6.93365 9.07852 7.07438L9.01384 7.17215L9.00212 9.33243C8.9914 11.3073 8.98697 11.499 8.95056 11.5655C8.8943 11.6683 8.76044 11.7794 8.65672 11.8095C8.59422 11.8275 7.50926 11.833 4.94437 11.8281L1.32036 11.8212L1.22857 11.757C1.1781 11.7218 1.11044 11.6539 1.07821 11.6063L1.0196 11.5196L1.01353 7.86312C1.0076 4.2986 1.00858 4.2044 1.0524 4.11912C1.07713 4.07102 1.12735 4.00316 1.16396 3.96837C1.31372 3.82614 1.21017 3.83222 3.48356 3.83222C5.06037 3.83222 5.58551 3.82525 5.6587 3.80336C5.79228 3.76342 5.9376 3.61258 5.9765 3.47355C6.03895 3.2503 5.94597 3.01626 5.7487 2.90022L5.63797 2.83506L3.52806 2.83175C2.3676 2.82995 1.35533 2.83774 1.27858 2.84912Z"
+                        fill="#0B4977" />
+                    </svg>
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="giveInnerPermission('selectedDelete')">
+                  <a class="svgicon" (click)="openVerticallyCenteredDelete(deletePopup, element.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M13.4224 3.28379C13.7141 3.28379 13.957 3.52604 13.957 3.83428V4.11928C13.957 4.42003 13.7141 4.66977 13.4224 4.66977H0.992421C0.699926 4.66977 0.457031 4.42003 0.457031 4.11928V3.83428C0.457031 3.52604 0.699926 3.28379 0.992421 3.28379H3.17921C3.62342 3.28379 4.01001 2.96804 4.10994 2.52255L4.22446 2.01105C4.40243 1.31431 4.98815 0.851562 5.65848 0.851562H8.75558C9.41862 0.851562 10.0109 1.31431 10.1823 1.9743L10.3049 2.5218C10.4041 2.96804 10.7906 3.28379 11.2356 3.28379H13.4224ZM12.3114 13.7021C12.5397 11.5744 12.9394 6.51941 12.9394 6.46841C12.954 6.31391 12.9037 6.16766 12.8038 6.04991C12.6965 5.93966 12.5609 5.87441 12.4113 5.87441H2.00842C1.85816 5.87441 1.7152 5.93966 1.616 6.04991C1.51534 6.16766 1.46574 6.31391 1.47303 6.46841C1.47437 6.47778 1.48872 6.65584 1.5127 6.95353C1.61922 8.27597 1.91591 11.9592 2.10762 13.7021C2.24329 14.9861 3.08577 15.7931 4.30608 15.8223C5.24775 15.8441 6.21787 15.8516 7.20988 15.8516C8.14426 15.8516 9.09322 15.8441 10.0641 15.8223C11.3267 15.8006 12.1684 15.0078 12.3114 13.7021Z"
+                        fill="#0B4977" />
+                    </svg>
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="giveInnerPermission('deletedAll')">
+                  <mat-checkbox
+                    style="margin-left: 10px"
+                    [checked]="selectedLabs.includes(element?.id)"
+                    (change)="handleCheckBoxChange($event, element?.id)"
+                  ></mat-checkbox>
+                  </ng-container>
+              </div>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div *ngIf="pharmacySource?.length === 0" class="text-center">
+          <b>{{ "no_record_found" | translate }}</b>
+        </div>
+
+        <mat-paginator class="pagination" [length]="totalLength" (page)="handlePageEvent($event)" [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add on duty group modal -->
+
+<ng-template #addonduty let-modal>
+  <div class="custome_modal addonduty addonduty-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_on_duty_group" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="ondutyForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body modal-block">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="form_field_wrapper">
+              <label>{{ "on_duty_group_name" | translate
+                }}<span class="danger">*</span></label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="ondutyGroupNumber" />
+                <mat-error *ngIf="
+                    ondutyForm.get('ondutyGroupNumber').hasError('required')
+                  ">{{ "on_duty_group_name_required" | translate }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <div class="form_field_wrapper">
+              <label>{{ "select_city" | translate
+                }}<span class="danger">*</span></label>
+                <select2
+              [limitSelection]="0"
+              [minCountForSearch]="0"
+              [overlay]="overlay"
+              [data]="cityList"
+              formControlName="city"
+              [placeholder]="'Select City'"
+              
+            >
+            </select2>     
+            </div>
+          </div>
+          <ng-container formArrayName="onDuty">
+            <ng-container *ngFor="let row of DutyForms.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_date" | translate }}</label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <input matInput formControlName="start_date" [matDatepicker]="picker1" [min]=""
+                        (dateChange)="checkEnddate()" />
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <!-- <mat-error *ngIf="ondutyForm.get('start_date').hasError('required')">Start Date is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_time" | translate
+                      }}<span class="danger">*</span></label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <div class="time">
+                        <input class="form-control" matInput formControlName="start_time" matTimepicker />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+
+                      <!-- <mat-error *ngIf="ondutyForm.get('start_time').hasError('required')">Start Time is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="fill">
+                              <input
+                                matInput
+                                aria-label="default time"
+                                [ngxTimepicker]="start_time_pick1"
+                                [format]="24"
+                                  type="time"
+                                placeholder="Start Time"
+                                formControlName="start_time"
+                              />
+                              <ngx-material-timepicker
+                                #start_time_pick1
+                              >
+                              </ngx-material-timepicker>
+                            </mat-form-field> -->
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_date" | translate
+                      }}<span class="danger">*</span></label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <input matInput formControlName="end_date" [matDatepicker]="picker2" [min]="minDate"
+                        (dateChange)="checkTodate()" />
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                      <!-- <mat-error *ngIf="ondutyForm.get('end_date').hasError('required')">End Date is required.</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_time" | translate
+                      }}<span class="danger">*</span></label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <div class="time">
+                        <input class="form-control" matInput formControlName="end_time" matTimepicker />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+                      <!-- <mat-error *ngIf="ondutyForm.get('end_time').hasError('required')">End Time is required.</mat-error> -->
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="fill">
+                              <input
+                                matInput
+                                aria-label="default time"
+                                [ngxTimepicker]="end_time_pic_1"
+                                [format]="24"
+                                  type="time"
+                                placeholder="End Time"
+                                formControlName="end_time"
+                              />
+                              <ngx-material-timepicker
+                                #end_time_pic_1
+                              >
+                              </ngx-material-timepicker>
+                            </mat-form-field> -->
+                  </div>
+                </div>
+                <ng-container *ngIf="i === DutyForms.length - 1; else remove">
+                  <div class="primary_btn add-rmv-block justify-content-start mb-3">
+                    <button class="row_generate row_minus me-3" (click)="removeOnDuty(i)" *ngIf="DutyForms.length > 1">
+                      <mat-icon class="plus">remove</mat-icon>
+                    </button>
+                    <button class="row_generate row_add" (click)="addNewOnDuty()">
+                      <mat-icon class="plus">add</mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+                <ng-template #remove>
+                  <div class="primary_btn add-rmv-block justify-content-start mb-3">
+                    <button class="row_generate row_minus" (click)="removeOnDuty(i)">
+                      <mat-icon class="plus">remove</mat-icon>
+                    </button>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <div class="col-sm-6 col-md-6">
+            <div class="form_field_wrapper">
+              <label>{{ "date_of_creation" | translate }}</label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="date_of_creation" [matDatepicker]="picker5" />
+                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                <mat-datepicker #picker5></mat-datepicker>
+                <mat-error *ngIf="
+                    ondutyForm.get('date_of_creation').hasError('required')
+                  ">{{ "date_of_creation_required" | translate }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="primary_btn justify-content-end mb-3 me-3">
+        <button type="button" class="btn btn-tranprent me-2" (click)="modal.dismiss('Cross click')">
+          {{ "cancel" | translate }}
+        </button>
+        <button type="submit" class="btn btn-primary">
+          {{ "save" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Edit on duty group modal -->
+
+<ng-template #editonduty let-modal>
+  <div class="custome_modal addonduty editonduty-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "edit_on_duty_group" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form [formGroup]="ondutyForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="form_field_wrapper">
+              <label>{{ "on_duty_group_name" | translate
+                }}<span class="danger">*</span></label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="ondutyGroupNumber" />
+                <mat-error *ngIf="
+                    ondutyForm.get('ondutyGroupNumber').hasError('required')
+                  ">{{ "on_duty_group_name_required" | translate }}</mat-error>
+              </mat-form-field>
+              <input type="hidden" formControlName="ondutyGroupId" />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <div class="form_field_wrapper">
+              <label>{{ "select_city" | translate
+                }}<span class="danger">*</span></label>
+                <select2
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                [overlay]="overlay"
+                [data]="cityList"
+                formControlName="city"
+                [placeholder]="'Select City'"
+                
+              >
+              </select2>    
+            </div>
+          </div>
+          <div formArrayName="onDuty">
+            <ng-container *ngFor="let row of DutyForms.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_date" | translate }}</label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <input matInput formControlName="start_date" [matDatepicker]="picker1" [min]=""
+                        (dateChange)="checkEnddate()" />
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <!-- <mat-error *ngIf="ondutyForm.get('start_date').hasError('required')">Start Date is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_time" | translate }}</label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <div class="time">
+                        <input class="form-control" type="time" matInput formControlName="start_time" matTimepicker />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+
+                      <!-- <mat-error *ngIf="ondutyForm.get('start_time').hasError('required')">Start Time is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="fill">
+                            <input
+                              matInput
+                              aria-label="default time"
+                              [ngxTimepicker]="start_time_pick1"
+                              [format]="24"
+                                type="time"
+                              placeholder="Start Time"
+                              formControlName="start_time"
+                            />
+                            <ngx-material-timepicker
+                              #start_time_pick1
+                            >
+                            </ngx-material-timepicker>
+                          </mat-form-field> -->
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_date" | translate
+                      }}<span class="danger">*</span></label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <input matInput formControlName="end_date" [matDatepicker]="picker2" [min]="minDate"
+                        (dateChange)="checkTodate()" />
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                      <!-- <mat-error *ngIf="ondutyForm.get('end_date').hasError('required')">End Date is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_time" | translate
+                      }}<span class="danger">*</span></label>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <div class="time">
+                        <input class="form-control" type="time" matInput formControlName="end_time" matTimepicker />
+                        <mat-icon matSuffix>schedule</mat-icon>
+                      </div>
+                      <!-- <mat-error *ngIf="ondutyForm.get('end_time').hasError('required')">End Time is
+                        required.</mat-error> -->
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="fill">
+                            <input
+                              matInput
+                              aria-label="default time"
+                              [ngxTimepicker]="end_time_pic_1"
+                              [format]="24"
+                                type="time"
+                              placeholder="End Time"
+                              formControlName="end_time"
+                            />
+                            <ngx-material-timepicker
+                              #end_time_pic_1
+                            >
+                            </ngx-material-timepicker>
+                          </mat-form-field> -->
+                    <ng-container *ngIf="i === DutyForms.length - 1; else remove">
+                      <div class="primary_btn add-rmv-block justify-content-start mb-3">
+                        <button class="row_generate row_minus me-3" (click)="removeOnDuty(i)"
+                          *ngIf="DutyForms.length > 1">
+                          <mat-icon class="plus">remove</mat-icon>
+                        </button>
+                        <button class="row_generate row_add" (click)="addNewOnDuty()">
+                          <mat-icon class="plus">add</mat-icon>
+                        </button>
+                      </div>
+                    </ng-container>
+                    <ng-template #remove>
+                      <div class="primary_btn add-rmv-block justify-content-start mb-3">
+                        <button class="row_generate row_minus" (click)="removeOnDuty(i)">
+                          <mat-icon class="plus">remove</mat-icon>
+                        </button>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="col-sm-6 col-md-6">
+            <div class="form_field_wrapper">
+              <label>{{ "date_of_creation" | translate }}</label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="date_of_creation" [matDatepicker]="picker6" />
+                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                <mat-datepicker #picker6></mat-datepicker>
+                <mat-error *ngIf="
+                    ondutyForm.get('date_of_creation').hasError('required')
+                  ">{{ "date_of_creation_required" | translate }}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button type="button" class="btn btn-tranprent me-2" (click)="closePopup()">
+            {{ "cancel" | translate }}
+          </button>
+          <button type="submit" class="btn btn-primary">
+            {{ "update" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #viewonduty let-modal>
+  <div class="custome_modal addonduty">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "view_on_duty_group" | translate }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="form_field_wrapper">
+            <label>{{ "on_duty_group_number" | translate }}</label>
+            {{ onDutyGroupNumber }}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12">
+          <div class="form_field_wrapper">
+            <label>{{ "city" | translate }}</label>
+            {{ city_name }}
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="form_field_wrapper">
+            <label>{{ "start_date" | translate }}</label>
+            {{ startDate | date : "YYYY-MM-dd" }}
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form_field_wrapper">
+            <label>{{ "start_time" | translate }}</label>
+            {{ start_time }}
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form_field_wrapper">
+            <label>{{ "end_date" | translate }}</label>
+            {{ end_date | date : "YYYY-MM-dd" }}
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6">
+          <div class="form_field_wrapper">
+            <label>{{ "end_time" | translate }}</label>
+            {{ end_time }}
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-tranprent me-2" (click)="modal.dismiss('Cross click')">
+          {{ "cancel" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- modal import-->
+<ng-template #imporsubscriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "upload_excel_file_for_on_duty" | translate }} {{ csvFor }}
+      </h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="closePopup()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body import_subscribes">
+      <form>
+        <div class="row">
+          <div class="col-md-6 upload_item">
+            <div class="form_field_wrapper">
+              <label>{{ "choose_file" | translate }}</label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <label>
+                    <a class="btn_svg"><svg width="19" height="17" viewBox="0 0 19 17"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M2.70702 0.0104581C2.35458 0.068045 2.14937 0.132128 1.86268 0.274083C1.40132 0.502557 0.97754 0.942847 0.758933 1.42088C0.482758 2.0248 0.50022 1.57399 0.50022 8.09617C0.50022 12.9014 0.509776 14.035 0.55184 14.2135C0.717983 14.9191 1.21541 15.5686 1.8243 15.875C2.38912 16.1593 2.18433 16.1464 6.14194 16.1464H9.71119L9.88221 16.0467C9.97624 15.9919 10.1037 15.8725 10.1653 15.7812C10.2688 15.6282 10.2815 15.5697 10.329 15.0238C10.4356 13.8003 10.7776 12.9004 11.4602 12.0464C12.1823 11.1432 13.1294 10.555 14.2693 10.3017C14.6271 10.2222 14.8098 10.2123 16.3188 10.1915L17.9755 10.1685L18.1418 10.0472C18.2333 9.98044 18.3513 9.84594 18.4041 9.7483L18.5 9.57071L18.4998 7.11979L18.4997 4.66886L18.3953 4.35004C18.1169 3.49978 17.5074 2.88881 16.677 2.62765C16.49 2.56883 16.1025 2.55875 13.2776 2.53906L10.0893 2.51682L9.93295 2.40938C9.82035 2.33195 9.65551 2.11499 9.34318 1.63305C9.10481 1.26517 8.83965 0.884663 8.75398 0.787502C8.53058 0.53412 8.0822 0.243117 7.72051 0.116785L7.40845 0.00778804L5.10571 0.00129208C3.8392 -0.00229465 2.75979 0.00184999 2.70702 0.0104581ZM14.0838 11.9775C13.9867 12.0233 13.5948 12.3851 13.0476 12.9344C12.0537 13.9318 11.9386 14.0915 11.9652 14.4363C11.9738 14.5479 12.0142 14.7048 12.055 14.785C12.172 15.0153 13.9025 16.8423 14.0853 16.9286C14.3751 17.0652 14.7298 17.0019 14.9629 16.7719C15.1698 16.5679 15.1979 16.4686 15.2186 15.8674L15.2378 15.3095L16.6066 15.2895L17.9754 15.2696L18.1418 15.1483C18.5595 14.8436 18.6203 14.2555 18.2748 13.861C18.0801 13.6388 18.0697 13.6372 16.6002 13.6157L15.2378 13.5958L15.2186 13.0379C15.1979 12.4367 15.1698 12.3374 14.9629 12.1334C14.7293 11.9029 14.3751 11.8401 14.0838 11.9775Z" />
+                      </svg></a>{{ selectfilename ? selectfilename : "Choose File" }}
+                  </label>
+                </div>
+                <!-- <span *ngIf="selectedFileName">selected {{selectedFileName}} file</span> -->
+                <input class="ng-hide user_upload_input" (change)="selectFile($event)"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                  id="input-file-id" type="file" />
+              </div>
+              <!-- <span *ngIf="selectedCsv">
+                Selected {{ selectfilename }} file
+              </span> -->
+              <!-- <span class="text-danger"
+                                *ngIf="isSubmitted && addSubscriberFormControl['csvFileName'].errors?.['required']">
+                                Choose CSV File
+                            </span> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form_field_wrapper">
+              <label>{{ "sample_file" | translate }} </label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <button type="button" placement="top" ngbTooltip="Tooltip on top" class="btn btn-secondary me-2"
+                    (click)="downloadSampleExcel()">
+                    {{ "download" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <div class="left"></div>
+          <div class="right">
+            <button type="button" class="btn btn-secondary" (click)="closePopup()">
+              {{ "cancel" | translate }}
+            </button>
+            <button type="button" class="btn btn-primary" (click)="uploadCsvOnDutyGroup()"
+              [disabled]="selectedCsv === null">
+              {{ "upload" | translate }} {{ csvFor }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deletePopup let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img class="img-fluid" src="../../../../assets/img/delete.svg" alt="" />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_delete_pharmacy" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="deleteGroup(pharmacyId)">
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deletePopupAll let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img class="img-fluid" src="../../../../assets/img/delete.svg" alt="" />
+        </div>
+        <p class="heading delete">{{ 'are_you_sure' | translate }}</p>
+        <p>{{ 'want_to_delete_all_pharmacy' | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            {{ 'no' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="deletelab('all')">
+            {{ 'yes' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #deletePopupSelected let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img class="img-fluid" src="../../../../assets/img/delete.svg" alt="" />
+        </div>
+        <p class="heading delete">{{ 'are_you_sure' | translate }}</p>
+        <p>{{ 'want_to_del_selected_pharmacy' | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+            {{ 'no' | translate }}
+          </button>
+          <button type="button" class="btn btn-primary" (click)="deletelab()">
+            {{ 'yes' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

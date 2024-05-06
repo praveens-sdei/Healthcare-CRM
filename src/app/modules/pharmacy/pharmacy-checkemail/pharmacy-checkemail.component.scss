@@ -1,0 +1,22 @@
+@import '../../../../assets/css/variable/variable';
+
+.login {
+    .login_inner {
+        .left_part {
+            background-image: url(../../../../assets/img/pharmacy_login.png);
+        }
+    }
+    &.super_admin{
+        .login_inner {
+            .right_part {
+               .rightpart_inner{
+                    form{
+                       .signup_section{
+                        margin: 50px 0 0;
+                       }  
+                    }
+               }
+            }
+        }
+    }
+}

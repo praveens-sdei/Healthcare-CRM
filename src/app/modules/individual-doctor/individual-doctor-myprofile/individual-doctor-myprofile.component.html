@@ -1,0 +1,49 @@
+<div class="add_doctor dashboard_main_content">
+    <div class="step_counter">
+        <mat-stepper #mainStepper [orientation]="(stepperOrientation | async)!" (selectionChange)="onStepSelectionChange($event)">
+           
+                        <mat-step>
+                <ng-template matStepLabel>Basic Info</ng-template>
+                <ng-template [ngIf]="stepIndex === 0">
+                <app-basicinfo [mstepper]="passToChild" *ngIf="isEnable"></app-basicinfo>
+                </ng-template>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Educational</ng-template>
+                <ng-template [ngIf]="stepIndex === 1">
+                <app-educational [mstepper]="passToChild" (calldoctordata)="getDoctorDetails()" *ngIf="isEnable"></app-educational>
+                </ng-template>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Location</ng-template>
+                <ng-template [ngIf]="stepIndex === 2">
+                    <app-location (locations)="getLocations($event)" [mstepper]="passToChild" *ngIf="isEnable"></app-location>
+                </ng-template>
+            </mat-step>
+            
+            <mat-step>
+                <ng-template matStepLabel>Availability</ng-template>
+                <ng-template [ngIf]="stepIndex === 3">
+                    <app-availability [mstepper]="passToAvailability"></app-availability>
+                </ng-template>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Fee Management </ng-template>
+                <ng-template [ngIf]="stepIndex === 4">
+                <app-feemanagement [mstepper]="passToChild" (calldoctordata)="getDoctorDetails()" *ngIf="isEnable"></app-feemanagement>
+                </ng-template>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Document Manage</ng-template>
+                <ng-template [ngIf]="stepIndex === 5">
+                    <app-documentmanage [mstepper]="passToChild" *ngIf="isEnable"></app-documentmanage>
+                </ng-template>
+            </mat-step>
+
+        </mat-stepper>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+@import '../../../../assets/css/variable/variable';
+.pre_authorization {
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+                margin: 5px 0;
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+                    color: #0B4977;
+                    margin-left: 10px;
+                }
+            }
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+            }
+        }
+    }
+    .user_insurance {
+        .user_insurance_block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #F6F8FC;
+            border: 1px solid #B6C8D6;
+            border-radius: 15px;
+            padding: 20px;
+            p {
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 18px;
+                color: #0C2F49;
+            }
+        }
+        .primary_btn {
+            justify-content: flex-end;
+        }
+    }
+    .mat-expansion-panel {
+        border-radius: 15px;
+    }
+}
+
+.custome_modal {
+    .modal-body {
+        .modal_content {
+            &.service {
+                .modal_content_inner {
+                    .item {
+                        width: auto;
+                    }
+                }
+            }
+            &.exclusion {
+                .modal_content_inner {
+                    width: 100%;
+                }
+            }
+        }
+        .mat-tab-header {
+            margin: 0 0 28px;
+            border-bottom: none;
+            .mat-tab-list {
+                .mat-tab-labels {
+                    display: inline-flex;
+                    .mat-tab-label {
+                        height: 55px;
+                        padding: 0 20px;
+                        min-width: 200px;
+                        font-size: $font_medium;
+                        font-weight: 600;
+                        color: $bodycolor;
+                        background-color: $white_color;
+                        border: 1px solid rgba(11, 73, 119, 0.15);
+                        border-radius: 10px;
+                        opacity: 1;
+                        margin-left: 20px;
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                    .mat-tab-label.mat-tab-label-active {
+                        color: $white_color;
+                        background-color: $bodycolor;
+                    }
+                }
+                .mat-ink-bar {
+                    display: none;
+                }
+                .mat-ink-bar {
+                    background-color: $bodycolor;
+                }
+            }
+        }
+        .mat-tab-body-content {
+            overflow: hidden;
+        }
+    }
+}
+
+@media screen and (min-width :$tablet_up) {
+    .pre_authorization .export_list .inner_exprot_list .status_list p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width :$desktop_pro_up) {
+    .pre_authorization .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width :$desktop_up) {
+    .pre_authorization .export_list .inner_exprot_list .status_list p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width :$desktop_large_up) {
+    .pre_authorization .export_list .inner_exprot_list .status_list p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width :1356px) {
+    .pre_authorization .export_list .inner_exprot_list .status_list img {
+        max-width: 27%;
+    }
+    .review_send .inner_review_send ul li {
+        margin: 0 5px;
+    }
+}
+
+@media screen and (max-width:$desktop) {
+    .pre_authorization .user_insurance .user_insurance_block p {
+        font-size: 14px;
+    }
+    .review_send .inner_review_send ul {
+        display: flex !important;
+        align-items: center;
+    }
+    .review_send .inner_review_send .primary_btn {
+        display: flex;
+        justify-content: left;
+    }
+    .review_send .inner_review_send ul li {
+        list-style: none;
+        display: inline-block;
+        margin: 8px 10px;
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .expansion_panel .expansion_panel_inner .outer_detail_block {
+        border-bottom: 1px solid #b6c8d6;
+    }
+    .fromto_date {
+        display: block;
+    }
+    .fromto_date .form_field_wrapper {
+        display: block;
+    }
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header {
+        font-size: 15px;
+        line-height: 19px;
+    }
+    .without_arrow .header_text {
+        font-size: 15px;
+        line-height: 19px;
+    }
+    .expansion_panel .expansion_panel_inner .outer_detail_block.last_child {
+        border-bottom: none;
+    }
+}
+
+@media screen and (max-width:$medium_iphone) {
+    .review_send .inner_review_send .search_send {
+        display: block;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .without_arrow .header_text {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .mat-accordion .mat-expansion-panel .mat-expansion-panel-header.mat-expanded {
+        height: 73px;
+    }
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description {
+        display: block;
+    }
+    .custome_modal .modal-body .modal_content .modal_content_inner {
+        padding: 20px 5px 0;
+    }
+    .custome_modal .modal-body {
+        padding: 25px 10px;
+    }
+}

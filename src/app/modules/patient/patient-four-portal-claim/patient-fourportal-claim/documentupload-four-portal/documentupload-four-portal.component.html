@@ -1,0 +1,266 @@
+<div class="document_upload">
+  <div class="medicinclaim_block">
+    <div class="header_medicin">
+      <h2>{{ "medicine_claims" | translate }}</h2>
+    </div>
+    <div class="sub_content">
+      <div class="claim_content">
+        <div class="sub_heading">
+          <h3>{{ "upload_document" | translate }}</h3>
+          <div class="primary_btn">
+            <button type="button" class="btn btn-primary">
+              <a class="btn_svg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="23"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.97426 0.0221151C8.3036 0.127324 7.70596 0.434621 7.21397 0.927246C6.48253 1.65969 6.15474 2.66043 6.32999 3.62642C6.36909 3.84203 6.41656 4.05701 6.4355 4.1042C6.4679 4.18495 6.36092 4.18995 4.5908 4.18995C2.4853 4.18995 2.4115 4.19877 1.73682 4.53037C0.856705 4.96297 0.251086 5.78259 0.0693752 6.7871C-0.016219 7.26042 -0.0252238 9.34069 0.0569936 9.66744C0.142441 10.0073 0.486727 10.3356 0.836151 10.4107C1.02907 10.4521 2.3654 10.4635 5.77429 10.4527L10.448 10.4378L10.4605 7.31388L10.4732 4.18995H11.5001H12.5271L12.5398 7.31388L12.5523 10.4378L17.2738 10.4503C22.6313 10.4645 22.3561 10.4825 22.6975 10.0942C22.8117 9.96425 22.914 9.78406 22.9461 9.65617C23.0255 9.34049 23.0144 7.24876 22.9309 6.7871C22.7492 5.78254 22.1494 4.9714 21.2635 4.53209C20.5915 4.19887 20.5172 4.18995 18.4095 4.18995C16.6742 4.18995 16.5328 4.18368 16.5618 4.10812C16.7373 3.65009 16.7511 2.76627 16.5907 2.25434C16.4288 1.73746 16.1714 1.3129 15.7863 0.927246C15.1723 0.312457 14.4731 0.0157937 13.629 0.0119714C12.8865 0.00854124 12.2227 0.227927 11.7071 0.647097L11.498 0.817039L11.3254 0.665326C11.0969 0.464414 10.5586 0.196467 10.199 0.104685C9.82301 0.00868826 9.28928 -0.0273288 8.97426 0.0221151ZM9.9502 2.24684C10.0955 2.33211 10.2245 2.46192 10.3114 2.61039C10.438 2.82679 10.4477 2.88442 10.4652 3.52141L10.4838 4.20137L9.80475 4.1827C9.1686 4.1652 9.11104 4.15545 8.89493 4.02868C8.30561 3.68287 8.20191 2.88368 8.68376 2.40115C8.79328 2.29148 8.95977 2.17608 9.05369 2.14467C9.32505 2.05402 9.69308 2.09596 9.9502 2.24684ZM13.9169 2.1431C14.1958 2.22651 14.4992 2.54155 14.5804 2.83194C14.7154 3.31476 14.5034 3.81699 14.0705 4.04025C13.8527 4.15256 13.7601 4.16721 13.1721 4.18265L12.5165 4.19985L12.5353 3.51592C12.5533 2.85698 12.5594 2.82331 12.7007 2.59432C12.8073 2.42173 12.9191 2.31922 13.1093 2.21974C13.3948 2.07038 13.6067 2.05024 13.9169 2.1431ZM1.07615 16.4056C1.07615 20.7357 1.06313 20.5503 1.41784 21.2674C1.87405 22.1898 2.74232 22.8067 3.79471 22.956C4.05981 22.9936 5.18164 23.0066 7.31587 22.9969L10.448 22.9825V17.7637V12.5449L5.76205 12.5324L1.07615 12.5199V16.4056ZM12.5504 12.5817C12.5376 12.6154 12.5328 14.9693 12.5397 17.8127L12.5523 22.9825L15.6844 22.9969C17.8187 23.0066 18.9405 22.9936 19.2056 22.956C20.2583 22.8066 21.1144 22.1979 21.5807 21.2674C21.9371 20.5562 21.9241 20.739 21.9241 16.4059V12.5204H17.249C13.5538 12.5204 12.5688 12.5333 12.5504 12.5817Z"
+                  /></svg></a
+              >{{
+                "if_you_upload_a_picture_of_the_electronically_printed_bill_or_pdf_you_will_get_100_reward_points"
+                  | translate
+              }}
+            </button>
+          </div>
+        </div>
+
+        <div class="bill_reason">
+          <ul class="bill_reason_inner">
+            <li class="title">
+              {{ "top_reasons_for_bills_to_get_rejected" | translate }}
+              <ul>
+                <li>
+                  {{ "no_doctor_registration_id_and_address" | translate }}
+                </li>
+                <li>{{ "file_uploaded_is_not_clear" | translate }}</li>
+                <li>{{ "patient_details_are_not_written" | translate }}</li>
+                <li>{{ "no_tax_details_of_doctor" | translate }}</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="typeofmedicine">
+          <label>{{ "type_of_reports" | translate }}</label>
+          <div class="form_field_wrapper">
+            <mat-form-field appearance="fill">
+              <mat-select
+                [(value)]="uploadTypeFormat"
+                (selectionChange)="uploadType($event)"
+              >
+                <mat-option value="Invoice">{{
+                  "invoice" | translate
+                }}</mat-option>
+                <mat-option value="Hospital">{{
+                  "hospital_report" | translate
+                }}</mat-option>
+                <mat-option value="Receipt">{{
+                  "receipt" | translate
+                }}</mat-option>
+                <mat-option value="Prescriptions">{{
+                  "prescriptions" | translate
+                }}</mat-option>
+                <mat-option value="Others">{{
+                  "others" | translate
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div *ngIf="uploadTypeFormat === 'Others'" class="item col-md-4">
+          <div class="form_field_wrapper">
+            <label>{{ "enter_file_name" | translate }}</label>
+            <mat-form-field appearance="fill">
+              <input
+                type="text"
+                placeholder="{{ 'enter_file_name' | translate }}"
+                matInput
+                [(ngModel)]="reportFileName"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="uploaddocs_section_wrapper">
+          <div class="uploaddocs_section col-sm-12 col-md-12">
+            <!-- <label>Upload {{uploadTypeFormat}} Report</label> -->
+            <div class="form_field_wrapper add_image">
+              <input
+                class="upload_input"
+                accept
+                type="file"
+                accept="image/*"
+                multiple
+                #pharmacyPicUpload
+                (change)="onFileSelected($event, uploadTypeFormat)"
+              />
+
+              <!-- <ng-container *ngFor="let i of fileFormatType"> -->
+              <div class="boxes_wrapper" style="margin-top: -120px">
+                <div class="boxes uploadIcon">
+                  <div class="inner_boxes">
+                    <p><mat-icon> add </mat-icon></p>
+                    <p>
+                      {{ "choose" | translate }} {{ uploadTypeFormat }}
+                      {{ "file" | translate }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <ng-container *ngIf="invoiceUrl.length > 0">
+                <div class="boxes_wrapper">
+                  <div class="boxes">
+                    <div class="inner_boxes">
+                      <p>{{ "upload_nvoice" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="preview-img row">
+                    <div
+                      class="col-md-2"
+                      *ngFor="let pic of invoiceUrl; index as i"
+                    >
+                      <span
+                        class="imgcloseIcon"
+                        (click)="removeImage('invoice', i, pic.imageId)"
+                        ><mat-icon>close</mat-icon></span
+                      ><img
+                        [src]="pic.signedUrl"
+                        alt="pharmacy_pic"
+                        class="imageDesign"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="hospitalReportUrl.length > 0">
+                <div class="boxes_wrapper">
+                  <div class="boxes">
+                    <div class="inner_boxes">
+                      <p>{{ "upload_hospital" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="preview-img row">
+                    <div
+                      class="col-md-2"
+                      *ngFor="let pic of hospitalReportUrl; index as i"
+                    >
+                      <span
+                        class="imgcloseIcon"
+                        (click)="removeImage('hospital', i, pic.imageId)"
+                        ><mat-icon>close</mat-icon></span
+                      ><img
+                        [src]="pic.signedUrl"
+                        alt="pharmacy_pic"
+                        class="imageDesign"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="recieptUrl.length > 0">
+                <div class="boxes_wrapper">
+                  <div class="boxes">
+                    <div class="inner_boxes">
+                      <p>{{ "upload_receipt" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="preview-img row">
+                    <div
+                      class="col-md-2"
+                      *ngFor="let pic of recieptUrl; index as i"
+                    >
+                      <span
+                        class="imgcloseIcon"
+                        (click)="removeImage('receipt', i, pic.imageId)"
+                        ><mat-icon>close</mat-icon></span
+                      ><img
+                        [src]="pic.signedUrl"
+                        alt="pharmacy_pic"
+                        class="imageDesign"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="prescriptionUrl.length > 0">
+                <div class="boxes_wrapper">
+                  <div class="boxes">
+                    <div class="inner_boxes">
+                      <p>{{ "upload_prescription" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="preview-img row">
+                    <div
+                      class="col-md-2"
+                      *ngFor="let pic of prescriptionUrl; index as i"
+                    >
+                      <span
+                        class="imgcloseIcon"
+                        (click)="removeImage('prescription', i, pic.imageId)"
+                        ><mat-icon>close</mat-icon></span
+                      ><img
+                        [src]="pic.signedUrl"
+                        alt="pharmacy_pic"
+                        class="imageDesign"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="OthersUrl.length > 0">
+                <div class="boxes_wrapper">
+                  <div class="boxes">
+                    <div class="inner_boxes">
+                      <p>{{ "upload_others" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="preview-img row">
+                    <div
+                      class="col-md-2"
+                      *ngFor="let pic of OthersUrl; index as i"
+                    >
+                      <span
+                        class="imgcloseIcon"
+                        (click)="removeImage('others', i, pic.imageId)"
+                        ><mat-icon>close</mat-icon></span
+                      ><img
+                        [src]="pic.signedUrl"
+                        alt="pharmacy_pic"
+                        class="imageDesign"
+                      />
+                      <p>{{ pic.name }}</p>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- </ng-container> -->
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <button class="btn btn-secondary" mat-button matStepperPrevious>
+            {{ "back" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            mat-button
+            (click)="claimDocumentsUpload()"
+            matStepperNext
+          >
+            {{ "save_&_continue" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

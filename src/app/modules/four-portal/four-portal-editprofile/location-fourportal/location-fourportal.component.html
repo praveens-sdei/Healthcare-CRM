@@ -1,0 +1,544 @@
+<div class="step_counter_inner">
+  <mat-radio-group
+    *ngIf="userRole === 'INDIVIDUAL'"
+    aria-label="Select an option"
+    (change)="handleSelectLocationFor($event)"
+  >
+    <mat-radio-button value="Hospital" [checked]="true"
+      >{{"Hospital" | translate}}</mat-radio-button
+    >&nbsp;&nbsp;&nbsp;
+    <mat-radio-button value="Clinic">{{"clinic" | translate}}</mat-radio-button> </mat-radio-group
+  ><br /><br />
+
+  <div class="educational" *ngIf="locationFor === 'Hospital'">
+    <form [formGroup]="locationForm">
+      <ng-container formArrayName="location">
+        <ng-container *ngFor="let _ of location.controls; let i = index">
+          <ng-container [formGroupName]="i">
+            <div class="form">
+              <div class="increse_content">
+                <div class="row increse_content_inner">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_hospital" | translate}}</label>
+                      <mat-form-field
+                        appearance="fill"
+                        *ngIf="userRole === 'HOSPITAL'"
+                      >                       
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="hospital_name"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+
+                      <div *ngIf="userRole === 'INDIVIDUAL'">
+                        <select2
+                          class="test"
+                          [overlay]="overlay"
+                          [limitSelection]="0"
+                          [minCountForSearch]="0"
+                          [data]="allhospitallocationList"
+                          formControlName="hospital_id"
+                          (update)="handleSelectHospital($event.value, i)">
+                        </select2>
+                      </div>
+
+                      <!-- <mat-form-field
+                        appearance="fill"
+                        *ngIf="userRole === 'INDIVIDUAL'"
+                      >                      
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_hospital" | translate}}'
+                          formControlName="hospital_id"
+                          [disabled]="selectedValue.includes(i)"
+                          (selectionChange)="
+                            handleSelectHospital($event.value, i)
+                          "
+                        >
+                          <mat-option
+                            *ngFor="let hospital of hospitalList"
+                            [value]="hospital?.for_portal_user?._id"
+                            [disabled]="selectedValue.includes(i)"
+                            >{{ hospital?.hospital_name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field> -->
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['hospital_id'].errors?.['required'] "
+                      >{{"select_hospital" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"location" | translate}}</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="location"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['location'].errors?.['required'] "
+                      >{{"enter_location" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"City" | translate}} </label>
+                      <mat-form-field appearance="fill">                       
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="city"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['city'].errors?.['required'] "
+                      >{{"enter_city" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"Country" | translate}}</label>
+                      <mat-form-field appearance="fill">                       
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="country"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['country'].errors?.['required'] "
+                      >{{"enter_country" | translate}}*</span
+                    >
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"Village" | translate}} </label>
+                      <mat-form-field appearance="fill">                        
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="village"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['village'].errors?.['required'] "
+                      >{{"enter_village" | translate}}*</span
+                    >
+                  </div>
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"neighbourhood" | translate}} </label>
+                      <mat-form-field appearance="fill">                        
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="neighborhood"
+                          [readonly]="true"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validation(i).controls['neighborhood'].errors?.['required'] "
+                      >{{"enter_neighbourhood" | translate}}*</span
+                    >
+                  </div>
+                </div>               
+                <ng-container *ngIf="i === location.length - 1 && userRole === 'INDIVIDUAL'; else remove">
+                  <div
+                  class="row_generate row_minus"
+                  *ngIf="location.length>1"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        location.at(i).value?.hospital_id,
+                        i,
+                        'hospital'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div>
+                <div
+                class="row_generate row_add"
+              >
+                <mat-icon class="plus" (click)="addNewLocation()"
+                  >add</mat-icon
+                >
+              </div>
+              </ng-container>
+              <ng-template #remove>
+                  <div
+                  class="row_generate row_minus"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        location.at(i).value?.hospital_id,
+                        i,
+                        'hospital'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div>
+                
+                </ng-template>
+                <!-- <div
+                  class="row_generate row_add"
+                  *ngIf="i === 0 && userRole === 'INDIVIDUAL_DOCTOR'"
+                >
+                  <mat-icon class="plus" (click)="addNewLocation()"
+                    >add</mat-icon
+                  >
+                </div>
+
+                <div
+                  class="row_generate row_minus"
+                  *ngIf="i !== 0 && userRole === 'INDIVIDUAL_DOCTOR'"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        location.at(i).value?.hospital_id,
+                        i,
+                        'hospital'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div> -->
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </form>
+  </div>
+
+  <div class="educational" *ngIf="locationFor === 'Clinic'">
+    <form [formGroup]="clinicLocationForm">
+      <ng-container formArrayName="clinicLocation">
+        <ng-container *ngFor="let _ of clinicLocation.controls; let i = index">
+          <ng-container [formGroupName]="i">
+            <div class="form">
+              <div class="increse_content">
+                <div class="row increse_content_inner">
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"clinic_name" | translate}}</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="hospital_name"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['hospital_name'].errors?.['required'] "
+                      >{{"enter_clinic_name" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"location" | translate}}</label>
+                      <mat-form-field appearance="fill">
+                        <input
+                          type="text"
+                          matInput
+                          id="address{{i}}"
+                          placeholder='{{"enter_location" | translate}}'
+                          formControlName="location"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['location'].errors?.['required'] "
+                      >{{"enter_location" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_country" | translate}}</label>
+
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_country" | translate}}'
+                          formControlName="country"
+                          (selectionChange)="getRegionList($event.value, i)"
+                        >
+                          <mat-option
+                            *ngFor="let country of countryList"
+                            [value]="country._id"
+                            >{{ country?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['country'].errors?.['required'] "
+                      >{{"select_country" | translate}}*</span
+                    >
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_region" | translate}}</label>
+
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_region" | translate}}'
+                          formControlName="region"
+                          (selectionChange)="getProvienceList($event.value, i)"
+                        >
+                          <mat-option
+                            *ngFor="let region of regionList[i]"
+                            [value]="region._id"
+                            >{{ region?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['region'].errors?.['required'] "
+                      >Select Region*</span
+                    > -->
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_province" | translate}}</label>
+
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_province" | translate}}'
+                          formControlName="province"
+                          (selectionChange)="getDepartmentList($event.value, i)"
+                        >
+                          <mat-option
+                            *ngFor="let provience of provienceList[i]"
+                            [value]="provience._id"
+                            >{{ provience?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['province'].errors?.['required'] "
+                      >Select Province*</span
+                    > -->
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_department" | translate}}</label>
+
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_department" | translate}}'
+                          formControlName="department"
+                          (selectionChange)="getCityList($event.value, i)"
+                        >
+                          <mat-option
+                            *ngFor="let department of departmentList[i]"
+                            [value]="department._id"
+                            >{{ department?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['department'].errors?.['required'] "
+                      >Select Department*</span
+                    > -->
+                  </div>
+
+                  <div class="col-sm-6 col-md-6">
+                    <div class="form_field_wrapper">
+                      <label>{{"select_city" | translate}}</label>
+
+                      <mat-form-field appearance="fill">
+                        <mat-select
+                          disableRipple
+                          placeholder='{{"select_city" | translate}}'
+                          formControlName="city"
+                        >
+                          <mat-option
+                            *ngFor="let city of cityList[i]"
+                            [value]="city._id"
+                            >{{ city?.name }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- <span
+                      class="text-danger"
+                      *ngIf="isSubmitted && validationClinic(i).controls['city'].errors?.['required'] "
+                      >Select City*</span
+                    > -->
+                  </div>
+                </div>
+                <!-- <div
+                  class="row_generate row_add"
+                  *ngIf="i === 0 && userRole === 'INDIVIDUAL_DOCTOR'"
+                >
+                  <mat-icon class="plus" (click)="addNewClinicLocation()"
+                    >add</mat-icon
+                  >
+                </div>
+                <div
+                  class="row_generate row_minus"
+                  *ngIf="i !== 0 && userRole === 'INDIVIDUAL_DOCTOR'"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        clinicLocation.at(i).value?.hospital_id,
+                        i,
+                        'clinic'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div> -->
+                <ng-container *ngIf="i === clinicLocation.length - 1  && userRole === 'INDIVIDUAL'; else remove">
+                  <div
+                  class="row_generate row_minus"
+                  *ngIf="clinicLocation.length>1"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        clinicLocation.at(i).value?.hospital_id,
+                        i,
+                        'clinic'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div>
+                <div class="row_generate row_add">
+                <mat-icon class="plus" (click)="addNewClinicLocation()"
+                  >add</mat-icon
+                >
+              </div>
+                </ng-container>
+                <ng-template #remove>
+                  <div
+                  class="row_generate row_minus"
+                >
+                  <mat-icon
+                    class="minus"
+                    (click)="
+                      openVerticallyCenteredsecond(
+                        deletePopup,
+                        clinicLocation.at(i).value?.hospital_id,
+                        i,
+                        'clinic'
+                      )
+                    "
+                    >remove</mat-icon
+                  >
+                </div>
+                </ng-template>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </form>
+  </div>
+  <div class="primary_btn btn_wrap">
+    <button type="button" class="btn btn-secondary" (click)="previousPage()">
+      {{"back" | translate}}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="saveLocation()">
+      {{"save_and_next" | translate}}
+    </button>
+    <button type="button" style="margin-left: 10px;" class="btn btn-danger"   [routerLink]="['/portals/viewProfile/', userType]" >
+      {{"exit" | translate}}
+    </button>
+  </div>
+</div>
+
+<!--------------------------Delete modal--------------------------->
+<ng-template #deletePopup let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{"are_you_sure" | translate}}</p>
+        <p>{{"you_want_to_delete_this_location" | translate}}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{"no" | translate}}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="deleteLocationAndItsAvaliability()"
+          >
+            {{"yes" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

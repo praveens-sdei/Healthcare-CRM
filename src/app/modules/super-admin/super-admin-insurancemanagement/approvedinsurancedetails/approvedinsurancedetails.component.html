@@ -1,0 +1,228 @@
+<div class="insurance_details dashboard_main_content">
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img src="../../../assets/img/profile_img.png" />
+          </div>
+          <div class="profile_contact">
+            <div class="profile_title">Dr Above Pierre</div>
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">email@dummy.com</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">03/24/1989</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "phone_number" | translate }}</div>
+            <div class="user_value">(+42) 123 456 7890</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">
+              4517 Washington Ave. Manchester, Kentucky 39495
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "language" | translate }}</div>
+            <div class="user_value">English</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "role" | translate }}</div>
+            <div class="user_value">{{ "admin" | translate }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_logo" | translate }}</div>
+            <div class="company_logo">
+              <img src="../../../assets/img/company_logo.png" />
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_name" | translate }}</div>
+            <div class="user_value">Lorem Ipsum</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_slogan" | translate }}</div>
+            <div class="user_value">Lorem Ipsum</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "type_of_company" | translate }}</div>
+            <div class="user_value">Limited Company</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "company_address" | translate }}</div>
+            <div class="user_value">
+              4517 Washington Ave. Manchester, Kentucky 39495
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "fax_number" | translate }}</div>
+            <div class="user_value">23 456 7890, 23 456 7890</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "office_phone" | translate }}</div>
+            <div class="user_value">(+42) 123 456 7890, (+42) 123 456 7890</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">
+              {{ "laws_governing_the_company_activities" | translate }}
+            </div>
+            <div class="user_value">CIMA</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "IFU_number" | translate }}</div>
+            <div class="user_value">23 456 7890</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "head_office_address" | translate }}</div>
+            <div class="user_value">Manchester, Kentucky 39495</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner company_detail">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "RCCM_number" | translate }}</div>
+            <div class="user_value">BF - OUA - 2000 M 9898</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "other_company_number" | translate }}</div>
+            <div class="user_value">Abidjan 221611 CC 9444249M</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "banking_reference" | translate }}</div>
+            <div class="user_value">Banking reference</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_date" | translate }}</div>
+            <div class="user_value">20-10-2021</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary_btn">
+    <button type="button" class="btn btn-secondary">
+      {{ "edit_role_permission" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="openVerticallyCenteredblock(block)"
+    >
+      {{ "block" | translate }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openVerticallyCentereddetale(addsecondsubsriber)"
+    >
+      {{ "delete" | translate }}
+    </button>
+  </div>
+</div>
+
+<!-- Delete modal -->
+
+<ng-template #addsecondsubsriber let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "you_want_to_delete_this_plan" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Block modal -->
+<ng-template #block let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image block">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/block.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_block_this_doctor" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

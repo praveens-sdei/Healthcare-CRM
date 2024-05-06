@@ -1,0 +1,479 @@
+<div class="servicetype">
+  <div class="medicinclaim_block">
+    <div class="header_medicin">
+      <h2>{{loggedPortalType}} {{ "appointment_claim" | translate }}</h2>
+    </div>
+    <div class="sub_content">
+      <!-- <div class="claim_content upload_content">
+            <div class="sub_heading">
+              <h3>Upload Receipt or Enter Manually</h3>
+              <div class="primary_btn">
+                <button type="button" class="btn btn-primary"
+                  (click)="openVerticallyCenteredPrescription(prescriptioncontent)">
+                  <a class="btn_svg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M1.56219 0.0483341C1.0157 0.165061 0.480248 0.583571 0.225018 1.09353C0.00806091 1.52704 0.00115602 1.59484 0.000531144 3.29791L0 4.79926L0.0827023 4.96523C0.286537 5.3743 0.836646 5.4561 1.1383 5.12217C1.20114 5.05262 1.26943 4.95779 1.29009 4.91146C1.31696 4.85122 1.33214 4.38978 1.34339 3.29388L1.3591 1.76059L1.43721 1.64527C1.48017 1.58184 1.57034 1.49148 1.63758 1.44452L1.75981 1.3591L3.2935 1.34348C5.01709 1.32592 4.95773 1.33405 5.16941 1.08672C5.44851 0.760661 5.34887 0.273883 4.96373 0.0819524L4.79926 0L3.28228 0.00246826C2.11427 0.00440537 1.71856 0.0149345 1.56219 0.0483341ZM11.0331 0.0819524C10.6479 0.273883 10.5483 0.760661 10.8274 1.08672C11.0391 1.33405 10.9797 1.32592 12.7033 1.34348L14.237 1.3591L14.3592 1.44452C14.4265 1.49148 14.5166 1.58184 14.5596 1.64527L14.6377 1.76059L14.6533 3.29388C14.6709 5.01706 14.6628 4.95773 14.9101 5.16941C15.2386 5.45063 15.7263 5.34825 15.9172 4.95795L16 4.78873L15.9899 3.19889C15.9801 1.65701 15.9777 1.60293 15.911 1.40597C15.74 0.900852 15.3576 0.452847 14.9033 0.225174C14.47 0.00806089 14.4022 0.00115602 12.6989 0.000531144L11.1976 0L11.0331 0.0819524ZM4.26437 3.39901C3.88948 3.5293 3.625 3.76516 3.45759 4.11856L3.35871 4.32726L3.34893 5.54577C3.33849 6.84495 3.34546 6.92237 3.48843 7.09231C3.76828 7.42486 4.29065 7.39656 4.54459 7.03504L4.6397 6.89963L4.65532 5.78528L4.67094 4.67094H7.99841H11.3259L11.3415 5.7801C11.3583 6.97633 11.3595 6.98486 11.5338 7.14336C11.843 7.42465 12.3042 7.37512 12.543 7.03494L12.6381 6.89947V5.61335V4.32726L12.5386 4.11721C12.4003 3.82527 12.1963 3.61744 11.9083 3.47512L11.6728 3.35871L8.0469 3.35164C4.66991 3.34508 4.41025 3.34833 4.26437 3.39901ZM2.50688 8.68489C2.32769 8.72779 2.16913 8.85774 2.08155 9.03348C1.94371 9.31008 1.98473 9.57875 2.19722 9.79089C2.36793 9.96136 2.50328 9.99801 2.9621 9.99801H3.33937L3.34902 10.8355L3.35871 11.673L3.47512 11.9085C3.61744 12.1963 3.82539 12.4004 4.11721 12.5386L4.32726 12.6381H7.99841H11.6696L11.8796 12.5386C12.1714 12.4004 12.3794 12.1963 12.5217 11.9085L12.6381 11.673L12.6478 10.8355L12.6574 9.99801H13.0347C13.4909 9.99801 13.6292 9.96102 13.796 9.79452C14.1034 9.48755 14.0369 8.97818 13.6605 8.75691L13.5129 8.67015L8.06089 8.66531C5.06227 8.66265 2.56296 8.67146 2.50688 8.68489ZM0.507274 10.6847C0.328372 10.7271 0.169591 10.8572 0.0819524 11.0331L0 11.1976L0.000531144 12.6989C0.00115602 14.4022 0.00806089 14.47 0.225174 14.9033C0.452847 15.3576 0.900852 15.74 1.40597 15.911C1.60293 15.9777 1.65701 15.9801 3.19889 15.9899L4.78873 16L4.95795 15.9172C5.34825 15.7263 5.45063 15.2386 5.16941 14.9101C4.95773 14.6628 5.01706 14.6709 3.29388 14.6533L1.76059 14.6377L1.64527 14.5596C1.58184 14.5166 1.49148 14.4265 1.44452 14.3592L1.3591 14.237L1.34339 12.7033C1.33214 11.6071 1.31696 11.1456 1.29009 11.0854C1.21482 10.9165 1.03139 10.7504 0.865671 10.7012C0.693268 10.65 0.66015 10.6484 0.507274 10.6847ZM15.1482 10.6899C15.0852 10.7073 14.9745 10.7723 14.902 10.8343C14.6635 11.0385 14.6709 10.9831 14.6533 12.7033L14.6377 14.237L14.5523 14.3592C14.5053 14.4265 14.415 14.5166 14.3515 14.5596L14.2362 14.6377L12.7029 14.6534C11.0234 14.6707 11.0702 14.6653 10.8641 14.8655C10.5406 15.1798 10.6291 15.7168 11.0373 15.9165L11.2081 16L12.7979 15.9899C14.3398 15.9801 14.3939 15.9777 14.5908 15.911C15.2007 15.7045 15.7045 15.2008 15.911 14.5908C15.9778 14.3938 15.9801 14.3401 15.9898 12.793L15.9999 11.1984L15.911 11.0283C15.7655 10.7497 15.4454 10.6077 15.1482 10.6899Z" />
+                    </svg></a>Scan Receipt
+                </button>
+              </div>
+            </div>
+          </div> -->
+      <form [formGroup]="medicineForm" (ngSubmit)="onSubmit()">
+        <div class="claim_content medicine_claim_content">
+          <ng-container formArrayName="medicines">
+            <ng-container *ngFor="let val of medicines.controls; let i = index">
+              <ng-container [formGroupName]="i">
+                <div class="medicine_claim_content_inner">
+                  <div class="row">
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <div class="form_field_wrapper mright">
+                        <label>{{ "date_of_service" | translate }}:</label>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                          <input matInput [matDatepicker]="picker1" formControlName="date_of_service"
+                            placeholder="{{ 'date_of_service' | translate }}" />
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <label>{{ "select_category_service" | translate }}</label>
+                      <div class="form_field_wrapper">
+                        <!-- (change)="onDropdownChange($event.target.value)" -->
+                        <select2 [limitSelection]="0" [minCountForSearch]="0" formControlName="categoryService"
+                          [data]="categoryList" [value]="categoryObject[i]" (update)="getCategoryId($event, i)">
+                        </select2>
+                        <mat-error *ngIf="
+                            isSubmitted &&
+                            medicines.controls[i]
+                              .get('categoryService')
+                              .hasError('required')
+                          ">
+                          {{ "category_service_is_required" | translate }}
+                        </mat-error>
+
+                        <!-- <span>
+                              Select Insurance Name
+                            </span> -->
+                      </div>
+                    </div>
+
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <label>{{ "select_service_name" | translate }}</label>&nbsp;&nbsp;
+                      <span *ngIf="checkexclutionDescription[i] != ''">
+                        <span ngbTooltip="{{ checkexclutionDescription[i] }}">
+                          <i class="fa fa-info-circle" style="color: black"></i></span></span>
+                      &nbsp;&nbsp;
+                      <span *ngIf="checkpreAuthService[i] != ''">
+                        <span ngbTooltip="{{ checkpreAuthService[i] }}">
+                          <i class="fa fa-info-circle" style="color: red"></i></span></span>
+                      <div class="form_field_wrapper">
+                        <select2 [limitSelection]="0" [minCountForSearch]="0" formControlName="serviceName"
+                          [data]="serviceArray[i]" [value]="serviceObject[i]" (update)="
+                            getSeriviceName($event, i);
+                            calCulatePrice($event, i)
+                          ">
+                        </select2>
+                        <mat-error *ngIf="
+                            isSubmitted &&
+                            medicines.controls[i]
+                              .get('serviceName')
+                              .hasError('required')
+                          ">
+                          {{ "service_name_is_required" | translate }}
+                        </mat-error>
+
+                        <!-- <span>
+                              Select Insurance Name
+                            </span> -->
+                      </div>
+                    </div>
+                    <!-- *ngIf="serviceCode[i] !=''" -->
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "service_code" | translate }}</label>
+                        <select2 [limitSelection]="0" [minCountForSearch]="0" formControlName="serviceCode"
+                          [data]="serviceCodeArray[i]" [value]="serviceCode[i]" (update)="
+                            getServiceCode($event, i); calCulatePrice($event, i)
+                          ">
+                        </select2>
+                      </div>
+                    </div>
+
+
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "reason_of_consultation" | translate }}</label>
+
+                        <select2 [limitSelection]="0" [minCountForSearch]="0" formControlName="reasonOfConsultation"
+                          [data]="appointmentList" (update)="onReasonChange($event)" [value] = "selectedClaimReason">
+                        </select2>
+                      </div>
+                    </div>
+
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <div class="form_field_wrapper">
+                        <div *ngIf="selectedReason === 'Other'">
+                          <label>{{ "reason_of_consultation" | translate }}</label>
+                          <mat-form-field appearance="fill">
+                            <input type="text" matInput formControlName="otherReason" placeholder="Enter other reason">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="item col-sm-3 col-md-2 col-xl-2" [ngClass]="{ disabled: type != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{loggedPortalType}} {{ "fees" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="number" placeholder="{{
+                              'fees_is_required' | translate
+                            }}" matInput formControlName="medicalConsultationFees"
+                            (blur)="calCulatePrice($event.target, i)" />
+                          <mat-error *ngIf="isSubmitted && medicines.controls[i].get('medicalConsultationFees')
+                                .hasError('required')
+                            ">
+                            {{loggedPortalType}} {{ "fees_is_required"| translate }}
+                          </mat-error>
+                          <div *ngIf="
+                              medicines.controls[i]
+                                .get('medicalConsultationFees')
+                                .hasError('onlyNumbers') &&
+                              medicines.controls[i].get(
+                                'medicalConsultationFees'
+                              ).touched
+                            ">
+                            {{ "please_enter_only_numbers" | translate }}.
+                          </div>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Quantity Delivered</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" placeholder="Quantity Delivered" matInput
+                                formControlName="quantity_delivered" (blur)="calCulatePrice($event.target,i)" />
+                              <mat-error
+                                *ngIf="isSubmitted && medicines.controls[i].get('quantity_delivered').hasError('required')">
+                                Quantity Delivered is required
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Frequency</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" placeholder="Frequency" matInput formControlName="frequency" />
+                              <mat-error *ngIf="isSubmitted && medicines.controls[i].get('frequency').hasError('required')">
+                                Frequency is required
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Duration</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" placeholder="Duration" matInput formControlName="duration" />
+                              <mat-error *ngIf="isSubmitted && medicines.controls[i].get('duration').hasError('required')">
+                                Duration is required
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Price Per Unit</label>
+    
+                            <mat-form-field appearance="fill">
+                              <input type="number" placeholder="Price Per Unit" matInput formControlName="price_per_unit"
+                                (blur)="calCulatePrice($event.target,i)" />
+                              <mat-error
+                                *ngIf="isSubmitted && medicines.controls[i].get('price_per_unit').hasError('required')">
+                                Price Per Unit is required
+                              </mat-error>
+                            </mat-form-field>
+    
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Co Payment</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" placeholder="Co Payment" matInput formControlName="co_payment"
+                                readonly="true" />
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Request Amount</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" placeholder="Request Amount" matInput formControlName="request_amount"
+                                readonly="true" />
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                        <div class="form_field_wrapper">
+                          <label>Total Cost</label>
+                          <mat-form-field appearance="fill">
+                            <input type="number" placeholder="Total Cost" matInput formControlName="total_cost"
+                              readonly="true" />
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                    <!-- <div class="item col-sm-3 col-md-2 col-xl-2">
+                          <div class="form_field_wrapper">
+                            <label>Comment</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" placeholder="Comment" matInput formControlName="comment" />
+                            </mat-form-field>
+                          </div>
+                        </div> -->
+
+                    <!-- this.medicines -->
+                  </div>
+                  <!-- <ng-container *ngIf="i === medicines.length - 1; else remove"> -->
+                  <!-- comment btn -->
+                  <!-- <div class="row_generate row_minus" *ngIf="medicines.length>1">
+                        <mat-icon class="plus" (click)="removeMedicine(i)">remove</mat-icon>
+                      </div>
+                      <div class="row_generate row_add">
+                        <mat-icon class="plus" (click)="addNewMedicine('','','','','',i+1)">add</mat-icon>
+                      </div> -->
+                  <!-- comment btn end -->
+                  <!-- </ng-container> -->
+
+                  <!-- <ng-template #remove>
+                        <div class="row_generate row_minus">
+                          <mat-icon class="plus" (click)="removeMedicine(i)"
+                            >remove</mat-icon
+                          >
+                        </div>
+                      </ng-template> -->
+                  <!-- <ng-container *ngIf="i == 0">
+                        <div class="row_generate row_minus" *ngIf="medicines.length > 1" (click)="removeMedicine(i)">
+                          <mat-icon class="remove">remove</mat-icon>
+                        </div>
+    
+                        <div class="row_generate row_add " (click)="addNewMedicine()">
+                          <mat-icon class="plus">add</mat-icon>
+                        </div>
+                      </ng-container>
+    
+                      <ng-container *ngIf="i > 0">
+                        <div class="row_generate row_minus" (click)="removeMedicine(i)">
+                          <mat-icon class="remove">remove</mat-icon>
+                        </div>
+                      </ng-container> -->
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div class="claim_content total_payment">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <label>{{ "total_co_payment" | translate }}</label>
+              <div class="form_field_wrapper">
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput readonly="true" formControlName="totalCoPayment" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label>{{ "total_requested_amount" | translate }}</label>
+              <div class="form_field_wrapper">
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput readonly="true" formControlName="totalRequestedAmount" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <label>{{ "total_cost" | translate }}</label>
+              <div class="form_field_wrapper">
+                <mat-form-field appearance="fill">
+                  <input type="text" readonly="true" matInput formControlName="totalCostOfAllMedicine" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <!-- matStepperNext -->
+          <div class="primary_btn">
+            <!-- [disabled]="!this.requestDisable" -->
+            <button class="btn btn-secondary" mat-button matStepperPrevious>
+              {{ "back" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary" mat-button>
+              {{ "save_&_continue" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------------------------------Prescription Details modal---------------------------------------- -->
+<div class="prescription_details">
+  <ng-template #prescriptioncontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "prescription_details" | translate }}
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="table-wrap">
+            <div class="table-inner">
+              <table mat-table [dataSource]="prescriptiondataSource" class="mat-elevation-z8 withoutpagination">
+                <ng-container matColumnDef="medicinename">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "medicine_name" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.medicinename }}
+                  </td>
+                </ng-container>
+
+                <!-- Quantity Prescribed Column -->
+                <ng-container matColumnDef="quantityprescribed">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "quantity_prescribed" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.quantityprescribed }}
+                  </td>
+                </ng-container>
+
+                <!--Quantity Delivered Column -->
+                <ng-container matColumnDef="quantitydelivered">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "quantity_delivered" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.quantitydelivered }}
+                  </td>
+                </ng-container>
+
+                <!--Frequency Column -->
+                <ng-container matColumnDef="frequency">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "frequency" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.frequency }}
+                  </td>
+                </ng-container>
+
+                <!--Duration Column -->
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "duration" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.duration }}
+                  </td>
+                </ng-container>
+
+                <!--Price Per Unit Column -->
+                <ng-container matColumnDef="priceperunit">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "price_per_unit" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.priceperunit }}
+                  </td>
+                </ng-container>
+
+                <!--Co Payment Column -->
+                <ng-container matColumnDef="copayment">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "co_payment" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.copayment | number : "1.2-2" }}
+                  </td>
+                </ng-container>
+
+                <!--Request Amount Column -->
+                <ng-container matColumnDef="requestamount">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "request_amount" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.requestamount }}
+                  </td>
+                </ng-container>
+
+                <!--Total Cost Column -->
+                <ng-container matColumnDef="totalcost">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "total_cost" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.totalcost }}
+                  </td>
+                </ng-container>
+
+                <!--Comment Column -->
+                <ng-container matColumnDef="comment">
+                  <th mat-header-cell *matHeaderCellDef>
+                    {{ "comment" | translate }}
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.comment }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="prescriptiondisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: prescriptiondisplayedColumns"></tr>
+              </table>
+            </div>
+          </div>
+        </form>
+        <div class="primary_btn">
+          <button type="button" class="btn btn-secondary">
+            {{ "edit" | translate }}
+          </button>
+          <button type="button" class="btn btn-primary">
+            {{ "continue" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- ----------------------- Delete Immunization--------------------------- -->
+  <ng-template #delete_medicine let-modal>
+    <div class="custome_modal action_modals">
+      <div class="modal-body">
+        <div class="delete_screen text-center">
+          <div class="image delete">
+            <img class="img-fluid" src="../../../../assets/img/delete.svg" alt="" />
+          </div>
+          <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+          <p>{{ "you_want_to_delete_this_medicine" | translate }}.</p>
+          <div class="primary_btn mt-30">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">
+              {{ "no" | translate }}
+            </button>
+            <button type="button" class="btn btn-primary" (click)="delete_medicineById()">
+              {{ "yes" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,584 @@
+<div class="super_admin_dashboard dashboard_main_content">
+  <div class="top_bar common_space">
+    <div class="content_wrap">
+      <div class="policy">
+        <div class="form_field_wrapper">
+          <label>{{ "date" | translate }}:</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+              matInput
+              [matDatepickerFilter]="myFilter"
+              [matDatepicker]="picker"
+              placeholder="{{ 'select_date' | translate }}"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="cust_col light_skyblue">
+          <div class="cust_col_inner header-card-inner">
+            <!-- <mat-icon class="more">more_horiz</mat-icon> -->
+            <div class="action-block">
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="/super-admin/patient"
+                      >{{ "view" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="left">
+                <div class="counter">{{ totalPatientLength }}</div>
+                <div class="counter_title">
+                  {{ "total_end_user" | translate }} (Patients)
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/dashboard/dashboard29.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="cust_col light_blue">
+          <div class="cust_col_inner header-card-inner">
+            <!-- <mat-icon class="more">more_horiz</mat-icon> -->
+            <!-- <button class="btn btn-outline-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <mat-icon class="more">more_horiz</mat-icon>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" routerLink="/super-admin/individualdoctor">View</a></li>
+                        </ul> -->
+            <div class="action-block">
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton3"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="/super-admin/individualdoctor"
+                      >{{ "view" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="left">
+                <div class="counter">{{ totalindDoctorLength }}</div>
+                <div class="counter_title">
+                  {{ "total_individual_doctor_registered" | translate }}
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/dashboard/dashboard30.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="cust_col light_green">
+          <div class="cust_col_inner header-card-inner">
+            <!-- <mat-icon class="more">more_horiz</mat-icon> -->
+            <!-- <button class="btn btn-outline-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <mat-icon class="more">more_horiz</mat-icon>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" routerLink="/super-admin/hospital">View</a></li>
+                        </ul> -->
+            <div class="action-block">
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton4"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="/super-admin/hospital"
+                      >{{ "view" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="left">
+                <div class="counter">{{ totalHospitalLength }}</div>
+                <div class="counter_title">
+                  {{ "total_hospital_registered" | translate }}
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/dashboard/dashboard31.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="cust_col light_orange">
+          <div class="cust_col_inner header-card-inner">
+            <!-- <mat-icon class="more">more_horiz</mat-icon> -->
+            <!-- <button class="btn btn-outline-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <mat-icon class="more">more_horiz</mat-icon>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" routerLink="/super-admin/individualpharmacy">View</a></li>
+                        </ul> -->
+            <div class="action-block">
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton5"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="/super-admin/individualpharmacy"
+                      >{{ "view" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="left">
+                <div class="counter">{{ totalPharmacyLength }}</div>
+                <div class="counter_title">
+                  {{ "total_pharmacy_registered" | translate }}
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/dashboard/dashboard32.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
+        <div class="cust_col light_violet">
+          <div class="cust_col_inner header-card-inner">
+            <!-- <mat-icon class="more">more_horiz</mat-icon> -->
+
+            <!-- <button class="btn btn-outline-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <mat-icon class="more">more_horiz</mat-icon>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" routerLink="/super-admin/insurance">View</a></li>
+                        </ul> -->
+            <div class="action-block">
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton6"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_horiz</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      routerLink="/super-admin/insurance"
+                      >{{ "view" | translate }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="left">
+                <div class="counter">{{ totalInsuranceLength }}</div>
+                <div class="counter_title">
+                  {{ "total_insurance_organization" | translate }}
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/dashboard/dashboard33.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="graph_section common_space">
+    <div class="row">
+      <div class="graph_item col-lg-12 col-xl-8">
+        <div class="graph_item_inner">
+          <div class="total_revenue common_part">
+            <div class="top_bar">
+              <div class="title_wrap">
+                <div class="main_title">{{ "total_revenue" | translate }}</div>
+              </div>
+              <div class="content_wrap">
+                <!-- <div class="policy">
+                                    <label>Select</label>
+                                    <div class="form_field_wrapper">
+                                        <mat-form-field appearance="fill">
+                                            <mat-select>
+                                                <mat-option value="option1">Monthly</mat-option>
+                                                <mat-option value="option2">Yearly</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+                <div class="policy">
+                  <label>{{ "Select" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <!-- <mat-form-field appearance="fill">
+                                            <mat-select>
+                                                <mat-option value="option1">2019</mat-option>
+                                                <mat-option value="option2">2020</mat-option>
+                                                <mat-option value="option3">2022</mat-option>
+                                            </mat-select>
+                                        </mat-form-field> -->
+
+                    <mat-form-field appearance="fill">
+                      <mat-select
+                        placeholder="{{ 'select_year' | translate }}"
+                        [(ngModel)]="graphyear"
+                      >
+                        <mat-option
+                          (click)="getgraphYear(year)"
+                          *ngFor="let year of years"
+                          [value]="year"
+                          >{{ year }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="policy">
+                  <label>{{ "type" | translate }}</label>
+                  <div class="form_field_wrapper">
+                    <mat-form-field appearance="fill">
+                      <mat-select [(ngModel)]="selectedOption">
+                        <mat-option
+                          value="AllTotal"
+                          (click)="onOptionChange()"
+                          >{{ "total" | translate }}</mat-option
+                        >
+                        <mat-option
+                          value="Subscription"
+                          (click)="onOptionChange()"
+                          >{{ "subscription" | translate }}</mat-option
+                        >
+                        <mat-option
+                          value="Commission"
+                          (click)="onOptionChange()"
+                          >{{ "commission" | translate }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="icons policy">
+                  <mat-icon>open_in_full</mat-icon>
+                  <div class="more_action">
+                    <button
+                      class="btn btn-outline-light"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "action" | translate
+                        }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "another_action" | translate
+                        }}</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">{{
+                          "something_else_here" | translate
+                        }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="revenue_linechart chart">
+              <div class="chart-container">
+                <canvas
+                  baseChart
+                  [type]="'line'"
+                  [data]="lineChartData"
+                  [options]="lineChartOptions"
+                  [legend]="lineChartLegend"
+                >
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="graph_item col-lg-12 col-xl-4">
+        <div class="graph_item_inner">
+          <div class="total_consultation common_part">
+            <div class="top_bar">
+              <div class="title_wrap">
+                <div class="main_title">
+                  {{ "total_consultation_booked" | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="chart">
+              <div class="row">
+                <div class="col-md-6 col-xl-5 pie_item">
+                  <div class="pie_chart">
+                    <div class="chart-container">
+                      <div class="pie_outer">
+                        <div class="pie_chart_main canvas_wrap">
+                          <canvas
+                            baseChart
+                            [type]="'pie'"
+                            [datasets]="pieChartDatasets"
+                            [options]="pieChartOptions"
+                            [plugins]="pieChartPlugins"
+                            [legend]="pieChartLegend"
+                          >
+                          </canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xl-7 pie_item">
+                  <div class="detail_description">
+                    <ul>
+                      <li>
+                        <div class="line green">
+                          <div class="counter_img">
+                            <img src="assets/img/All_Consultation.svg" />
+                          </div>
+                        </div>
+                        <div class="detail_section">
+                          <p>{{ totalConsultationLength }}</p>
+                          <p>{{ "all_consultation" | translate }}</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="line darkblue">
+                          <img src="assets/img/Online.svg" />
+                        </div>
+                        <div class="detail_section">
+                          <p>{{ totalOnlineLength }}</p>
+                          <p>{{ "online" | translate }}</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="line viole">
+                          <img src="assets/img/Face-to-Face.svg" />
+                        </div>
+                        <div class="detail_section">
+                          <p>{{ totalF2FLength }}</p>
+                          <p>{{ "face_to_face" | translate }}</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="line blueshad">
+                          <img src="assets/img/Home-Visit.svg" />
+                        </div>
+                        <div class="detail_section">
+                          <p>{{ totalHomeLength }}</p>
+                          <p>{{ "home_visit" | translate }}</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="total_eclaims common_space">
+    <div class="total_eclaims_inner">
+      <div class="top_bar">
+        <div class="title_wrap">
+          <div class="main_title">{{ "total_eclaims" | translate }}</div>
+        </div>
+        <div class="content_wrap">
+          <!-- <div class="policy">
+                        <label>Sort by</label>
+                        <div class="form_field_wrapper">
+                            <mat-form-field appearance="fill">
+                                <mat-select>
+                                    <mat-option value="option1">Monthly</mat-option>
+                                    <mat-option value="option2">Yearly</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div> -->
+          <div class="policy">
+            <label>{{ "from" | translate }}</label>
+            <div class="form_field_wrapper">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
+                  [matDatepicker]="picker1"
+                  placeholder="Select Date"
+                  (dateChange)="handleSelectStartDateFilter($event)"
+                  [(ngModel)]="startDateFilter"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="policy">
+            <label>{{ "to" | translate }}</label>
+            <div class="form_field_wrapper">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  [matDatepickerFilter]="myFilter"
+                  [matDatepicker]="picker2"
+                  placeholder="Select Date"
+                  (dateChange)="handleSelectEndDateFilter($event)"
+                  [(ngModel)]="endDateFilter"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="counter_section">
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <div class="cust_col light_blue">
+              <div class="cust_col_inner">
+                <div class="counter">
+                  {{ totaleClaimLength ? totaleClaimLength : 0 }}
+                </div>
+                <div class="counter_title">
+                  {{ "total_eclaims_submitted" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3 claims">
+            <div class="cust_col light_green">
+              <div class="cust_col_inner">
+                <div class="counter">
+                  {{ totalClaimTaitedLength ? totalClaimTaitedLength : 0 }}
+                </div>
+                <div class="counter_title">
+                  {{ "total_eclaims_traited_by_insurance" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="cust_col light_orange">
+              <div class="cust_col_inner">
+                <div class="counter">0</div>
+                <div class="counter_title">
+                  {{
+                    "total_joined_eclaim_appointment_by_providers" | translate
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <div class="cust_col light_violet">
+              <div class="cust_col_inner">
+                <div class="counter">0</div>
+                <div class="counter_title">
+                  {{ "total_joined_eclaim_appointment" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

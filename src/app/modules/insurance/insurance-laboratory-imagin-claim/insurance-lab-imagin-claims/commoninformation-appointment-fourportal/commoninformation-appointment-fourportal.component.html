@@ -1,0 +1,1272 @@
+<div class="common_information">
+  <div class="top_bar">
+    <div class="row w-100">
+      <div class="col-sm-6 col-md-5 col-lg-5 col-xl-4 item">
+        <div class="search_bar common_content">
+          <label>{{ "ePrescription_number" | translate }}</label>
+          <div class="input-group">
+            <input type="search" class="form-control" aria-label="Search" #searchName
+              (keydown.enter)="searchWithEprescriptionNumber(searchName.value)" />
+            <button class="btn search-btn" (click)="searchWithEprescriptionNumber(searchName.value)">
+              <img src="../../../../assets/img/search_medicine.svg" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="medicinclaim_block">
+    <div class="sub_content">
+      <mat-stepper [linear]="isLinear" #stepper class="example-stepper"
+        [orientation]="(nested_stepperOrientation | async)!">
+        <mat-step [stepControl]="firstFormGroup" label="Step 1 of 5">
+          <form [formGroup]="firstFormGroup" (ngSubmit)="saveStepOne(this.firstFormGroup.value, stepper)">
+            <div class="step_counter_inner step1">
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "choose_insurance_company" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-md-6" [ngClass]="{
+                        disabled:
+                          type != '' || orderId != '' || ePrescNumber != ''
+                      }">
+                      <label>{{
+                        "select_insurance_company" | translate
+                        }}</label>
+                      <div class="form_field_wrapper">
+                        <mat-form-field appearance="fill">
+                          <input type="text" matInput readonly [disabled]="true" formControlName="insuranceId" />
+                          <mat-error *ngIf="isSubmitted && stepOneFormControl['insuranceId'].errors?.['required']">
+                            {{ "select_insurance_company" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <label>{{ "select_patient" | translate }}</label>
+                      <div class="form_field_wrapper">
+                        <select2 [overlay]="overlay" [value]="patientSelectedId" [limitSelection]="0"
+                          [minCountForSearch]="0" formControlName="patientId" [data]="patientList"
+                          (update)="getpatientId($event.value)" [(ngModel)]="patientSelectedId">
+                        </select2>
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <label>{{ "claim_number" | translate }}</label>
+                      <div class="form_field_wrapper">
+                        <mat-form-field appearance="fill">
+                          <input type="text" matInput formControlName="claimNumber" />
+                          <mat-error *ngIf="isSubmitted && stepOneFormControl['claimNumber'].errors?.['required']">
+                            {{ "enter_claim_number" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <span style="color: red" *ngIf="serviceMessage != ''">{{
+                        serviceMessage
+                        }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="primary_btn">
+                              <button class="btn btn-primary" mat-button type="submit">Next</button>
+                          </div> -->
+            <!-- (click)="redirectToMainStepper()" -->
+            <div class="primary_btn float-right">
+              <button type="button" class="btn btn-primary" type="submit" mat-button>
+                {{ "save_&_continue" | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Step 2 of 5">
+          <div class="step_counter_inner step2">
+            <form [formGroup]="secondFormGroup" (ngSubmit)="saveStepTwo(this.secondFormGroup.value, stepper)">
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "insurer_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>{{
+                        "whose_health_expense_is_this" | translate
+                        }}</label>
+                      <div class="form_field_wrapper radio">
+                        <mat-radio-group readonly (change)="radioonChange($event)" formControlName="healthExpense"
+                          aria-label="Select an option" aria-disabled="true">
+                          <mat-radio-button value="primaryInsurer">{{
+                            "primary_insurer" | translate
+                            }}</mat-radio-button>
+                          <mat-radio-button value="secondaryInsurer">{{
+                            "secondary_insurer" | translate
+                            }}</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "primary_insured_identity" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <ng-container *ngIf="primaryFieldList.length > 0">
+                      <!-- {{indexOf2d(primaryFieldList,'63be8ee8cea87685c1c8e6f8')}} -->
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63be8ee8cea87685c1c8e6f8'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "first_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" formControlName="first_name" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['first_name'].errors?.['required']">
+                                {{ "enter_first_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0a'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "middle_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" matInput formControlName="middle_name" readonly="true" />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['middle_name'].errors?.['required']">
+                                {{ "enter_middle_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0b'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "last_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" formControlName="last_name" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['last_name'].errors?.['required']">
+                                {{ "enter_last_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <div class="col-sm-12 col-md-6 col-xl-3">
+                        <div class="row">
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                primaryFieldList,
+                                '63beb2d1f19ab5edb7a72e0c'
+                              )
+                            ">
+                            <div class="form_field_wrapper col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                              <label>{{ "date_of_birth" | translate }}</label>
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker7" formControlName="dob" readonly="true" />
+                                <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                                <mat-datepicker #picker7></mat-datepicker>
+                                <mat-error *ngIf="isSubmitted && stepTwoFormControl['dob'].errors?.['required']">
+                                  {{ "enter_date_of_birth" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                primaryFieldList,
+                                '63beb2d1f19ab5edb7a72e0d'
+                              )
+                            ">
+                            <div class="form_field_wrapper col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                              <label>{{ "age" | translate }}</label>
+                              <mat-form-field appearance="fill">
+                                <input type="number" formControlName="age" readonly="true" matInput />
+                                <mat-error *ngIf="isSubmitted && stepTwoFormControl['age'].errors?.['required']">
+                                  {{ "enter_age" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0e'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "gender" | translate }}</label>
+                            <mat-form-field class="inner_label" appearance="fill">
+                              <mat-select formControlName="gender" readonly="true">
+                                <mat-option value="Male">{{
+                                  "male" | translate
+                                  }}</mat-option>
+                                <mat-option value="Female">{{
+                                  "female" | translate
+                                  }}</mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['gender'].errors?.['required']">
+                                {{ "select_gender" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e0f'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "insurance_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="insuranceId" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['insuranceId'].errors?.['required']">
+                                {{ "enter_insurance_id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e10'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "policy_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="policyId" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['policyId'].errors?.['required']">
+                                {{ "enter_policy_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e11'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "employee_id" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="employeeId" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['employeeId'].errors?.['required']">
+                                {{ "enter_employee_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e12'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "card_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="cardId" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['cardId'].errors?.['required']">
+                                {{ "enter_card_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e13'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "insurance_holder_name" | translate
+                              }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" formControlName="insHolderName" readonly="true" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepTwoFormControl['insHolderName'].errors?.['required']">
+                                {{ "enter_insurance_holder_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e14'
+                          )
+                        ">
+                        <div class="col-sm-12 col-md-12 col-xl-6 date_picker">
+                          <div class="row">
+                            <label>{{
+                              "insurance_validity" | translate
+                              }}</label>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>From</label> -->
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker4" placeholder="From"
+                                  formControlName="insValidityFrom" readonly="true" />
+
+                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>To</label> -->
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker5" placeholder="To"
+                                  formControlName="insValidityTo" readonly="true" />
+                                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                <mat-datepicker #picker5></mat-datepicker>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            primaryFieldList,
+                            '63beb2d1f19ab5edb7a72e15'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "reimbursment" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="reimbursment" readonly="true" matInput />
+                              <mat-error *ngIf="isSubmitted && stepTwoFormControl['reimbursment'].errors?.['required']">
+                                {{ "enter_reimbursment_rate" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="primaryFieldList.length == 0">
+                      <mat-error>{{
+                        "you_have_not_assigned_any_primary_fields_please_contact_to_healthcare-crm_admin"
+                        | translate
+                        }}</mat-error>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn float-right">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit" [disabled]="primaryFieldList.length == 0">
+                  {{ "save_&_continue" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup" label="Step 3 of 5">
+          <div class="step_counter_inner step2">
+            <form [formGroup]="thirdFormGroup" (ngSubmit)="saveStepThree(this.thirdFormGroup.value, stepper)">
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "secondary_insurer_patient" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <ng-container *ngIf="secondaryFieldList.length > 0">
+                      <!-- {{indexOf2d(primaryFieldList,'63be8ee8cea87685c1c8e6f8')}} -->
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63be8ee8cea87685c1c8e6f9'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "first_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" formControlName="first_namet" readonly="true" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['first_namet'].errors?.['required']">
+                                {{ "enter_first_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e16'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "middle_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" matInput readonly="true" formControlName="middle_namet" />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['middle_namet'].errors?.['required']">
+                                {{ "enter_middle_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e17'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "last_name" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" readonly="true" formControlName="last_namet" matInput />
+                              <mat-error *ngIf="isSubmitted && stepThreeFormControl['last_namet'].errors?.['required']">
+                                {{ "enter_last_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div class="col-sm-12 col-md-6 col-xl-3">
+                        <div class="row">
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                secondaryFieldList,
+                                '63beb2d1f19ab5edb7a72e18'
+                              )
+                            ">
+                            <div class="form_field_wrapper col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                              <label>{{ "date_of_birth" | translate }}</label>
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker7" formControlName="dobt" readonly="true" />
+                                <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                                <mat-datepicker #picker7></mat-datepicker>
+                                <mat-error *ngIf="isSubmitted && stepThreeFormControl['dobt'].errors?.['required']">
+                                  {{ "enter_date_of_birth" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                secondaryFieldList,
+                                '63beb2d1f19ab5edb7a72e19'
+                              )
+                            ">
+                            <div class="form_field_wrapper col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                              <label>{{ "age" | translate }}</label>
+                              <mat-form-field appearance="fill">
+                                <input type="number" readonly="true" formControlName="aget" matInput />
+                                <mat-error *ngIf="isSubmitted && stepThreeFormControl['aget'].errors?.['required']">
+                                  {{ "enter_age" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1a'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-6 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "gender" | translate }}</label>
+                            <mat-form-field class="inner_label" appearance="fill">
+                              <mat-select formControlName="gendert" readonly="true">
+                                <mat-option value="Male">{{
+                                  "male" | translate
+                                  }}</mat-option>
+                                <mat-option value="Female">{{
+                                  "female" | translate
+                                  }}</mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="isSubmitted && stepThreeFormControl['gendert'].errors?.['required']">
+                                {{ "select_gender" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1b'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "insurance_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="insuranceIdt" readonly="true" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['insuranceIdt'].errors?.['required']">
+                                {{ "enter_insurance_id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1c'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "policy_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" readonly="true" formControlName="policyIdt" matInput />
+                              <mat-error *ngIf="isSubmitted && stepThreeFormControl['policyIdt'].errors?.['required']">
+                                {{ "enter_policy_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1d'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "employee_id" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" readonly="true" formControlName="employeeIdt" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['employeeIdt'].errors?.['required']">
+                                {{ "enter_employee_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1e'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "card_ID" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" readonly="true" formControlName="cardIdt" matInput />
+                              <mat-error *ngIf="isSubmitted && stepThreeFormControl['cardIdt'].errors?.['required']">
+                                {{ "enter_card_Id" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e1f'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "insurance_holder_name" | translate
+                              }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" readonly="true" formControlName="insHolderNamet" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['insHolderNamet'].errors?.['required']">
+                                {{ "enter_insurance_holder_name" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e20'
+                          )
+                        ">
+                        <div class="col-sm-12 col-md-12 col-xl-6 date_picker">
+                          <div class="row">
+                            <label>{{
+                              "insurance_validity" | translate
+                              }}</label>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>From</label> -->
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker4" placeholder="From"
+                                  formControlName="insValidityFromt" readonly="true" />
+                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepThreeFormControl['insValidityFromt'].errors?.['required']">
+                                  {{ "enter_validity_from_date" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="form_field_wrapper col-sm-6 col-md-6">
+                              <!-- <label>To</label> -->
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput [matDatepicker]="picker5" placeholder="To"
+                                  formControlName="insValidityTot" readonly="true" />
+                                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                <mat-datepicker #picker5></mat-datepicker>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepThreeFormControl['insValidityTot'].errors?.['required']">
+                                  {{ "enter_validity_to_date" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e21'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{ "reimbursment" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="number" formControlName="reimbursmentt" readonly="true" matInput />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['reimbursmentt'].errors?.['required']">
+                                {{ "enter_reimbursment_rate" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            secondaryFieldList,
+                            '63beb2d1f19ab5edb7a72e22'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-4 col-xl-3">
+                          <div class="form_field_wrapper">
+                            <label>{{
+                              "relation_with_the_pirmary_insured" | translate
+                              }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" matInput formControlName="relationPrimaryt" readonly="true" />
+                              <mat-error
+                                *ngIf="isSubmitted && stepThreeFormControl['relationPrimaryt'].errors?.['required']">
+                                {{ "enter_relation" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="secondaryFieldList.length == 0">
+                      <mat-error>{{
+                        "you_have_not_assigned_any_secondary_fields_please_contact_to_healthcare-crm_admin"
+                        | translate
+                        }}</mat-error>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn float-right">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit" [disabled]="secondaryFieldList.length == 0">
+                  {{ "save_&_continue" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="fourthFormGroup" label="Step 4 of 5">
+          <div class="step_counter_inner step2">
+            <form [formGroup]="fourthFormGroup" (ngSubmit)="saveStepFour(this.fourthFormGroup.value, stepper)">
+              <!-- <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "deliver_center_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row"></div>
+                </div>
+              </div> -->
+              <div class="claim_content">
+                <div class="sub_heading">
+                  <h3>{{ "prescriber_center_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="row">
+                    <div class="col-sm-6 col-md-4" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_center" | translate }}</label>
+                        <select2 [overlay]="overlay" [limitSelection]="0" [minCountForSearch]="0" [limitSelection]="0"
+                          formControlName="prescriberCenter" [(ngModel)]="prescriberCenter" [data]="locationList12Data" [value]="prescriberSelectedId"
+                          (update)="onPrescriberCenterChange($event.value)">
+                        </select2>
+                        <span *ngIf="isSubmitted && stepFourFormControl['prescriberCenter'].errors?.['required']">
+                          {{ "select_prescriber_center" | translate }}
+                        </span>
+
+                        <!-- <mat-form-field class="inner_label" appearance="fill">
+                          <mat-select
+                            formControlName="prescriberCenter"
+                            [(ngModel)]="prescriberCenter"
+                            (selectionChange)="
+                              onPrescriberCenterChange($event.value)
+                            "
+                          >
+                            <mat-option [value]="">{{
+                              "select" | translate
+                            }}</mat-option>
+                            <mat-option
+                              *ngFor="let location of locationList12"
+                              [value]="location.hospital_name"
+                              >{{ location.hospital_name }}</mat-option
+                            >
+                          </mat-select>
+                          <mat-error
+                            *ngIf="isSubmitted && stepFourFormControl['deliverTitle'].errors?.['required']"
+                          >
+                            {{ "select_prescriber_center" | translate }}
+                          </mat-error>
+                        </mat-form-field> -->
+
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_title" | translate }}</label>
+                        <select2 [overlay]="overlay" [limitSelection]="0" [minCountForSearch]="0" [limitSelection]="0"
+                          formControlName="prescriberTitle" [data]="specialityservicedata"
+                          [value]="prescriberSelectedTitle">
+                        </select2>
+                        <span *ngIf="isSubmitted && stepFourFormControl['prescriberTitle'].errors?.['required']">
+                          {{ "select_prescriber_title" | translate }}
+                        </span>
+                        <!-- <mat-form-field class="inner_label" appearance="fill">
+                          <mat-select formControlName="prescriberTitle" [(ngModel)]="deliverTitleselected">
+                            <mat-option [value]="">{{
+                              "select" | translate
+                              }}</mat-option>
+                            <mat-option *ngFor="let rol of specialityservicedataSource" [value]="rol.title">{{ rol.title
+                              }}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="isSubmitted && stepFourFormControl['deliverTitle'].errors?.['required']">
+                            {{ "select_prescriber_title" | translate }}
+                          </mat-error>
+                        </mat-form-field> -->
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{loggedPortalType}} {{"list" | translate}}</label>
+                        <!-- <select2 [overlay]="overlay" [limitSelection]="0" [minCountForSearch]="0" [limitSelection]="0"
+                          formControlName="doctorList" [data]="doctorList"
+                          [value]="deliverTitleselected" (update)="onPrescriberDoctorList($event.value)">
+                        </select2>
+                        <span *ngIf="isSubmitted && stepFourFormControl['doctorList'].errors?.['required']">
+                          {{ "select_prescriber_title" | translate }}
+                        </span> -->
+                        <mat-form-field class="inner_label" appearance="fill">
+                          <mat-select formControlName="doctorList" (selectionChange)="
+                              onPrescriberDoctorList($event.value)
+                            ">
+                            <mat-option [value]="">{{
+                              "select" | translate
+                              }}</mat-option>
+                            <mat-option *ngFor="let rol of doctorList" [value]="
+                                rol?.first_name +
+                                '-' +
+                                rol?.middle_name +
+                                '-' +
+                                rol?.last_name
+                              ">{{
+                              rol?.first_name +
+                              " " +
+                              rol?.middle_name +
+                              " " +
+                              rol?.last_name
+                              }}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="isSubmitted && stepFourFormControl['deliverTitle'].errors?.['required']">
+                            {{ "select_prescriber_title" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_first_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="text" formControlName="prescriberFName" matInput [readonly]="true" />
+                          <mat-error *ngIf="isSubmitted && stepFourFormControl['prescriberFName'].errors?.['required']">
+                            {{ "enter_prescriber_first_name" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{
+                          "prescriber_middle_name" | translate
+                          }}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="text" formControlName="prescriberMName" matInput [readonly]="true" />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_last_name" | translate }}</label>
+                        <mat-form-field appearance="fill">
+                          <input type="text" formControlName="prescriberLName" matInput [readonly]="true" />
+                          <mat-error *ngIf="isSubmitted && stepFourFormControl['prescriberLName'].errors?.['required']">
+                            {{ "enter_prescriber_last_name" | translate }}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- <div class="col-sm-6 col-md-4">
+                        <div class="form_field_wrapper">
+                          <label>{{ 'prescriber_title' | translate}}</label>
+                          <mat-form-field appearance="fill">
+                            <input type="text" formControlName="prescriberTitle" matInput
+                              [readonly]="ePrescNumber != ''" />
+                            <mat-error *ngIf="isSubmitted && stepFourFormControl['prescriberTitle'].errors?.['required']">
+                              Enter {{ 'prescriber_title' | translate}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div> -->
+                    <div class="col-sm-6 col-md-4" [ngClass]="{ disabled: type != '' || ePrescNumber != '' }">
+                      <div class="form_field_wrapper">
+                        <label>{{ "prescriber_speciality" | translate }}
+                        </label>
+                        <select2 [overlay]="overlay" [limitSelection]="0" [minCountForSearch]="0" [limitSelection]="0"
+                          formControlName="prescriberSpeciality" [data]="specialtyList"
+                          [value]="prescriberSpecialty">
+                        </select2>
+                        <span *ngIf="isSubmitted && stepFourFormControl['prescriberSpeciality'].errors?.['required']">
+                          {{ "enter_prescriber_speciality" | translate }}
+                        </span>
+                        <!-- <mat-form-field appearance="fill">
+                          <mat-select formControlName="prescriberSpeciality" [(ngModel)]="prescriberSpecialitydefault">
+                            <mat-option value="">{{
+                              "select" | translate
+                              }}</mat-option>
+                            <mat-option *ngFor="let specialtyList1 of specialtyList"
+                              [value]="specialtyList1.specilization">{{ specialtyList1.specilization }}</mat-option>
+                          </mat-select>
+                          <mat-error
+                            *ngIf="isSubmitted && stepFourFormControl['prescriberSpeciality'].errors?.['required']">
+                            {{ "enter_prescriber_speciality" | translate }}
+                          </mat-error>
+                        </mat-form-field> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn float-right">
+                <button class="btn btn-primary" mat-button type="button" (click)="previousStep(stepper)">
+                  {{ "back" | translate }}
+                </button>
+                <!-- <button class="btn btn-primary" mat-button matStepperPrevious>{{ 'back' | translate}}</button> -->
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "save_&_continue" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="fifthFormGroup" label="Step 5 of 5">
+          <div class="step_counter_inner step2">
+            <form [formGroup]="fifthFormGroup" (ngSubmit)="saveStepFive(this.fifthFormGroup.value)">
+              <div class="claim_content" [ngClass]="{ disabled: type != '' }">
+                <div class="sub_heading">
+                  <h3>{{ "accident_related_information" | translate }}</h3>
+                </div>
+                <div class="form_content">
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '63beb2d1f19ab5edb7a72e23'
+                          )
+                        ">
+                        <div class="col-md-12">
+                          <label>{{
+                            "is_it_related_to_an_accident" | translate
+                            }}</label>
+                          <div class="form_field_wrapper radio">
+                            <mat-radio-group aria-label="Select an option" formControlName="accidentRelation">
+                              <mat-radio-button (change)="checkAccident($event)" value="Yes">{{ "yes" | translate
+                                }}</mat-radio-button>
+                              <mat-radio-button (change)="checkAccident($event)" value="No">{{ "no" | translate
+                                }}</mat-radio-button>
+                              <mat-error
+                                *ngIf="isSubmitted && stepFiveFormControl['accidentRelation'].errors?.['required']">
+                                {{
+                                "select_releted_to_an_accident" | translate
+                                }}
+                              </mat-error>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="checkAccidentVal == 'Yes'">
+                        <ng-container *ngIf="
+                            indexOf2d(
+                              accidentFieldList,
+                              '63beb2d1f19ab5edb7a72e24'
+                            )
+                          ">
+                          <div class="col-sm-12 col-md-5">
+                            <div class="form_field_wrapper">
+                              <label>{{ "accident_date" | translate }}</label>
+                              <mat-form-field class="example-full-width" appearance="fill">
+                                <input matInput formControlName="accidentDate" [matDatepicker]="picker15" />
+                                <mat-datepicker-toggle matSuffix [for]="picker15"></mat-datepicker-toggle>
+                                <mat-datepicker #picker15></mat-datepicker>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepFiveFormControl['accidentDate'].errors?.['required']">
+                                  {{ "enter_accident_date" | translate }}
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <ng-container *ngIf="checkAccidentVal == 'Yes'">
+                    <div class="service_item">
+                      <div class="row">
+                        <ng-container *ngIf="
+                            indexOf2d(
+                              accidentFieldList,
+                              '63beb2d1f19ab5edb7a72e25'
+                            )
+                          ">
+                          <div class="col-md-12">
+                            <label>{{ "accident_type" | translate }}</label>
+                            <div class="form_field_wrapper radio">
+                              <mat-radio-group aria-label="Select an option" formControlName="accidentType">
+                                <mat-radio-button (change)="changeaccidenttype($event)" value="Workplace">{{
+                                  "workplace" | translate
+                                  }}</mat-radio-button>
+                                <mat-radio-button (change)="changeaccidenttype($event)" value="vehicle">{{
+                                  "motor_vehicle" | translate
+                                  }}</mat-radio-button>
+                                <mat-radio-button (change)="changeaccidenttype($event)" value="Other">{{ "other" |
+                                  translate }}</mat-radio-button>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepFiveFormControl['accidentType'].errors?.['required']">
+                                  {{ "select_accident_type" | translate }}
+                                </mat-error>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                          <div class="col-sm-12 col-md-5" *ngIf="accidenttypeselected == 'Other'">
+                            <div class="form_field_wrapper">
+                              <mat-form-field appearance="fill">
+                                <input type="text" formControlName="other" matInput />
+                              </mat-form-field>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="checkAccidentVal == 'Yes'">
+                    <div class="service_item">
+                      <div class="row">
+                        <ng-container *ngIf="
+                            indexOf2d(
+                              accidentFieldList,
+                              '63beb2d1f19ab5edb7a72e26'
+                            )
+                          ">
+                          <div class="col-md-12">
+                            <label>{{
+                              "is_there_an_official_report" | translate
+                              }}</label>
+                            <div class="form_field_wrapper radio">
+                              <mat-radio-group aria-label="Select an option" formControlName="officialReport">
+                                <mat-radio-button value="Yes">{{
+                                  "yes" | translate
+                                  }}</mat-radio-button>
+                                <mat-radio-button value="No">{{
+                                  "no" | translate
+                                  }}</mat-radio-button>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepFiveFormControl['officialReport'].errors?.['required']">
+                                  {{ "select_any_official_report" | translate }}
+                                </mat-error>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="
+                            indexOf2d(
+                              accidentFieldList,
+                              '63beb2d1f19ab5edb7a72e27'
+                            )
+                          ">
+                          <div class="col-md-12">
+                            <label>{{
+                              "is_there_a_responsible_third_party" | translate
+                              }}</label>
+                            <div class="form_field_wrapper radio">
+                              <mat-radio-group aria-label="Select an option" formControlName="resThirdParty">
+                                <mat-radio-button (change)="checkResThird($event)" value="Yes">{{ "yes" | translate
+                                  }}</mat-radio-button>
+                                <mat-radio-button (change)="checkResThird($event)" value="No">{{ "no" | translate
+                                  }}</mat-radio-button>
+                                <mat-error
+                                  *ngIf="isSubmitted && stepFiveFormControl['resThirdParty'].errors?.['required']">
+                                  {{
+                                  "select_any_responsible_third_party"
+                                  | translate
+                                  }}
+                                </mat-error>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="checkAccidentVal == 'Yes'">
+                    <div class="service_item">
+                      <ng-container *ngIf="checkResThirdParty == 'Yes'">
+                        <div class="row">
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                accidentFieldList,
+                                '63be8ee8cea87685c1c8e6fa'
+                              )
+                            ">
+                            <div class="col-sm-6 col-md-4">
+                              <div class="form_field_wrapper">
+                                <label>{{ "first_name" | translate }}</label>
+                                <mat-form-field appearance="fill">
+                                  <input type="text" matInput formControlName="firstName" />
+                                  <mat-error
+                                    *ngIf="isSubmitted && stepFiveFormControl['firstName'].errors?.['required']">
+                                    {{ "enter_first_name" | translate }}
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                accidentFieldList,
+                                '63beb2d1f19ab5edb7a72e28'
+                              )
+                            ">
+                            <div class="col-sm-6 col-md-4">
+                              <div class="form_field_wrapper">
+                                <label>{{ "last_name" | translate }}</label>
+                                <mat-form-field appearance="fill">
+                                  <input type="text" matInput formControlName="lastName" />
+                                  <mat-error
+                                    *ngIf="isSubmitted && stepFiveFormControl['lastName'].errors?.['required']">
+                                    {{ "enter_last_name" | translate }}
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                accidentFieldList,
+                                '63beb2d1f19ab5edb7a72e29'
+                              )
+                            ">
+                            <div class="col-sm-6 col-md-4">
+                              <div class="form_field_wrapper">
+                                <label>{{ "phone_number" | translate }}</label>
+                                <mat-form-field appearance="fill">
+                                  <input type="number" matInput formControlName="phoneNumber" />
+                                  <mat-error
+                                    *ngIf="isSubmitted && stepFiveFormControl['phoneNumber'].errors?.['required']">
+                                    {{ "enter_phone_number" | translate }}
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="
+                              indexOf2d(
+                                accidentFieldList,
+                                '63beb2d1f19ab5edb7a72e2a'
+                              )
+                            ">
+                            <div class="col-sm-6 col-md-8">
+                              <div class="form_field_wrapper">
+                                <label>{{ "address" | translate }}</label>
+                                <mat-form-field appearance="fill">
+                                  <input type="text" matInput formControlName="address" />
+                                  <mat-error *ngIf="isSubmitted && stepFiveFormControl['address'].errors?.['required']">
+                                    {{ "enter_address" | translate }}
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                  <div class="service_item">
+                    <div class="row">
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '6415684ebb267e5ae420b520'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-6">
+                          <div class="form_field_wrapper">
+                            <label>{{ "addItional_information" | translate }}</label>                            <mat-form-field appearance="fill">
+                              <input type="text" matInput formControlName="addItionalInformation" />
+                              <mat-error
+                                *ngIf="isSubmitted && stepFiveFormControl['addItionalInformation'].errors?.['required']">
+                                {{ "enter_additional_information" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="
+                          indexOf2d(
+                            accidentFieldList,
+                            '6415684ebb267e5ae420b521'
+                          )
+                        ">
+                        <div class="col-sm-6 col-md-6">
+                          <div class="form_field_wrapper">
+                            <label>{{ "comment" | translate }}</label>
+                            <mat-form-field appearance="fill">
+                              <input type="text" matInput formControlName="coment" />
+                              <mat-error *ngIf="isSubmitted && stepFiveFormControl['coment'].errors?.['required']">
+                                {{ "please_enter_comment" | translate }}
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="primary_btn float-right">
+                <button class="btn btn-primary" mat-button matStepperPrevious>
+                  {{ "back" | translate }}
+                </button>
+                <button class="btn btn-primary" mat-button type="submit">
+                  {{ "save_&_continue" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </div>
+</div>
+
+<div class="claim_submitted">
+  <ng-template #commentinfo let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "service_information" | translate }}
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="claim_section">
+            <div class="claim_desc" style="text-align: left">
+              {{ commentInfo }}
+            </div>
+          </div>
+        </form>
+        <div class="primary_btn">
+          <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-primary">
+            {{ "ok" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

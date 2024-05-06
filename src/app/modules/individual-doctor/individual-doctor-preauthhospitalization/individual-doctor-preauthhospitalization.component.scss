@@ -1,0 +1,140 @@
+@import '../../../../assets/css/variable/variable';
+
+.preauth_hospital{
+    .top_bar{
+        flex-wrap : wrap;
+        .bar{
+            margin-bottom: 15px;
+            &.left_bar{
+                .primary_btn{
+                    .btn {
+                        margin: 0 20px 10px 0;
+                        .btn_svg{
+                            height: 32px;
+                            width: 32px;
+                            border-radius: 9px;
+                            svg{
+                                width: 22px;
+                            }
+                        }
+                    }
+                }
+            }
+            &.right_bar{
+                .primary_btn{
+                    .btn{
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+         
+        }
+
+    }
+    .bottom_bar{
+        .user_insurance{
+            .user_insurance_inner{
+                align-items: center;
+                justify-content: space-between;
+                .user_insurance_block{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: #F6F8FC;
+                    border: 1px solid #B6C8D6;
+                    border-radius: 15px;
+                    padding: 20px;
+                    p{
+                        margin-bottom: 0;
+                        font-weight: 400;
+                        font-size: 18px;
+                        color: #0C2F49;
+                        &.value{
+                            font-weight: 500;
+                        }
+                    }
+                }
+                .primary_btn{
+                    justify-content: flex-end;
+                }
+            }
+        }
+        .subscribe_detail_inner {
+            .mat-expansion-panel{
+                .mat-expansion-panel-body{
+                    .validity_date{
+                        padding: 25px 0 10px;
+                        .form_field_wrapper{
+                            display: flex;
+                            align-items: center;
+                            label{
+                                margin-right: 15px;
+                                min-width: 40px;
+                            }
+                            .mat-form-field-flex{
+                                .mat-form-field-infix {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                    .review_send{
+                        .inner_review_send {
+                            ul{
+                                grid-template-columns: 210px repeat(1, 1fr) 100px;
+                                align-items: center;
+                                .primary_btn {
+                                    .btn{
+                                        padding: 8px 20px;
+                                        line-height: 26px;
+                                        margin: 10px 10px 0 0;
+                                        &:last-child{
+                                            margin-right: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:$desktop_large) {
+
+}
+
+@media screen and (max-width:$desktop) {
+    .preauth_hospital .top_bar .left_bar  .primary_btn{
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .expansion_panel .expansion_panel_inner .outer_detail_block{
+       border-bottom: 1px solid #b6c8d6;
+    }
+    .expansion_panel .expansion_panel_inner .outer_detail_block.last_child{
+        border-bottom:none;
+    } 
+    .preauth_hospital .top_bar .left_bar .primary_btn {
+        justify-content: center;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .preauth_hospital .top_bar .bar .primary_btn .btn{
+        width: 100%;
+    }
+    .preauth_hospital .top_bar .bar.left_bar .primary_btn .btn{
+        margin-right: 0;
+    }
+    .preauth_hospital .top_bar .right_bar {
+        width: 100%;
+    }   
+    .preauth_hospital .bottom_bar .user_insurance .user_insurance_inner .user_insurance_block p{
+        font-size: 14px;
+    }
+}

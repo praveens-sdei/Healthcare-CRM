@@ -1,0 +1,1251 @@
+<div class="add_pharmacy dashboard_main_content">
+  <!-- <div class="pb-3">
+    <i class="fa fa-angle-left p-2" aria-hidden="true" (click)="navigateBack()"></i>
+  </div> -->
+  <h1>
+    <b>{{ pageFor }}</b>
+  </h1>
+  <div class="add_pharmacy_inner">
+    <!-- <div class="pb-3">
+      <i class="fa fa-angle-left p-2" style="font-size: 20px;" aria-hidden="true"
+        routerLink="/super-admin/openhour"></i>
+    </div> -->
+    <div class="custome_modal addonduty">
+      <form [formGroup]="addPharForm" (ngSubmit)="onSubmit()">
+        <!-- pharmacyId -->
+
+        <div class="top_part">
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "pharmacy_name" | translate }} <span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" formControlName="pharmacy_name" matInput />
+
+                </mat-form-field>
+                <mat-error
+                *ngIf="
+                  isSubmited && addPharForm.get('pharmacy_name').hasError('required')
+                "
+                >{{ "enter_name" | translate }}</mat-error
+              >
+                <input type="hidden" formControlName="pharmacyId" />
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "phone_number" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="mobile"
+                    matInput
+                    [maxlength]="10"
+                    formControlName="mobile_phone_number"
+                    #phone
+                    (focus)="onFocus()"
+                    ng2TelInput
+                    placeholder="{{ 'enter_mobile' | translate }}"
+                  />
+
+                </mat-form-field>
+                <mat-error
+                *ngIf="
+                isSubmited && addPharForm
+                    .get('mobile_phone_number')
+                    .hasError('required')
+                "
+                >{{ "mobile_is_required" | translate }}</mat-error
+              >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "email" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="email" formControlName="email" matInput />
+                  <mat-error
+                    *ngIf="addPharForm.get('email').hasError('required')"
+                    >{{ "email_is_required" | translate }}</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-8">
+              <div class="form_field_wrapper">
+                <label>{{ "address" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    matInput
+                    #address
+                    name="address"
+                    placeholder="{{ 'enter_address' | translate }}"
+                    formControlName="address"
+                  />
+                </mat-form-field>
+                <mat-error
+                *ngIf="isSubmited && addPharForm.get('address').hasError('required')"
+                >{{ "address_is_required" | translate }}</mat-error
+              >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "neighborhood" | translate }}<span class="danger">*</span></label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="neighborhood" />
+                  <mat-error
+                    *ngIf="addPharForm.get('neighborhood').hasError('required')"
+                    >{{ "neighborhood_is_required" | translate }}</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "country" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_country' | translate }}"
+                    formControlName="nationality"
+                    (selectionChange)="getRegionList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let country of countryList"
+                      [value]="country._id"
+                      >{{ country?.name }}</mat-option
+                    >
+                  </mat-select>
+             
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Country"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getRegionList($event.value)"
+                [data]="countryList"
+                formControlName="nationality"
+              >
+              </select2>
+              <mat-error
+              *ngIf="isSubmited && addPharForm.get('nationality').hasError('required')"
+              >{{ "country_is_required" | translate }}</mat-error
+            >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "region" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="region"
+                    (selectionChange)="getProvienceList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let region of regionList"
+                      [value]="region._id"
+                      >{{ region?.name }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Region"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getProvienceList($event.value)"
+                [data]="regionList"
+                formControlName="region"
+              >
+              </select2>
+              <mat-error
+                    *ngIf="isSubmited && addPharForm.get('region').hasError('required')"
+                    >{{ "region_is_required" | translate }}</mat-error
+                  >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "province" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_region' | translate }}"
+                    formControlName="province"
+                    (selectionChange)="getDepartmentList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let provience of provienceList"
+                      [value]="provience._id"
+                      >{{ provience?.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error
+                    *ngIf="addPharForm.get('province').hasError('required')"
+                    >{{ "enter_province" | translate }}</mat-error
+                  >
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Province"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="0"
+                (update)="getDepartmentList($event.value)"
+                [data]="provienceList"
+                formControlName="province"
+              >
+              </select2>
+              <mat-error
+              *ngIf="isSubmited && addPharForm.get('province').hasError('required')"
+              >{{ "enter_province" | translate }}</mat-error
+            >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "department" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_department' | translate }}"
+                    formControlName="department"
+                    (selectionChange)="getCityList($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let department of departmentList"
+                      [value]="department._id"
+                      >{{ department?.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error
+                    *ngIf="addPharForm.get('department').hasError('required')"
+                    >{{ "department_is_required" | translate }}</mat-error
+                  >
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select Department"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                (update)="getCityList($event.value)"
+                [data]="departmentList"
+                formControlName="department"
+              >
+              </select2>
+              <mat-error
+              *ngIf="isSubmited && addPharForm.get('department').hasError('required')"
+              >{{ "department_is_required" | translate }}</mat-error
+            >
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "city" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_city' | translate }}"
+                    formControlName="city"
+                  >
+                    <mat-option
+                      *ngFor="let city of cityList"
+                      [value]="city._id"
+                      >{{ city?.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error
+                    *ngIf="addPharForm.get('city').hasError('required')"
+                    >{{ "city_is_required" | translate }}</mat-error
+                  >
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select City"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [data]="cityList"
+                formControlName="city"
+              >
+              </select2>
+              <mat-error
+              *ngIf="isSubmited && addPharForm.get('city').hasError('required')"
+              >{{ "city_is_required" | translate }}</mat-error
+            >
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "village" | translate }}<span class="danger">*</span></label>
+                <!-- <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    placeholder="{{ 'select_village' | translate }}"
+                    formControlName="village"
+                  >
+                    <mat-option
+                      *ngFor="let village of villageList"
+                      [value]="village._id"
+                      >{{ village?.name }}</mat-option
+                    >
+                  </mat-select>
+                  <mat-error
+                    *ngIf="addPharForm.get('village').hasError('required')"
+                    >{{ "village_is_required" | translate }}</mat-error
+                  >
+                </mat-form-field> -->
+                <select2
+                [placeholder] = '"Select village"'
+                [overlay]=true
+                [limitSelection]="0"
+                [minCountForSearch]="1"
+                [data]="villageList"
+                formControlName="village"
+              >
+              </select2>
+              <mat-error
+              *ngIf="isSubmited && addPharForm.get('village').hasError('required')"
+              >{{ "village_is_required" | translate }}</mat-error
+            >
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-6">
+              <div class="form_field_wrapper">
+                <label>{{ "date_of_creation" | translate }}<span class="danger">*</span></label>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    matInput
+                    formControlName="date_of_creation"
+                    [matDatepicker]="picker5"
+                    [min]="minDateOfCreation"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker5"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
+                <mat-error
+                *ngIf="
+                 isSubmited && addPharForm.get('date_of_creation').hasError('required')
+                "
+                >{{ "date_of_creation_required" | translate }}</mat-error
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="bottom_part">
+          <div class="opening_hour hour_section">
+            <div class="week_days opening_hour_content">
+              <div class="modal_title">{{ "opening_hour" | translate }}</div>
+              <div class="week_days_inner">
+                <div class="row">
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "sun" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <!-- <mat-form-field class="example-full-width" appearance="fill">
+                                                    <div class="time">
+                                                        <input formControlName="sun_start_time" class="form-control"
+                                                            matInput matTimepicker>
+                                                        <mat-icon matSuffix>schedule</mat-icon>
+                                                    </div>
+                                                </mat-form-field> -->
+
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sun_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="Sun Start Time"
+                            formControlName="sun_start_time"
+                          />
+                          <ngx-material-timepicker #sun_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('sun_start_time')
+                            .hasError('required')
+                        "
+                        >{{
+                          "add_sunday_start_time" | translate
+                        }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <!-- <mat-form-field class="example-full-width" appearance="fill">
+                                                    <div class="time">
+                                                        <input formControlName="sun_end_time" class="form-control"
+                                                            matInput matTimepicker>
+                                                        <mat-icon matSuffix>schedule</mat-icon>
+                                                    </div>
+                                                </mat-form-field> -->
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sun_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sun_end_time' | translate }}"
+                            formControlName="sun_end_time"
+                          />
+                          <ngx-material-timepicker #sun_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                          isSubmited && addPharForm
+                            .get('sun_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_sunday_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "mon" | translate }}<span class="danger">*</span></label>
+
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="mon_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'mon_start_time' | translate }}"
+                            formControlName="mon_start_time"
+                          />
+                          <ngx-material-timepicker #mon_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('mon_start_time')
+                            .hasError('required')
+                        "
+                        >{{
+                          "add_monday_start_time" | translate
+                        }}</mat-error
+                      >
+                      </div>
+
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="mon_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'mon_end_time' | translate }}"
+                            formControlName="mon_end_time"
+                          />
+                          <ngx-material-timepicker #mon_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('mon_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_monday_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "tue" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="tue_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'tue_start_time' | translate }}"
+                            formControlName="tue_start_time"
+                          />
+                          <ngx-material-timepicker #tue_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('tue_start_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_tue_start_time" | translate }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="tue_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'tue_end_time' | translate }}"
+                            formControlName="tue_end_time"
+                          />
+                          <ngx-material-timepicker #tue_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('tue_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_tuesday_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "wed" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="wed_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'wed_start_time' | translate }}"
+                            formControlName="wed_start_time"
+                          />
+                          <ngx-material-timepicker #wed_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('wed_start_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_wed_start_time" | translate }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <!-- <mat-form-field class="example-full-width" appearance="fill">
+                                                    <div class="time">
+                                                        <input formControlName="wed_end_time" class="form-control"
+                                                            matInput matTimepicker>
+                                                        <mat-icon matSuffix>schedule</mat-icon>
+                                                    </div>
+                                                </mat-form-field> -->
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="wed_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'wed_end_time' | translate }}"
+                            formControlName="wed_end_time"
+                          />
+                          <ngx-material-timepicker #wed_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                        isSubmited && addPharForm
+                            .get('wed_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_wed_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "thu" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="thu_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'thu_start_time' | translate }}"
+                            formControlName="thu_start_time"
+                          />
+                          <ngx-material-timepicker #thu_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('thu_start_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_thur_start_time" | translate }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="thu_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'thu_end_time' | translate }}"
+                            formControlName="thu_end_time"
+                          />
+                          <ngx-material-timepicker #thu_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('thu_end_time')
+                            .hasError('required')
+                        "
+                        >{{
+                          "add_thursday_end_time" | translate
+                        }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "fri" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="fri_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'fri_start_time' | translate }}"
+                            formControlName="fri_start_time"
+                          />
+                          <ngx-material-timepicker #fri_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                        isSubmited &&  addPharForm
+                            .get('fri_start_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_fri_start_time" | translate }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="fri_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'fri_end_time' | translate }}"
+                            formControlName="fri_end_time"
+                          />
+                          <ngx-material-timepicker #fri_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('fri_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_fri_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-3 week_item">
+                    <div class="form_field_wrapper">
+                      <label>{{ "sat" | translate }}<span class="danger">*</span></label>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sat_start_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sat_start_time' | translate }}"
+                            formControlName="sat_start_time"
+                          />
+                          <ngx-material-timepicker #sat_start_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                        isSubmited && addPharForm
+                            .get('sat_start_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_sat_start_time" | translate }}</mat-error
+                      >
+                      </div>
+                      <div class="time">
+                        <mat-form-field appearance="fill">
+                          <input
+                            matInput
+                            aria-label="default time"
+                            [ngxTimepicker]="sat_end_time"
+                            [format]="24"
+                            type="time"
+                            placeholder="{{ 'sat_end_time' | translate }}"
+                            formControlName="sat_end_time"
+                          />
+                          <ngx-material-timepicker #sat_end_time>
+                          </ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error
+                        *ngIf="
+                         isSubmited && addPharForm
+                            .get('sat_end_time')
+                            .hasError('required')
+                        "
+                        >{{ "add_sat_end_time" | translate }}</mat-error
+                      >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="non_opening_datetime hour_section">
+            <div class="modal_title">
+              {{ "non_opening_date_time" | translate }}
+            </div>
+            <div class="date_time_inner">
+              <div class="row">
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "date" | translate }}<span class="danger">*</span></label>
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="fill"
+                    >
+                      <input
+                        matInput
+                        formControlName="close_any_date"
+                        [matDatepicker]="picker8"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker8"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker8></mat-datepicker>
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                     isSubmited && addPharForm.get('close_any_date').hasError('required')
+                    "
+                    >{{ "add_non_opening_date" | translate }}</mat-error
+                  >
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "start_time" | translate }}<span class="danger">*</span></label>
+
+                    <mat-form-field appearance="fill">
+                      <input
+                        matInput
+                        aria-label="default time"
+                        [ngxTimepicker]="close_start_time"
+                        [format]="24"
+                        type="time"
+                        placeholder="{{ 'close_start_time' | translate }}"
+                        formControlName="close_start_time"
+                      />
+                      <ngx-material-timepicker #close_start_time>
+                      </ngx-material-timepicker>
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                     isSubmited && addPharForm
+                        .get('close_start_time')
+                        .hasError('required')
+                    "
+                    >{{ "add_close_start_time" | translate }}</mat-error
+                  >
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "end_time" | translate }}<span class="danger">*</span></label>
+
+                    <mat-form-field appearance="fill">
+                      <input
+                        matInput
+                        aria-label="default time"
+                        [ngxTimepicker]="close_end_time"
+                        [format]="24"
+                        type="time"
+                        placeholder="{{ 'close_end_time' | translate }}"
+                        formControlName="close_end_time"
+                      />
+                      <ngx-material-timepicker #close_end_time>
+                      </ngx-material-timepicker>
+                    </mat-form-field>
+                    <mat-error
+                    *ngIf="
+                     isSubmited && addPharForm.get('close_end_time').hasError('required')
+                    "
+                    >{{ "add_close_end_time" | translate }}</mat-error
+                  >
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row_generate row_add">
+                                    <mat-icon class="plus">add</mat-icon>
+                                </div> -->
+              <!-- <div class="row_generate row_minus">
+                                <mat-icon class="plus">remove</mat-icon>
+                            </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="primary_btn">
+          <button
+            type="button"
+            [routerLink]="['/super-admin/openhour/addpharmacy/', paramId]"
+            class="btn btn-primary"
+          >
+            {{ "cancel" | translate }}
+          </button>
+
+          <button type="submit" class="btn btn-primary">
+            {{ "save" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add Pharmacy Modal -->
+<ng-template #addpharmacy let-modal> </ng-template>
+
+<!-- Edit Pharmacy Modal -->
+<ng-template #editpharmacy let-modal>
+  <div class="custome_modal addonduty">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "edit_pharmacy" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="top_part">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "pharmacy_name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "phone_number" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="number" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-8">
+            <div class="form_field_wrapper">
+              <label>{{ "address" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "neighborhood" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "country" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "Country" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "Country" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "Country" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "region" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "province" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "department" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "city" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <label>{{ "village" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="option1">{{ "option" | translate }} 1</mat-option>
+                  <mat-option value="option2">{{ "option" | translate }} 2</mat-option>
+                  <mat-option value="option3">{{ "option" | translate }} 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="bottom_part">
+        <div class="opening_hour hour_section">
+          <div class="week_days opening_hour_content">
+            <div class="modal_title">{{ "opening_hour" | translate }}</div>
+            <div class="week_days_inner">
+              <div class="row">
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "sun" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "mon" | translate }}</label>
+
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "tue" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "wed" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "thu" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "fri" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 week_item">
+                  <div class="form_field_wrapper">
+                    <label>{{ "sat" | translate }}</label>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="time">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <div class="time">
+                          <input class="form-control" matInput matTimepicker />
+                          <mat-icon matSuffix>schedule</mat-icon>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="non_opening_datetime hour_section">
+          <div class="modal_title">
+            {{ "non_opening_date_time" | translate }}
+          </div>
+          <div class="date_time_inner">
+            <div class="row">
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "date" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <input
+                      matInput
+                      [matDatepickerFilter]="myFilter"
+                      [matDatepicker]="picker8"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker8"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker8></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "start_time" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <div class="time">
+                      <input class="form-control" matInput matTimepicker />
+                      <mat-icon matSuffix>schedule</mat-icon>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-lg-6 col-xl-3 time_item">
+                <div class="form_field_wrapper">
+                  <label>{{ "end_time" | translate }}</label>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <div class="time">
+                      <input class="form-control" matInput matTimepicker />
+                      <mat-icon matSuffix>schedule</mat-icon>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row_generate row_add">
+              <mat-icon class="plus">add</mat-icon>
+            </div>
+            <!-- <div class="row_generate row_minus">
+                            <mat-icon class="plus">remove</mat-icon>
+                        </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="primary_btn">
+        <button type="button" class="btn btn-primary">
+          {{ "update" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

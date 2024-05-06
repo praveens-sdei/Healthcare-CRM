@@ -1,0 +1,2801 @@
+<div class="Subscriber dashboard_main_content">
+  <div class="top_bar">
+    <div class="left_part w-100" style="display: flex !important; gap: 10px !important; align-items:center !important;">
+      <div class="form_field_wrapper modal-body col-md-3 ml-1" style="margin-top: 10px !important;">
+        <label>{{ "select_insurance" | translate }}</label>
+        <select2
+          [overlay]="overlay"
+          [limitSelection]="0"
+          [minCountForSearch]="0"
+          (update)="getCompanyid($event)"
+          [data]="insuranceList"
+        >
+        </select2>
+      </div>
+      <div class="search_bar common_content col-md-6" style="width: 250px !important; display: flex !important; align-items: center !important;">
+        <div class="input-group mt-30 ml-2" >
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input
+            type="search"
+            class="form-control"
+            (keyup)="handleSearchFilter($event)"
+            placeholder="Search..."
+            aria-label="Search"
+            style="width: 70px !important;"
+          />
+          <button (click)="handleFilter()" class="btn filter-btn">
+            <mat-icon>filter_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="content_wrap col-md-3" style="margin-top: -10px !important;">
+        <div class="policy">
+          <div class="form_field_wrapper">
+            <label>{{ "type_of_insurance" | translate }}:</label>
+            <mat-form-field appearance="fill">
+              <mat-select
+                disableRipple
+                [value]="'all'"
+                (valueChange)="handleSubscriberTypeFilter($event)"
+              >
+                <mat-option value="all">{{ "all" | translate }}</mat-option>
+                <mat-option
+                  *ngFor="let type of subscriberTypeList"
+                  value="{{ type.value }}"
+                  >{{ type.value }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right_part" style="margin-top: 30px !important;">
+      <div class="primary_btn">
+        <ng-container  *ngIf="giveInnerPermission('addPrimary')">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="openVerticallyCentered(addsubsriber)"
+        >
+          <mat-icon>note_add</mat-icon>{{ "add_subscribers" | translate }}
+        </button>
+      </ng-container>
+      <ng-container  *ngIf="giveInnerPermission('import')">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="openVerticallyCenteredEditplan(imporsubscriber)"
+        >
+          <a class="btn_svg"
+            ><svg
+              width="19"
+              height="17"
+              viewBox="0 0 19 17"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M2.70702 0.0104581C2.35458 0.068045 2.14937 0.132128 1.86268 0.274083C1.40132 0.502557 0.97754 0.942847 0.758933 1.42088C0.482758 2.0248 0.50022 1.57399 0.50022 8.09617C0.50022 12.9014 0.509776 14.035 0.55184 14.2135C0.717983 14.9191 1.21541 15.5686 1.8243 15.875C2.38912 16.1593 2.18433 16.1464 6.14194 16.1464H9.71119L9.88221 16.0467C9.97624 15.9919 10.1037 15.8725 10.1653 15.7812C10.2688 15.6282 10.2815 15.5697 10.329 15.0238C10.4356 13.8003 10.7776 12.9004 11.4602 12.0464C12.1823 11.1432 13.1294 10.555 14.2693 10.3017C14.6271 10.2222 14.8098 10.2123 16.3188 10.1915L17.9755 10.1685L18.1418 10.0472C18.2333 9.98044 18.3513 9.84594 18.4041 9.7483L18.5 9.57071L18.4998 7.11979L18.4997 4.66886L18.3953 4.35004C18.1169 3.49978 17.5074 2.88881 16.677 2.62765C16.49 2.56883 16.1025 2.55875 13.2776 2.53906L10.0893 2.51682L9.93295 2.40938C9.82035 2.33195 9.65551 2.11499 9.34318 1.63305C9.10481 1.26517 8.83965 0.884663 8.75398 0.787502C8.53058 0.53412 8.0822 0.243117 7.72051 0.116785L7.40845 0.00778804L5.10571 0.00129208C3.8392 -0.00229465 2.75979 0.00184999 2.70702 0.0104581ZM14.0838 11.9775C13.9867 12.0233 13.5948 12.3851 13.0476 12.9344C12.0537 13.9318 11.9386 14.0915 11.9652 14.4363C11.9738 14.5479 12.0142 14.7048 12.055 14.785C12.172 15.0153 13.9025 16.8423 14.0853 16.9286C14.3751 17.0652 14.7298 17.0019 14.9629 16.7719C15.1698 16.5679 15.1979 16.4686 15.2186 15.8674L15.2378 15.3095L16.6066 15.2895L17.9754 15.2696L18.1418 15.1483C18.5595 14.8436 18.6203 14.2555 18.2748 13.861C18.0801 13.6388 18.0697 13.6372 16.6002 13.6157L15.2378 13.5958L15.2186 13.0379C15.1979 12.4367 15.1698 12.3374 14.9629 12.1334C14.7293 11.9029 14.3751 11.8401 14.0838 11.9775Z"
+              /></svg></a
+          >{{ "import_subscriber" | translate }}
+        </button>
+      </ng-container>
+      <ng-container  *ngIf="giveInnerPermission('export')">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="exportSubscriber()"
+        >
+          <mat-icon>share</mat-icon>{{ "export" | translate }}
+        </button>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns pb-2">
+    <ng-container  *ngIf="giveInnerPermission('deleteAll')">
+    <button
+      type="button"
+      class="btn btn-primary"
+      style="margin-right: 6px"
+      (click)="openDeletePopup(deleteSubscriber, '')"
+      [disabled]="dataSource?.length === 0 || userId == ''"
+    >
+      <mat-icon>delete</mat-icon>{{ "delete_all_subsciber" | translate }}
+    </button>
+  </ng-container>
+  <ng-container  *ngIf="giveInnerPermission('selectedDelete')">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="openDeletePopup(deleteSubscriber, '')"
+      [disabled]="subsciberIds?.length === 0"
+    >
+      <mat-icon>delete</mat-icon>{{ "delete_selected_subscriber" | translate }}
+    </button>
+  </ng-container>
+  <ng-container  *ngIf="giveInnerPermission('printAllcard')">
+    <button
+      type="button"
+      class="btn btn-primary d-sm-inline-flex d-flex align-items-center ms-sm-2 mb-2 justify-content-center"
+      (click)="openCardPrintPopup(printSubscriber, 'ALL')"
+      [disabled]="dataSource?.length === 0 || isbuttonDisabled"
+    >
+      <mat-icon class="me-1">credit_card</mat-icon
+      >{{ "print_all_subsciber_card" | translate }}
+    </button>
+  </ng-container>
+  <ng-container  *ngIf="giveInnerPermission('selectedPrintCard')">
+    <button
+      type="button"
+      class="btn btn-primary d-sm-inline-flex d-flex align-items-center ms-sm-2 mb-2 justify-content-center"
+      (click)="openCardPrintPopup(printSubscriber, '')"
+      [disabled]="combinedSubscribersInfo?.length === 0 || isbuttonDisabled"
+    >
+      <mat-icon class="me-1">credit_card</mat-icon
+      >{{ "print_selected_subscriber_card" | translate }}
+    </button>
+  </ng-container>
+  </div>
+  <div class="table_detail pt-30">
+    <div class="table-wrap">
+      <div class="table-inner" #TABLE>
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          multiTemplateDataRows
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="insuranceName">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('insuranceName')"
+            >
+              {{ "insurance_name" | translate }}
+              <span
+                *ngIf="sortColumn === 'insuranceName'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.insuranceName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('subscriber_full_name')"
+            >
+              {{ "name" | translate }}
+              <span
+                *ngIf="sortColumn === 'subscriber_full_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container>
+                <button
+                  mat-icon-button
+                  aria-label="expand row"
+                  (click)="
+                    expandedElement =
+                      expandedElement === element ? null : element;
+                    $event.stopPropagation();
+                    handlePrimaryClick(element.id, expandedElement === element)
+                  "
+                >
+                  <mat-icon *ngIf="expandedElement !== element"
+                    >keyboard_arrow_down</mat-icon
+                  >
+                  <mat-icon *ngIf="expandedElement === element"
+                    >keyboard_arrow_up</mat-icon
+                  >
+                </button>
+              </ng-container>
+              {{ element.name }}
+              <!-- {{element | json}} -->
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="uniqueId">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('unique')"
+            >
+              {{ "Unique_id" | translate }}
+              <span
+                *ngIf="sortColumn === 'unique'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.uniqueId }}</td>
+          </ng-container>
+          <ng-container matColumnDef="creationDate">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('createdAt')"
+            >
+              {{ "date_of_creation" | translate }}
+              <span
+                *ngIf="sortColumn === 'createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.dateofcreation | date : "dd/MM/YYYY" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="typeofinsurance">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('subscriber_type')"
+            >
+              {{ "type_of_insurance" | translate }}
+              <span
+                *ngIf="sortColumn === 'subscriber_type'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.typeofinsurance }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceholder">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('company_name')"
+            >
+              {{ "insurance_holder" | translate }}
+              <span
+                *ngIf="sortColumn === 'company_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.insuranceholder }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateofbirth">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('date_of_birth')"
+            >
+              {{ "date_of_birth" | translate }}
+              <span
+                *ngIf="sortColumn === 'date_of_birth'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.dateofbirth | date : "dd/MM/YYYY" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="gender">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('gender')"
+            >
+              {{ "gender" | translate }}
+              <span
+                *ngIf="sortColumn === 'gender'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="subscriptionisfor">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('subscription_for')"
+            >
+              {{ "subscription_is_for" | translate }}
+              <span
+                *ngIf="sortColumn === 'subscription_for'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.subscriptionisfor }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insurance_id">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('insurance_id')"
+            >
+              {{ "insurance_ID" | translate }}
+              <span
+                *ngIf="sortColumn === 'insurance_id'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.insurance_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="employee_id">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('employee_id')"
+            >
+              {{ "employee_ID" | translate }}
+              <span
+                *ngIf="sortColumn === 'employee_id'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.employee_id }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="healthplan">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('health_plan_for.name')"
+            >
+              {{ "health_plan" | translate }}
+              <span
+                *ngIf="sortColumn === 'health_plan_for.name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.healthplan }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="card">
+            <th mat-header-cell *matHeaderCellDef class="text-end">
+              {{ "print_card" | translate }}
+              <ng-container  *ngIf="giveInnerPermission('selectedPrintCard')">
+              <mat-checkbox
+                (change)="makeSelectAllForCard($event)"
+                style="margin-left: 10px"
+                [checked]="combinedSubscribersInfo.length == 0 ? false : true"
+              ></mat-checkbox>
+            </ng-container>
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-end">
+              <ng-container  *ngIf="giveInnerPermission('selectedPrintCard')">
+              <mat-checkbox
+                style="margin-left: 10px"
+                [checked]="
+                  combinedSubscribersInfo.indexOf(element.id) == -1
+                    ? false
+                    : true
+                "
+                (change)="handleCheckBoxChangeForCardPrint($event, element)"
+              ></mat-checkbox>
+            </ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="activestatus">
+            <th mat-header-cell *matHeaderCellDef class="text-end">
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-end">
+              <ng-container  *ngIf="giveInnerPermission('status')">
+              <mat-slide-toggle
+                style="margin-left: 10px"
+                [checked]="element.is_active"
+                (change)="handletoggleChange(element.id)"
+              ></mat-slide-toggle>
+            </ng-container>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+              <ng-container  *ngIf="giveInnerPermission('selectedDelete')">
+              <mat-checkbox
+                (change)="makeSelectAll($event)"
+                style="margin-left: 10px"
+                [checked]="isAllSelected()"
+              ></mat-checkbox>
+            </ng-container>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <ng-container  *ngIf="giveInnerPermission('renewHealthPlanValidity')">
+                <mat-icon
+                  (click)="getSubscriberPlanValidity(element, planValidity)"
+                  >local_hospital</mat-icon
+                >
+              </ng-container>
+              <ng-container  *ngIf="giveInnerPermission('healthplanHistory')">
+                <mat-icon
+                  (click)="getSubscriberPlanHistory(element, plansHistory)"
+                  >history</mat-icon
+                >
+              </ng-container>
+              <ng-container  *ngIf="giveInnerPermission('addSecondary')">
+                <a
+                  class="svgicon"
+                  (click)="
+                    openVerticallyCenteredsecond(
+                      addsecondsubsriber,
+                      element.id,
+                      element.for_user,
+                      element.uniqueId
+                    )
+                  "
+                  ><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.53112 0.0103461C6.86055 0.0948683 6.16298 0.349069 5.63846 0.700033C5.35895 0.88709 5.27594 0.956335 4.95821 1.26774C4.38164 1.83291 3.97413 2.58718 3.79274 3.42506C3.70692 3.82149 3.70692 4.6964 3.79274 5.09282C4.16269 6.80165 5.44648 8.07996 7.16264 8.44833C7.56077 8.53379 8.43943 8.53379 8.83756 8.44833C10.5557 8.07952 11.8371 6.80362 12.2075 5.09282C12.2933 4.6964 12.2933 3.82149 12.2075 3.42506C11.8367 1.71233 10.5531 0.434825 8.83756 0.070986C8.59282 0.0190852 7.76618 -0.0193068 7.53112 0.0103461ZM3.73626 8.09416C3.10753 8.41171 2.64723 8.7551 2.13048 9.29205C1.3487 10.1044 0.806527 11.1554 0.593176 12.272C0.534387 12.5796 0.518475 12.8142 0.505444 13.5651C0.487824 14.5805 0.506147 14.7574 0.663556 15.0923C0.784753 15.3502 1.10962 15.6865 1.35935 15.8125C1.73611 16.0026 1.65973 15.999 5.32666 15.9995L8.69968 16L8.35826 15.658C8.17047 15.47 7.92118 15.181 7.80427 15.016C6.73982 13.5133 6.64365 11.4884 7.561 9.89598C7.74313 9.57981 7.74119 9.57344 7.45937 9.56577C7.39227 9.56393 7.18123 9.53151 6.99039 9.49372C6.03096 9.30373 5.16088 8.86931 4.39333 8.19707C4.22436 8.0491 4.08116 7.92816 4.0751 7.92832C4.069 7.92846 3.91655 8.0031 3.73626 8.09416ZM11.2334 8.56561C10.4285 8.68232 9.68269 9.0553 9.10595 9.62954C7.70508 11.0244 7.63054 13.2172 8.93279 14.7238C9.64925 15.5526 10.8065 16.0466 11.9002 15.9902C12.5144 15.9586 12.9628 15.8377 13.5015 15.5584C15.1059 14.7265 15.8805 12.828 15.3169 11.1088C14.8806 9.77794 13.7077 8.78655 12.3214 8.57695C11.9745 8.52448 11.5476 8.52005 11.2334 8.56561ZM12.0455 10.7523C12.2404 10.8972 12.2703 10.9743 12.2824 11.3631L12.2936 11.7248L12.6569 11.736C12.9605 11.7454 13.0354 11.7585 13.1126 11.816C13.2883 11.9468 13.3431 12.0533 13.3431 12.2642C13.3431 12.4751 13.2883 12.5817 13.1126 12.7124C13.0354 12.7699 12.9605 12.7831 12.6569 12.7924L12.2936 12.8036L12.2824 13.1653C12.2702 13.5561 12.2408 13.6309 12.0405 13.7798C11.9108 13.8762 11.593 13.8762 11.4633 13.7798C11.263 13.6309 11.2336 13.5561 11.2214 13.1653L11.2102 12.8036L10.8469 12.7924C10.4545 12.7803 10.3794 12.751 10.2298 12.5516C10.133 12.4224 10.133 12.106 10.2298 11.9769C10.3796 11.7771 10.4542 11.7481 10.8498 11.7359L11.2159 11.7246V11.4129C11.2159 10.9871 11.2913 10.8204 11.5342 10.7084C11.6677 10.6468 11.9344 10.6698 12.0455 10.7523Z"
+                    /></svg
+                ></a>
+              </ng-container>
+              <ng-container  *ngIf="giveInnerPermission('view')">
+                <mat-icon
+                  [routerLink]="['/super-admin/subscriberView', element.id]"
+                  >visibility
+                </mat-icon>
+              </ng-container>
+              <ng-container  *ngIf="giveInnerPermission('editPrimary')">
+                <a
+                  class="svgicon"
+                  (click)="openVerticallyCentered(addsubsriber, element.id)"
+                >
+                  <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                    />
+                  </svg>
+                </a>
+              </ng-container>
+              <ng-container  *ngIf="giveInnerPermission('selectedDelete')">
+                <mat-checkbox
+                  style="margin-left: 10px"
+                  [checked]="subsciberIds.includes(element?.id)"
+                  (change)="handleCheckBoxChange($event, element?.id)"
+                ></mat-checkbox>
+              </ng-container>
+                <!-- <a class="svgicon" (click)="deleteManual(deleteSubscriber, element.id)">
+                                    <mat-icon>delete</mat-icon>
+                                </a> -->
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [attr.colspan]="columnsToDisplayWithExpand.length"
+            >
+              <div
+                class="example-element-detail"
+                [@detailExpand]="
+                  element == expandedElement ? 'expanded' : 'collapsed'
+                "
+              >
+                <div class="inner_table">
+                  <div class="table-wrap">
+                    <div class="table-inner">
+                      <table
+                        mat-table
+                        [dataSource]="datanestedSource"
+                        class="mat-elevation-z8 withoutpagination"
+                      >
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "name" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            <ng-container>
+                              <button
+                                mat-icon-button
+                                aria-label="expand row"
+                                [routerLink]="[
+                                  '/super-admin/subscriberView',
+                                  element.id
+                                ]"
+                              >
+                                <mat-icon>keyboard_arrow_right</mat-icon>
+                              </button>
+                            </ng-container>
+                            {{ element.name }}
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="uniqueId">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "Unique_id" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.uniqueId }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="creationDate">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "date_of_creation" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.dateofcreation | date : "dd/MM/yyyy" }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Type of Insurance Column -->
+                        <ng-container matColumnDef="typeofinsurance">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "type_of_insurance" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.typeofinsurance }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Insurance Holder Column -->
+                        <ng-container matColumnDef="insuranceholder">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "insurance_holder" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.insuranceholder }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Date of Birth Column -->
+                        <ng-container matColumnDef="dateofbirth">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "date_of_birth" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.dateofbirth | date : "dd/MM/YYYY" }}
+                          </td>
+                        </ng-container>
+
+                        <!-- {{ 'gender' | translate}} Column -->
+                        <ng-container matColumnDef="gender">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "gender" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.gender }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Phone Number Column -->
+                        <ng-container matColumnDef="phonenumber">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "phone_number" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.phonenumber }}
+                          </td>
+                        </ng-container>
+
+                        <!-- {{ 'subscription_is_for' | translate}} Column -->
+                        <ng-container matColumnDef="subscriptionisfor">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "subscription_is_for" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.subscriptionisfor }}
+                          </td>
+                        </ng-container>
+
+                        <!-- {{ 'insurance_id' | translate}} Column -->
+                        <ng-container matColumnDef="insuranceid">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "insurance_id" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{
+                              element.insurance_id === "Null"
+                                ? "-"
+                                : element.insurance_id
+                            }}
+                          </td>
+                        </ng-container>
+
+                        <!-- {{ 'employee_ID' | translate}} Column -->
+                        <ng-container matColumnDef="employeeid">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "employee_ID" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.employee_id }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Health Plan Column -->
+                        <ng-container matColumnDef="healthplan">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "health_plan" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.healthplan }}
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="card">
+                          <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            class="text-end"
+                          >
+                            {{ "print_card" | translate }}
+                          </th>
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            class="text-end"
+                          >
+                          <ng-container  *ngIf="giveInnerPermission('selectedPrintCard')">
+                            <mat-checkbox
+                              style="margin-left: 10px"
+                              [checked]="
+                                combinedSubscribersInfo.indexOf(element.id) ==
+                                -1
+                                  ? false
+                                  : true
+                              "
+                              (change)="
+                                handleCheckBoxChangeForCardPrint(
+                                  $event,
+                                  element
+                                )
+                              "
+                            ></mat-checkbox>
+                          </ng-container>
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="activestatus">
+                          <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            class="text-end"
+                          >
+                            {{ "status" | translate }}
+                          </th>
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            class="text-end"
+                          >
+                          <ng-container  *ngIf="giveInnerPermission('status')">
+                            <mat-slide-toggle
+                              style="margin-left: 10px"
+                              [checked]="element.is_active"
+                              (change)="handletoggleChange(element.id)"
+                            ></mat-slide-toggle>
+                          </ng-container>
+                          </td>
+                        </ng-container>
+
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="nestedaction">
+                          <th mat-header-cell *matHeaderCellDef>
+                            {{ "action" | translate }}
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            <div class="icon_group">
+                              <ng-container  *ngIf="giveInnerPermission('renewHealthPlanValidity')">
+                              <mat-icon
+                                (click)="
+                                  getSubscriberPlanValidity(
+                                    element,
+                                    planValidity
+                                  )
+                                "
+                                >local_hospital</mat-icon
+                              >
+                            </ng-container>
+                            <ng-container  *ngIf="giveInnerPermission('healthplanHistory')">
+                              <mat-icon
+                                (click)="
+                                  getSubscriberPlanHistory(
+                                    element,
+                                    plansHistory
+                                  )
+                                "
+                                >history</mat-icon
+                              >
+                            </ng-container>
+                            <ng-container  *ngIf="giveInnerPermission('view')">
+                              <mat-icon
+                                [routerLink]="[
+                                  '/super-admin/subscriberView',
+                                  element.id
+                                ]"
+                                >visibility
+                              </mat-icon>
+                            </ng-container>
+                            <ng-container  *ngIf="giveInnerPermission('editSecondary')">
+                              <a
+                                class="svgicon"
+                                (click)="
+                                  openVerticallyCenteredsecond(
+                                    addsecondsubsriber,
+                                    element.id,
+                                    element.for_user,
+                                    element.uniqueId,
+                                    'edit'
+                                  )
+                                "
+                              >
+                                <svg
+                                  viewBox="0 0 12 12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                                  />
+                                </svg>
+                              </a>
+                            </ng-container>
+                            <ng-container  *ngIf="giveInnerPermission('selectedDelete')">
+                              <mat-checkbox
+                                style="margin-left: 10px"
+                                [checked]="subsciberIds.includes(element?.id)"
+                                (change)="
+                                  handleCheckBoxChange($event, element?.id)
+                                "
+                              ></mat-checkbox>
+                            </ng-container>
+                            </div>
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="displayednestedColumns"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayednestedColumns"
+                        ></tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: columnsToDisplayWithExpand"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="example-detail-row"
+          ></tr>
+        </table>
+        <div *ngIf="dataSource?.length < 1" class="text-center">
+          <h2>{{ "no_record_found" | translate }}</h2>
+        </div>
+      </div>
+      <!-- <mat-paginator class="pagination" [length]="totalLength" (page)="handlePageEvent($event)"
+                [pageSize]="pageSize" [pageSizeOptions]="[2, 4, 6]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator> -->
+
+      <div class="input-pagination-block">
+        <mat-paginator
+          class="pagination"
+          [length]="totalLength"
+          (page)="handlePageEvent($event)"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[2, 4, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+        <div class="pagination-input-block">
+          <input type="text" [(ngModel)]="page" (keyup.enter)="sendit(page)" />
+          <span>{{ "of" | translate }} {{ check }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal import-->
+<ng-template #imporsubscriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "upload_excel_file_for_subscriber" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body import_subscribes">
+      <form [formGroup]="addSubscriberForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="form_field_wrapper modal-body">
+            <label>{{ "select_insurance" | translate }}</label>
+            <select2
+              [overlay]="overlay"
+              [limitSelection]="0"
+              [minCountForSearch]="0"
+              (update)="getid($event)"
+              [data]="insuranceList"
+              formControlName="for_user"
+            >
+            </select2>
+            <span
+              class="text-danger"
+              *ngIf="isSubmitted && addSubscriberFormControl['for_user'].errors?.['required']"
+            >
+              {{ "select_insurance" | translate }}
+            </span>
+          </div>
+
+          <div class="col-md-6 upload_item">
+            <div class="form_field_wrapper">
+              <label>{{ "choose_file" | translate }}</label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <label>
+                    <a class="btn_svg"
+                      ><svg
+                        width="19"
+                        height="17"
+                        viewBox="0 0 19 17"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M2.70702 0.0104581C2.35458 0.068045 2.14937 0.132128 1.86268 0.274083C1.40132 0.502557 0.97754 0.942847 0.758933 1.42088C0.482758 2.0248 0.50022 1.57399 0.50022 8.09617C0.50022 12.9014 0.509776 14.035 0.55184 14.2135C0.717983 14.9191 1.21541 15.5686 1.8243 15.875C2.38912 16.1593 2.18433 16.1464 6.14194 16.1464H9.71119L9.88221 16.0467C9.97624 15.9919 10.1037 15.8725 10.1653 15.7812C10.2688 15.6282 10.2815 15.5697 10.329 15.0238C10.4356 13.8003 10.7776 12.9004 11.4602 12.0464C12.1823 11.1432 13.1294 10.555 14.2693 10.3017C14.6271 10.2222 14.8098 10.2123 16.3188 10.1915L17.9755 10.1685L18.1418 10.0472C18.2333 9.98044 18.3513 9.84594 18.4041 9.7483L18.5 9.57071L18.4998 7.11979L18.4997 4.66886L18.3953 4.35004C18.1169 3.49978 17.5074 2.88881 16.677 2.62765C16.49 2.56883 16.1025 2.55875 13.2776 2.53906L10.0893 2.51682L9.93295 2.40938C9.82035 2.33195 9.65551 2.11499 9.34318 1.63305C9.10481 1.26517 8.83965 0.884663 8.75398 0.787502C8.53058 0.53412 8.0822 0.243117 7.72051 0.116785L7.40845 0.00778804L5.10571 0.00129208C3.8392 -0.00229465 2.75979 0.00184999 2.70702 0.0104581ZM14.0838 11.9775C13.9867 12.0233 13.5948 12.3851 13.0476 12.9344C12.0537 13.9318 11.9386 14.0915 11.9652 14.4363C11.9738 14.5479 12.0142 14.7048 12.055 14.785C12.172 15.0153 13.9025 16.8423 14.0853 16.9286C14.3751 17.0652 14.7298 17.0019 14.9629 16.7719C15.1698 16.5679 15.1979 16.4686 15.2186 15.8674L15.2378 15.3095L16.6066 15.2895L17.9754 15.2696L18.1418 15.1483C18.5595 14.8436 18.6203 14.2555 18.2748 13.861C18.0801 13.6388 18.0697 13.6372 16.6002 13.6157L15.2378 13.5958L15.2186 13.0379C15.1979 12.4367 15.1698 12.3374 14.9629 12.1334C14.7293 11.9029 14.3751 11.8401 14.0838 11.9775Z"
+                        /></svg></a
+                    >{{ "choose_file" | translate }}
+                  </label>
+                </div>
+                <span *ngIf="selectedFileName"
+                  >selected {{ selectedFileName }} file</span
+                >
+                <input
+                  class="ng-hide user_upload_input"
+                  (change)="selectFile($event)"
+                  formControlName="csvFileName"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                  id="input-file-id"
+                  type="file"
+                />
+              </div>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['csvFileName'].errors?.['required']"
+              >
+                {{ "choose_excel_file" | translate }}
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form_field_wrapper">
+              <label>{{ "sample_file" | translate }} </label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <button
+                    type="button"
+                    placement="{{ 'top' | translate }}"
+                    ngbTooltip="Tooltip on top"
+                    class="btn btn-secondary me-2"
+                    (click)="downloadSampleExcel()"
+                  >
+                    {{ "download" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="primary_btn">
+          <div class="left"></div>
+          <div class="right">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="closePopup()"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button
+              type="submit"
+              [disabled]="showupload === false"
+              class="btn btn-primary"
+            >
+              {{ "upload_subscriber" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Delete Subscriber Popup -->
+<ng-template #deleteSubscriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "delete_subscriber" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <p>
+            {{ "are_you_sure_you_want_to_delete_this_subscriber" | translate }}
+          </p>
+        </div>
+        <div class="primary_btn">
+          <button
+            (click)="handleClose()"
+            type="button"
+            class="btn btn-secondary"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="submit"
+            (click)="deleteSubscriberData()"
+            class="btn btn-primary"
+          >
+            {{ "submit" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- add subscriber -->
+<ng-template #addsubsriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4
+        class="modal-title"
+        id="modal-basic-title"
+        *ngIf="subscriberForValue !== 'Secondary'"
+      >
+        {{ action }} {{ "primary_subscriber" | translate }}
+      </h4>
+      <h4
+        class="modal-title"
+        id="modal-basic-title"
+        *ngIf="subscriberForValue === 'Secondary'"
+      >
+        {{ action }} {{ "secondary_subscriber" | translate }}
+      </h4>
+
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addSubscriberForm" (ngSubmit)="onSubmit('primary')">
+        <div class="row">
+          <div class="col-sm-6 col-sm-6 col-md-4 dob">
+            <div class="form_field_wrapper">
+              <label>{{ "date_of_creation" | translate }}</label>
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  formControlName="dateofcreation"
+                  [matDatepicker]="picker1"
+                  (dateChange)="handleDOCChange('dateofcreation')"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="form_field_wrapper">
+              <div class="form_field_wrapper modal-body">
+                <label>{{ "select_insurance" | translate }}</label>
+                <select2
+                  [overlay]="overlay"
+                  [limitSelection]="0"
+                  [minCountForSearch]="0"
+                  (update)="getid($event)"
+                  [data]="insuranceList"
+                  formControlName="for_user"
+                >
+                </select2>
+                <span
+                  class="text-danger"
+                  style="bottom : 18px !important ; left: 28px !important;"
+                  *ngIf="isSubmitted && addSubscriberFormControl['for_user'].errors?.['required']"
+                >
+                  {{ "select_insurance" | translate }}
+                </span>
+              </div>
+              <label>{{ "subscriber_type" | translate }} </label>
+              <mat-form-field appearance="fill">
+                <mat-select
+                  disableRipple
+                  (valueChange)="handleSubscriberTypeChange($event)"
+                  formControlName="subscriberType"
+                >
+                  <mat-option value="">{{
+                    "please_select" | translate
+                  }}</mat-option>
+                  <mat-option
+                    *ngFor="let type of subscriberTypeList"
+                    value="{{ type.value }}"
+                    >{{ type.value }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['subscriberType'].errors?.['required']"
+              >
+                {{ "Select" | translate }} {{ "subscriber_type" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType !== 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ subscriberType }} {{ "name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="companyName" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['companyName'].errors?.['required']"
+              >
+                {{ "enter" | translate }} {{ subscriberType }}
+                {{ "name" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "subscription_is_for" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <mat-select
+                  disableRipple
+                  #subscriberFor
+                  formControlName="subscriberFor"
+                >
+                  <!-- <mat-option value="">Select Option</mat-option> -->
+                  <mat-option value="Primary">{{
+                    "primary" | translate
+                  }}</mat-option>
+                  <!-- <mat-option value="Secondary">Secondary</mat-option> -->
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "unique_key" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <input type="number" matInput formControlName="unique" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['unique'].errors?.['required']"
+              >
+                {{ "enter_unique_name" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "health_plan" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <!-- <mat-label>{{ 'select_health_plan' | translate}}</mat-label> -->
+                <mat-select disableRipple formControlName="healthPlan">
+                  <mat-option value="">{{
+                    "please_select" | translate
+                  }}</mat-option>
+                  <mat-option
+                    *ngFor="let type of healthPlanList"
+                    value="{{ type.id }}"
+                    >{{ type.value }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['healthPlan'].errors?.['required']"
+              >
+                {{ "select_health_plan" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "first_name" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="firstName" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['firstName'].errors?.['required']"
+              >
+                {{ "enter_first_name" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "middle_name" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" formControlName="middleName" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "last_name" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <input type="text" formControlName="lastName" matInput />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['lastName'].errors?.['required']"
+              >
+                {{ "enter_last_name" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>Mobile</label>
+              <mat-form-field appearance="fill">
+                <input type="text" formControlName="mobile" matInput />
+              </mat-form-field>
+              <!-- <span class="text-danger"
+                                *ngIf="isSubmitted && addSubscriberFormControl['mobile'].errors?.['required']">
+                                Enter Mobile Number*
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="addSubscriberFormControl['mobile'].errors?.['pattern'] && addSubscriberFormControl['mobile'].invalid">
+                                Enter 10 digit number*
+                            </span> -->
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "gender" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <mat-select disableRipple formControlName="gender">
+                  <mat-option value="">{{
+                    "please_select" | translate
+                  }}</mat-option>
+                  <mat-option value="Male">{{ "male" | translate }}</mat-option>
+                  <mat-option value="Female">{{
+                    "female" | translate
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+              class="text-danger"
+              *ngIf="isSubmitted && addSubscriberFormControl['gender'].errors?.['required']"
+            >
+              {{ "select_gender" | translate }}
+            </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-sm-6 col-md-4 dob"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "date_of_birth" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  formControlName="dateofbirth"
+                  #dobref
+                  [max]="maxDOB"
+                  (dateChange)="handleDOBChange(dobref.value)"
+                  matInput
+                  [matDatepicker]="pickerdob"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerdob"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerdob></mat-datepicker>
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['dateofbirth'].errors?.['required']"
+              >
+                {{ "enter_date_of_birth" | translate }}
+              </span>
+              <!-- <span class="text-danger" *ngIf="isSubmitted && addSubscriberFormControl['dateofbirth'].errors?.['dateofbageErrorirth']">
+                                date of birth should not be less than current year
+                            </span> -->
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-sm-6 col-md-4 age"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "age" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="number"
+                  readonly=""
+                  matInput
+                  formControlName="subscriberAge"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "insurance_id" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="number" matInput formControlName="insuranceId" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['insuranceId'].errors?.['required']"
+              >
+                {{ "enter_insurace_id" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "policy_ID" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="policyId" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['policyId'].errors?.['required']"
+              >
+                {{ "enter_policy_Id" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "employee_ID" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="employeeId" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['employeeId'].errors?.['required']"
+              >
+                {{ "enter_employee_Id" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "insurance_holder_name" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  formControlName="insuranceHolderName"
+                  matInput
+                />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['insuranceHolderName'].errors?.['required']"
+              >
+                {{ "enter_insurace_holder_name" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-sm-6 col-md-4 dob">
+            <div class="form_field_wrapper">
+              <label>{{ "date_of_joining" | translate }}</label>
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  formControlName="dateofjoining"
+                  [matDatepicker]="picker2"
+                  (dateChange)="handleDOCChange('dateofjoining')"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 mb-3"
+          >
+            <div class="form_field_wrapper">
+              <label
+                >{{ "insurance_validity" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  (dateChange)="checkTodate()"
+                  formControlName="insuranceValidityFrom"
+                  matInput
+                  placeholder="{{ 'from' | translate }}"
+                  [matDatepicker]="pickervalidity1"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickervalidity1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickervalidity1></mat-datepicker>
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['insuranceValidityFrom'].errors?.['required']"
+              >
+                {{ "enter_insurance_validity_from_date" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 insurance_validity"
+          >
+            <div class="form_field_wrapper">
+              <label class="invisible"
+                >{{ "insurance_validity" | translate
+                }}<span style="color: red"> *</span></label
+              >
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  (dateChange)="checkFromDate()"
+                  formControlName="insuranceValidityTo"
+                  [min]="minDate"
+                  matInput
+                  placeholder="{{ 'to' | translate }}"
+                  [matDatepicker]="pickervalidity2"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickervalidity2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickervalidity2></mat-datepicker>
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['insuranceValidityTo'].errors?.['required']"
+              >
+                {{ "enter_insurance_validity_to_date" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "reimbursement_rate" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input
+                  type="text"
+                  formControlName="reimbursementRate"
+                  matInput
+                />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['required']"
+              >
+                {{ "enter_reimbursement_rate" | translate }}
+              </span>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['max']"
+              >
+                {{ "enter_reimbursement_rate_in_between_0_to_100" | translate }}
+              </span>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['min']"
+              >
+                {{ "enter_reimbursement_rate_in_between_0_to_100" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="subscriberForValue === 'Secondary'"> -->
+          <div
+            *ngIf="
+              subscriberForValue === 'Secondary' &&
+              subscriberType === 'Individual'
+            "
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "Relationship" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" formControlName="relationship" matInput />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['relationship'].errors?.['required']"
+              >
+                {{ "enter_relationship" | translate }}
+              </span>
+            </div>
+          </div>
+          <!-- </div> -->
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "card_ID" | translate }}</label>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="cardId" />
+              </mat-form-field>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['cardId'].errors?.['required']"
+              >
+                {{ "enter_card_Id" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType === 'Individual'"
+            class="col-sm-6 col-md-4 upload_item"
+          >
+            <div class="form_field_wrapper">
+              <!-- <label>Insurance Card Picture</label>
+                            <div class="upload_input">
+                                <div class="upload_input_content">
+                                    <label>Upload Image</label>
+                                </div>
+                                <input class="ng-hide user_upload_input" (change)="selectFile($event)"
+                                    id="input-file-id" type="file" />
+                            </div> -->
+
+              <div class="image-upload">
+                <label>{{ "upload_subscriber_id_photo" | translate }}</label>
+                <label for="file-input">
+                  <img
+                    class="img-fluid mb-4"
+                    src="{{
+                      subProfile
+                        ? subProfile
+                        : '../../../../../../../assets/img/create_profile.png'
+                    }}"
+                    width="100px"
+                    height="100px"
+                  />
+                </label>
+                <input
+                  id="file-input"
+                  type="file"
+                  accept="image/*"
+                  (change)="selectSubProfile($event)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="subscriberType !== 'Individual'"
+            class="col-sm-6 col-md-4 upload_item"
+          >
+            <div class="form_field_wrapper">
+              <label>{{ "upload_csv_excel_file" | translate }}</label>
+              <div class="upload_input">
+                <div class="upload_input_content">
+                  <label>
+                    <a class="btn_svg"
+                      ><svg
+                        width="19"
+                        height="17"
+                        viewBox="0 0 19 17"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M2.70702 0.0104581C2.35458 0.068045 2.14937 0.132128 1.86268 0.274083C1.40132 0.502557 0.97754 0.942847 0.758933 1.42088C0.482758 2.0248 0.50022 1.57399 0.50022 8.09617C0.50022 12.9014 0.509776 14.035 0.55184 14.2135C0.717983 14.9191 1.21541 15.5686 1.8243 15.875C2.38912 16.1593 2.18433 16.1464 6.14194 16.1464H9.71119L9.88221 16.0467C9.97624 15.9919 10.1037 15.8725 10.1653 15.7812C10.2688 15.6282 10.2815 15.5697 10.329 15.0238C10.4356 13.8003 10.7776 12.9004 11.4602 12.0464C12.1823 11.1432 13.1294 10.555 14.2693 10.3017C14.6271 10.2222 14.8098 10.2123 16.3188 10.1915L17.9755 10.1685L18.1418 10.0472C18.2333 9.98044 18.3513 9.84594 18.4041 9.7483L18.5 9.57071L18.4998 7.11979L18.4997 4.66886L18.3953 4.35004C18.1169 3.49978 17.5074 2.88881 16.677 2.62765C16.49 2.56883 16.1025 2.55875 13.2776 2.53906L10.0893 2.51682L9.93295 2.40938C9.82035 2.33195 9.65551 2.11499 9.34318 1.63305C9.10481 1.26517 8.83965 0.884663 8.75398 0.787502C8.53058 0.53412 8.0822 0.243117 7.72051 0.116785L7.40845 0.00778804L5.10571 0.00129208C3.8392 -0.00229465 2.75979 0.00184999 2.70702 0.0104581ZM14.0838 11.9775C13.9867 12.0233 13.5948 12.3851 13.0476 12.9344C12.0537 13.9318 11.9386 14.0915 11.9652 14.4363C11.9738 14.5479 12.0142 14.7048 12.055 14.785C12.172 15.0153 13.9025 16.8423 14.0853 16.9286C14.3751 17.0652 14.7298 17.0019 14.9629 16.7719C15.1698 16.5679 15.1979 16.4686 15.2186 15.8674L15.2378 15.3095L16.6066 15.2895L17.9754 15.2696L18.1418 15.1483C18.5595 14.8436 18.6203 14.2555 18.2748 13.861C18.0801 13.6388 18.0697 13.6372 16.6002 13.6157L15.2378 13.5958L15.2186 13.0379C15.1979 12.4367 15.1698 12.3374 14.9629 12.1334C14.7293 11.9029 14.3751 11.8401 14.0838 11.9775Z"
+                        /></svg></a
+                    >{{ "import_company_subscriber" | translate }}
+                  </label>
+                </div>
+                <input
+                  class="ng-hide user_upload_input"
+                  (change)="selectFile($event)"
+                  formControlName="csvFileName"
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                  id="input-file-id"
+                  type="file"
+                />
+              </div>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && addSubscriberFormControl['csvFileName'].errors?.['required']"
+              >
+                {{ "choose_csv_file" | translate }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-danger" *ngIf="formSubmitError">
+          {{ "error" | translate }}: {{ formSubmitError }}
+        </div>
+        <div class="primary_btn">
+          <div class="left">
+            <div *ngIf="subscriberType !== 'Individual'">
+              <button
+                type="button"
+                placement="{{ 'top' | translate }}"
+                ngbTooltip="Tooltip on top"
+                class="btn btn-secondary me-2"
+                (click)="downloadSampleExcel()"
+              >
+                {{ "download_sample_file" | translate }}
+              </button>
+            </div>
+          </div>
+
+          <div class="right">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="handleClose()"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" *ngIf="isEdit" class="btn btn-primary">
+              {{ "update_subscriber" | translate }}
+            </button>
+            <button type="submit" *ngIf="!isEdit" class="btn btn-primary">
+              {{ "add_subscriber" | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- add second subscriber -->
+
+<ng-template #addsecondsubsriber let-modal>
+  <div class="modal-lg">
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ actionsecondary }} {{ "secondary_subscriber" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="handleClose()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="addSubscriberForm"
+          (ngSubmit)="onSubmit('secondary')"
+        >
+          <div class="row">
+            <div class="col-sm-6 col-sm-6 col-md-4 dob">
+              <div class="form_field_wrapper">
+                <label>{{ "date_of_creation" | translate }}</label>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    matInput
+                    formControlName="dateofcreation"
+                    [matDatepicker]="picker1"
+                    (dateChange)="handleDOCChange('dateofcreation')"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "subscription_is_for" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <mat-select
+                    disableRipple
+                    #subscriberFor
+                    formControlName="subscriberFor"
+                  >
+                    <mat-option value="Secondary">{{
+                      "secondary" | translate
+                    }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "health_plan" | translate }}
+                  <span style="color: red"> *</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label>{{ 'select_health_plan' | translate}}</mat-label> -->
+                  <mat-select disableRipple formControlName="healthPlan">
+                    <mat-option value="">{{
+                      "please_select" | translate
+                    }}</mat-option>
+                    <mat-option
+                      *ngFor="let type of healthPlanList"
+                      value="{{ type.id }}"
+                      >{{ type.value }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['healthPlan'].errors?.['required']"
+                >
+                  {{ "select_health_plan" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "first_name" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="firstName" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['firstName'].errors?.['required']"
+                >
+                  {{ "enter_first_name" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "middle_name" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" formControlName="middleName" matInput />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "last_name" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input type="text" formControlName="lastName" matInput />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['lastName'].errors?.['required']"
+                >
+                  {{ "enter_last_name" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+              <div class="form_field_wrapper">
+                <label>{{ "mobile" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="mobile" formControlName="mobile" matInput />
+                </mat-form-field>
+                <!-- <span class="text-danger"
+                                    *ngIf="isSubmitted && addSubscriberFormControl['mobile'].errors?.['required']">
+                                    Enter Mobile Number*
+                                </span>
+                                <span class="text-danger"
+                                    *ngIf="addSubscriberFormControl['mobile'].errors?.['pattern'] && addSubscriberFormControl['mobile'].invalid">
+                                    Enter 10 digit number*
+                                </span> -->
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "gender" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <mat-select disableRipple formControlName="gender">
+                    <mat-option value="">{{
+                      "please_select" | translate
+                    }}</mat-option>
+                    <mat-option value="Male">{{
+                      "male" | translate
+                    }}</mat-option>
+                    <mat-option value="Female">{{
+                      "female" | translate
+                    }}</mat-option>
+                  </mat-select>
+                  <span
+                    class="text-danger"
+                    *ngIf="isSubmitted && addSubscriberFormControl['gender'].errors?.['required']"
+                  >
+                    {{ "select_gender" | translate }}
+                  </span>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-sm-6 col-md-4 dob"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "date_of_birth" | translate }}
+                  <span style="color: red"> *</span></label
+                >
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    formControlName="dateofbirth"
+                    #dobref
+                    [max]="maxDOB"
+                    (dateChange)="handleDOBChange(dobref.value)"
+                    matInput
+                    [matDatepicker]="pickerdob"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerdob"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerdob></mat-datepicker>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['dateofbirth'].errors?.['required']"
+                >
+                  {{ "enter_date_of_birth" | translate }}
+                </span>
+                <!-- <span class="text-danger" *ngIf="isSubmitted && addSubscriberFormControl['dateofbirth'].errors?.['dateofbageErrorirth']">
+                                date of birth should not be less than current year
+                            </span> -->
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-sm-6 col-md-4 age"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "age" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="number"
+                    readonly=""
+                    matInput
+                    formControlName="subscriberAge"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "insurance_id" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="number" matInput formControlName="insuranceId" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['insuranceId'].errors?.['required']"
+                >
+                  {{ "enter_insurace_id" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "policy_ID" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="policyId" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['policyId'].errors?.['required']"
+                >
+                  {{ "enter_policy_Id" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "employee_ID" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="employeeId" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['employeeId'].errors?.['required']"
+                >
+                  {{ "enter_employee_Id" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "insurance_holder_name" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    formControlName="insuranceHolderName"
+                    matInput
+                  />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['insuranceHolderName'].errors?.['required']"
+                >
+                  {{ "enter_insurace_holder_name" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6 col-sm-6 col-md-4 dob">
+              <div class="form_field_wrapper">
+                <label>{{ "date_of_joining" | translate }}</label>
+
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    matInput
+                    formControlName="dateofjoining"
+                    [matDatepicker]="picker2"
+                    (dateChange)="handleDOCChange('dateofjoining')"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker2"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "insurance_validity" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    (dateChange)="checkTodate()"
+                    formControlName="insuranceValidityFrom"
+                    matInput
+                    placeholder="{{ 'from' | translate }}"
+                    [matDatepicker]="pickervalidity1"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickervalidity1"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickervalidity1></mat-datepicker>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['insuranceValidityFrom'].errors?.['required']"
+                >
+                  {{ "enter_insurance_validity_from_date" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4 insurance_validity"
+            >
+              <div class="form_field_wrapper">
+                <label class="invisible"
+                  >{{ "insurance_validity" | translate
+                  }}<span style="color: red"> *</span></label
+                >
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <input
+                    (dateChange)="checkFromDate()"
+                    formControlName="insuranceValidityTo"
+                    [min]="minDate"
+                    matInput
+                    placeholder="To"
+                    [matDatepicker]="pickervalidity2"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickervalidity2"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickervalidity2></mat-datepicker>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['insuranceValidityTo'].errors?.['required']"
+                >
+                  {{ "enter_insurance_validity_to_date" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "reimbursement_rate" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    type="text"
+                    formControlName="reimbursementRate"
+                    matInput
+                  />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['required']"
+                >
+                  {{ "enter_reimbursement_rate" | translate }}
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['max']"
+                >
+                  {{
+                    "enter_reimbursement_rate_in_between_0_to_100" | translate
+                  }}
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['reimbursementRate'].errors?.['min']"
+                >
+                  {{
+                    "enter_reimbursement_rate_in_between_0_to_100" | translate
+                  }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "Relationship" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" formControlName="relationship" matInput />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['relationship'].errors?.['required']"
+                >
+                  {{ "enter_relationship" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4"
+            >
+              <div class="form_field_wrapper">
+                <label>{{ "card_ID" | translate }}</label>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="cardId" />
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && addSubscriberFormControl['cardId'].errors?.['required']"
+                >
+                  {{ "enter_card_Id" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              *ngIf="subscriberType === 'Individual'"
+              class="col-sm-6 col-md-4 upload_item"
+            >
+              <div class="form_field_wrapper">
+                <!-- <label>Insurance Card Picture</label>
+                                <div class="upload_input">
+                                    <div class="upload_input_content">
+                                        <label>Upload Image</label>
+                                    </div>
+                                    <input class="ng-hide user_upload_input" (change)="selectFile($event)"
+                                        id="input-file-id" type="file" />
+                                </div> -->
+                <div class="image-upload">
+                  <label>{{ "upload_subscriber_id_photo" | translate }}</label>
+                  <label for="file-input">
+                    <img
+                      class="img-fluid mb-4"
+                      src="{{
+                        subProfile
+                          ? subProfile
+                          : '../../../../../../../assets/img/create_profile.png'
+                      }}"
+                      width="100px"
+                      height="100px"
+                    />
+                  </label>
+                  <input
+                    id="file-input"
+                    type="file"
+                    accept="image/*"
+                    (change)="selectSubProfile($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="primary_btn">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="handleClose()"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ "add_subscriber" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Confirmation Model for card Print -->
+
+<ng-template #printSubscriber let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "print_subscriber" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <p>
+            {{
+              "are_you_sure_you_want_to_print_this_subscriber_card" | translate
+            }}.
+          </p>
+        </div>
+        <div class="primary_btn">
+          <button
+            (click)="handleClose()"
+            type="button"
+            class="btn btn-secondary"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="submit"
+            (click)="printSubscriberCard()"
+            class="btn btn-primary"
+          >
+            {{ "submit" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- show plans historysubscriber -->
+
+<ng-template #plansHistory let-modal>
+  <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>{{ "health_plan_history" | translate }}</h2>
+      <a><mat-icon (click)="handleClose()">close</mat-icon></a>
+    </div>
+    <table
+      mat-table
+      [dataSource]="subscriberPlansHistory"
+      class="mat-elevation-z8 mt-3"
+      style="width: 100%"
+    >
+      <ng-container matColumnDef="healthPlan">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "health_plan" | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.health_plan_for.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fromDate">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "validity_from_date" | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.plan_validity_from | date : "dd/MM/YYYY" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="toDate">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "validity_to_date" | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.plan_validity_to | date : "dd/MM/YYYY" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ "plan_details" | translate }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon
+            (click)="
+              getSelectedPlanHistory(element, viewSubscribersPlanDetails)
+            "
+            >visibility</mat-icon
+          >
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+    </table>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      *ngIf="subscriberPlansHistory?.length === 0"
+    >
+      <h2>{{ "no_health_plan_history_available" | translate }}</h2>
+    </div>
+  </div>
+</ng-template>
+
+<!-- show plans validity -->
+
+<ng-template #planValidity let-modal>
+  <div class="p-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>{{ "renew_update_health_plan_validity" | translate }}</h2>
+      <a><mat-icon (click)="handleClose()">close</mat-icon></a>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">{{ "health_plan" | translate }}</th>
+          <th scope="col">{{ "validity_from" | translate }}</th>
+          <th scope="col">{{ "validity_to" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="select-container">
+              <select
+                [(ngModel)]="healthPlanNameSelected"
+                name="healthPlanName"
+                class="custom-select"
+                (ngModelChange)="onHealthPlanChange($event)"
+              >
+                <option *ngFor="let plan of healthPlanList" [value]="plan.id">
+                  {{ plan.value }}
+                </option>
+              </select>
+            </div>
+          </td>
+
+          <td>
+            <mat-form-field class="date-picker">
+              <mat-label>{{ "choose_a_date" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker1"
+                [(ngModel)]="healthPlanFromDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="date-picker">
+              <mat-label>{{ "choose_a_date" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker2"
+                [(ngModel)]="healthPlanToDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="primary_btn d-flex justify-content-end align-items-end">
+      <button
+        class="btn btn-primary"
+        (click)="openValidityPopup(planValidityConfirmation)"
+      >
+        {{ "submit" | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Plan validity Popup -->
+<ng-template #planValidityConfirmation let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "renew_update_health_plan" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <p>
+            {{
+              "are_you_sure_you_want_to_update_renew_this_health_plan"
+                | translate
+            }}
+          </p>
+        </div>
+        <div class="primary_btn">
+          <button
+            (click)="handleClose()"
+            type="button"
+            class="btn btn-secondary"
+          >
+            {{ "cancel" | translate }}
+          </button>
+          <button
+            type="submit"
+            (click)="renewHealthPlan()"
+            class="btn btn-primary"
+          >
+            {{ "submit" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- viewSubscribersPlanDetails Popup -->
+<ng-template #viewSubscribersPlanDetails let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "subscriber_health_plan_history" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="handleClose()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="healthpaln_detail_inner">
+        <div class="health_detail grid-accordion-view">
+          <div
+            class="expansion_panel custom-expansion-panel health-plan-name-panel"
+          >
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <div class="col-md-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "health_plan_name" | translate }}:</p>
+                      <p>{{ planData?.name }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "description" | translate }}</p>
+                      <p>{{ planData?.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "reimbursment_rate" | translate }}</p>
+                      <p>{{ planData?.reimbursment_rate }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>{{ "contract_exclusion" | translate }}</p>
+                      <p>{{ planData?.contract_exclusion }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xxl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "total_primary_care_limit" | translate }}:</p>
+                      <p>
+                        {{ planData?.total_care_limit?.primary_care_limit }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xxl-4 expansion-outline">
+                  <div class="outer_detail_block">
+                    <div class="detail_section">
+                      <p>{{ "total_secondary_care_limit" | translate }}:</p>
+                      <p>
+                        {{ planData?.total_care_limit?.secondary_care_limit }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-xxl-4 expansion-outline">
+                  <div class="outer_detail_block last_child">
+                    <div class="detail_section">
+                      <p>
+                        {{
+                          "total_primary_and_secondary_care_limit" | translate
+                        }}:
+                      </p>
+                      <p>{{ planData?.total_care_limit?.grand_total }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-main mt-5">
+          <div class="accordion-wrap">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{ "services" | translate }}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="table-wrap">
+                  <div class="table-inner" #TABLE>
+                    <table
+                      mat-table
+                      [dataSource]="planServicesData"
+                      class="mat-elevation-z8"
+                      matTableExporter
+                      #exporter="matTableExporter"
+                    >
+                      <ng-container matColumnDef="category">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "category" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.has_category }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="categorylimit">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "category_limit" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.in_limit?.category_limit }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="categorycondition">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "category_condition" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.has_conditions?.category_condition }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="service">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "service" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.service }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="servicelimit">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "service_limit" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.in_limit?.service_limit }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="repaymentcondition">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "repayment_condition" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{
+                            element.has_conditions?.repayment_condition?.max_no
+                          }}
+                          Maximum For
+                          {{
+                            element.has_conditions?.repayment_condition?.unit_no
+                          }}
+                          {{
+                            element.has_conditions?.repayment_condition?.unit
+                          }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="reimbursmentrate">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "reimbursment_rate" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.reimbursment_rate }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="preauthorization">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "pre_authorization" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.pre_authorization ? "yes" : "no" }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="waitingperiod">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "waiting_period" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.waiting_period?.duration?.min_no }}
+                          {{ element.waiting_period?.duration?.unit }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="waitingperiodredeemed">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "waiting_period_redeemed" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.waiting_period?.redeemed }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="comment">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "comment" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.comment }}
+                        </td>
+                      </ng-container>
+
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                      ></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                      ></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+
+        <div class="accordion-main mt-5">
+          <div class="accordion-wrap">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Exclusion </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="table-wrap">
+                  <div class="table-inner" #EXCLUSION>
+                    <table
+                      mat-table
+                      [dataSource]="planExclusionData"
+                      class="mat-elevation-z8"
+                      matTableExporter
+                      #exporterExclusion="matTableExporter"
+                    >
+                      <ng-container matColumnDef="categoryofexclusion">
+                        <th mat-header-cell *matHeaderCellDef>
+                          Category of Exclusion
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.in_exclusion?.category }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="medicinename">
+                        <th mat-header-cell *matHeaderCellDef>Medicine Name</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element?.in_exclusion?.name }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="brandname">
+                        <th mat-header-cell *matHeaderCellDef>Brand Name</th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.in_exclusion?.brand }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="comment">
+                        <th mat-header-cell *matHeaderCellDef>
+                          {{ "comment" | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          {{ element.in_exclusion?.comment }}
+                        </td>
+                      </ng-container>
+
+                      <tr
+                        mat-header-row
+                        *matHeaderRowDef="displayedColumnss"
+                      ></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumnss"
+                      ></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

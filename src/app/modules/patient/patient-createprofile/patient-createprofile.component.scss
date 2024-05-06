@@ -1,0 +1,73 @@
+@import '../../../../assets/css/variable/variable';
+
+.create_profile{
+    .form{
+        .form_title{
+            font-weight: 500;
+            font-size: 20px;
+            color: $black_color;
+            margin: 0 0 15px;
+        }
+        .personal_details{
+            margin: 0 0 30px;
+            .form_field_wrapper{
+                label{
+                    color: $bodyopacitylightcolor;
+                }
+            }
+        }
+        .primary_btn{
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+    }
+}
+
+.image-upload {
+    input {
+        display: none;
+    }
+    img {
+        width: 95px;
+        height: 95px;
+        min-width: 95px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+}
+
+.mobile_paydetails {
+    .modal-body{
+        padding: 0;
+        .paydetail_content {
+            width: 75%;
+            margin-bottom: 0;
+            .modal_content_inner{
+                width: 100%;
+            }
+            .field-wrap-block {
+                border: 1px solid $formfiledbordercolor;
+                border-radius: 5px;
+                .mat-form-field-wrapper {
+                    padding-bottom: 0;
+                }
+                .mat-select {
+                    display: inline-flex;
+                    align-items: center;
+                    width: 100px;
+                    padding: 0 10px;
+                    background-color: rgba(0,0,0,.04);
+                }
+                .mat-form-field {
+                    width: calc(100% - 80px);
+                    .mat-form-field-flex {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+    &::after{
+        display: none;
+    }
+}  

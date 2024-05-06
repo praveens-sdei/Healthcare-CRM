@@ -1,0 +1,216 @@
+<div class="row login_time" [formGroup]="profileFields">
+  <div class="col-sm-12 col-md-8 display-flex mb-3">
+    <div class="form_field_wrapper">
+      <label>{{ "address" | translate}}<span class="danger">*</span></label>
+      <mat-form-field appearance="fill">
+        <input formControlName="address" type="text" matInput #address name="address" />
+        <input formControlName="loc" hidden>
+      </mat-form-field>
+      <mat-error *ngIf="
+      isSubmit && profileFields.controls['address']
+        .hasError('required')
+    ">
+  {{ "address_is_required" | translate}}.</mat-error>
+    </div>
+  </div>
+
+  <ng-container formGroupName="location_info">
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>Neighborhood</label>
+        <mat-form-field appearance="fill">
+          <input type="text" matInput formControlName="neighborhood" name="neighborhood" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "country" | translate}}<span class="danger">*</span> </label>
+        <!-- <mat-form-field appearance="fill">
+          <mat-select disableRipple formControlName="nationality" name="nationality" [value]="patchCountry"
+            (selectionChange)="getCountryData($event.value)" >
+            <mat-option value="">{{ "select_country" | translate}}</mat-option>
+            <mat-option *ngFor="let country of countryList; let i=index"
+              [value]="country._id">{{country.name}}</mat-option>
+
+          </mat-select>
+          <mat-error *ngIf="
+              profileFields.controls['location_info']
+                .get('nationality')
+                .hasError('required')
+            ">
+            {{ "country_is_required" | translate}}.</mat-error>
+        </mat-form-field> -->
+
+        <select2
+        [placeholder] ="'Select country'"
+        [data] = "countryList"
+        formControlName="nationality"
+        [overlay]="true"
+        (update)="getCountryData($event.value)"
+        [limitSelection]="0"
+        [minCountForSearch]="1"
+
+        >
+      </select2>
+      <mat-error style="top : -18px !important" *ngIf="
+      isSubmit && profileFields.controls['location_info']
+        .get('nationality')
+        .hasError('required')
+    ">
+    {{ "country_is_required" | translate}}.</mat-error>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "Region" | translate}}</label>
+<!-- 
+        <mat-form-field appearance="fill">
+          <mat-select disableRipple formControlName="region" name="region" value=""
+            (selectionChange)="getRegionData($event.value)">
+            <mat-option value="">{{ "select_region" | translate}}</mat-option>
+            <mat-option *ngFor="let region of regionlist; let i=index" [value]="region._id">{{region.name}}</mat-option>
+
+          </mat-select>
+          <input
+            type="text"
+            matInput
+            formControlName="region"
+            name="region"
+          /> 
+        </mat-form-field> -->
+
+        <select2
+        [placeholder] ="'Select region'"
+        [data] = "regionlist"
+        formControlName="region"
+        [limitSelection]="0"
+        [minCountForSearch]="1"
+        [overlay]="true"
+        (update)="getRegionData($event.value)"
+        >
+      </select2>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "province" | translate}}</label>
+        <!-- <mat-form-field appearance="fill">
+           <input
+            type="text"
+            matInput
+            formControlName="province"
+            name="province"
+          /> 
+          <mat-select disableRipple formControlName="province" name="province" value=""
+            (selectionChange)="getProvinceData($event.value)">
+            <mat-option value="">{{ "select_province" | translate}}</mat-option>
+            <mat-option *ngFor="let province of provincelist; let i=index"
+              [value]="province._id">{{province.name}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <select2
+        [placeholder] ="'Select province'"
+        [data] = "provincelist"
+        formControlName="province"
+        [overlay]="true"
+        (update)="getProvinceData($event.value)"
+        [limitSelection]="0"
+        [minCountForSearch]="0"
+        >
+      </select2>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "Department" | translate}}</label>
+        <!-- <mat-form-field appearance="fill">
+           <input
+            type="text"
+            matInput
+            formControlName="department"
+            name="department"
+          /> 
+          <mat-select disableRipple formControlName="department" name="department" value=""
+            (selectionChange)="getDepartmentData($event.value)">
+            <mat-option value="">{{ "select_department" | translate}}</mat-option>
+            <mat-option *ngFor="let department of departmentlist; let i=index"
+              [value]="department._id">{{department.name}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <select2
+        [placeholder] ="'Select department'"
+        [data] = "departmentlist"
+        formControlName="department"
+        [overlay]="true"
+        (update)="getDepartmentData($event.value)"
+        [limitSelection]="0"
+        [minCountForSearch]="0"
+        >
+      </select2>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "City" | translate}}</label>
+        <!-- <mat-form-field appearance="fill">
+           <input
+            type="text"
+            matInput
+            formControlName="city"
+            name="city"
+          /> 
+          <mat-select disableRipple formControlName="city" name="city" value="">
+            <mat-option value="">{{ "select_city" | translate}}</mat-option>
+            <mat-option *ngFor="let city of citylist; let i=index" [value]="city._id">{{city.name}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <select2
+        [placeholder] ="'Select city'"
+        [data] = "citylist"
+        formControlName="city"
+        [overlay]="true"
+        [limitSelection]="0"
+        [minCountForSearch]="1"
+        >
+        </select2>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "Village" | translate}}</label>
+        <!-- <mat-form-field appearance="fill">
+          <mat-select disableRipple formControlName="village" name="village" value="">
+            <mat-option value="">{{ "select_village" | translate}}</mat-option>
+            <mat-option *ngFor="let village of villagelist; let i=index"
+              [value]="village._id">{{village.name}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <select2
+        [placeholder] ="'Select village'"
+        [data] = "villagelist"
+        formControlName="village"
+        [overlay]="true"
+        [limitSelection]="0"
+        [minCountForSearch]="1"
+        >
+        </select2>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mb-3">
+      <div class="form_field_wrapper">
+        <label>{{ "pincode" | translate}} </label>
+        <mat-form-field appearance="fill">
+          <input min="0" type="number" matInput formControlName="pincode" name="pincode" />
+        </mat-form-field>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

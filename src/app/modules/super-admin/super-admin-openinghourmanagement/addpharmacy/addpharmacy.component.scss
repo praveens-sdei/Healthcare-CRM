@@ -1,0 +1,171 @@
+@import '../../../../../assets/css/variable/variable';
+
+.add_pharmacy{
+    .add_pharmacy_inner{
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;
+        padding: 30px;
+        .top_bar{
+            border-bottom: 1px solid #C4CDEA;
+            margin: 0 0 20px;
+            .onduty_wrapper{
+                padding: 0;
+                margin: 0 -20px;
+                flex-wrap: wrap;
+                list-style: none;
+                .item{
+                    width: auto;
+                    padding: 0 20px;
+                    margin-bottom: 15px;
+                    label{
+                        font-weight: 400;
+                        line-height: 23px;
+                        margin: 0 0 5px;
+                        letter-spacing: 0.05em;
+                        color: $bodyopacitylightcolor;
+                    }
+                    .value{
+                        line-height: 23px;
+                        letter-spacing: 0.05em;
+                        color: $table_color;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+        .bottom_bar{
+            .item{
+                margin: 25px 0 0;
+                .item_inner{
+                    display: flex;
+                    align-items: center;
+                    background: #F5F7FB;
+                    border-radius: 13.4221px;
+                    padding: 15px;
+                    min-height: 90px;
+                    .icon{
+                        margin: 0 15px 0 0;
+                        min-width: 55px;
+                        width: 55px;
+                        height: 55px;
+                    }
+                    .title{
+                        font-weight: 600;
+                        font-size: $font_medium;
+                        line-height: 20px;
+                        color: $table_color;
+                    }
+                }
+            }
+        }
+    }
+    .primary_btn{
+        justify-content: flex-end;
+        margin-top: 25px;
+    }
+}
+
+
+// Add  Pharmacy Modal CSS
+.add_pharmacy_content{
+    hr{
+        margin: 15px -30px 25px;
+    }
+    .bottom_part{
+        .modal_title{
+            font-weight: 600;
+            font-size: $font_medium;
+            line-height: 22px;
+            color: $table-color;
+            margin: 0 0 15px;
+        }
+        .hour_section{
+            margin: 0 0 10px;
+            &.opening_hour{
+                .week_days {
+                    .row{
+                        margin: 0 -8px;
+                        .week_item{
+                            padding: 0 8px;
+                        }
+                    }
+                }
+            }
+            &.non_opening_datetime{
+                .date_time_inner{
+                    display: flex;
+                    align-items: stretch;
+                    .row{
+                        width: 100%;
+                        .time_item{
+                            width: 33.33%;
+                            .form_field_wrapper{
+                                label{
+                                    font-weight: 400;
+                                    color: $bodyopacitylightcolor;
+                                }
+                               .mat-form-field{
+                                    .mat-form-field-flex{
+                                        .mat-form-field-infix{
+                                            width: 100%;  
+                                        } 
+                                    }
+                               } 
+                            }
+                        }
+                    }
+                    .row_generate {
+                        border-radius: 5px;
+                        margin: 30px 0 15px 20px;
+                        height: auto;
+                        background: #ffffff;
+                        border: 1px solid rgba(228, 228, 228, 0.9);
+                        .mat-icon{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #0B4977; 
+                            font-size: 30px;
+                            min-width: 50px;
+                            width: 50px;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                margin: 0;
+            }
+        }
+    }
+    .primary_btn{
+        margin-top: 10px;
+    }
+}
+
+
+@media screen and (min-width:$desktop_pro_up) {
+    .add_pharmacy_content .bottom_part .opening_hour .week_days .row .week_item {
+        width: 14.28%;
+    }
+}
+@media screen and (min-width:$desktop_pro_up) {
+    .add_pharmacy_content .modal-dialog {
+        max-width: 900px;
+    }
+}
+@media screen and (max-width:$large_phone) {
+    .add_pharmacy_content .bottom_part .hour_section.non_opening_datetime .date_time_inner .row .time_item {
+        width: 50%;
+    }
+}
+@media screen and (max-width:$medium_iphone) {
+    .add_pharmacy_content .bottom_part .opening_hour .week_days .row .week_item{
+        width: 50%;
+    }
+}
+@media screen and (max-width:$medium_phone) {
+    .add_pharmacy_content .bottom_part .hour_section.non_opening_datetime .date_time_inner .row .time_item {
+        width: 100%;
+    }
+}

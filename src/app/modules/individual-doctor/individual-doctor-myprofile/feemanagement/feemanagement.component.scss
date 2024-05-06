@@ -1,0 +1,21 @@
+@import '../../../../../assets/css/variable/variable';
+.text-start{
+    display:flex;
+    }
+
+    .text-start{
+        .item{
+           
+                .btn{
+                    &.active{
+                        background-color: $bodycolor;
+                        color: $white_color;    
+                    }
+                }
+           
+        }
+    }
+
+    .paydetail_content.modal_content {
+        display: block !important;
+    }

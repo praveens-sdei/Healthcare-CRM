@@ -1,0 +1,39 @@
+<div class="pharmacy_medicine_claims dashboard_main_content">
+    <div class="pharmacy_medicine_inner">
+        <mat-stepper class="example-stepper" #mainStepper [orientation]="(stepperOrientation | async)!">
+
+            <mat-step [stepControl]="firstFormGroup" label="Common Information">
+                <div class="step_counter_inner">
+                    <app-commoninformation-four-portal-make-insurance
+                        [mstepper]="mainStepper"></app-commoninformation-four-portal-make-insurance>
+                </div>
+
+            </mat-step>
+
+            <mat-step [stepControl]="secondFormGroup" label="Service Type">
+                <div class="step_counter_inner">
+                    <app-servicetype-four-portal-make-insurance
+                        [mstepper]="mainStepper"></app-servicetype-four-portal-make-insurance>
+                </div>
+
+            </mat-step>
+
+
+            <mat-step [stepControl]="thirdFormGroup" label="Document Upload">
+                <div class="step_counter_inner">
+                    <app-documentupload-four-portal-make-insurance
+                        [mstepper]="mainStepper"></app-documentupload-four-portal-make-insurance>
+                </div>
+
+            </mat-step>
+
+            <mat-step [stepControl]="thirdFormGroup" label="eSignature">
+                <div class="step_counter_inner">
+                    <app-esignature-four-portal-make-insurance
+                        [mstepper]="mainStepper"></app-esignature-four-portal-make-insurance>
+                </div>
+
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

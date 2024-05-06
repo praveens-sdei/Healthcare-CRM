@@ -1,0 +1,54 @@
+<div class="login super_admin">
+    <div class="login_inner">
+        <div class="row">
+        <div class="left_part part col-md-6">
+           <div class="leftpart_inner"> 
+                <div class="logo">
+                    <img [src]="login_logo" alt="Store logo">
+                </div>
+            </div>
+        </div>
+        <div class="right_part part col-md-6">
+            <div class="rightpart_inner">
+                <div class="login_form">
+                    <div class="login_form_inner">
+                        <form >
+                            <div class="login_img">
+                                <img src="../../../../assets/img/envelope.svg">
+                            </div>
+                            <div class="title_wrapper">
+                                <h4 class="form_title">Check Your Email</h4>
+                                <div class="form_desc">We sent a password reset link to <span>{{email}}</span></div>
+                                <div class="form_subdesc">Didn’t receive the email?</div>
+                            </div>
+
+                            <div class="form-btn primary_btn">
+                                <button class="login_btn btn btn-primary" type="button" (click)="sendEmailUser()">Resend Password Link</button>
+                            </div>
+
+                            <!-- <div class="signup_section">
+                                <div class="signup">Didn’t receive the email?  <a class="signup_link" [routerLink]="['/super-admin/signup']">Click to Resend</a></div>
+                            </div> -->
+
+                            <div class="signup_section">
+                                <div class="signup backlogin" [routerLink]="['/pharmacy/login']"><mat-icon>west</mat-icon>Back to log in</div>
+                            </div>
+
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

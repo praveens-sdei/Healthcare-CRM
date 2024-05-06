@@ -1,0 +1,2601 @@
+<div class="home_wrapper">
+  <app-header></app-header>
+
+  <div class="home">
+    <div class="main_banner home_content_space">
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <!-- <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button> -->
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="carousel-item-inner">
+              <img src="../../../assets/img/homepage/main_banner.png" />
+              <div class="carousel-caption-wrapper">
+                <div class="carousel-caption">
+                  <div class="title">
+                    {{ "healthcare-crm_is_the1" | translate }}
+                    <span>{{ "largest_online_platform1" | translate }}</span>
+                    {{ "connecting_healthcare_stakeholders1" | translate }}
+                  </div>
+                  <div class="desc">
+                    {{ "to_book_appointments_order_medicines1" | translate }}
+                  </div>
+                  <div class="speciality_content">
+                   
+
+                    <div class="location common_content">
+                      <div class="input-group">
+                        <button class="btn search-btn">
+                          <mat-icon>location_on</mat-icon>
+                        </button>
+                        <input
+                          class="form-control"
+                          placeholder="{{ 'search_location' | translate }}"
+                          aria-label="Search"
+                          #nearby
+                          id="near_by"
+                          (input) = "clearSerachHelper('near_by')"
+                          (blur)="hidesearch('nearby',$event)"
+                        />
+                      
+                          <mat-icon *ngIf = "clearIcon" style = "margin-top: 20px !important;" (click) = "clearSearch('near_by')">clear</mat-icon>
+                        
+                        <span class="cursor-pointer mt-3" style="margin-right: 10px !important;" (click) = "getCurrentLocation('search_one' , 'near_by')" ngbTooltip="{{ 'around_me' | translate }}">
+                          <svg width="30" height="30" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="dl-icon searchbar-place-around-me-icon mr-24 dl-icon-small" data-icon-name="regular/location-arrow" data-design-system="oxygen" data-design-system-component="Icon"><path d="M3.852 8a.73.73 0 0 1-.727-.586.758.758 0 0 1 .445-.844l8.25-3.375a.758.758 0 0 1 .82.164c.212.211.282.54.165.82L9.43 12.43a.758.758 0 0 1-1.453-.304V8H3.852Zm5.273-1.125v3.352l2.297-5.649-5.649 2.297h3.352Z"></path></svg>
+                         </span>
+                      </div>
+                    </div>
+
+                    <div class="auto-search-wrap-block position-relative me-4">                    
+                      <mat-form-field
+                                    class="searchmat"
+                                    appearance="fill"
+                                  >
+                                  <input
+                                  type="text"
+                                  class="matinput"
+                                  placeholder='{{ "search_doctor_pharmacy" | translate}}'
+                                  (keyup)="handleSearch($event)"
+                                  aria-label="Search By User Name"
+                                  matInput
+                                  style="width: 93%"
+                                  [formControl]="control"
+                                  [matAutocomplete]="auto"
+                                  id = "search_one"
+                                />
+                                    <!-- <input
+                                      type="text"
+                                      class="matinput"
+                                      placeholder='{{ "search_doctor_pharmacy" | translate}}'
+                                      (keyup)="handleSearch($event)"
+                                      aria-label="Search By User Name"
+                                      matInput
+                                      style="width: 93%"
+                                      [formControl]="control"
+                                      [matAutocomplete]="auto"
+                                    /> -->
+                                    <mat-autocomplete
+                                      #auto="matAutocomplete"
+                                      panelWidth="250px"
+                                      class="medicine-autocomplete-list"
+                                      classList="medicine-autocomplete-list"
+                                    >
+                                      <ng-container
+                                        *ngFor="
+                                          let option of filteredOptions | async
+                                        "
+                                      >
+                                      <mat-option *ngIf="option != 'No data'"(click)="
+                                      routeTo(option.id,option.type)
+                                    " >
+                                      <p>{{ option.name }} <b>{{option.type}}</b></p>                                     
+                                  </mat-option>
+                                        <mat-option
+                                          *ngIf="option == 'No data'"
+                                          style="height: auto"
+                                        >
+                                          <span>
+                                            <div class="border_bottom">
+                                              <b
+                                                >{{
+                                                  "no_result_found"
+                                                    | translate
+                                                }}.</b
+                                              ><br />                                              
+                                            </div>
+                                          </span>
+                                        </mat-option>
+                                      </ng-container>
+                                    </mat-autocomplete>                                  
+                                  </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- <button class="btn btn-primary" (click)="searchbyPortaluserName()">
+                    {{ "search_1" | translate }}
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="carousel-item">
+            <div class="carousel-item-inner">
+              <img src="../../../assets/img/homepage/main_banner.png" />
+              <div class="carousel-caption-wrapper">
+                <div class="carousel-caption">
+                  <div class="title">
+                    {{ "healthcare-crm_is_the1" | translate }}
+                    <span>{{ "largest_online_platform1" | translate }}</span>
+                    {{ "connecting_healthcare_stakeholders1" | translate }}
+                  </div>
+                  <div class="desc">
+                    {{ "to_book_appointments_order_medicines1" | translate }}
+                  </div>
+                  
+                  <div class="speciality_content">
+    
+                    <div class="location common_content">
+                      <div class="input-group">
+
+                        <button class="btn search-btn">
+                          <mat-icon>location_on</mat-icon>
+                        </button>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="{{ 'search_location' | translate }}"
+                          aria-label="Search"
+                          #nearby_two
+                          id = "near_by_two"
+                          (input) = "clearSerachHelper('near_by_two')"
+                        />
+                        <mat-icon *ngIf = "clearIcon" style = "margin-top: 20px !important;" (click) = "clearSearch('near_by_two')">clear</mat-icon>
+                        <span class="cursor-pointer mt-3" style="margin-right: 10px !important;" (click) = "getCurrentLocation('search_two' ,'near_by_two')" ngbTooltip="{{ 'around_me' | translate }}">
+                          <svg width="30" height="30" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="dl-icon searchbar-place-around-me-icon mr-24 dl-icon-small" data-icon-name="regular/location-arrow" data-design-system="oxygen" data-design-system-component="Icon"><path d="M3.852 8a.73.73 0 0 1-.727-.586.758.758 0 0 1 .445-.844l8.25-3.375a.758.758 0 0 1 .82.164c.212.211.282.54.165.82L9.43 12.43a.758.758 0 0 1-1.453-.304V8H3.852Zm5.273-1.125v3.352l2.297-5.649-5.649 2.297h3.352Z"></path></svg>
+                         </span>
+                      </div>
+                    </div>
+                    <div class="auto-search-wrap-block position-relative me-4">                    
+                      <mat-form-field
+                                    class="searchmat"
+                                    appearance="fill"
+                                  >
+                                    <input
+                                      type="text"
+                                      class="matinput"
+                                      placeholder='{{ "search_doctor_pharmacy" | translate}}'
+                                      (keyup)="handleSearch($event)"
+                                      aria-label="Search By User Name."
+                                      matInput
+                                      style="width: 93%"
+                                      [formControl]="control"
+                                      [matAutocomplete]="auto"
+                                      id = "search_two"
+                                    />
+                                    <mat-autocomplete
+                                      #auto="matAutocomplete"
+                                      panelWidth="250px"
+                                      class="medicine-autocomplete-list"
+                                      classList="medicine-autocomplete-list"
+                                    >
+                                      <ng-container
+                                        *ngFor="
+                                          let option of filteredOptions | async
+                                        "
+                                      >
+                                      <mat-option (click)="
+                                      routeTo(option.id,option.type)
+                                    " >
+                                      <p>{{ option.name }} <b>{{option.type}}</b></p>                                 
+                                  </mat-option>
+                                        <mat-option
+                                          *ngIf="option == 'No data'"
+                                          style="height: auto"
+                                        >
+                                          <span>
+                                            <div class="border_bottom">
+                                              <b
+                                                >{{
+                                                  "no_result_found"
+                                                    | translate
+                                                }}.</b
+                                              ><br />                                              
+                                            </div>
+                                          </span>
+                                        </mat-option>
+                                      </ng-container>
+                                    </mat-autocomplete>                                  
+                                  </mat-form-field>
+                    </div>
+
+                  </div>
+                
+                   <button class="btn btn-primary" (click)="searchbyPortaluserName()">
+                    {{ "search_1" | translate }}
+                  </button> 
+                  <button class="btn btn-primary" (click)="clear()">
+                    <mat-icon>clear</mat-icon>
+                  </button> 
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="find_healthcare home_content_space">
+      <div class="container">
+        <div class="find_healthcare_inner">
+          <div class="title_wrapper">
+            <div class="home_title">
+              {{ "find_healthcare_professionals" | translate }}
+            </div>
+            <div class="home_sub_title">
+              {{ "100_healthcare_professionals" | translate }}
+            </div>
+          </div>
+          <div class="healthcare_tab">
+            <mat-tab-group animationDuration="0ms" >
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_doctor" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="findDoctor">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            aria-label="Search"
+                            formControlName="doctor_name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #fd_nearby
+                            name="fd_nearby"
+                            formControlName="fd_nearby"
+                            (click)="tabKey('fd_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="fd_province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          formControlName="fd_province"
+                          (update)="handleSelectProvince($event)"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="fd_department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          formControlName="fd_department"
+                          (update)="handleSelectDepartment($event)"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                          
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="fd_city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          formControlName="fd_city"
+                          (update)="handleSelectCity($event)"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="fd_neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="fd_insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="fd_insuranceAccept"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_doctor" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="fd_onDuty">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="fd_openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchDoctor()"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_hospital_or_clinic" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="findHospitalOrClinic">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            formControlName="hospitalName"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #fhc_nearby
+                            name="fhc_nearby"
+                            formControlName="fhc_nearby"
+                            (click)="tabKey('fhc_nearby')"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="fhc_province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="fhc_province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="fhc_department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="fhc_department"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="fhc_city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          (update)="handleSelectCity($event)"
+                          formControlName="fhc_city"
+                          [overlay]="true"
+                         
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="fhc_neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="fhc_insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="fhc_insuranceAccept"
+                          [overlay]="true"
+                         
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_hospital_or_clinic" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="fhc_onDuty">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="fhc_openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchHospitalOrClinic()"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_pharmacy" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="findPharmacyForm">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            formControlName="pharmacy_name"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #pharm_nearby
+                            name="nearby"
+                            formControlName="nearby"
+                            (click)="tabKey('pharm_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="department"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="city"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-sm-6 col-md-3 common_content">
+                                            <div class="input-group">
+                                                <button class="btn search-btn">
+                                                    <mat-icon>location_on</mat-icon>
+                                                </button>
+                                                <input type="search" class="form-control" placeholder="{{ 'city' | translate}}" aria-label="Search" formControlName="city" />
+                                            </div>
+                                        </div>  -->
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-sm-6 col-md-3 common_content">
+                                            <div class="input-group">
+                                                <button class="btn search-btn">
+                                                    <mat-icon>gps_fixed</mat-icon>
+                                                </button>
+                                                <input type="search" class="form-control" placeholder="{{ 'near_by' | translate}}" aria-label="Search" />
+                                            </div>
+                                        </div>  -->
+                      <!-- <div class="col-sm-6 col-md-3 common_content">
+                                            <div class="input-group">
+                                                <button class="btn search-btn">
+                                                    <mat-icon>location_on</mat-icon>
+                                                </button>
+                                                <input type="search" class="form-control" formControlName="province_or_department" placeholder="{{ 'province' | translate}}, Department" aria-label="Search" />
+                                            </div>
+                                        </div>  -->
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                             
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="insuranceAccept"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_pharmacy" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="onDutyPharmacy">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- <div class="col-sm-6 col-md-3 common_content">
+                                            <div class="input-group">
+                                                <button class="btn search-btn">
+                                                    <mat-icon>more_time</mat-icon>
+                                                </button>
+                                                <input type="search" class="form-control" placeholder="{{ 'on_duty_pharmacy' | translate}}" aria-label="Search" formControlName="onDutyPharmacy"/>
+                                            </div>
+                                        </div>  -->
+                      <!-- <div class="col-sm-6 col-md-3 common_content">
+                                            <div class="input-group">
+                                                <button class="btn search-btn">
+                                                    <mat-icon>query_builder</mat-icon>
+                                                </button>
+                                                <input type="search" class="form-control" formControlName="openNow" placeholder="{{ 'open_now' | translate}}" aria-label="Search" />
+                                            </div>
+                                        </div>  -->
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchPharmacy()"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <!-- New portals -->
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_paramedical_professions" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="imgOptDntlab">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            aria-label="Search"
+                            formControlName="portal_name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #parmedical_nearby
+                            name="nearby"
+                            formControlName="nearby"
+                            (click)="tabKey('parmedical_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="department"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          (update)="handleSelectCity($event)"
+                          formControlName="city"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="insuranceAccept"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_laboratory" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="onDutyPortal">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchImgOptDntlLab('Paramedical-Professions')"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label> {{ "find_dental_center" | translate }}</ng-template>
+                <div class="tab_content">
+                  <form [formGroup]="imgOptDntlab">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            aria-label="Search"
+                            formControlName="portal_name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #dental_nearby
+                            name="nearby"
+                            formControlName="nearby"
+                            (click)="tabKey('dental_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="department"
+                          [overlay]="true"
+                          
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          (update)="handleSelectCity($event)"
+                          formControlName="city"
+                          [overlay]="true"
+                          
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'insuranceAccept'"
+                          [data] = "insuranceList"
+                          formControlName="insuranceAccept"
+                          [overlay]="true"
+                          
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_dental" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="onDutyPortal">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchImgOptDntlLab('Dental')"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_imaging_laboratory" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="imgOptDntlab">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            aria-label="Search"
+                            formControlName="portal_name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #imaging_nearby
+                            name="nearby"
+                            formControlName="nearby"
+                            (click)="tabKey('imaging_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="department"
+                          [overlay]="true"
+                          >
+                          </select2>
+
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'city'"
+                          [data] = "cityList"
+                          (selectionChange)="handleSelectCity($event)"
+                          formControlName="city"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="insuranceAccept"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_imaging" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="onDutyPortal">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchImgOptDntlLab('Laboratory-Imaging')"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  {{ "find_optical_center" | translate }}</ng-template
+                >
+                <div class="tab_content">
+                  <form [formGroup]="imgOptDntlab">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon class="search">search</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'name' | translate }}"
+                            aria-label="Search"
+                            formControlName="portal_name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>gps_fixed</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'near_by' | translate }}"
+                            aria-label="Search"
+                            #optical_nearby
+                            name="nearby"
+                            formControlName="nearby"
+                            (click)="tabKey('optical_nearby')"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "province" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectProvince($event)"
+                              formControlName="province"
+                            >
+                              <mat-option
+                                *ngFor="let province of provinceList"
+                                [value]="province._id"
+                                >{{ province?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Province'"
+                          [data] = "provinceList"
+                          (update)="handleSelectProvince($event)"
+                          formControlName="province"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">location_on</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "department" | translate
+                            }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectDepartment($event)"
+                              formControlName="department"
+                            >
+                              <mat-option
+                                *ngFor="let department of departmentList"
+                                [value]="department._id"
+                                >{{ department?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Department'"
+                          [data] = "departmentList"
+                          (update)="handleSelectDepartment($event)"
+                          formControlName="department"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">gps_fixed</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "city" | translate }}</mat-label>
+                            <mat-select
+                              (selectionChange)="handleSelectCity($event)"
+                              formControlName="city"
+                            >
+                              <mat-option
+                                *ngFor="let city of cityList"
+                                [value]="city._id"
+                                >{{ city?.name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+                           
+                          <select2
+                          [placeholder] ="'City'"
+                          [data] = "cityList"
+                          (selectionChange)="handleSelectCity($event)"
+                          formControlName="city"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-3 common_content">
+                        <div class="input-group">
+                          <button class="btn search-btn">
+                            <mat-icon>location_on</mat-icon>
+                          </button>
+                          <input
+                            type="search"
+                            class="form-control"
+                            placeholder="{{ 'neighbourhood' | translate }}"
+                            aria-label="Search"
+                            formControlName="neighborhood"
+                          />
+                        </div>
+                      </div>
+
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">verified_user</mat-icon>
+                          <!-- <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "insurance_accepted" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="insuranceAccept">
+                              <mat-option
+                                *ngFor="let insurance of insuranceList"
+                                [value]="insurance._id"
+                                >{{ insurance?.company_name }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field> -->
+
+                          <select2
+                          [placeholder] ="'Insurance Accepted'"
+                          [data] = "insuranceList"
+                          formControlName="insuranceAccept"
+                          [overlay]="true"
+                          >
+
+                          </select2>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">more_time</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{
+                              "on_duty_optical" | translate
+                            }}</mat-label>
+                            <mat-select formControlName="onDutyPortal">
+                              <mat-option [value]="true">{{
+                                "yes" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "no" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-6 col-md-3 common_content select_insurance"
+                      >
+                        <div class="form_field_wrapper">
+                          <mat-icon class="verify">query_builder</mat-icon>
+                          <mat-form-field class="inner_label" appearance="fill">
+                            <mat-label>{{ "open_now" | translate }}</mat-label>
+                            <mat-select formControlName="openNow">
+                              <mat-option [value]="true">{{
+                                "open_now" | translate
+                              }}</mat-option>
+                              <mat-option [value]="false">{{
+                                "close_now" | translate
+                              }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="primary_btn">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="searchImgOptDntlLab('Optical')"
+                      >
+                        {{ "search_1" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="home_consultation home_content_space"
+      style="
+        background-image: url('../../../../../assets/img/homepage/shape1.png');
+      "
+    >
+      <div class="home_consultation_inner">
+        <div class="row">
+          <div class="left_part part col-md-6">
+            <div class="left_part_inner">
+              <img src="../../../../../assets/img/homepage/consultation.png" />
+            </div>
+          </div>
+          <div class="right_part part col-md-6">
+            <div class="right_part_inner">
+              <div class="content">
+                <h2 class="title">{{ "home_consultation" | translate }}</h2>
+                <h4 class="sub_title">
+                  {{ "home_consultation_with_top_specialists" | translate }}
+                </h4>
+                <p class="desc">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.
+                </p>
+                <button class="btn btn-primary">
+                  {{ "book_appointment" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="achievements">
+      <div class="container">
+        <ul class="item_wrapper row">
+          <li class="item col-sm-3 col-md-3">
+            <div class="item_inner">
+              <span class="image">
+                <img src="../../../assets/img/homepage/achievement_1.svg" />
+              </span>
+              <div class="bottom_content">
+                <div class="count">8900+</div>
+                <span class="achieve_title">{{
+                  "happy_patients" | translate
+                }}</span>
+              </div>
+            </div>
+          </li>
+          <li class="item col-sm-3 col-md-3">
+            <div class="item_inner">
+              <span class="image">
+                <img src="../../../assets/img/homepage/achievement_2.svg" />
+              </span>
+              <div class="bottom_content">
+                <div class="count">1223+</div>
+                <span class="achieve_title">{{
+                  "expert_doctors" | translate
+                }}</span>
+              </div>
+            </div>
+          </li>
+          <li class="item col-sm-3 col-md-3">
+            <div class="item_inner">
+              <span class="image">
+                <img src="../../../assets/img/homepage/achievement_3.svg" />
+              </span>
+              <div class="bottom_content">
+                <div class="count">3500+</div>
+                <span class="achieve_title">{{
+                  "award_winning" | translate
+                }}</span>
+              </div>
+            </div>
+          </li>
+          <li class="item col-sm-3 col-md-3">
+            <div class="item_inner">
+              <span class="image">
+                <img src="../../../assets/img/homepage/achievement_4.svg" />
+              </span>
+              <div class="bottom_content">
+                <div class="count">4.8</div>
+                <span class="achieve_title">{{
+                  "avarage_rating" | translate
+                }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="consultant home_content_space">
+      <div class="container">
+        <div class="consultant_inner">
+          <div class="consulting_img">
+            <img src="../../../../../assets/img/homepage/consulting.png" />
+          </div>
+          <div class="consulting_desc_wrapper">
+            <div class="consulting_desc">
+              <h3>{{ "save_time_feel_better" | translate }}</h3>
+              <div class="main_titile">
+                {{ "skip_the_waiting_room" | translate }}.
+              </div>
+              <button class="btn btn-primary">
+                {{ "start_consulting" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="home_consultation video_consultation home_content_space"
+      style="
+        background-image: url('../../../../../assets/img/homepage/shape1.png');
+      "
+    >
+      <div class="home_consultation_inner">
+        <div class="row">
+          <div class="right_part part col-md-6">
+            <div class="right_part_inner">
+              <div class="content">
+                <h2 class="title">{{ "hta_care" | translate }}</h2>
+                <h4 class="sub_title">
+                  {{ "video_consultations_with_top_specialists" | translate }}
+                </h4>
+                <p class="desc">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book.
+                </p>
+                <button class="btn btn-primary">
+                  {{ "book_appointment" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="left_part part col-md-6">
+            <div class="left_part_inner">
+              <img src="../../../../../assets/img/homepage/hta_care.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="appointment home_content_space">
+      <div class="container">
+        <div class="appointment_inner">
+          <div class="title_wrapper">
+            <div class="home_title">
+              {{ "how_to_book_an_appointment" | translate }}?
+            </div>
+            <div class="home_sub_title">{{ "4_easy_steps" | translate }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 left_part part">
+              <div class="left_part_inner">
+                <img src="../../../../../assets/img/homepage/appointment.png" />
+              </div>
+            </div>
+            <div class="col-md-6 right_part part">
+              <div class="right_part_inner">
+                <div class="items_wrapper">
+                  <div class="item item1">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step1.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">01</span>
+                      <div class="title">
+                        {{ "create_your_account" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item2">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step2.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">02</span>
+                      <div class="title">
+                        {{ "search_doctors" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item3">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step3.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">03</span>
+                      <div class="title">
+                        {{ "select_type_on_appointment" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item4">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step4.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">04</span>
+                      <div class="title">
+                        {{ "book_your_appointment" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="appointment order_section home_content_space">
+      <div class="container">
+        <div class="appointment_inner">
+          <div class="title_wrapper">
+            <div class="home_title">
+              {{ "how_to_order_medicine_request_medicine_price" | translate }}
+            </div>
+            <div class="home_sub_title">{{ "4_easy_steps" | translate }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 right_part part">
+              <div class="right_part_inner">
+                <div class="items_wrapper">
+                  <div class="item item1">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step1_order.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">01</span>
+                      <div class="title">
+                        {{ "create_your_account" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item2">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step2_order.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">02</span>
+                      <div class="title">
+                        {{ "search_pharmacy" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item3">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step3_order.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">03</span>
+                      <div class="title">
+                        {{ "select_type_of_prescription" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item4">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step4_order.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">04</span>
+                      <div class="title">
+                        {{
+                          "order_your_medicine_request_medicine_price"
+                            | translate
+                        }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 left_part part">
+              <div class="left_part_inner">
+                <img src="../../../../../assets/img/homepage/order.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="appointment claim_section home_content_space">
+      <div class="container">
+        <div class="appointment_inner">
+          <div class="title_wrapper">
+            <div class="home_title">
+              {{ "how_to_submit_a_claim_pre_authorization" | translate }}
+            </div>
+            <div class="home_sub_title">{{ "3_easy_steps" | translate }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 left_part part">
+              <div class="left_part_inner">
+                <img src="../../../../../assets/img/homepage/claim.png" />
+              </div>
+            </div>
+            <div class="col-md-6 right_part part">
+              <div class="right_part_inner">
+                <div class="items_wrapper">
+                  <div class="item item1">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step1_claim.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">01</span>
+                      <div class="title">
+                        {{
+                          "select_the_type_of_claim_pre_authorization"
+                            | translate
+                        }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item item2">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step2_claim.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">02</span>
+                      <div class="title">
+                        {{
+                          "complete_claim_pre_authorization_details" | translate
+                        }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="left">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/step3_claim.svg"
+                        />
+                      </div>
+                    </div>
+                    <div class="right">
+                      <span class="counter">03</span>
+                      <div class="title">
+                        {{ "review_and_submit" | translate }}
+                      </div>
+                      <div class="desc">
+                        Lorem Ipsum is simply dummy text of the typesetting
+                        industry.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="joinus_section home_content_space">
+      <div class="container">
+        <div class="joinus_section_inner">
+          <div class="item_wrapper owl-carousel owl-theme">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-6 left_part">
+                  <div class="left_part_inner">
+                    <div class="title">
+                      {{ "are_you_a" | translate
+                      }}<span> {{ "doctor" | translate }}?</span>
+                    </div>
+                    <div class="sub_title">
+                      {{ "join_as_a_doctor" | translate }}
+                    </div>
+                    <div class="desc">
+                      Lorem Ipsum is simply dummy text of the printing and Ipsum
+                      has been the standard dummy.
+                    </div>
+                    <ul>
+                      <li>
+                        {{
+                          "get_the_appointments_through_online_bookings"
+                            | translate
+                        }}
+                      </li>
+                      <li>
+                        {{
+                          "create_and_view_patient_records_from_anywhere"
+                            | translate
+                        }}
+                      </li>
+                      <li>
+                        {{ "manage_your_schedule_efficiently" | translate }}
+                      </li>
+                      <li>Lorem Ipsum is simply dummy text of the printing</li>
+                    </ul>
+                    <button class="btn btn-primary">
+                      {{ "join_us" | translate }}
+                    </button>
+                  </div>
+                </div>
+                <div class="col-lg-6 right_part">
+                  <div class="right_part_inner">
+                    <!-- <img src="../../../../../assets/img/homepage/video.png"> -->
+
+                    <video
+                      width="548"
+                      height="343"
+                      poster="../../../../../assets/img/homepage/video.png"
+                      controls
+                    >
+                      <source
+                        src="../../../../../assets/img/homepage/movie.mp4"
+                        type="video/mp4"
+                      />
+                      {{
+                        "your_browser_does_not_support_the_video_tag"
+                          | translate
+                      }}.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial home_content_space">
+      <div class="container">
+        <div class="testimonial_inner">
+          <div class="row">
+            <div class="col-md-6 left_part part">
+              <div class="left_part_inner">
+                <div class="item">
+                  <span class="image">
+                    <img
+                      src="../../../../../assets/img/homepage/testimg_1.png"
+                    />
+                  </span>
+                  <div class="author_wrapper">
+                    <div class="author">Eleanor Pena</div>
+                    <div class="designation">{{ "designer" | translate }}</div>
+                  </div>
+                  <div class="desc">
+                    There are many variations of passages of than Ipsum
+                    available, but the majority have suffered in some form, by
+                    injected.
+                  </div>
+                  <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="regular fa-solid fa-star"></i>
+                  </div>
+                </div>
+                <div class="item">
+                  <span class="image">
+                    <img
+                      src="../../../../../assets/img/homepage/testimg_1.png"
+                    />
+                  </span>
+                  <div class="author_wrapper">
+                    <div class="author">Eleanor Pena</div>
+                    <div class="designation">{{ "designer" | translate }}</div>
+                  </div>
+                  <div class="desc">
+                    There are many variations of passages of than Ipsum
+                    available, but the majority have suffered in some form, by
+                    injected.
+                  </div>
+                  <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="regular fa-solid fa-star"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 right_part part">
+              <div class="right_part_inner">
+                <h2>{{ "client_say" | translate }}</h2>
+                <div class="tastimonail_title">
+                  {{ "what_our_people_says_about_us" | translate }}
+                </div>
+                <ul class="owl-carousel owl-theme">
+                  <li class="item">
+                    <div class="feedback">
+                      There are many variations of passages of than Ipsum
+                      available, but the majority have suffered in some form, by
+                      injected. There are many variations of passages of
+                      available, but the majority have suffered alteration in
+                      some of form, by injected humour.
+                    </div>
+                    <div class="customer">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/testimg_1.png"
+                        />
+                      </div>
+                      <div class="author_wrapper">
+                        <div class="author">Jerome Bell</div>
+                        <div class="designation">CEO & Founder</div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div class="feedback">
+                      There are many variations of passages of than Ipsum
+                      available, but the majority have suffered in some form, by
+                      injected. There are many variations of passages of
+                      available, but the majority have suffered alteration in
+                      some of form, by injected humour.
+                    </div>
+                    <div class="customer">
+                      <div class="image">
+                        <img
+                          src="../../../../../assets/img/homepage/testimg_1.png"
+                        />
+                      </div>
+                      <div class="author_wrapper">
+                        <div class="author">Jerome Bell</div>
+                        <div class="designation">CEO & Founder</div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="join_comunity home_content_space">
+      <div class="container">
+        <div class="inner_comunity">
+          <div class="two_block">
+            <div class="row">
+              <div class="col-xl-7 col-lg-9 col-md-12">
+                <div class="ready_join">
+                  <h3>
+                    {{
+                      "do_you_want_to_contact_an_insurance_company" | translate
+                    }}?
+                  </h3>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-3 col-md-12">
+                <div class="button_block">
+                  <div class="ready_btn primary_btn">
+                    <div class="polygon"><label></label></div>
+                    <button type="button" class="btn btn-secondary">
+                      {{ "get_started" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="our_partners">
+      <div class="container">
+        <div class="title_wrapper">
+          <div class="home_title">{{ "our_partners" | translate }}</div>
+        </div>
+        <div class="our_partners_inner">
+          <ul>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner1.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner2.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner3.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner4.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner5.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner6.png" />
+              </div>
+            </li>
+            <li>
+              <div class="parter_img">
+                <img src="../../../../../assets/img/homepage/partner7.png" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

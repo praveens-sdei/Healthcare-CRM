@@ -1,0 +1,533 @@
+<div class="medicines_claim dashboard_main_content common_space">
+  <div class="top_bar">
+    <div class="left_part">
+      <div class="policy">
+        <mat-form-field class="custome_dropdown">
+          <mat-select
+            #select
+            multiple
+            placeholder="{{ 'all_insurance' | translate }}"
+          >
+            <div class="select-all">
+              <mat-checkbox
+                [(ngModel)]="allSelected"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection()"
+                >{{ "select_all" | translate }}</mat-checkbox
+              >
+            </div>
+            <mat-option
+              (click)="optionClick()"
+              *ngFor="let food of foods"
+              [value]="food.value"
+            >
+              {{ food.viewValue | titlecase }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="right_part">
+      <div class="primary_btn">
+        <!-- <a routerLink="medicalsubmitclaim"><button type="button" class="btn btn-primary">
+                        <mat-icon>assignment</mat-icon>New Claim
+                    </button></a> -->
+                    <ng-container *ngIf="giveInnerPermission('export')">
+
+        <button type="button" class="btn btn-primary" (click)="exportLab()">
+          <mat-icon>share</mat-icon>{{ "export" | translate }}
+        </button>
+                    </ng-container>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="export_list">
+    <div class="inner_exprot_list">
+      <ul class="row">
+        <li>
+          <button
+            class="status_list {{ claimStatus === 'resubmit' ? 'active' : '' }}"
+            (click)="onTabChange('resubmit')"
+          >
+            <img
+              class="img-fluid"
+              src="../../../../../assets/img/insurance-medicines/todo.svg"
+              alt="approve"
+            />
+            <p>
+              {{ "resubmit" | translate }} ({{
+                statusCountData?.resubmit ? statusCountData?.resubmit : "0"
+              }})
+            </p>
+          </button>
+        </li>
+        <li>
+          <button
+            class="status_list {{ claimStatus === 'pending' ? 'active' : '' }}"
+            (click)="onTabChange('pending')"
+          >
+            <img
+              class="img-fluid"
+              src="../../../../../assets/img/insurance-medicines/pending.svg"
+              alt="approve"
+            />
+            <p>
+              {{ "pending" | translate }} ({{
+                statusCountData?.pending ? statusCountData?.pending : "0"
+              }})
+            </p>
+          </button>
+        </li>
+        <li>
+          <button
+            class="status_list {{ claimStatus === 'approved' ? 'active' : '' }}"
+            (click)="onTabChange('approved')"
+          >
+            <img
+              class="img-fluid"
+              src="../../../../../assets/img/insurance-medicines/approve.svg"
+              alt="approve"
+            />
+            <p>
+              {{ "approved" | translate }} ({{
+                statusCountData?.approved ? statusCountData?.approved : "0"
+              }})
+            </p>
+          </button>
+        </li>
+        <li>
+          <button
+            class="status_list {{ claimStatus === 'rejected' ? 'active' : '' }}"
+            (click)="onTabChange('rejected')"
+          >
+            <img
+              class="img-fluid"
+              src="../../../../../assets/img/insurance-medicines/reject.svg"
+              alt="approve"
+            />
+            <p>
+              {{ "rejected" | translate }} ({{
+                statusCountData?.reject ? statusCountData?.reject : "0"
+              }})
+            </p>
+          </button>
+        </li>
+        <li>
+          <button
+            class="status_list {{ claimStatus === '' ? 'active' : '' }}"
+            (click)="onTabChange('')"
+          >
+            <img
+              class="img-fluid"
+              src="../../../../../assets/img/insurance-medicines/autorization.svg"
+              alt="approve"
+            />
+            <p>
+              {{ "pre-authorization" | translate }} ({{
+                statusCountData?.preauth ? statusCountData?.preauth : "0"
+              }})
+            </p>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table_detail pt-30">
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          class="mat-elevation-z8 withoutpagination"
+          matTableExporter
+          #exporter="matTableExporter"
+        >
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- <span class="{{ element?.status}}">{{ element?.status}}</span> -->
+              <a class="{{ element?.status }}">{{ element?.status }}</a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>{{ "date" | translate }}</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.createdAt | date : "MM-dd-yyyy" }}
+            </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="makeClaim">
+              <th mat-header-cell *matHeaderCellDef>Make Claim</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element?.created_by }}
+              </td>
+            </ng-container> -->
+
+          <ng-container matColumnDef="claimid">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "claim_ID" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element?.claimId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="prescribercentre">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "prescriber_centre" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.prescriberCenterInfo?.prescriberCenter }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceprovider">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "insurance_provider" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.insurance_company_name }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceholder">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "insurance_holder" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.insurerType == "secondaryInsurer"
+                  ? findvalue(
+                      "Insurance Holder Name",
+                      element?.secondaryInsuredIdentity
+                    )
+                  : findvalue(
+                      "Insurance Holder Name",
+                      element?.primaryInsuredIdentity
+                    )
+                  ? findvalue(
+                      "Insurance Holder Name",
+                      element?.primaryInsuredIdentity
+                    )
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="insuranceid">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "insurance_ID" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.insurerType == "secondaryInsurer"
+                  ? findvalue("Insurance ID", element?.secondaryInsuredIdentity)
+                  : findvalue("Insurance ID", element?.primaryInsuredIdentity)
+                  ? findvalue("Insurance ID", element?.primaryInsuredIdentity)
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="doctorname">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "doctor_name" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.prescriberCenterInfo?.doctorList || "-" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="patient">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "patient_name" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.insurerType == "secondaryInsurer"
+                  ? findvalue("First Name", element?.secondaryInsuredIdentity)
+                  : findvalue("First Name", element?.primaryInsuredIdentity)
+                  ? findvalue("First Name", element?.primaryInsuredIdentity)
+                  : "-"
+              }}
+              {{
+                element.insurerType == "secondaryInsurer"
+                  ? findvalue("Middle Name", element?.secondaryInsuredIdentity)
+                  : findvalue("Middle Name", element?.primaryInsuredIdentity)
+                  ? findvalue("Middle Name", element?.primaryInsuredIdentity)
+                  : "-"
+              }}
+              {{
+                element.insurerType == "secondaryInsurer"
+                  ? findvalue("Last Name", element?.secondaryInsuredIdentity)
+                  : findvalue("Last Name", element?.primaryInsuredIdentity)
+                  ? findvalue("Last Name", element?.primaryInsuredIdentity)
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reimbursmentrate">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "reimbursment_rate" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.reimbursmentRate }} %
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="totalamount">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "total_amount" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.totalCostOfAllMedicine }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="paidbypatient">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "paid_by_patient" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.totalCoPayment }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="requestedamount">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "requested_amount" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.totalRequestedAmount }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="approvedamount">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "approved_amount" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <!-- {{element | json}} -->
+              {{
+                element?.totalApprovedAmount
+                  ? element?.totalApprovedAmount + " CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="rejectamount">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "reject_amount" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element?.totalApprovedAmount
+                  ? (element?.totalRequestedAmount -
+                      element?.totalApprovedAmount | number : "1.2-2") + " CFA"
+                  : "-"
+              }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Resubmit Reason">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "resubmit_reason" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element" style="text-align: left">
+              <span *ngFor="let data of element?.resubmit">
+                <span *ngIf="!data.resubmitReason">
+                  <li>-</li>
+                </span>
+                <span *ngIf="data.resubmitReason">
+                  <li>
+                    {{ data?.resubmitReason ? data?.resubmitReason : "-" }} ({{
+                      data?.resubmitUsers[0]?.staff_name
+                    }})
+                  </li>
+                </span>
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="icon_group">
+                        
+                              <ng-container *ngIf="giveInnerPermission('view')">
+
+                                <mat-icon (click)="goToNewEdit(element?.claimId)">visibility</mat-icon>                              
+                              </ng-container>   
+                            
+                            </div>
+                        </td>
+                    </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <div *ngIf="dataSource.length < 1" class="text-center">
+          <h2>{{ "no_records" | translate }}</h2>
+        </div>
+      </div>
+      <mat-paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="claims dashboard_main_content">
+
+    <div class="claims_tab">
+        <div class="primary_btn">
+            <button type="button" class="btn btn-primary"><mat-icon>share</mat-icon>{{'export'|translate}}</button>
+        </div>
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="btn_svg all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M0.470287 0.0594273C0.266684 0.148379 0.054182 0.406787 0.0179814 0.609418C0.00200454 0.699027 -0.00456828 5.2138 0.00336957 10.6423L0.017779 20.5122L0.122033 20.6518C0.179367 20.7286 0.289082 20.8384 0.365882 20.8957L0.505527 21H10.5089H20.5123L20.6519 20.8957C20.7287 20.8384 20.8384 20.7286 20.8957 20.6518L21 20.5122V10.5069V0.501605L20.8957 0.361932C20.8384 0.285118 20.7287 0.175383 20.6519 0.118037L20.5123 0.0137633L10.5684 0.00289086C2.37841 -0.0060599 0.597293 0.00390224 0.470287 0.0594273ZM19.4074 10.5069V19.4071H10.5089H1.61041V10.5069V1.60669H10.5089H19.4074V10.5069ZM3.7061 3.29535C3.5025 3.38496 3.29015 3.64317 3.25329 3.84585C3.23706 3.93546 3.23044 5.17334 3.23868 6.59677C3.25324 9.11977 3.25622 9.18824 3.35785 9.32437C3.41518 9.40114 3.52489 9.51087 3.60169 9.56822C3.73866 9.67052 3.79296 9.67249 6.46412 9.67249C9.13529 9.67249 9.18959 9.67052 9.32655 9.56822C9.40335 9.51087 9.51307 9.40114 9.5704 9.32432C9.67268 9.18733 9.67466 9.13302 9.67466 6.46134C9.67466 3.78967 9.67268 3.73536 9.5704 3.59836C9.51307 3.52155 9.40335 3.41181 9.3266 3.35447C9.19024 3.25257 9.12568 3.24994 6.52363 3.23887C4.38663 3.22971 3.82982 3.24089 3.7061 3.29535ZM11.7956 3.29535C11.592 3.38496 11.3797 3.64317 11.3428 3.84585C11.3266 3.93546 11.32 5.17334 11.3282 6.59677C11.3428 9.11977 11.3458 9.18824 11.4474 9.32437C11.5047 9.40114 11.6144 9.51087 11.6912 9.56822C11.8282 9.67052 11.8825 9.67249 14.5537 9.67249C17.2248 9.67249 17.2791 9.67052 17.4161 9.56822C17.4929 9.51087 17.6026 9.40114 17.6599 9.32432C17.7622 9.18733 17.7642 9.13302 17.7642 6.46134C17.7642 3.78967 17.7622 3.73536 17.6599 3.59836C17.6026 3.52155 17.4929 3.41181 17.4161 3.35447C17.2798 3.25257 17.2152 3.24994 14.6132 3.23887C12.4762 3.22971 11.9194 3.24089 11.7956 3.29535ZM3.7061 11.3864C3.5025 11.476 3.29015 11.7342 3.25329 11.9369C3.23706 12.0265 3.23044 13.2644 3.23868 14.6878C3.25324 17.2108 3.25622 17.2793 3.35785 17.4154C3.41518 17.4922 3.52489 17.6019 3.60169 17.6593C3.73866 17.7616 3.79296 17.7636 6.46412 17.7636C9.13529 17.7636 9.18959 17.7616 9.32655 17.6593C9.40335 17.6019 9.51307 17.4922 9.5704 17.4154C9.67268 17.2784 9.67466 17.2241 9.67466 14.5524C9.67466 11.8807 9.67268 11.8264 9.5704 11.6894C9.51307 11.6126 9.40335 11.5029 9.3266 11.4455C9.19024 11.3437 9.12568 11.341 6.52363 11.3299C4.38663 11.3208 3.82982 11.332 3.7061 11.3864ZM11.7956 11.3864C11.592 11.476 11.3797 11.7342 11.3428 11.9369C11.3266 12.0265 11.32 13.2644 11.3282 14.6878C11.3428 17.2108 11.3458 17.2793 11.4474 17.4154C11.5047 17.4922 11.6144 17.6019 11.6912 17.6593C11.8282 17.7616 11.8825 17.7636 14.5537 17.7636C17.2248 17.7636 17.2791 17.7616 17.4161 17.6593C17.4929 17.6019 17.6026 17.4922 17.6599 17.4154C17.7622 17.2784 17.7642 17.2241 17.7642 14.5524C17.7642 11.8807 17.7622 11.8264 17.6599 11.6894C17.6026 11.6126 17.4929 11.5029 17.4161 11.4455C17.2798 11.3437 17.2152 11.341 14.6132 11.3299C12.4762 11.3208 11.9194 11.332 11.7956 11.3864Z" />
+                        </svg>
+                    </div>
+                    All (40)
+                </ng-template>
+
+                <div class="table-wrap">
+                    <div class="table-inner">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 withoutpagination">
+
+
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef>Date</th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.date}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="doctorname">
+                                <th mat-header-cell *matHeaderCellDef> Doctor Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.doctorname}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="patientname">
+                                <th mat-header-cell *matHeaderCellDef>Patient Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.patientname}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="claimid">
+                                <th mat-header-cell *matHeaderCellDef>Claim ID</th>
+                                <td mat-cell *matCellDef="let element"> {{element.claimid}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="insuranceholder">
+                                <th mat-header-cell *matHeaderCellDef>Insurance Holder</th>
+                                <td mat-cell *matCellDef="let element"> {{element.insuranceholder}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="insuranceid">
+                                <th mat-header-cell *matHeaderCellDef>Insurance ID</th>
+                                <td mat-cell *matCellDef="let element"> {{element.insuranceid}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="reimbursementrate">
+                                <th mat-header-cell *matHeaderCellDef>Reimburse-ment Rate</th>
+                                <td mat-cell *matCellDef="let element"> {{element.reimbursementrate}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="typeofRequest">
+                                <th mat-header-cell *matHeaderCellDef> Type of Request</th>
+                                <td mat-cell *matCellDef="let element"> {{element.typeofRequest}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="typeofhospotalization">
+                                <th mat-header-cell *matHeaderCellDef> Type of Hospotalization</th>
+                                <td mat-cell *matCellDef="let element"> {{element.typeofhospotalization}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="comments">
+                                <th mat-header-cell *matHeaderCellDef>Comments</th>
+                                <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="copayment">
+                                <th mat-header-cell *matHeaderCellDef>Co-Payment</th>
+                                <td mat-cell *matCellDef="let element"> {{element.copayment}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="requestedamount">
+                                <th mat-header-cell *matHeaderCellDef>Requested Amount</th>
+                                <td mat-cell *matCellDef="let element"> {{element.requestedamount}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef>{{'status'|translate}}</th>
+                                <td mat-cell *matCellDef="let element"><a class="approved">{{'approved'|translate}}</a>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="detail">
+                                <th mat-header-cell *matHeaderCellDef>{{'detail'|translate}}</th>
+                                <td mat-cell *matCellDef="let element"><mat-icon
+                                        [routerLink]="['/']">visibility</mat-icon></td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="btn_svg approved">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M13.4281 0.0513632C12.9226 0.181024 12.6216 0.385206 11.5773 1.30668C11.0057 1.81114 10.4989 2.22367 10.4513 2.22345C10.4036 2.22323 9.61383 2.16398 8.69617 2.09176C6.80767 1.94316 6.60045 1.95482 5.98832 2.24409C5.56288 2.44515 5.17492 2.79033 4.96075 3.15839C4.8566 3.33744 3.7728 6.55174 3.7728 6.68167C3.7728 6.69268 3.15125 7.06731 2.39152 7.51417C1.43261 8.07821 0.924086 8.41216 0.728573 8.60621C0.133338 9.19702 -0.130445 10.091 0.0622229 10.8646C0.0973976 11.0059 0.390721 11.7664 0.713913 12.5546L1.30165 13.9877L0.728628 15.3745C0.413478 16.1372 0.120209 16.8959 0.0769383 17.0603C-0.0728962 17.6295 0.0133722 18.2795 0.311674 18.828C0.570479 19.304 1.02956 19.6576 2.5651 20.5635C3.35322 21.0285 4.00841 21.4258 4.02116 21.4464C4.03385 21.467 4.19413 22.1091 4.37728 22.8733C4.56563 23.6593 4.77925 24.4127 4.86907 24.6079C5.07262 25.05 5.54822 25.5314 5.98558 25.738C6.5574 26.008 6.80188 26.0218 8.62221 25.8871C9.52039 25.8206 10.3168 25.7669 10.392 25.7678C10.4885 25.7689 10.7772 25.9881 11.3726 26.5123C11.8366 26.921 12.3166 27.3368 12.4393 27.4363C13.2058 28.0587 14.2345 28.1753 15.0999 27.7381C15.3068 27.6335 15.8057 27.24 16.452 26.6717C17.4088 25.8303 17.4906 25.771 17.695 25.7701C17.8153 25.7695 18.5292 25.8181 19.2814 25.8781C20.9754 26.0131 21.2389 26.0138 21.6542 25.8844C22.2998 25.6833 22.8165 25.2546 23.1085 24.6779C23.236 24.4259 23.489 23.4946 23.8485 21.9538L23.9657 21.4517L25.4528 20.5611C27.028 19.6179 27.4353 19.3025 27.6954 18.8242C27.9913 18.2799 28.0773 17.6288 27.9283 17.0603C27.8853 16.8959 27.5912 16.1372 27.2749 15.3745L26.6997 13.9876L27.3004 12.5311C27.6844 11.5998 27.9241 10.9398 27.965 10.701C28.0917 9.96157 27.8245 9.14916 27.2766 8.60769C27.0846 8.41785 26.5135 8.04152 25.4851 7.42706L23.9756 6.52507L23.6177 5.06163C23.4209 4.25673 23.203 3.47992 23.1334 3.33536C22.8965 2.843 22.3146 2.31631 21.8052 2.13327C21.3078 1.95444 21.0485 1.94984 19.3175 2.08897C18.395 2.16305 17.6005 2.22372 17.5519 2.22378C17.5034 2.22383 17.0479 1.85276 16.5399 1.39916C15.4608 0.435745 15.2498 0.2792 14.8322 0.131689C14.4474 -0.00426813 13.7911 -0.0417755 13.4281 0.0513632ZM15.5282 5.09448C17.4048 5.4367 19.0325 6.2801 20.3457 7.59067C21.6973 8.9394 22.5438 10.5585 22.9008 12.4775C23.0311 13.178 23.0311 14.8144 22.9008 15.5149C22.1875 19.3498 19.3511 22.1888 15.5197 22.9029C14.8199 23.0333 13.185 23.0333 12.4852 22.9029C10.568 22.5456 8.91143 21.6733 7.57473 20.3172C6.25194 18.9752 5.41611 17.3179 5.07733 15.3651C4.98477 14.8316 4.98477 13.1608 5.07733 12.6273C5.7904 8.5174 8.89387 5.5357 13 5.01558C13.524 4.94916 14.9808 4.99467 15.5282 5.09448ZM13.2366 6.63771C12.0225 6.78812 10.8569 7.21849 9.84495 7.89007C9.31717 8.24034 8.25197 9.30653 7.90203 9.83481C7.34383 10.6775 6.95423 11.6171 6.74405 12.6273C6.60965 13.2732 6.60965 14.7192 6.74405 15.3651C7.06374 16.9019 7.69054 18.0772 8.77768 19.1782C9.86651 20.2811 11.0827 20.9379 12.6349 21.2614C13.2724 21.3943 14.7161 21.3942 15.3832 21.2611C16.8595 20.9668 18.0826 20.3111 19.1797 19.2259C20.2815 18.136 20.9376 16.9187 21.2609 15.3651C21.3953 14.7193 21.3953 13.2732 21.2609 12.6273C21.0507 11.6171 20.6611 10.6775 20.1029 9.83481C19.7431 9.29158 18.6833 8.23585 18.1326 7.87194C17.304 7.32439 16.353 6.92731 15.4213 6.73982C15.017 6.65846 13.6027 6.59237 13.2366 6.63771ZM18.4896 10.8211C18.7323 10.9451 18.9258 11.2605 18.9258 11.5322C18.9258 11.625 18.8782 11.7923 18.8201 11.904C18.6892 12.1556 13.768 17.0736 13.5265 17.1941C13.2935 17.3104 13.0573 17.3044 12.8105 17.1757C12.5597 17.045 9.28708 13.7617 9.16646 13.5198C8.83304 12.8511 9.57619 12.1072 10.2443 12.441C10.3406 12.4891 11.0409 13.1481 11.8007 13.9054L13.1821 15.2823L15.3838 13.0843C16.5948 11.8754 17.6594 10.8478 17.7497 10.8007C17.9753 10.6832 18.2334 10.6903 18.4896 10.8211Z" />
+                        </svg>
+                    </div>
+                    Approved (30)
+                </ng-template>
+                <p>content</p>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="btn_svg pending">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.9242 0.0390794C10.0717 0.294511 8.43326 1.11123 7.10178 2.44282C5.88526 3.65939 5.11235 5.11002 4.77185 6.81555C4.63054 7.52341 4.63054 9.15987 4.77185 9.86772C5.1123 11.573 5.88497 13.0232 7.10178 14.2408C8.30449 15.4443 9.64264 16.1683 11.3611 16.5453C12.1171 16.7111 13.7565 16.7242 14.5285 16.5706C16.2352 16.231 17.6781 15.4611 18.8924 14.2423C20.0974 13.0328 20.8182 11.699 21.1963 9.97885C21.3743 9.16916 21.3743 7.51411 21.1963 6.70442C20.8182 4.98425 20.0974 3.65045 18.8924 2.44096C17.6852 1.22922 16.2259 0.447759 14.5606 0.121106C13.9773 0.0067219 12.4936 -0.0394614 11.9242 0.0390794ZM13.5061 3.38473C13.5895 3.44707 13.7117 3.57028 13.7775 3.65846C13.8922 3.81212 13.898 3.90361 13.915 5.86237L13.9327 7.90594L14.9216 8.69019C16.0272 9.56704 16.1694 9.71 16.2237 9.99895C16.3494 10.6699 15.79 11.2313 15.1208 11.1057C14.8301 11.0511 12.2633 8.98623 12.1505 8.71622C12.0845 8.5582 12.0684 8.0754 12.0684 6.25595C12.0684 4.79353 12.0904 3.9344 12.1304 3.82873C12.2121 3.61286 12.4049 3.40791 12.62 3.30828C12.8513 3.2011 13.3137 3.24101 13.5061 3.38473ZM2.89546 18.6562C1.5389 18.9477 0.36552 20.1326 0.0796486 21.4995C-0.266718 23.1561 0.540967 24.8488 2.02832 25.5834C2.9264 26.027 2.20807 25.9997 12.9973 25.9997C23.7789 25.9997 23.0782 26.026 23.9681 25.587C25.1793 24.9896 26 23.6554 26 22.2838C26 20.9122 25.1793 19.578 23.9681 18.9805C23.0775 18.5412 23.784 18.5675 12.9683 18.5715C4.90004 18.5745 3.20949 18.5887 2.89546 18.6562ZM9.78191 21.5032C10.0865 21.7308 10.1816 21.9164 10.1816 22.2838C10.1816 22.6512 10.0865 22.8368 9.78191 23.0644C9.62562 23.1813 9.5469 23.1847 6.62142 23.2019C4.6173 23.2137 3.55069 23.199 3.40885 23.1576C2.81876 22.9855 2.59107 22.1789 2.99648 21.6969C3.28839 21.3497 3.21941 21.3561 6.56331 21.3704C9.5512 21.3831 9.62533 21.3861 9.78191 21.5032Z" />
+                        </svg>
+                    </div>
+                    Pending (2)
+                </ng-template>
+                <p>content</p>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <div class="btn_svg rejected">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                            <circle cx="13" cy="13" r="13" />
+                            <rect x="7.28564" y="8.71484" width="2.02032" height="14.1423" rx="1.01016"
+                                transform="rotate(-45 7.28564 8.71484)" fill="#FF7354" />
+                            <rect x="17.2856" y="7.28516" width="2.02032" height="14.1423" rx="1.01016"
+                                transform="rotate(45 17.2856 7.28516)" fill="#FF7354" />
+                        </svg>
+                    </div>
+                    Rejected (3)
+                </ng-template>
+                <p>content</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div> -->

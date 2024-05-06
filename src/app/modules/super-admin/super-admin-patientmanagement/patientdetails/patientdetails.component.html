@@ -1,0 +1,278 @@
+<div class="details_patient dashboard_main_content">
+  <div class="button-container">
+    <div class="back_button" [routerLink]="['/super-admin/patient']">
+      <button class="btn btn-primary">{{ "back" | translate }}</button>
+    </div>
+  </div>
+  <div class="main_title">{{ "patient_details" | translate }}</div>
+  <div class="profile_data">
+    <div class="profile_info">
+      <ul class="profile_info_inner profile_info_with_img">
+        <li class="col_item profile_image_wrapper">
+          <div class="profile_image">
+            <img
+              src="{{
+                profile?.profile_pic_signed_url
+                  ? profile.profile_pic_signed_url
+                  : '../../../assets/img/profile_img.png'
+              }}"
+            />
+          </div>
+
+          <div class="profile_contact">
+            <div class="profile_title">
+              {{ profile?.first_name }} {{ profile?.middle_name }}
+              {{ profile?.last_name }}
+            </div>
+
+            <div class="lable">{{ "mobile_number" | translate }}</div>
+            <div class="user_value">{{ profile?.mobile }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "email" | translate }}</div>
+            <div class="user_value">{{ profile?.email }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_of_birth" | translate }}</div>
+            <div class="user_value">
+              {{ profile?.dob | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "gender" | translate }}</div>
+            <div class="user_value">{{ profile?.gender }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "ssn_numner" | translate }}</div>
+            <div class="user_value">{{ profile?.ssn_number }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "marital_status" | translate }}</div>
+            <div class="user_value">{{ profile?.marital_status }}</div>
+          </div>
+        </li>
+      </ul>
+      <ul class="profile_info_inner">
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "address" | translate }}</div>
+            <div class="user_value">{{ locationData?.address }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "pincode" | translate }}</div>
+            <div class="user_value">{{ locationData?.pincode }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "country" | translate }}</div>
+            <div class="user_value">{{ country }}</div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "joined_since" | translate }}</div>
+            <div class="user_value">
+              {{ profile?.createdAt | date : "dd/MM/YYYY" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="emergency_contact">
+        <h3 class="profileinfo_title">
+          {{ "add_emergency_contact" | translate }}
+        </h3>
+        <ul class="profile_info_inner">
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "name" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.name }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "Relationship" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.relationship }}
+              </div>
+            </div>
+          </li>
+          <li class="col_item">
+            <div class="profile_contact">
+              <div class="lable">{{ "phone_number" | translate }}</div>
+              <div class="user_value">
+                {{ profile?.emergency_contact?.phone_number }}
+              </div>
+            </div>
+          </li>
+          <!-- <li class="col_item">
+                    <div class="profile_contact">
+                      <div class="lable">Address</div>
+                      <div class="user_value">{{profile?.emergency_contact?.address}}</div>
+                    </div>
+                  </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main_title">{{ "insurance" | translate }}</div>
+  <div class="text-center" *ngIf="primaryInsurance?.length === 0">
+    <b>{{ "no_insurance_details_found" | translate }}</b>
+  </div>
+  <div class="profile_data insurance" *ngIf="primaryInsurance?.length != 0">
+    <div class="profile_data insurance">
+      <div class="profile_info">
+        <div *ngIf="showprimary === true">
+          <ul class="profile_info_inner profile_info_with_img">
+            <li class="col_item profile_image_wrapper">
+              <div class="profile_image">
+                <!-- <img src="{{primaryInsurance.insurance_card_id_proof?(primaryInsurance.insurance_card_id_proof):'../../../assets/img/insurance.png'}}" /> -->
+                <img src="../../../assets/img/insurance.png" />
+              </div>
+              <div class="profile_contact">
+                <div class="lable">{{ "ins_policy_no" | translate }}</div>
+                <div class="user_value">{{ primaryInsurance?.policy_id }}</div>
+              </div>
+            </li>
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">{{ "employee_ID" | translate }}</div>
+                <div class="user_value">
+                  {{ primaryInsurance?.employee_id }}
+                </div>
+              </div>
+            </li>
+            <!-- <li class="col_item">
+                    <div class="profile_contact">
+                        <div class="lable">Work Idendtification Number</div>
+                        <div class="user_value">{{ primaryInsurance?.employee_id }}</div>
+                    </div>
+                </li> -->
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">{{ "insurance_provider" | translate }}</div>
+
+                <div class="user_value">
+                  {{ primaryInsurance?.insurance_holder_name }}
+                </div>
+              </div>
+            </li>
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">{{ "plan_name" | translate }}</div>
+                <div class="user_value">
+                  {{ primaryInsurance?.health_plan_for?.name }}
+                </div>
+              </div>
+            </li>
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">
+                  {{ "insurance_card_number" | translate }}
+                </div>
+                <div class="user_value">{{ primaryInsurance?.card_id }}</div>
+              </div>
+            </li>
+          </ul>
+          <ul class="profile_info_inner">
+            <!-- <li class="col_item">
+                  <div class="profile_contact">
+                    <div class="lable">Insuredance Card Number</div>
+                    <div class="user_value">{{ primaryInsurance?.card_id }}</div>
+                  </div>
+                </li> -->
+            <!-- <li class="col_item">
+                  <div class="profile_contact">
+                    <div class="lable">Primary Insured Company Name</div>
+                    <div class="user_value"> </div>
+                  </div>
+                </li> -->
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">{{ "expiry_date" | translate }}</div>
+                <div class="user_value">
+                  {{ "from" | translate }}:
+                  {{
+                    primaryInsurance?.insurance_validity_from
+                      | date : "dd/MM/yyyy"
+                  }}
+                  {{ "to" | translate }}:
+                  {{
+                    primaryInsurance?.insurance_validity_to
+                      | date : "dd/MM/yyyy"
+                  }}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="showsecondaryAlso === true" class="secondary_insured">
+          <h3 class="profileinfo_title">
+            {{ "secondary_insured_details" | translate }}
+          </h3>
+          <ul class="profile_info_inner">
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">
+                  {{ "work_identification_number" | translate }}
+                </div>
+                <div class="user_value">
+                  {{ secondaryInsurance?.insurance_id }}
+                </div>
+              </div>
+            </li>
+            <!-- <li class="col_item">
+                  <div class="profile_contact">
+                    <div class="lable">Plan Name</div>
+                    <div class="user_value"></div>
+                  </div>
+                </li> -->
+            <li class="col_item">
+              <div class="profile_contact">
+                <div class="lable">{{ "Relationship" | translate }}</div>
+                <div class="user_value">
+                  {{ secondaryInsurance?.relationship_with_insure }}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="main_title">Mobile Pay Details </div>
+    <div class="profile_data mobile_pay">
+        <div class="profile_info">
+            <ul class="profile_info_inner">
+                <li class="col_item">
+                    <div class="profile_contact">
+                        <div class="lable">Name of Mobile Provider</div>
+                        <div class="user_value">-</div>
+                    </div>        
+                </li>
+                <li class="col_item">
+                    <div class="profile_contact">
+                        <div class="lable">Mobile Pay Number</div>
+                        <div class="user_value">-</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> -->
+  </div>
+</div>

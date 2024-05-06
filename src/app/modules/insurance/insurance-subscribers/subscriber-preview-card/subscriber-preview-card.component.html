@@ -1,0 +1,1349 @@
+<!-- <div style="margin: 10px;">
+    <div>
+        <h2><strong>Card Front Side</strong></h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Reimbursement Rate</th>
+                    <th scope="col">Limit</th>
+                </tr>
+            </thead>
+            <ng-container *ngFor="let catServ of catgServcList; let i = index" >
+                <tbody *ngIf="isBackFieldExist(catServ.has_category, catServ.service)">
+                    <ng-container *ngIf="i === 0 || catServ.has_category !== catgServcList[i - 1].has_category">
+                        <tr>
+                          <td class="vertical-align" style="font-weight: 600;"> {{catServ.has_category}}</td>
+                        </tr>
+                      </ng-container>
+                    <tr>
+                        <td>{{catServ.service}}</td>
+                        <td>{{catServ.reimbursment_rate}}</td>
+                        <td>{{catServ.in_limit.service_limit}}</td>
+                    </tr>
+                </tbody>
+            </ng-container>
+
+        </table>
+
+    </div>
+    <div style="margin-top: 30px;"></div>
+
+    <div>
+        <h2><strong>Card Back Side</strong></h2>
+
+        <div class="row">
+            <div class="col-3">
+                <div class="image-box">
+                    <img src="{{ uploadedImageUrl }}" alt="Uploaded Image">
+                </div>
+            </div>
+            <div class="col-9">
+                <div *ngFor="let field of insuranceFields; let i = index">
+                    <div *ngIf="isFieldExist(field.fieldName)" class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <div class="col-5">
+                                <h4>&#8226; {{ field.fieldName }}</h4>
+                            </div>
+                            <div class="col-7">
+
+                                <ng-container *ngIf="field.fieldName === 'First Name'">{{
+                                    subscriberInfo.subscriber_first_name
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Middle Name'">{{
+                                    subscriberInfo.subscriber_middle_name
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Last Name'">{{
+                                    subscriberInfo.subscriber_last_name
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Insurance ID'">{{ subscriberInfo.insurance_id
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Gender'">{{ subscriberInfo.gender
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Policy ID'">{{ subscriberInfo.policy_id
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Date Of Birth'">{{
+                                    subscriberInfo.date_of_birth
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Employee ID'">{{ subscriberInfo.employee_id
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Card ID'">{{ subscriberInfo.card_id
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Reimbursement'">{{
+                                    subscriberInfo.reimbersement_rate
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Insurance Holder Name'">{{
+                                    subscriberInfo.insurance_holder_name
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Insurance To Date'">{{
+                                    subscriberInfo.insurance_validity_from
+                                    }}</ng-container>
+                                <ng-container *ngIf="field.fieldName === 'Age'">{{ subscriberInfo.age }}</ng-container>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> -->
+
+<style>
+    @media print {
+        #previewdiv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0 !important;
+        }
+
+        /* table tbody .front-card-footer {
+            font-size: 5.3px !important;
+        }
+
+        table tbody .front-card-footer b {
+            font-size: 5.7px !important;
+        }
+
+        .front-card-footer tbody tr:last-child .front-card-footer {
+            font-size: 5.7px !important;
+        } */
+
+        .front-card-table {
+            height: 100vh !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .front-card-table td {
+            letter-spacing: 0 !important;
+        }
+
+        .back-card-table {
+            height: 100vh !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        .table-wrap-block {
+            position: relative;
+        }
+
+        .front-card-table .bg-img {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .space-block {
+            display: none;
+        }
+
+        .back-card-table table tbody td,
+        .back-card-table table tbody th,
+        .back-card-table table tbody tr {
+            height: 7.89 !important;
+            line-height: 7px !important;
+        }
+
+        .back-card-table thead tr:last-child th {
+            padding-top: 4px !important;
+            padding-bottom: 4px !important;
+        }
+    }
+
+    @media only screen {
+
+        * {
+            box-sizing: border-box !important;
+        }
+
+        .front-card-table .bg-img {
+            display: none;
+        }
+
+        .back-card-table {
+            margin: 0 0 20px;
+        }
+
+        #previewdiv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            /* margin-top: 40vh; */
+        }
+
+        /* #previewdiv .back-card-table:last-child {
+            height: 217.77px !important;
+        } */
+
+        #previewdiv .front-card-table:first-child {
+            margin-top: 40vh !important;
+        }
+
+        .front-card-table {
+            /* height: 100%; */
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            /* margin-bottom: 200px; */
+            width: 85.6mm !important;
+            height: 54mm !important;
+            margin-bottom: 300px;
+        }
+
+        .front-card-table .front-card-footer-table {
+            height: 28px;
+        }
+
+        .front-card-table td {
+            letter-spacing: 0 !important;
+        }
+
+        .back-card-table {
+            /* height: 100%; */
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 0;
+            /* margin-bottom: 235px; */
+            width: 85.6mm !important;
+            height: 57mm !important;
+            padding: 5px 6px 2px;
+            margin-bottom: 300px !important;
+        }
+
+        .back-card-table:last-child {
+            margin: 0;
+        }
+
+        .space-block {
+            height: 300px;
+        }
+
+        .back-card-table table tbody td,
+        .back-card-table table tbody th {
+            /* height: 7.89px !important; */
+            line-height: normal !important;
+            letter-spacing: 0 !important;
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+        }
+
+        .back-card-table table tbody tr {
+            height: calc(100% / 28) !important;
+        }
+
+        .back-card-table.backcard table thead tr:last-child th {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            letter-spacing: 0;
+        }
+
+        .back-card-table.backcard {
+            padding: 0px 5px 5px !important;
+            height: 54mm !important;
+        }
+
+        .back-card-table.backcard table {
+            height: 52mm !important;
+        }
+
+        .back-card-table.backcard thead tr:first-child {
+            padding-bottom: 1px !important;
+        }
+
+        .back-card-table.backcard table tbody .tdData td {
+            /* height: 7.89px !important; */
+            /* height: calc(100% / 30) !important; */
+            height: 6px !important;
+            line-height: 4px !important;
+            border-bottom: 1px solid #000000;
+            /* vertical-align: top; */
+            padding-bottom: 1px !important;
+        }
+
+        .back-card-table.backcard table tbody .tdData td:last-child {
+            border-right: 1px solid #000000;
+        }
+
+        .back-card-table.backcard table tbody .tdData th:last-child {
+            border-right: 1px solid #000000;
+        }
+
+        /* .back-card-table.backcard table tbody tr:last-child th {
+            border-right: 1px solid #000000;
+        } */
+
+        .back-card-table.backcard table tbody .tdData th {
+            /* height: 7.89px !important; */
+            /* height: calc(100% / 30) !important; */
+            height: 6px !important;
+            line-height: 4px !important;
+            border-bottom: 1px solid #000000;
+            /* vertical-align: top; */
+            padding-top: 0 !important;
+            padding-bottom: 1px !important;
+        }
+
+        .back-card-table.backcard table tbody td {
+            font-size: 4.8px !important;
+            font-weight: 500 !important;
+        }
+
+        .back-card-table.backcard table tbody th {
+            font-size: 4.8px !important;
+        }
+
+        /* .back-card-table.backcard table tbody td:first-child,
+        .back-card-table.backcard table tbody th:first-child {
+            border-left: 1px solid #000000;
+        } */
+
+        .back-card-table.backcard table tbody tr.tdData td:first-child,
+        .back-card-table.backcard table tbody tr.tdData th:first-child {
+            border-left: 1px solid #000000;
+        }
+
+        .back-card-table.backcard table tbody tr.tdData td:last-child {
+            border-right: 1px solid #000000;
+        }
+
+        /* .back-card-table.backcard table tbody td:last-child {
+            border-right: 1px solid #000000;
+        } */
+
+        .back-card-table.backcard tbody tr {
+            border: none !important;
+            height: auto !important;
+        }
+
+        .back-card-table.backcard .main-table {
+            height: 100% !important;
+        }
+
+        .frontcard table tbody .front-card-footer {
+            font-size: 5.1px !important;
+            line-height: 2px !important;
+        }
+
+        .frontcard table tbody .front-card-footer b {
+            font-size: 5.1px !important;
+        }
+
+        .frontcard .front-card-footer tbody tr:last-child .front-card-footer {
+            font-size: 5.1px !important;
+            line-height: 2px !important;
+        }
+
+        #previewdiv .front-card-table.frontcard {
+            margin: 0 !important;
+        }
+
+        #previewdiv .back-card-table.backcard {
+            margin: 0 !important;
+        }
+
+        .back-card-table table thead th {
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+        }
+
+        .back-card-table table thead tr:first-child th {
+            padding-bottom: 4px;
+        }
+
+        .back-card-table.backcard table thead tr:first-child th {
+            padding-bottom: 0 !important;
+        }
+
+        .back-card-table table thead tr:last-child th {
+            padding-top: 3px !important;
+            padding-bottom: 3px !important;
+        }
+
+        .front-card-table .user-details-table tbody td {
+            font-size: 8px !important;
+            font-weight: bolder !important;
+        }
+
+        .front-card-table .user-details-table tbody tr td:first-child {
+            width: 82px !important;
+            max-width: 82px !important;
+        }
+
+        .front-card-table.frontcard .user-details-table tbody tr td:first-child {
+            width: 82px !important;
+            max-width: 82px !important;
+        }
+
+        .front-card-table.frontcard .user-details-table tbody tr td {
+            font-size: 8px !important;
+            padding-bottom: 2px !important;
+        }
+
+        .front-card-table .front-card-img {
+            position: relative;
+            top: 7px;
+        }
+
+        .back-card-table.backcard table thead th span {
+            font-size: 4px !important;
+            position: relative;
+            top: -1px;
+            letter-spacing: 0 !important;
+        }
+
+        .back-card-table.backcard table tbody td span {
+            font-size: 4px !important;
+            position: relative;
+            top: -1px;
+            letter-spacing: 0 !important;
+        }
+
+        .back-card-table.backcard table tbody th span {
+            font-size: 4px !important;
+            position: relative;
+            top: -1px;
+            letter-spacing: 0 !important;
+        }
+
+        .back-card-table.backcard table tbody .your-class {
+            left: 2px;
+            font-weight: 500 !important;
+        }
+
+        .front-card-table.frontcard .front-position-top {
+            position: relative;
+            top: 5px;
+        }
+
+        .front-card-table.frontcard table tbody .front-card-title {
+            font-size: 9px !important;
+        }
+
+        .back-card-table.backcard table tbody th.uppercase-text {
+            text-transform: uppercase !important;
+        }
+        
+    }
+</style>
+
+<div class="btn-block p-3 pb-0 mb-4 text-end">
+    <div class="left-block">
+        <button type="button" class="btn btn-primary d-inline-flex align-items-center justify-content-between ms-2"
+            [routerLink]="['/insurance/insurance-subscribers']"><mat-icon>arrow_back</mat-icon>Back</button>
+    </div>
+    <div class="right-block">
+        <!-- <ng-container  *ngIf="giveInnerPermission('printpdf')"> -->
+        <button type="button" class="btn btn-primary d-inline-flex align-items-center justify-content-between"
+            (click)="handlePrint()">
+            <mat-icon>print</mat-icon>
+            {{'print' | translate}}
+        </button>
+    <!-- </ng-container> -->
+        <!-- <ng-container  *ngIf="giveInnerPermission('downloadpdf')">e -->
+        <button type="button" class="btn btn-primary d-inline-flex align-items-center justify-content-between ms-2"
+            (click)="handleSavePdf1()">
+            <mat-icon>download</mat-icon>
+            {{'download_as_PDF' | translate}}
+        </button>
+    <!-- </ng-container> -->
+    </div>
+</div>
+
+<ng-container *ngIf="cardPreviewTemplates[0]?._id === assignCardId">
+
+    <div class="card-block-wrap p-4 pt-0">
+        <div class="card-print-block mb-3 ">
+            <div id="previewdiv" #previewdiv>
+                <ng-container *ngFor="let subscriber of subscribersInfoToPrintCard">
+                    <div class="front-card-table" [ngClass]="{'frontcard': isButtonClicked}">
+                        <div class="table-wrap-block">
+                            <table
+                                style="width: 85.6mm;height: 54mm; margin: 0 0px 0 0px; ;background-image: url('../../../../../assets/img/Background.png');background-size: cover;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: left;width: 40%;padding-left: 8px;">
+                                            <img style="height: 30px;padding-top: 5px;"
+                                                src="../../../../../assets/img/Logo-BIG.png" alt="logo">
+                                        </th>
+                                        <th
+                                            style="padding: 5px 8px 0 0px;width: 60%;text-align: right;color: #ffffff !important;font-size: 15px;">
+                                            <!-- <img style="height: 20px;margin-top: -7px;"
+                                                src="../../../../../assets/img/Carte_Access_header.svg" alt="logo"> -->
+                                                CARTE ACCES SANTE
+                                        </th>
+
+                                    </tr>
+                                    <!-- <tr style="border-bottom: 3px solid #001b65;">
+                                        <th></th>
+                                        <th></th>
+                                    </tr> -->
+                                </thead>
+                                <tbody style="background-repeat: repeat;background-size: 120px;">
+                                    <!-- <tr style="line-height: 5px;">
+                                        <td></td>
+                                        <td
+                                            style="text-align: right;font-size: 8px;padding: 5px 20px 0 0;font-weight: 500;color: #000000;">
+                                            {{subscriber.uniqueId}}
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td colspan="2" style="vertical-align: top;padding-top: 8px;">
+                                            <table style="width: 100%;">
+                                                <tbody>
+                                                    <td style="padding: 0 5px 0 15px;">
+                                                        <table style="width: 100%;" class="user-details-table">
+                                                            <tbody>
+
+                                                                <tr style="line-height: 8px;"
+                                                                    *ngFor="let field of maadoCardFields">
+                                                                    <td
+                                                                        style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                        <div
+                                                                            style="display: flex; justify-content: space-between;align-items: center;width: 80px;max-width: 80px;">
+                                                                            <span *ngIf="field === 'Prénoms' else elsediv">{{ 'Prénom (s)' }}</span>
+
+                                                                          <ng-template #elsediv>
+                                                                            <span>{{field | translate}}</span>
+
+                                                                          </ng-template>
+                                                                          
+                                                                            <span>:</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Code ID'">
+                                                                        {{subscriber.card_id}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Nom'">
+                                                                        {{subscriber.last_name}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Prénoms'">
+                                                                        {{subscriber.middle_name+"
+                                                                        "+subscriber.first_name}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Date naissance'">
+                                                                        {{subscriber.dateofbirth |
+                                                                        date: 'dd/MM/yyyy'}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Genre'"> {{subscriber.gender=='Female'?'Féminin':'Masculin'}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Qualité' && subscriber.subscriptionisfor === 'Primary'">
+                                                                        Adhérent</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Qualité' && subscriber.subscriptionisfor === 'Secondary'">
+                                                                        {{subscriber.relationship}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Validité'">
+                                                                        {{subscriber.insurance_validity_to
+                                                                        | date: 'dd/MM/yyyy'}}</td>
+                                                                </tr>
+
+                                                                <tr style="line-height: 8px;"
+                                                                    class="front-position-top">
+                                                                    <td colspan="2" class="front-card-title"
+                                                                        style="font-size: 7px;color: #000000;font-weight: 700;padding-bottom: 3px;">
+                                                                        Informations Adhérent</td>
+                                                                </tr>
+                                                                <ng-container
+                                                                    *ngIf="subscriber.subscriptionisfor === 'Primary'">
+                                                                    <tr style="line-height: 8px;"
+                                                                        class="front-position-top"
+                                                                        *ngFor="let field of maadoAdherent">
+                                                                        <td
+                                                                            style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                            <div
+                                                                                style="display: flex; justify-content: space-between;align-items: center;width: 80px;max-width: 80px;">
+                                                                                <span *ngIf="field === 'Nom et Prénoms' else elsediv">{{ 'Nom et Prénom (s)' }}</span>
+
+                                                                                <ng-template #elsediv>
+                                                                                  <span>{{field | translate}}</span>
+      
+                                                                                </ng-template>
+                                                                                <span>:</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                            *ngIf="field ==='Nom et Prénoms'">
+                                                                            {{subscriber.last_name + " " +
+                                                                            (subscriber.middle_name ?
+                                                                            subscriber.middle_name.charAt(0) + "." : "")
+                                                                            + " " + subscriber.first_name}}</td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Matricule'">
+                                                                            {{subscriber.employee_id}}
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Téléphone'">
+                                                                            {{subscriber.mobile}}</td>
+                                                                    </tr>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="subscriber.subscriptionisfor === 'Secondary'">
+                                                                    <tr style="line-height: 8px;"
+                                                                        class="front-position-top"
+                                                                        *ngFor="let field of maadoAdherent">
+                                                                        <td
+                                                                            style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                            <div
+                                                                            style="display: flex; justify-content: space-between;align-items: center;width: 80px;max-width: 80px;">
+                                                                            <span>{{field | translate}}</span>
+                                                                            <span>:</span>
+                                                                        </div>
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                            *ngIf="field ==='Nom et Prénoms'">
+
+                                                                            {{subscriber?.primarySubscriberId?.last_name + " " +
+                                                                            (subscriber?.primarySubscriberId?.middle_name ?
+                                                                            subscriber?.primarySubscriberId?.middle_name.charAt(0) + "." : "")
+                                                                            + " " + subscriber?.primarySubscriberId?.first_name}}
+                                                                            <!-- {{subscriber?.primarySubscriberId?.name}} -->
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Matricule'">
+                                                                            {{subscriber?.primarySubscriberId?.employee_id}}
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Téléphone'">
+                                                                            {{subscriber?.primarySubscriberId?.mobile}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-container>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 0 40px 0 0;width: 120px;font-size: 11px;color: #000000;text-align: center;vertical-align: top;">
+                                                        <div class="front-card-img">
+                                                            <span
+                                                                style="max-width:79px;max-height: 80px;border-radius: 4px;display: flex;align-items: center;justify-content: center;overflow: hidden;">
+                                                                <img *ngIf="subscriber.subscriberImage === ''"
+                                                                    style="max-width:79px;max-height: 80px;border-radius: 4px;border: 2px solid #275429;"
+                                                                    src="../../../../../assets/img/homepage/quality.png"
+                                                                    alt="user photo">
+                                                                <img *ngIf="subscriber.subscriberImage !== ''"
+                                                                    style="max-width:79px;max-height: 80px; border-radius: 4px;border: 2px solid #275429;"
+                                                                    [src]="subscriber.subscriberImage" alt="user photo">
+                                                            </span>
+                                                            <b
+                                                                style="font-weight: 500;letter-spacing: 0.2px;display: block;line-height: 24px;">{{subscriber.card_id}}</b>
+                                                        </div>
+                                                    </td>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table style="width: 100%;position: relative;top: 0px;" class="front-card-footer-table">
+                                                <tbody>
+                                                    <tr style="line-height: 7px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 7px;font-size: 5px;padding: 1.5px 0 0px 16.3px;color: #000000;font-weight: 500;">
+                                                            <b style="font-weight: 700;font-size: 5.7px;">IMPORTANT</b>
+                                                            : Cette carte est
+                                                            strictment personnelle et reste la
+                                                            propriété
+                                                            exclusive de la MAADO qui se garde le droit d'en
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="line-height: 7px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 7px;font-size: 5px;text-align: center;padding: 1px 0 0;color: #000000;font-weight: 500;position: relative;top: -2px;">
+                                                            demander la restitution. En cas de perte ou de vol,
+                                                            prière vous adresser au :
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="line-height: 10px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 7px;font-size: 5.2px;text-align: center;font-weight: 700;padding: 0 0 0;color: #000000;position: relative;top: -1px;">
+                                                            +226 73 48 47 73 / 25 33 40 49 - 09 BP 1110 Ouagadougou 09.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <img class="bg-img" src="../../../../../assets/img/Background.svg" alt="background">
+                        </div>
+                    </div>
+                    <!-- <div class="space-block"></div> -->
+                    <div class="back-card-table" [ngClass]="{'backcard': isButtonClicked}"
+                        style="box-shadow: 0 0 5px #e1e1e1;">
+                        <table style="width: 85.6mm;height: 54mm; margin: 0 0 0;">
+                            <thead>
+                                <tr class="tdData" style="line-height: normal;">
+                                    <th colspan="3"
+                                        style="text-transform: uppercase;font-size: 7px;padding-top: 0;padding-bottom: 4px;text-align: center;color: #000000;">
+                                        COUVERTURE 80% NATIONALE</th>
+                                </tr>
+                                <tr class="tdData" style="line-height: normal; border: 1px solid #000000;">
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>NATURE DES PRESTATIONS</span>
+                                    </th>
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;text-align: center;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>TAUX DE REMB.</span>
+                                    </th>
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;text-align: center;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>PLAFOND DE REMBOURSEMENT</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <!-- <tbody *ngFor="let catServ of subscriber?.plan_services let i = index"> -->
+                            <tbody>
+                                <tr class="tdData"
+                                    style="border-bottom: 0.5px solid #000000;border-left: 1px solid #000000;border-right: 1px solid #000000;">
+                                    <th
+                                        style="text-transform: uppercase;font-size: 4.5px;height: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>GARANTIES DE BASE</span>
+                                    </th>
+                                    <td
+                                        style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                    </td>
+                                    <td
+                                        style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                    </td>
+                                </tr>
+                                <ng-container *ngFor="let i of cardBackSideLimit;  let idx = index ">
+                                    <ng-container *ngIf="i < subscriber?.plan_services?.length;">
+
+                                        <tr class="tdData"
+                                            style="border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <!-- <th
+                                                    style="text-transform: uppercase; font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                   <span *ngIf="subscriber.plan_services[idx].ser_in_limit==''">{{subscriber.plan_services[idx].seq}} -</span>  {{ subscriber.plan_services[idx].service
+                                                    | titlecase}}</th> -->
+                                            <th [ngClass]="{'uppercase-text': subscriber.plan_services[idx].ser_in_limit === ''}"
+                                                style="font-size: 4.5px; border-right: 1px solid #000000; color: #000000; padding-top: 0; padding-bottom: 0;">
+                                                <span *ngIf="subscriber.plan_services[idx].ser_in_limit === ''">{{
+                                                    subscriber.plan_services[idx].seq }} -</span>
+                                                <span
+                                                    [class.your-class]="subscriber.plan_services[idx].ser_in_limit !== ''">{{
+                                                    subscriber.plan_services[idx].service }}</span>
+                                            </th>
+
+
+                                            <td
+                                                style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                <span *ngIf="subscriber.plan_services[idx].ser_in_limit!=''"> {{
+                                                    subscriber.reimbursment_rate }} %</span>
+                                            </td>
+                                           
+                                            <td style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;"
+                                                *ngIf="subscriber.plan_services[idx].ser_in_limit==''">
+                                                <span *ngIf="subscriber.totalCareLimitPrimSec != subscriber.plan_services[idx].cat_in_limit; else displayblank"> 
+                                                    {{subscriber.plan_services[idx].cat_in_limit}}
+                                                    <span
+                                                        *ngIf="subscriber.totalCareLimitPrimSec === subscriber.plan_services[idx].primarySecondaryServiceLimit; else displayFamille">f
+                                                        cfa</span>
+                                                    <!-- <span
+                                                        *ngIf="subscriber?.plan_services?.length === 2 && subscriber.totalCareLimitPrimSec === subscriber.plan_services[1].primarySecondaryServiceLimit; else displayFamille">f
+                                                        cfa</span> -->
+                                                    <ng-template #displayFamille>
+                                                        f cfa/an/famille
+                                                    </ng-template>
+
+                                                   
+                                                </span>
+                                                <ng-template #displayblank></ng-template>
+                                                
+                                            </td>
+                                            <td style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;"
+                                            *ngIf="subscriber.plan_services[idx].ser_in_limit!=''">
+                                              
+                                            <span *ngIf="subscriber.totalCareLimitPrimSec != subscriber.plan_services[idx].ser_in_limit; else displayblank"> 
+                                           {{subscriber.plan_services[idx].ser_in_limit}}
+                                                <span
+                                                    *ngIf="subscriber.totalCareLimitPrimSec === subscriber.plan_services[idx].primarySecondaryServiceLimit; else displayFamille">f
+                                                    cfa</span>
+                                                <!-- <span
+                                                    *ngIf="subscriber?.plan_services?.length === 2 && subscriber.totalCareLimitPrimSec === subscriber.plan_services[1].primarySecondaryServiceLimit; else displayFamille">f
+                                                    cfa</span> -->
+                                                <ng-template #displayFamille>
+                                                    f cfa/an/famille
+                                                </ng-template>
+                                               
+
+                                                </span>
+                                                <ng-template #displayblank>
+                                                   
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+
+
+                                    </ng-container>
+
+                                    <ng-container *ngIf="i >= subscriber?.plan_services?.length">
+                                        <!-- <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <th
+                                                style="text-transform: uppercase;font-size: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                <span class="your-class"></span>
+                                            </th>
+                                            <td
+                                                style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                <span></span>
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                                <span></span>
+                                            </td>
+                                        </tr> -->
+                                        <!--  <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <td
+                                                style="font-size: 4.3px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: center; border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">                                                
+                                            </td>
+                                        </tr> -->
+                                    </ng-container>
+                                </ng-container>
+                                <tr class="tdData"
+                                    style="border-bottom: 0.5px solid #000000;border-left: 1px solid #000000;border-right: 1px solid #000000;color: #000000;">
+                                    <th
+                                        style="font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>PLAFOND ANNUEL TOUTES PRESTATIONS CONFONDUES</span>
+                                    </th>
+                                    <th colspan="2"
+                                        style="font-size: 4.5px;text-align: center;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>{{subscriber.totalCareLimitPrimSec}} f cfa/an/famille</span>
+                                    </th>
+                                </tr>
+                                <ng-container
+                                    *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length>0">
+                                    <ng-container
+                                        *ngFor="let i2 of getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length);  let ix = index">
+                                        <ng-container>
+                                            <tr *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length !==ix"
+                                                style="color: #000000;">
+                                                <th
+                                                    style="text-transform: uppercase;font-size: 4px;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                    <span class="your-class"></span>
+                                                </th>
+                                                <td
+                                                    style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                    <span></span>
+                                                </td>
+                                                <td
+                                                    style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                                    <span></span>
+                                                </td>
+                                            </tr>
+                                            <!--   <tr *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length ===ix+1"
+                                        style="height: 7.89px;border-bottom: 0.5px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                        <th
+                                            style="text-transform: uppercase;font-size: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                            <span class="your-class"></span>
+                                        </th>
+                                        <td
+                                            style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            <span></span>
+                                        </td>
+                                        <td
+                                            style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                            <span></span>
+                                        </td>
+                                    </tr> -->
+                                            <!--  <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <td
+                                                style="font-size: 4.3px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: center; border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">                                                
+                                            </td>
+                                        </tr> -->
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="space-block"></div> -->
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+</ng-container>
+
+
+<ng-container *ngIf="checkAssignCardId(assignCardId)">
+
+    <div class="card-block-wrap p-4 pt-0">
+        <div class="card-print-block mb-3 ">
+            <div id="previewdiv" #previewdiv>
+                <ng-container *ngFor="let subscriber of subscribersInfoToPrintCard">
+                    <div class="front-card-table" [ngClass]="{'frontcard': isButtonClicked}">
+                        <div class="table-wrap-block">
+                            <table
+                                style="width: 348px;height: 218.77px; margin: 0 0px 0 0px; ;background-image: url('../../../../../assets/img/Background.png');background-size: cover;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: left;width: 40%;padding-left: 8px;">
+                                            <img style="height: 30px;padding-top: 5px;"
+                                                src="../../../../../assets/img/Logo-BIG.png" alt="logo">
+                                        </th>
+                                        <th
+                                            style="padding: 5px 8px 0 0px;width: 60%;text-align: right;color: #ffffff !important;font-size: 15px;">
+                                            <!-- <img style="height: 20px;margin-top: -7px;"
+                                                src="../../../../../assets/img/Carte_Access_header.svg" alt="logo"> -->
+                                                CARTE ACCES SANTE
+                                        </th>
+
+                                    </tr>
+                                    <!-- <tr style="border-bottom: 3px solid #001b65;">
+                                        <th></th>
+                                        <th></th>
+                                    </tr> -->
+                                </thead>
+                                <tbody style="background-repeat: repeat;background-size: 120px;">
+                                    <!-- <tr style="line-height: 5px;">
+                                        <td></td>
+                                        <td
+                                            style="text-align: right;font-size: 8px;padding: 5px 20px 0 0;font-weight: 500;color: #000000;">
+                                            {{subscriber.uniqueId}}
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td colspan="2" style="vertical-align: top;padding-top: 8px;">
+                                            <table style="width: 100%;">
+                                                <tbody>
+                                                    <td style="padding: 0 5px 0 15px;">
+                                                        <table style="width: 100%;" class="user-details-table">
+                                                            <tbody>
+
+                                                                <tr style="line-height: 8px;"
+                                                                    *ngFor="let field of maadoCardFields">
+                                                                    <td
+                                                                        style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                        <div
+                                                                            style="display: flex; justify-content: space-between;align-items: center;width: 80px;max-width: 80px;">
+                                                                            <span>{{field | translate}}</span>
+                                                                            <span>:</span>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Code ID'">
+                                                                        {{subscriber.card_id}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Nom'">
+                                                                        {{subscriber.last_name}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Prénoms'">
+                                                                        {{subscriber.middle_name+"
+                                                                        "+subscriber.first_name}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Date naissance'">
+                                                                        {{subscriber.dateofbirth |
+                                                                        date: 'dd/MM/yyyy'}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Genre'"> {{subscriber.gender |
+                                                                        translate}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Qualité' && subscriber.subscriptionisfor === 'Primary'">
+                                                                        Adhérent</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Qualité' && subscriber.subscriptionisfor === 'Secondary'">
+                                                                        {{subscriber.relationship}}</td>
+                                                                    <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                        *ngIf="field ==='Validité'">
+                                                                        {{subscriber.insurance_validity_to
+                                                                        | date: 'dd/MM/yyyy'}}</td>
+                                                                </tr>
+
+                                                                <tr style="line-height: 8px;"
+                                                                    class="front-position-top">
+                                                                    <td colspan="2" class="front-card-title"
+                                                                        style="font-size: 7px;color: #000000;font-weight: 700;padding-bottom: 3px;">
+                                                                        Informations Adhérent</td>
+                                                                </tr>
+                                                                <ng-container
+                                                                    *ngIf="subscriber.subscriptionisfor === 'Primary'">
+                                                                    <tr style="line-height: 8px;"
+                                                                        class="front-position-top"
+                                                                        *ngFor="let field of maadoAdherent">
+                                                                        <td
+                                                                            style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                            <div
+                                                                                style="display: flex; justify-content: space-between;align-items: center;width: 80px;max-width: 80px;">
+                                                                                <span>{{field | translate}}</span>
+                                                                                <span>:</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                            *ngIf="field ==='Nom et Prénoms'">
+                                                                            {{subscriber.name}}</td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Matricule'">
+                                                                            {{subscriber.employee_id}}
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Téléphone'">
+                                                                            {{subscriber.mobile}}</td>
+                                                                    </tr>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="subscriber.subscriptionisfor === 'Secondary'">
+                                                                    <tr style="line-height: 8px;"
+                                                                        class="front-position-top"
+                                                                        *ngFor="let field of maadoAdherent">
+                                                                        <td
+                                                                            style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;">
+                                                                            {{field | translate}}
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;padding-bottom: 3px;font-weight: 500;"
+                                                                            *ngIf="field ==='Nom et Prénoms'">
+                                                                            {{subscriber.primarySubscriberId.name}}</td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Matricule'">
+                                                                            {{subscriber.primarySubscriberId.employee_id}}
+                                                                        </td>
+                                                                        <td style="font-size: 6px;color: #000000;font-weight: 500;"
+                                                                            *ngIf="field ==='Téléphone'">
+                                                                            {{subscriber.primarySubscriberId.mobile}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </ng-container>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td
+                                                        style="padding: 0 40px 0 0;width: 120px;font-size: 11px;color: #000000;text-align: center;vertical-align: top;">
+                                                        <div class="front-card-img">
+                                                            <span
+                                                                style="max-width:99px;max-height: 100px;border-radius: 4px;border: 2px solid #275429;display: flex;align-items: center;justify-content: center;overflow: hidden;">
+                                                                <img *ngIf="subscriber.subscriberImage === ''"
+                                                                    style="max-width:99px;max-height: 100px;border-radius: 4px;"
+                                                                    src="../../../../../assets/img/homepage/quality.png"
+                                                                    alt="user photo">
+                                                                <img *ngIf="subscriber.subscriberImage !== ''"
+                                                                    style="max-width:99px;max-height: 100px; border-radius: 4px;"
+                                                                    [src]="subscriber.subscriberImage" alt="user photo">
+                                                            </span>
+                                                            <b
+                                                                style="font-weight: 500;letter-spacing: 0.2px;display: block;line-height: 24px;">{{subscriber.card_id}}</b>
+                                                        </div>
+                                                    </td>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table style="width: 100%;position: relative;top: 0px;" class="front-card-footer-table">
+                                                <tbody>
+                                                    <tr style="line-height: 7px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 7px;font-size: 5.3px;padding: 1.5px 0 0px 16.3px;color: #000000;font-weight: 500;">
+                                                            <b style="font-weight: 700;font-size: 5.7px;">IMPORTANT</b>
+                                                            : Cette carte est
+                                                            strictment personnelle et reste la
+                                                            propriété
+                                                            exclusive de la MAADO qui se garde le droit d'en
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="line-height: 7px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 7px;font-size: 5.3px;text-align: center;padding: 1px 0 0;color: #000000;font-weight: 500;">
+                                                            demander la restitution. En cas de perte ou de vol,
+                                                            prière vous adresser au :
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="line-height: 10px;">
+                                                        <td colspan="2" class="front-card-footer"
+                                                            style="line-height: 10px;font-size: 5.7px;text-align: center;font-weight: 700;padding: 0 1px 0;color: #000000;">
+                                                            +226 73 48 47 73 / 25 33 40 49 - 09 BP 1110 Ouagadougou 09.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <img class="bg-img" src="../../../../../assets/img/Background.svg" alt="background">
+                        </div>
+                    </div>
+                    <!-- <div class="space-block"></div> -->
+                    <div class="back-card-table" [ngClass]="{'backcard': isButtonClicked}"
+                        style="box-shadow: 0 0 5px #e1e1e1;">
+                        <table style="width: 347.7px;height: 204.77px; margin: 0 0 0;">
+                            <thead>
+                                <tr class="tdData" style="line-height: normal;height: 8px;">
+                                    <th colspan="3"
+                                        style="text-transform: uppercase;font-size: 7px;padding-top: 0;padding-bottom: 5px;text-align: center;color: #000000;">
+                                        COUVERTURE 80% NATIONALE</th>
+                                </tr>
+                                <tr class="tdData" style="line-height: normal; border: 1px solid #000000;height: 8px;">
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>NATURE DES PRESTATIONS</span>
+                                    </th>
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;text-align: center;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>TAUX DE REMB.</span>
+                                    </th>
+                                    <th class="back-sub-header"
+                                        style="text-transform: uppercase; line-height: normal; font-size: 4.5px;text-align: center;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>PLAFOND DE REMBOURSEMENT</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <!-- <tbody *ngFor="let catServ of subscriber?.plan_services let i = index"> -->
+                            <tbody>
+                                <tr class="tdData"
+                                    style="border-bottom: 0.5px solid #000000;border-left: 1px solid #000000;border-right: 1px solid #000000;height: 7.89px;">
+                                    <th
+                                        style="text-transform: uppercase;font-size: 4.5px;height: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>GARANTIES DE BASE</span>
+                                    </th>
+                                    <td
+                                        style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                    </td>
+                                    <td
+                                        style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                    </td>
+                                </tr>
+                                <ng-container *ngFor="let i of cardBackSideLimit;  let idx = index ">
+                                    <ng-container *ngIf="i < subscriber?.plan_services?.length;">
+
+                                        <tr class="tdData"
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <!-- <th
+                                                    style="text-transform: uppercase; font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                   <span *ngIf="subscriber.plan_services[idx].ser_in_limit==''">{{subscriber.plan_services[idx].seq}} -</span>  {{ subscriber.plan_services[idx].service
+                                                    | titlecase}}</th> -->
+                                            <th [ngClass]="{'uppercase-text': subscriber.plan_services[idx].ser_in_limit === ''}"
+                                                style="font-size: 4.5px; border-right: 1px solid #000000; color: #000000; padding-top: 0; padding-bottom: 0;">
+                                                <span *ngIf="subscriber.plan_services[idx].ser_in_limit === ''">{{
+                                                    subscriber.plan_services[idx].seq }} -</span>
+                                                <span
+                                                    [class.your-class]="subscriber.plan_services[idx].ser_in_limit !== ''">{{
+                                                    subscriber.plan_services[idx].service | titlecase }}</span>
+                                            </th>
+
+
+                                            <td
+                                                style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                <span *ngIf="subscriber.plan_services[idx].ser_in_limit!=''"> {{
+                                                    subscriber.reimbursment_rate }} %</span>
+                                            </td>
+                                            <td style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;"
+                                                *ngIf="subscriber.plan_services[idx].cat_in_limit">
+                                                {{subscriber.plan_services[idx].ser_in_limit==''?subscriber.plan_services[idx].cat_in_limit:subscriber.plan_services[idx].ser_in_limit}}
+                                                <span
+                                                    *ngIf="subscriber.totalCareLimitPrimSec === subscriber.plan_services[idx].primarySecondaryServiceLimit; else displayFamille">f
+                                                    cfa</span>
+                                                <!-- <span
+                                                    *ngIf="subscriber?.plan_services?.length === 2 && subscriber.totalCareLimitPrimSec === subscriber.plan_services[1].primarySecondaryServiceLimit; else displayFamille">f
+                                                    cfa</span> -->
+                                                <ng-template #displayFamille>
+                                                    f cfa/an/famille
+                                                </ng-template>
+                                            </td>
+                                        </tr>
+
+
+                                    </ng-container>
+
+                                    <ng-container *ngIf="i >= subscriber?.plan_services?.length">
+                                        <!-- <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <th
+                                                style="text-transform: uppercase;font-size: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                <span class="your-class"></span>
+                                            </th>
+                                            <td
+                                                style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                <span></span>
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                                <span></span>
+                                            </td>
+                                        </tr> -->
+                                        <!--  <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <td
+                                                style="font-size: 4.3px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: center; border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">                                                
+                                            </td>
+                                        </tr> -->
+                                    </ng-container>
+                                </ng-container>
+                                <tr class="tdData"
+                                    style="height: 7.89px;border-bottom: 0.5px solid #000000;border-left: 1px solid #000000;border-right: 1px solid #000000;color: #000000;">
+                                    <th
+                                        style="font-size: 4.5px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>PLAFOND ANNUEL TOUTES PRESTATIONS CONFONDUES</span>
+                                    </th>
+                                    <th colspan="2"
+                                        style="font-size: 4.5px;text-align: center;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                        <span>{{subscriber.totalCareLimitPrimSec}} f cfa/an/famille</span>
+                                    </th>
+                                </tr>
+                                <ng-container
+                                    *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length>0">
+                                    <ng-container
+                                        *ngFor="let i2 of getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length);  let ix = index">
+                                        <ng-container>
+                                            <tr *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length !==ix"
+                                                style="height: 7.89px; color: #000000;">
+                                                <th
+                                                    style="text-transform: uppercase;font-size: 4px;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                                    <span class="your-class"></span>
+                                                </th>
+                                                <td
+                                                    style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                                    <span></span>
+                                                </td>
+                                                <td
+                                                    style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                                    <span></span>
+                                                </td>
+                                            </tr>
+                                            <!--   <tr *ngIf="getNumericRange(cardBackSideLimit?.length - subscriber?.plan_services?.length).length ===ix+1"
+                                        style="height: 7.89px;border-bottom: 0.5px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                        <th
+                                            style="text-transform: uppercase;font-size: 4px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;">
+                                            <span class="your-class"></span>
+                                        </th>
+                                        <td
+                                            style="border-right: 1px solid #000000;font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            <span></span>
+                                        </td>
+                                        <td
+                                            style="font-size: 4.3px;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">
+                                            <span></span>
+                                        </td>
+                                    </tr> -->
+                                            <!--  <tr
+                                            style="height: 7.89px;border-bottom: 0.5px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;color: #000000;">
+                                            <td
+                                                style="font-size: 4.3px;border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: center; border-right: 1px solid #000000;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: center;">
+                                            </td>
+                                            <td
+                                                style="font-size: 4.3px;text-align: right;color: #000000;padding-top: 0;padding-bottom: 0;font-weight: 500;text-align: right;">                                                
+                                            </td>
+                                        </tr> -->
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="space-block"></div> -->
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    Card Template - 2
+</ng-container>
+
+<!-- <ng-container *ngIf="cardPreviewTemplates[2]?._id === assignCardId">
+    Card Template - 3
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[3]?._id === assignCardId">
+    Card Template - 4
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[4]?._id === assignCardId">
+    Card Template - 5
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[5]?._id === assignCardId">
+    Card Template - 6
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[6]?._id === assignCardId">
+    Card Template - 7
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[7]?._id === assignCardId">
+    Card Template - 8
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[8]?._id === assignCardId">
+    Card Template - 9
+</ng-container>
+<ng-container *ngIf="cardPreviewTemplates[9]?._id === assignCardId">
+    Card Template - 10
+</ng-container> -->
+
+
+<ng-template #completedownload let-modal>
+    <div class="custome_modal">
+     
+        <div class="modal-body">
+            <form>
+                <div class="row">
+                    <p>{{ "downloaded_successfully" | translate }}</p>
+                </div>
+                <div class="primary_btn">
+                    <button type="submit" (click)="Close()" class="btn btn-primary">Ok</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+
+<!-- *ngIf="isButtonClicked == true" -->
+
+<div class="ngx-overlay loading-foreground" *ngIf="isButtonClicked == true">
+    <div class="ngx-foreground-spinner">
+        <div class="sk-ball-spin-clockwise">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <h2 class="loader-title">{{loaderLabel}}</h2>
+        <div class="primary_btn">
+            <button type="submit" (click)="Close()" class="btn btn-primary">Stop</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+@import '../../../../../assets/css/variable/variable';
+
+
+.main_section {
+    margin-top: 40px;
+
+    &.retail_doctor_detail {
+        .main_section_inner {}
+    }
+
+    .row
+    {
+        // border-bottom: 3px solid;
+        margin-bottom: 14px;
+    }
+}

@@ -1,0 +1,33 @@
+.health_detail {   
+    border: 1px solid #B6C8D6;
+    border-radius: 15px;
+    }
+    .service_block{
+        border: 1px solid #B6C8D6;
+        border-radius: 15px;   
+        margin-top: 30px;
+        .mat-expansion-panel{
+            border-radius: 15px;   
+        }
+        .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+            justify-content: space-between;
+            font-weight: 500;
+            line-height: 31px;
+            color: #0C2F49;
+        }
+        table{
+            border: none;
+            border-radius: unset;
+        }
+        .primary_btn {
+                .button, button, .btn {
+                    padding: 5px 17px;
+                
+            }
+            .btn.btn-primary .mat-icon {
+                height: 30px;
+                width: 30px;
+                font-size: 19px;
+            }
+        }
+    }

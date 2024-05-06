@@ -1,0 +1,597 @@
+<div class="makeeprescription dashboard_main_content">
+  <div class="row">
+    <div class="col-md-7 col-xl-8">
+      <div class="main_title">{{ "other" | translate }}</div>
+      <div class="top_bar">
+        <div class="search_bar common_content">
+          <div class="input-group">
+            <button class="btn search-btn">
+              <mat-icon>search</mat-icon>
+            </button>
+            <!-- <input
+                type="search"
+                class="form-control"
+                placeholder="Search Vaccination"
+                aria-label="Search"
+                (click)="openVerticallyCenteredother(othercontent)"
+              /> -->
+
+            <!-- <mat-select
+                class="form-control"
+                (selectionChange)="changeSelectedOther($event.value)"
+              >
+                <mat-option *ngFor="let other of otherList" [value]="other">
+                  {{ other?.others }}
+                </mat-option>
+              </mat-select> -->
+
+            <input
+              type="text"
+              class="matinput"
+              placeholder="{{ 'search' | translate }}"
+              (keypress)="handleLabChange($event)"
+              aria-label="Search......"
+              matInput
+              style="width: 93%"
+              [formControl]="myControl"
+              [matAutocomplete]="auto"
+            />
+
+            <mat-autocomplete #auto="matAutocomplete">
+              <ng-container *ngFor="let option of filteredOptions | async">
+                <mat-option *ngIf="option != 'No data'" [value]="option.others">
+                  <span (click)="changeSelectedOther(option)">
+                    {{ option.others }}
+                  </span>
+
+                  <span
+                    placement="top"
+                    (click)="openCommentPopup(othercontent, option?._id)"
+                    style="
+                      position: absolute;
+
+                      font-size: 17px;
+
+                      margin-top: 16px;
+
+                      margin-left: 5px;
+                    "
+                    class="material-icons"
+                    >{{ "info" | translate }}</span
+                  >
+                </mat-option>
+
+                <mat-option *ngIf="option == 'No data'" style="height: auto">
+                  <span>
+                    <div class="border_bottom">
+                      <b>{{ "no_others_found" | translate }}</b
+                      >&nbsp;
+                      <span
+                        ><button
+                          class="btn btn-primary"
+                          (click)="handleAddNewOther()"
+                        >
+                          {{ "add_new" | translate }}
+                        </button></span
+                      >
+                    </div>
+                    <div class="border_bottom">
+                      <h3>{{ "recently_prescribed_others" | translate }}</h3>
+                    </div>
+                    <ng-container>
+                      <div class="border_bottom">
+                        <ng-container
+                          *ngFor="let med of recentPrescribedOtherList"
+                        >
+                          <div class="border_bottom">
+                            <mat-option [value]="med.other_name">
+                              <span (click)="changeSelectedOther(med)">
+                                {{ med.other_name }}
+                              </span>
+                            </mat-option>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </span>
+                </mat-option>
+              </ng-container>
+
+              <mat-option *ngIf="!filteredOptions" style="height: auto">
+                <span>
+                  <h3 class="border_bottom">
+                    {{ "recently_prescribed_others" | translate }}
+                  </h3>
+                  <ng-container *ngFor="let med of recentPrescribedOtherList">
+                    <div class="border_bottom">
+                      <mat-option [value]="med.other_name">
+                        <span (click)="changeSelectedOther(med)">
+                          {{ med.other_name }}
+                        </span>
+                      </mat-option>
+                    </div>
+                  </ng-container>
+                </span>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom_bar">
+        <form [formGroup]="addForm">
+          <div class="prescription">
+            <!-- <div class="prescription_title">Cardiac Ultrasound</div> -->
+            <div class="item" *ngFor="let other of allOtherTests">
+              <div class="left_part">
+                <h2>
+                  {{ other?.other_name }}
+                </h2>
+                <div class="prescribetime">{{ other?.reason_for_other }}</div>
+              </div>
+              <div class="right_part">
+                <div class="icon_group">
+                  <a
+                    class="svgicon"
+                    (click)="openCommentPopup(othercontent, other?.otherId)"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                      <path
+                        opacity="3"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M6.11591 0.0388641C3.53288 0.391143 1.40424 2.05956 0.459047 4.47271C0.13993 5.28741 0 6.05754 0 6.999C0 8.17418 0.232255 9.15496 0.75255 10.177C1.82301 12.2799 3.89752 13.7151 6.2377 13.9719C6.57282 14.0087 7.42955 14.0095 7.75556 13.9733C11.0236 13.6107 13.6188 11.0178 13.9722 7.76207C14.0088 7.42575 14.0094 6.56879 13.9733 6.24386C13.7127 3.89373 12.2828 1.81976 10.189 0.754928C9.42286 0.365276 8.73007 0.151943 7.86087 0.0379579C7.47175 -0.013062 6.4929 -0.0125403 6.11591 0.0388641ZM7.31631 2.64283C7.65242 2.73279 7.99111 2.99824 8.13692 3.28605C8.39487 3.7952 8.31588 4.34835 7.92563 4.76562C7.42038 5.30586 6.58081 5.30586 6.07556 4.76562C5.90027 4.57818 5.81494 4.42367 5.75087 4.17763C5.54972 3.40516 6.17389 2.61213 6.98687 2.60727C7.09256 2.60664 7.24081 2.62265 7.31631 2.64283ZM7.39905 6.14789C7.62895 6.227 7.76391 6.31366 7.92887 6.48811C8.09066 6.65924 8.22057 6.91019 8.26287 7.1333C8.27978 7.22249 8.29074 7.86493 8.29049 8.75328C8.29005 10.35 8.28453 10.4206 8.13692 10.7119C8.0973 10.7902 7.99462 10.9244 7.90875 11.0103C7.49733 11.4218 6.92071 11.5069 6.38438 11.2352C6.20785 11.1458 5.95542 10.8918 5.86427 10.7119C5.71666 10.4206 5.71114 10.35 5.7107 8.75328C5.71045 7.86493 5.72141 7.22249 5.73832 7.1333C5.79888 6.81389 6.01384 6.48797 6.29049 6.29622C6.57559 6.0986 7.06539 6.03305 7.39905 6.14789Z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="svgicon"
+                    (click)="changeSelectedOther(other, 'Edit')"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                      <path
+                        opacity="3"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10.5142 0.0229199C10.3428 0.0573628 10.1536 0.141476 10.0166 0.244171C9.94218 0.300012 9.72307 0.505285 9.52976 0.700352L9.17827 1.05501L10.063 1.94044L10.9477 2.82587L11.3237 2.45061C11.7438 2.03136 11.8395 1.90759 11.9242 1.6743C12.0906 1.21545 11.979 0.720952 11.6302 0.371924C11.3334 0.0748893 10.9118 -0.0569464 10.5142 0.0229199ZM6.64187 3.59457C5.03559 5.20381 4.6412 5.61079 4.62404 5.67686C4.61229 5.72203 4.52518 6.14963 4.43044 6.62709C4.31571 7.20542 4.26371 7.51693 4.27468 7.56031C4.29571 7.64339 4.36459 7.71235 4.44763 7.7334C4.5351 7.75559 6.32498 7.39974 6.41623 7.34202C6.45238 7.31917 7.36806 6.41253 8.4511 5.32729L10.4203 3.35415L9.54134 2.47426C9.05794 1.99034 8.65701 1.59439 8.65039 1.59439C8.64378 1.59439 7.73994 2.49446 6.64187 3.59457ZM1.27858 2.01904C0.801035 2.08971 0.368127 2.40948 0.154276 2.84954C-0.00886787 3.18522 -0.00024066 2.95256 0.000204767 7.00711C0.000673638 11.0892 -0.00959462 10.8343 0.168764 11.1905C0.339315 11.5312 0.644737 11.7944 1.03519 11.9371L1.20715 12H4.99328H8.7794L8.96695 11.9363C9.45195 11.7716 9.813 11.3872 9.9558 10.8835C9.99568 10.7429 9.99847 10.5901 9.99847 8.54919V6.36534L9.92778 6.25089C9.82569 6.08565 9.65157 5.9963 9.46356 6.01273C9.29873 6.02711 9.17157 6.10357 9.07852 6.2443L9.01384 6.34207L9.00212 8.50235C8.9914 10.4772 8.98697 10.6689 8.95056 10.7354C8.8943 10.8382 8.76044 10.9493 8.65672 10.9794C8.59422 10.9975 7.50926 11.0029 4.94437 10.998L1.32036 10.9911L1.22857 10.927C1.1781 10.8917 1.11044 10.8238 1.07821 10.7762L1.0196 10.6896L1.01353 7.03304C1.0076 3.46853 1.00858 3.37432 1.0524 3.28904C1.07713 3.24094 1.12735 3.17309 1.16396 3.13829C1.31372 2.99606 1.21017 3.00214 3.48356 3.00214C5.06037 3.00214 5.58551 2.99517 5.6587 2.97328C5.79228 2.93335 5.9376 2.78251 5.9765 2.64347C6.03895 2.42022 5.94597 2.18618 5.7487 2.07014L5.63797 2.00498L3.52806 2.00168C2.3676 1.99987 1.35533 2.00766 1.27858 2.01904Z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="primary_btn">
+              <button class="btn btn-secondary" (click)="routeToMore()">
+                {{ "add_more_prescription" | translate }}
+              </button>
+              <button class="btn btn-primary" (click)="routeToPreview()">
+                {{ "preview" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-5 col-xl-4">
+      <div class="prescription_detail">
+        <div class="prescription_inner">
+          <div class="prescribe_item profile">
+            <div class="prescribe_profile">
+              <div class="image">
+                <img src="../../../../../../assets/img/default_user.png" />
+              </div>
+              <div class="desc">
+                <h2 class="title">{{ patientName }}</h2>
+              </div>
+            </div>
+          </div>
+          <form [formGroup]="filterForm">
+            <div class="prescribe_item">
+              <div class="prescribe_title">{{ "biometrics" | translate }}</div>
+              <div class="row">
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "height" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="height" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "weight" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="weight" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <div class="form_field_wrapper">
+                    <label>{{ "bmi" | translate }}</label>
+                    <mat-form-field appearance="fill">
+                      <input matInput type="number" formControlName="bmi" />
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "liver_failure" | translate }}
+              </div>
+              <mat-radio-group formControlName="liver_failure">
+                <mat-radio-button checked value="None">{{
+                  "none" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Moderate">{{
+                  "moderate" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Severe">{{
+                  "severe" | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "renal_failure" | translate }}
+              </div>
+              <mat-radio-group formControlName="renal_failure">
+                <mat-radio-button checked value="None">{{
+                  "none" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Moderate">{{
+                  "moderate" | translate
+                }}</mat-radio-button>
+                <mat-radio-button checked value="Severe">{{
+                  "severe" | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">{{ "allergies" | translate }}</div>
+              <ul class="listing row">
+                <ul class="listing row">
+                  <li class="item" *ngFor="let item of patientAllDetails?.historyDetails?.allergies">
+                    <div class="value">{{item?.type ? item?.type : "No allergies"}}</div>
+                  </li>
+                </ul>
+              </ul>
+            </div>
+            <div class="prescribe_item">
+              <div class="prescribe_title">
+                {{ "medical_history" | translate }}
+              </div>
+              <ul class="listing row">
+                <li class="item">
+                  <label>{{ "medicine_name" | translate }}</label>
+                  <div class="value">
+                    {{ medicineData?.medicine}}
+                  </div>
+                </li>
+                <li class="item">
+                  <label>{{ "frequency" | translate }}</label>
+                  <div class="value">{{ medicineData?.frequency }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="prescribe_item">
+              <mat-checkbox
+                class="example-margin"
+                formControlName="accident_related"
+                >{{ "accident_related" | translate }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="example-margin"
+                formControlName="occupational_desease"
+                >{{ "occupational_desease" | translate }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="example-margin"
+                formControlName="free_of_charge"
+                >{{ "free_of_charge" | translate }}</mat-checkbox
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------------------------------Other modal---------------------------------------- -->
+<div class="other">
+  <ng-template #othercontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "other" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body medicine">
+        <div class="medicine_content">
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "category" | translate }}</div>
+                <div class="value">{{ selectedotherinfo?.category }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "others" | translate }}</div>
+                <div class="value">{{ selectedotherinfo?.others }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "description" | translate }}</div>
+                <div class="value">{{ selectedotherinfo?.description }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "clinical_considerations" | translate }}
+                </div>
+                <div class="value">
+                  {{ selectedotherinfo?.clinical_consideration }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "normal_value" | translate }}</div>
+                <div class="value">{{ selectedotherinfo?.normal_values }}</div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "abnormal_values" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.abnormal_values }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">
+                  {{ "contributing_factors_to_abnormal" | translate }}
+                </div>
+                <div class="value">
+                  {{ selectedotherinfo?.contributing_factors_to_abnormal }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "before" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.procedure?.before }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "during" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.procedure?.during }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label invisible">{{ "procedure" | translate }}</div>
+                <div class="sub_label">{{ "after" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.procedure?.after }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "clinical_warning" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.clinical_warning }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "contraindications" | translate }}</div>
+                <div class="value">
+                  {{ selectedotherinfo?.contraindications }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4 medicine_item">
+              <div class="item">
+                <div class="label">{{ "other" | translate }}</div>
+                <div class="value">{{ selectedotherinfo?.established }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 medicine_item">
+              <div class="item">
+                <div class="label">{{ "link" | translate }}</div>
+                <div class="value">
+                  <a href="#">{{ selectedotherinfo?.link }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------add other test modal---------------------------------------- -->
+<ng-template #addothertest let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ selectedOtherName }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="medicine_content">
+        <div class="row">
+          <form [formGroup]="addOtherForm">
+            <div class="prescription">
+              <!-- <div class="prescription_title">{{selectedLab?.lab_test}}</div> -->
+              <div class="form_field_wrapper">
+                <label>{{ "reason" | translate }}*</label>
+                <mat-form-field appearance="fill">
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="{{ 'write_here' | translate }}"
+                    formControlName="reason_for_other"
+                  />
+                </mat-form-field>
+              </div>
+              <span
+                class="text-danger"
+                *ngIf="isSubmitted && validate.reason_for_other.invalid"
+                >{{ "required" | translate }}*</span
+              >
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "relevant_clinical_info" | translate }} ({{
+                    "optional" | translate
+                  }})</label
+                >
+                <mat-form-field appearance="fill">
+                  <textarea
+                    type="text"
+                    placeholder="{{ 'write_here' | translate }}"
+                    matInput
+                    formControlName="relevant_clinical_information"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "specific_instructions" | translate }} ({{
+                    "optional" | translate
+                  }})</label
+                >
+                <mat-form-field appearance="fill">
+                  <textarea
+                    type="text"
+                    placeholder="{{ 'write_here' | translate }}"
+                    matInput
+                    formControlName="specific_instruction"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div class="form_field_wrapper">
+                <label
+                  >{{ "additional_comments" | translate }} ({{
+                    "optional" | translate
+                  }})</label
+                >
+                <mat-form-field appearance="fill">
+                  <textarea
+                    type="text"
+                    placeholder="Write here"
+                    matInput
+                    formControlName="comment"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div class="primary_btn">
+                <button
+                  class="btn btn-primary"
+                  (click)="checkForEprescriptionExist()"
+                >
+                  {{ "save" | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-------------New Lab add--------------->
+<ng-template #newothermodal let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "add_new_other_test" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="medicine_content">
+        <div class="row">
+          <div class="prescription">
+            <!-- <div class="prescription_title">{{selectedLab?.lab_test}}</div> -->
+            <div class="form_field_wrapper">
+              <label>{{ "others_name" | translate }}*</label>
+              <mat-form-field appearance="fill">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="{{ 'enter_others_name' | translate }}"
+                  #other
+                />
+              </mat-form-field>
+            </div>
+
+            <div class="primary_btn">
+              <button
+                class="btn btn-primary"
+                (click)="saveNewOther(other.value)"
+              >
+                {{ "save" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

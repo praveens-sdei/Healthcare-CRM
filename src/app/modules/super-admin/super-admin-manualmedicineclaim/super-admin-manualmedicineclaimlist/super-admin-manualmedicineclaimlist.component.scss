@@ -1,0 +1,249 @@
+@import '../../../../../assets/css/variable/variable';
+.medicines_claim {
+    .export_list {
+        .inner_exprot_list {
+            .status_list {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                background: #FFFFFF;
+                border: 1px solid rgba(11, 73, 119, 0.15);
+                border-radius: 10px;
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+                p {
+                    margin-bottom: 0;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 20px;
+                    color: $bodycolor;
+                    margin-left: 10px;
+                }
+            }
+            .primary_btn {
+                display: flex;
+                justify-content: end;
+                margin: 5px 0;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                flex-wrap: wrap;
+                li {
+                    width: auto;
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+    .top_bar {
+        .content_wrap {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+            .policy {
+                margin: 0 20px 0 0;
+                label {
+                    margin: 0 12px 0 0;
+                }
+                .form_field_wrapper {
+                    display: inline-block;
+                    .mat-form-field {
+                        .mat-form-field-wrapper {
+                            padding: 0;
+                            .mat-form-field-flex {
+                                background-color: #EBF0F4;
+                                border: 1px solid #EBF0F4;
+                                border-radius: 15px;
+                                .mat-form-field-infix {
+                                    .mat-select {
+                                        .mat-select-arrow-wrapper {
+                                            transform: translateY(0);
+                                        }
+                                        .mat-select-value {
+                                            color: $formfiled_color;
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+                            .mat-form-field-underline {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                &.sort {
+                    .mat-form-field-infix {
+                        width: 150px;
+                    }
+                }
+                &.date_pick {
+                    display: flex;
+                    align-items: center;
+                    .form_field_wrapper {
+                        display: flex;
+                        align-items: center;
+                        label {
+                            margin-bottom: 0;
+                        }
+                        .mat-form-field-infix {
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custome_dropdown {
+    background: #EBF0F4;
+    border-radius: 15px;
+    &.mat-form-field-appearance-legacy .mat-form-field-underline {
+        background-color: transparent !important;
+    }
+    &.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+        padding-bottom: 10px;
+    }
+    &.mat-form-field {
+        padding: 0 13px;
+    }
+    &.mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-select .mat-select-arrow {
+        border: solid #3d596d;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 4px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        border-radius: 2px;
+    }
+}
+
+.mat-select-panel {
+    .select-all {
+        margin-bottom: 10px;
+        padding: 5px 10px;
+    }
+}
+
+.form_field_wrapper .mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+    padding: 9px 0 8px;
+}
+
+.mat-form-field-label-wrapper {
+    display: none;
+}
+
+.mat-form-field-hide-placeholder .mat-select-placeholder {
+    color: gray !important;
+    -webkit-text-fill-color: gray !important;
+}
+
+.left_block {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+hr {
+    margin: 32px -32px;
+}
+
+.common_space {
+    border-bottom: none;
+}
+
+@media screen and (max-width :1540px) {
+    .medicines_claim .top_bar .content_wrap .policy {
+        margin: 0 20px 20px 0;
+    }
+}
+
+@media screen and (max-width :1400px) {
+    .medicines_claim .export_list .inner_exprot_list .status_list p {
+        font-size: 16px;
+        margin-left: 8px;
+    }
+}
+
+@media screen and (max-width :1356px) {
+    .medicines_claim .export_list .inner_exprot_list .status_list p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width :1325px) {
+    .medicines_claim .top_bar .content_wrap .policy label {
+        min-width: 120px;
+    }
+    .medicines_claim .top_bar .content_wrap .policy.sort .mat-form-field-infix {
+        width: 180px;
+    }
+    .medicines_claim .top_bar .content_wrap .policy.date_pick .form_field_wrapper .mat-form-field-infix {
+        width: 140px;
+    }
+}
+
+@media screen and (max-width:$desktop) {
+    .medicines_claim .top_bar .content_wrap .policy .mat-form-field {
+        display: block;
+    }
+    .medicines_claim .top_bar .content_wrap .policy.date_pick {
+        display: block;
+    }
+    .medicines_claim .top_bar .content_wrap .policy label {
+        margin: 0 12px 10px 0;
+    }
+}
+
+@media screen and (max-width:$large_phone) {
+    .medicines_claim .top_bar .content_wrap {
+        flex-direction: column;
+        margin: 0;
+    }
+    .medicines_claim .top_bar .right_part .primary_btn {
+        flex-direction: row;
+    }
+    .medicines_claim .top_bar .right_part .primary_btn .btn {
+        margin: 0 0 0 15px;
+    }
+}
+
+@media screen and (max-width:$medium_iphone) {
+    .medicines_claim .top_bar .content_wrap {
+        display: block;
+    }
+    .medicines_claim .top_bar .content_wrap .policy.date_pick .form_field_wrapper {
+        display: block;
+    }
+    .left_block {
+        display: block;
+    }
+    .medicines_claim .top_bar .content_wrap .policy {
+        margin: 0 0 20px 0;
+    }
+}
+
+@media screen and (max-width:$small_phone) {
+    .medicines_claim .top_bar .right_part .primary_btn {
+        flex-direction: column;
+    }
+    .medicines_claim .top_bar .right_part .primary_btn .btn {
+        margin: 0 0 15px;
+    }
+    .medicines_claim .export_list .inner_exprot_list ul li {
+        width: 100%;
+    }
+}
+.approve{
+    background-color: #2BBD46;
+    color: #FFFFFF;
+}
+.detailView{
+    background-color: darkgoldenrod;
+    color: #FFFFFF;
+}

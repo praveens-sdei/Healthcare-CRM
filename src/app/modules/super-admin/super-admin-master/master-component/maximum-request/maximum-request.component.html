@@ -1,0 +1,380 @@
+<form [formGroup]="maximumReqForm" (ngSubmit)="saveMaximumReq(this.maximumReqForm.value)">
+    <div class="tab_content">
+        <div class="max_request">
+            <div class="main_title">{{ 'set_request_for_pharmacy' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_redicine_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('PHARMA','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"><input type="number"
+                                [(ngModel)]="pharMedReqCounter" formControlName="pharMedAvailReq" class="form-control"></div>
+                            <button type="button" (click)="MedReq('PHARMA','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_title">{{ 'set_request_for_hospital_doctor' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_redicine_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('HOSDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="hosMedAvailReq" class="form-control" [(ngModel)]="hosMedReqCounter">
+                            </div>
+                            <button type="button">
+                                <mat-icon class="qty_btn" (click)="MedReq('HOSDOC','ADD')">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'request_medicine_price' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('HOSDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="hosMedPriceReq" class="form-control" [(ngModel)]="hosMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('HOSDOC','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_medicine' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('HOSDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="hosOrdMedicine" class="form-control" [(ngModel)]="hosMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('HOSDOC','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_title">{{ 'set_request_for_individual_doctor' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_redicine_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('INDDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="docMedAvailReq" class="form-control" [(ngModel)]="IndMedReqCounter">
+                            </div>
+                            <button type="button" (click)="MedReq('INDDOC','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'request_medicine_price' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('INDDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="docMedPriceReq" class="form-control" [(ngModel)]="IndMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('INDDOC','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_medicine' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('INDDOC','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="docOrdMedicine" class="form-control" [(ngModel)]="IndMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('INDDOC','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_title">{{ 'set_request_for_patient' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_redicine_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('PATIENT','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="patMedAvailReq" class="form-control" [(ngModel)]="PatMedReqCounter">
+                            </div>
+                            <button type="button" (click)="MedReq('PATIENT','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'request_medicine_price' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('PATIENT','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="patMedPriceReq" class="form-control" [(ngModel)]="PatMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('PATIENT','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_medicine' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('PATIENT','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> 
+                                <input type="number" formControlName="patOrdMedicine" class="form-control" [(ngModel)]="PatMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('PATIENT','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main_title">{{ 'set_request_for_dental' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('DENTAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="dentalMedAvailReq" class="form-control" [(ngModel)]="dentalMedReqCounter">
+                            </div>
+                            <button type="button">
+                                <mat-icon class="qty_btn" (click)="MedReq('DENTAL','ADD')">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'price_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('DENTAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="dentalMedPriceReq" class="form-control" [(ngModel)]="dentalMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('DENTAL','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('DENTAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="dentalOrderReq" class="form-control" [(ngModel)]="dentalMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('DENTAL','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main_title">{{ 'set_request_for_optical' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('OPTICAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="opticalMedAvailReq" class="form-control" [(ngModel)]="opitalMedReqCounter">
+                            </div>
+                            <button type="button">
+                                <mat-icon class="qty_btn" (click)="MedReq('OPTICAL','ADD')">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'price_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('OPTICAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="opticalMedPriceReq" class="form-control" [(ngModel)]="opitalMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('OPTICAL','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('OPTICAL','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="opticalOrderReq" class="form-control" [(ngModel)]="opitalMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('OPTICAL','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main_title">{{ 'set_request_for_lab-img' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('LABIMG','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="labImgMedAvailReq" class="form-control" [(ngModel)]="labImgMedReqCounter">
+                            </div>
+                            <button type="button">
+                                <mat-icon class="qty_btn" (click)="MedReq('LABIMG','ADD')">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'price_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('LABIMG','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="labImgMedPriceReq" class="form-control" [(ngModel)]="labImgMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('LABIMG','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('LABIMG','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="labImgOrderReq" class="form-control" [(ngModel)]="labImgMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('LABIMG','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="main_title">{{ 'set_request_for_para' | translate }}</div>
+            <div class="item_wrapper">
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'availability_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedReq('PARA','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="paraMedAvailReq" class="form-control" [(ngModel)]="paraMedReqCounter">
+                            </div>
+                            <button type="button">
+                                <mat-icon class="qty_btn" (click)="MedReq('PARA','ADD')">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'price_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedPrc('PARA','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="paraMedPriceReq" class="form-control" [(ngModel)]="paraMedPrcCounter">
+                            </div>
+                            <button type="button" (click)="MedPrc('PARA','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="item mul_item">
+                    <div class="item_content">
+                        <h4>{{ 'order_request' | translate }}</h4>
+                        <div class="primary_btn">
+                            <button type="button" (click)="MedOrd('PARA','MINUS')">
+                                <mat-icon class="qty_btn">remove</mat-icon>
+                            </button>
+                            <div class="counter qty_btn form-outline"> <input type="number" formControlName="paraOrderReq" class="form-control" [(ngModel)]="paraMedOrdCounter">
+                            </div>
+                            <button type="button" (click)="MedOrd('PARA','ADD')">
+                                <mat-icon class="qty_btn">add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="primary_btn">
+            <button type="button" class="btn btn-secondary">{{ 'cancel' | translate }}</button>
+            <ng-container *ngIf="giveInnerPermission('add')">
+            <button type="submit" class="btn btn-primary">{{ 'save' | translate }}</button>
+            </ng-container>
+        </div>
+    </div>
+</form>

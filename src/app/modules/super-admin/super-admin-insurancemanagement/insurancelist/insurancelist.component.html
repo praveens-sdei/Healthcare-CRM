@@ -1,0 +1,897 @@
+<div class="insurance_list dashboard_main_content">
+  <div class="top_bar">
+    <div class="left_part">
+      <div class="search_bar common_content">
+        <div class="input-group">
+          <button class="btn search-btn">
+            <mat-icon>search</mat-icon>
+          </button>
+          <input
+            type="search"
+            (keyup)="handleSearchFilter($event)"
+            class="form-control"
+            placeholder="{{ 'search' | translate }}"
+            aria-label="Search"
+            #searchName
+          />
+        </div>
+      </div>
+      <div class="content_wrap">
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker"
+                placeholder="{{ 'start_date' | translate }}"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="policy date">
+          <div class="form_field_wrapper">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input
+                matInput
+                [matDatepickerFilter]="myFilter"
+                [matDatepicker]="picker1"
+                placeholder="{{ 'end_date' | translate }}"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="primary_btn">
+        <button type="button" class="btn btn-link" (click)="clearAll()">
+          {{ "clear_all" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom_bar">
+    <mat-tab-group
+      animationDuration="0ms"
+      [(selectedIndex)]="selectedTabIndex"
+      (selectedTabChange)="onTabChanged($event)"
+      #statusTab
+    >
+    <ng-container *ngIf="giveInnerPermission('pending_request')">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="19"
+              viewBox="0 0 17 19"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8.04261 0.180759C7.48555 0.456343 6.27594 0.951284 5.46054 1.23738C3.85651 1.80012 2.52152 2.14978 0.889297 2.43464C0.233128 2.54916 0.122324 2.57889 0.0620656 2.65665C-0.00453034 2.74262 -0.00688302 2.91138 0.00647411 6.63545C0.021387 10.7963 0.0180857 10.7183 0.219885 11.6843C0.406467 12.5778 0.874725 13.7392 1.35099 14.4897C2.67714 16.5796 4.87518 18.0884 7.71835 18.8604C8.39092 19.0429 8.59112 19.0449 9.23351 18.8754C11.3529 18.316 13.2354 17.2557 14.5513 15.8804C15.8447 14.5285 16.5953 12.9506 16.9105 10.921C16.9636 10.5794 16.974 9.98488 16.986 6.62879L17 2.73314L16.9094 2.63841C16.8467 2.57287 16.7555 2.53544 16.6134 2.51676C14.4003 2.22627 11.2451 1.27013 9.02686 0.217755C8.77068 0.0962206 8.52513 -0.00176037 8.48123 2.39904e-05C8.43732 0.001848 8.23993 0.0831749 8.04261 0.180759ZM9.51481 3.90051C11.7582 4.37503 13.4514 6.1639 13.8703 8.5022C13.9676 9.04552 13.9676 9.98116 13.8703 10.5245C13.7255 11.333 13.4031 12.1383 12.9627 12.7919C12.6697 13.2268 12.0666 13.8607 11.6556 14.1658C11.043 14.6206 10.2533 14.9728 9.49053 15.1315C8.99278 15.2351 7.91769 15.2254 7.42681 15.113C6.66208 14.9377 5.95373 14.6184 5.35873 14.1806C4.94258 13.8744 4.33593 13.2442 4.04397 12.8148C2.52175 10.5757 2.75212 7.48508 4.58588 5.54509C5.47975 4.59946 6.56793 4.02331 7.79485 3.8461C8.1492 3.79491 9.16798 3.82715 9.51481 3.90051ZM7.37513 6.4385C7.28197 6.5358 7.28197 6.53592 7.28197 7.39015V8.24446H6.46442C5.64694 8.24446 5.64682 8.24446 5.5537 8.34181L5.46054 8.43912V9.51334V10.5876L5.5537 10.6849C5.64682 10.7822 5.64694 10.7822 6.46442 10.7822H7.28197V11.6365C7.28197 12.4908 7.28197 12.4909 7.37513 12.5882L7.46825 12.6855H8.49625H9.52426L9.61738 12.5882C9.71054 12.4909 9.71054 12.4908 9.71054 11.6365V10.7822H10.5281C11.3456 10.7822 11.3457 10.7822 11.4388 10.6849L11.532 10.5876V9.51334V8.43912L11.4388 8.34181C11.3457 8.24446 11.3456 8.24446 10.5281 8.24446H9.71054V7.39015C9.71054 6.53592 9.71054 6.5358 9.61738 6.4385L9.52426 6.34115H8.49625H7.46825L7.37513 6.4385Z"
+              />
+            </svg>
+          </div>
+          <!-- <div (click)="getPendingDetails()">Pending Request</div> -->
+          {{ "pending_request" | translate }}
+        </ng-template>
+      </mat-tab>
+    </ng-container>
+      <ng-container *ngIf="giveInnerPermission('approve_request')">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="19"
+              viewBox="0 0 17 19"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8.04261 0.180759C7.48555 0.456343 6.27594 0.951284 5.46054 1.23738C3.85651 1.80012 2.52152 2.14978 0.889297 2.43464C0.233128 2.54916 0.122324 2.57889 0.0620656 2.65665C-0.00453034 2.74262 -0.00688302 2.91138 0.00647411 6.63545C0.021387 10.7963 0.0180857 10.7183 0.219885 11.6843C0.406467 12.5778 0.874725 13.7392 1.35099 14.4897C2.67714 16.5796 4.87518 18.0884 7.71835 18.8604C8.39092 19.0429 8.59112 19.0449 9.23351 18.8754C11.3529 18.316 13.2354 17.2557 14.5513 15.8804C15.8447 14.5285 16.5953 12.9506 16.9105 10.921C16.9636 10.5794 16.974 9.98488 16.986 6.62879L17 2.73314L16.9094 2.63841C16.8467 2.57287 16.7555 2.53544 16.6134 2.51676C14.4003 2.22627 11.2451 1.27013 9.02686 0.217755C8.77068 0.0962206 8.52513 -0.00176037 8.48123 2.39904e-05C8.43732 0.001848 8.23993 0.0831749 8.04261 0.180759ZM9.51481 3.90051C11.7582 4.37503 13.4514 6.1639 13.8703 8.5022C13.9676 9.04552 13.9676 9.98116 13.8703 10.5245C13.7255 11.333 13.4031 12.1383 12.9627 12.7919C12.6697 13.2268 12.0666 13.8607 11.6556 14.1658C11.043 14.6206 10.2533 14.9728 9.49053 15.1315C8.99278 15.2351 7.91769 15.2254 7.42681 15.113C6.66208 14.9377 5.95373 14.6184 5.35873 14.1806C4.94258 13.8744 4.33593 13.2442 4.04397 12.8148C2.52175 10.5757 2.75212 7.48508 4.58588 5.54509C5.47975 4.59946 6.56793 4.02331 7.79485 3.8461C8.1492 3.79491 9.16798 3.82715 9.51481 3.90051ZM7.37513 6.4385C7.28197 6.5358 7.28197 6.53592 7.28197 7.39015V8.24446H6.46442C5.64694 8.24446 5.64682 8.24446 5.5537 8.34181L5.46054 8.43912V9.51334V10.5876L5.5537 10.6849C5.64682 10.7822 5.64694 10.7822 6.46442 10.7822H7.28197V11.6365C7.28197 12.4908 7.28197 12.4909 7.37513 12.5882L7.46825 12.6855H8.49625H9.52426L9.61738 12.5882C9.71054 12.4909 9.71054 12.4908 9.71054 11.6365V10.7822H10.5281C11.3456 10.7822 11.3457 10.7822 11.4388 10.6849L11.532 10.5876V9.51334V8.43912L11.4388 8.34181C11.3457 8.24446 11.3456 8.24446 10.5281 8.24446H9.71054V7.39015C9.71054 6.53592 9.71054 6.5358 9.61738 6.4385L9.52426 6.34115H8.49625H7.46825L7.37513 6.4385Z"
+              />
+            </svg>
+          </div>
+          <!-- <div (click)="getApprovedDetails()">Approve</div> -->
+          {{ "approve" | translate }}
+        </ng-template>
+      </mat-tab>
+    </ng-container>
+      <ng-container *ngIf="giveInnerPermission('reject_request')">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="btn_svg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="19"
+              viewBox="0 0 17 19"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8.04261 0.180759C7.48555 0.456343 6.27594 0.951284 5.46054 1.23738C3.85651 1.80012 2.52152 2.14978 0.889297 2.43464C0.233128 2.54916 0.122324 2.57889 0.0620656 2.65665C-0.00453034 2.74262 -0.00688302 2.91138 0.00647411 6.63545C0.021387 10.7963 0.0180857 10.7183 0.219885 11.6843C0.406467 12.5778 0.874725 13.7392 1.35099 14.4897C2.67714 16.5796 4.87518 18.0884 7.71835 18.8604C8.39092 19.0429 8.59112 19.0449 9.23351 18.8754C11.3529 18.316 13.2354 17.2557 14.5513 15.8804C15.8447 14.5285 16.5953 12.9506 16.9105 10.921C16.9636 10.5794 16.974 9.98488 16.986 6.62879L17 2.73314L16.9094 2.63841C16.8467 2.57287 16.7555 2.53544 16.6134 2.51676C14.4003 2.22627 11.2451 1.27013 9.02686 0.217755C8.77068 0.0962206 8.52513 -0.00176037 8.48123 2.39904e-05C8.43732 0.001848 8.23993 0.0831749 8.04261 0.180759ZM9.51481 3.90051C11.7582 4.37503 13.4514 6.1639 13.8703 8.5022C13.9676 9.04552 13.9676 9.98116 13.8703 10.5245C13.7255 11.333 13.4031 12.1383 12.9627 12.7919C12.6697 13.2268 12.0666 13.8607 11.6556 14.1658C11.043 14.6206 10.2533 14.9728 9.49053 15.1315C8.99278 15.2351 7.91769 15.2254 7.42681 15.113C6.66208 14.9377 5.95373 14.6184 5.35873 14.1806C4.94258 13.8744 4.33593 13.2442 4.04397 12.8148C2.52175 10.5757 2.75212 7.48508 4.58588 5.54509C5.47975 4.59946 6.56793 4.02331 7.79485 3.8461C8.1492 3.79491 9.16798 3.82715 9.51481 3.90051ZM7.37513 6.4385C7.28197 6.5358 7.28197 6.53592 7.28197 7.39015V8.24446H6.46442C5.64694 8.24446 5.64682 8.24446 5.5537 8.34181L5.46054 8.43912V9.51334V10.5876L5.5537 10.6849C5.64682 10.7822 5.64694 10.7822 6.46442 10.7822H7.28197V11.6365C7.28197 12.4908 7.28197 12.4909 7.37513 12.5882L7.46825 12.6855H8.49625H9.52426L9.61738 12.5882C9.71054 12.4909 9.71054 12.4908 9.71054 11.6365V10.7822H10.5281C11.3456 10.7822 11.3457 10.7822 11.4388 10.6849L11.532 10.5876V9.51334V8.43912L11.4388 8.34181C11.3457 8.24446 11.3456 8.24446 10.5281 8.24446H9.71054V7.39015C9.71054 6.53592 9.71054 6.5358 9.61738 6.4385L9.52426 6.34115H8.49625H7.46825L7.37513 6.4385Z"
+              />
+            </svg>
+          </div>
+          <!-- <div (click)="getRejectDetails()">Reject</div> -->
+          {{ "reject" | translate }}
+        </ng-template>
+      </mat-tab>
+    </ng-container>
+    </mat-tab-group>
+    <div class="table-wrap">
+      <div class="table-inner">
+        <table
+          mat-table
+          [dataSource]="pendingdataSource"
+          class="mat-elevation-z8"
+        >
+          <!-- Company Name Column -->
+          <ng-container matColumnDef="companyname">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('company_name')"
+            >
+              {{ "company_name" | translate }}
+              <span
+                *ngIf="sortColumn === 'company_name'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.companyname }}
+            </td>
+          </ng-container>
+
+          <!-- Creation Date -->
+          <ng-container matColumnDef="createdAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.createdAt')"
+            >
+              {{ "creation_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.createdAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.createdAt | date : "dd-MM-yyy" }} |
+              <span>{{ element?.createdAt | date : "hh:mm a" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- Updated Date -->
+          <ng-container matColumnDef="updatedAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('updatedAt')"
+            >
+              {{ "approval_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'updatedAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.updatedAt | date : "dd-MM-yyy" }} |
+              <span>{{ element?.updatedAt | date : "hh:mm a" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- Rejected Date -->
+          <ng-container matColumnDef="rejectedAt">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('updatedAt')"
+            >
+              {{ "rejected_date_time" | translate }}
+              <span
+                *ngIf="sortColumn === 'updatedAt'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+
+            <td mat-cell *matCellDef="let element">
+              {{ element?.updatedAt | date : "dd-MM-yyy" }} |
+              <span>{{ element?.updatedAt | date : "hh:mm a" }} </span>
+            </td>
+          </ng-container>
+
+          <!-- IFU Number Column -->
+          <ng-container matColumnDef="ifunumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('ifu_number')"
+            >
+              {{ "IFU_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'ifu_number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.ifunumber ? element.ifunumber : "-" }}
+            </td>
+          </ng-container>
+
+          <!-- Licence ID Column -->
+          <ng-container matColumnDef="licenceid">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('licence_id')"
+            >
+              {{ "licence_id" | translate }}
+              <span
+                *ngIf="sortColumn === 'licence_id'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element?.licenceid ? element?.licenceid : "-" }}
+            </td>
+          </ng-container>
+
+          <!--Email Column -->
+          <ng-container matColumnDef="email">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.email')"
+            >
+              {{ "email" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.email'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              style="text-transform: lowercase"
+            >
+              {{ element.email }}
+            </td>
+          </ng-container>
+
+          <!-- RCCM Number Column -->
+          <ng-container matColumnDef="rccmnumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('rccm_number')"
+            >
+              {{ "RCCM_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'rccm_number'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.rccmnumber ? element.rccmnumber : "-" }}
+            </td>
+          </ng-container>
+
+          <!--Phone Number Column -->
+          <ng-container matColumnDef="phonenumber">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('for_portal_user.mobile')"
+            >
+              {{ "phone_number" | translate }}
+              <span
+                *ngIf="sortColumn === 'for_portal_user.mobile'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.phonenumber }}
+            </td>
+          </ng-container>
+
+          <!--Type of Company Column -->
+          <ng-container matColumnDef="typeofcompany">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('company_type')"
+            >
+              {{ "type_of_company" | translate }}
+              <span
+                *ngIf="sortColumn === 'company_type'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.typeofcompany ? element.typeofcompany : "-" }}
+            </td>
+          </ng-container>
+
+          <!--Location Column -->
+          <ng-container matColumnDef="location">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              (click)="onSortData('in_location.address')"
+            >
+              {{ "location" | translate }}
+              <span
+                *ngIf="sortColumn === 'in_location.address'"
+                class="material-icons sorticon"
+                >{{ sortIconClass }}</span
+              >
+            </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.location }}
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "status" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="giveInnerPermission('status')">
+              <div class="toggel-slide">
+                <mat-slide-toggle
+                  [checked]="element?.isActive"
+                  (change)="onChangestatus($event, element?.for_portal_user)"
+                ></mat-slide-toggle>
+              </div>
+              </ng-container>
+            </td>
+          </ng-container>
+
+          <!-- Lock User -->
+          <ng-container matColumnDef="lockuser">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "lock_user" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="giveInnerPermission('lock')">
+              <div class="toggel-slide">
+                <mat-slide-toggle
+                  [checked]="element?.lock_user"
+                  (change)="
+                    handleToggleChange($event, element?.for_portal_user)
+                  "
+                ></mat-slide-toggle>
+              </div>
+            </ng-container>
+            </td>
+          </ng-container>
+
+          <!--Action column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              {{ "action" | translate }}
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="icon_group">
+                <!-- [routerLink]="['/super-admin/insurance/details']" -->
+                <ng-container *ngIf="giveInnerPermission('view_insurance_profile')">
+                <a
+                  class="svgicon"
+                  (click)="getPendingInsAdmin(element.for_portal_user, 1)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="9"
+                    viewBox="0 0 16 9"
+                    fill="none"
+                  >
+                    <path
+                      d="M8 0C2.7512 0 0 3.88286 0 4.5C0 5.11554 2.7512 9 8 9C13.248 9 16 5.11554 16 4.5C16 3.88286 13.248 0 8 0ZM8 7.96098C6.036 7.96098 4.444 6.4117 4.444 4.5C4.444 2.5883 6.036 1.03741 8 1.03741C9.964 1.03741 11.5552 2.5883 11.5552 4.5C11.5552 6.4117 9.964 7.96098 8 7.96098ZM8 4.5C7.6744 4.1408 8.5304 2.76911 8 2.76911C7.0176 2.76911 6.2216 3.54455 6.2216 4.5C6.2216 5.45545 7.0176 6.23089 8 6.23089C8.9816 6.23089 9.7784 5.45545 9.7784 4.5C9.7784 4.06045 8.2768 4.80455 8 4.5Z"
+                    />
+                  </svg>
+                </a>
+              </ng-container>
+                <a
+                  class="svgicon reject"
+                  *ngIf="verifyStatus == 'PENDING'"
+                  (click)="openVerticallyCenteredreject(reject, element.id)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0.732011 0.0273918C0.447072 0.0832955 0.198888 0.27729 0.0752607 0.540672C0.0156383 0.667687 0.00265662 0.734558 0.00265662 0.914713C0.00260185 1.33793 -0.182811 1.12777 2.9456 4.25067L5.71266 7.01287L2.92336 9.80275C0.656614 12.07 0.122038 12.6183 0.0699202 12.7294C-0.0215539 12.9245 -0.0235805 13.2738 0.0656477 13.4679C0.145373 13.6413 0.319666 13.8216 0.495603 13.9124C0.693998 14.0149 1.00909 14.0292 1.23506 13.946C1.39388 13.8874 1.49305 13.792 4.19981 11.0924L7.00026 8.29945L9.78684 11.0782C12.0251 13.3101 12.6004 13.8698 12.7104 13.9222C12.8253 13.977 12.8892 13.9875 13.1075 13.9871C13.3354 13.9868 13.3848 13.9777 13.5057 13.9144C13.6735 13.8264 13.8586 13.6316 13.9383 13.459C14.0237 13.2742 14.0198 12.9204 13.9303 12.7294C13.8782 12.6183 13.3436 12.07 11.0769 9.80275L8.28757 7.01287L11.0546 4.25067C14.183 1.12777 13.9976 1.33793 13.9976 0.914713C13.9976 0.735542 13.9845 0.667769 13.9265 0.544912C13.7048 0.075282 13.1486 -0.118303 12.6839 0.112396C12.6115 0.148307 11.6127 1.12575 9.78679 2.9473L7.00012 5.72741L4.21345 2.9473C2.38758 1.12575 1.38871 0.148307 1.31635 0.112396C1.22367 0.0663931 0.919259 -0.00917537 0.867141 0.000916846C0.858623 0.00255786 0.797796 0.0144552 0.732011 0.0273918Z"
+                      fill="#FF7354"
+                    />
+                  </svg>
+                </a>
+                <a
+                  class="svgicon approved"
+                  *ngIf="verifyStatus == 'PENDING'"
+                  (click)="
+                    openVerticallyCenteredapproved(
+                      approved,
+                      element.id,
+                      element.for_portal_user
+                    )
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="13"
+                    viewBox="0 0 18 13"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M16.0599 1.01833C16.0083 1.03131 15.9168 1.06637 15.8565 1.09623C15.7963 1.1261 13.6881 3.17305 11.1711 5.64552L6.59516 10.1405L4.42834 8.01378C2.90597 6.51963 2.21962 5.86623 2.12068 5.81702C1.93063 5.72247 1.62585 5.7201 1.44584 5.81179C1.27792 5.89732 1.11027 6.0835 1.04128 6.26109C0.973349 6.43591 0.990558 6.67834 1.08333 6.85368C1.17701 7.03082 6.14003 11.8938 6.28893 11.9544C6.43815 12.0151 6.75154 12.0152 6.90107 11.9546C7.04975 11.8942 16.8279 2.29847 16.9293 2.11334C17.0233 1.94181 17.0236 1.60932 16.93 1.43668C16.7605 1.12428 16.3752 0.939004 16.0599 1.01833Z"
+                      fill="#72D284"
+                      stroke="#72D284"
+                      stroke-width="0.5"
+                    />
+                  </svg>
+                </a>
+                <ng-container *ngIf="giveInnerPermission('delete_insurance')">
+                <a
+                  *ngIf="
+                    verifyStatus == 'PENDING' ||
+                    verifyStatus == 'DECLINED' ||
+                    verifyStatus == 'APPROVED'
+                  "
+                  class="svgicon"
+                  (click)="
+                    openVerticallyCentereddetale(
+                      deletemodal,
+                      element?.for_portal_user
+                    )
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19"
+                    height="19"
+                    viewBox="0 0 19 19"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M15.6025 4.45371C15.8943 4.45371 16.1372 4.69596 16.1372 5.0042V5.2892C16.1372 5.58995 15.8943 5.8397 15.6025 5.8397H3.1726C2.8801 5.8397 2.63721 5.58995 2.63721 5.2892V5.0042C2.63721 4.69596 2.8801 4.45371 3.1726 4.45371H5.35938C5.80359 4.45371 6.19018 4.13796 6.29011 3.69247L6.40463 3.18097C6.58261 2.48423 7.16833 2.02148 7.83866 2.02148H10.9358C11.5988 2.02148 12.1911 2.48423 12.3625 3.14422L12.485 3.69172C12.5842 4.13796 12.9708 4.45371 13.4158 4.45371H15.6025ZM14.4916 14.872C14.7199 12.7443 15.1196 7.68933 15.1196 7.63833C15.1342 7.48383 15.0839 7.33758 14.9839 7.21983C14.8767 7.10958 14.741 7.04433 14.5915 7.04433H4.1886C4.03834 7.04433 3.89537 7.10958 3.79617 7.21983C3.69551 7.33758 3.64591 7.48383 3.65321 7.63833C3.65455 7.6477 3.66889 7.82576 3.69287 8.12345C3.79939 9.44588 4.09608 13.1291 4.2878 14.872C4.42347 16.156 5.26594 16.963 6.48625 16.9922C7.42793 17.014 8.39805 17.0215 9.39005 17.0215C10.3244 17.0215 11.2734 17.014 12.2442 16.9922C13.5069 16.9705 14.3486 16.1777 14.4916 14.872Z"
+                    />
+                  </svg>
+                </a>
+              </ng-container>
+              <ng-container *ngIf="giveInnerPermission('templete_request')">
+                <a
+                  *ngIf="verifyStatus == 'APPROVED'"
+                  class="svgicon"
+                  (click)="
+                    openVerticallyCenteredselectclaims2(
+                      selectclaimscontent1,
+                      element
+                    )
+                  "
+                >
+                  <mat-icon>update</mat-icon>
+                </a>
+              </ng-container>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator
+        #paginator
+        class="pagination"
+        [length]="totalLength"
+        (page)="handlePageEvent($event)"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[2, 5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<!-- Approved modal -->
+<ng-template #approved let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image approved">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/approved.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_approve_insurance_admin" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="registerAdmin(1)"
+          >
+            {{ "yes" | translate }}
+          </button>
+          <!-- <button type="button" class=" btn btn-primary" (click)="modal.dismiss('Cross click')"  (click)="openVerticallyCenteredselectclaims(selectclaimscontent)"> Yes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- ---------------------------------------Select Claim modal---------------------------------------- -->
+<div class="select_claim">
+  <ng-template #selectclaimscontent let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "assign_templates" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="templateForm" (ngSubmit)="saveAdminTemplate()">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form_field_wrapper">
+                <label>{{ "select_claim_preview_template" | translate }}</label>
+                <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "select_type" | translate }}</mat-label>
+                  <mat-select disableRipple formControlName="template_id">
+                    <ng-container *ngFor="let item of templateRes">
+                      <mat-option value="{{ item._id }}">{{
+                        item.name
+                      }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && templateFormControl['template_id'].errors?.['required']"
+                >
+                  {{ "please_select_template" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="form_field_wrapper">
+                <label>{{ "select_card_preview_template" | translate }}</label>
+                <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "select_type" | translate }}</mat-label>
+                  <mat-select disableRipple formControlName="card_preview_id">
+                    <ng-container *ngFor="let item of cardPreviews">
+                      <mat-option value="{{ item._id }}">{{
+                        item.cardPreviewName
+                      }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && templateFormControl['card_preview_id'].errors?.['required']"
+                >
+                  {{ "please_select_template" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="primary_btn">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- ---------------------------------------Select Claim modal2---------------------------------------- -->
+<div class="select_claim">
+  <ng-template #selectclaimscontent1 let-modal>
+    <div class="custome_modal">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "assign_templates" | translate }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="templateForm" (ngSubmit)="saveAdminTemplate2()">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form_field_wrapper">
+                <label>{{ "select_claim_preview_template" | translate }}</label>
+                <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "select_type" | translate }}</mat-label>
+                  <mat-select disableRipple formControlName="template_id">
+                    <ng-container *ngFor="let item of templateRes">
+                      <mat-option value="{{ item._id }}">{{
+                        item.name
+                      }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && templateFormControl['template_id'].errors?.['required']"
+                >
+                  {{ "please_select_template" | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="form_field_wrapper">
+                <label>{{ "select_card_preview_template" | translate }}</label>
+                <mat-form-field class="inner_label" appearance="fill">
+                  <mat-label>{{ "select_type" | translate }}</mat-label>
+                  <mat-select disableRipple formControlName="card_preview_id">
+                    <ng-container *ngFor="let item of cardPreviews">
+                      <mat-option value="{{ item._id }}">{{
+                        item.cardPreviewName
+                      }}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+                <span
+                  class="text-danger"
+                  *ngIf="isSubmitted && templateFormControl['card_preview_id'].errors?.['required']"
+                >
+                  {{ "please_select_template" | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="primary_btn">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="modal.dismiss('Cross click')"
+            >
+              {{ "cancel" | translate }}
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Reject modal -->
+<ng-template #reject let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_reject_insurance" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="registerAdmin(0)"
+          >
+            {{ "yes" | translate }}
+          </button>
+          <!-- <button type="button" class=" btn btn-primary"> Yes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Delete modal -->
+<ng-template #deletemodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/delete.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>{{ "want_to_delete_insurance" | translate }}</p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="DeleteInsurance()"
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Lock or Unlock modal -->
+<ng-template #lockOrUnloackmodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ abc }}
+          {{ "this_insurance" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              activeLockDeleteInsurance('lock', abc === 'Lock' ? true : false)
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Active or Inactive Status modal -->
+<ng-template #activeOrInactivemodal let-modal>
+  <div class="custome_modal action_modals">
+    <div class="modal-body">
+      <div class="delete_screen text-center">
+        <div class="image delete">
+          <img
+            class="img-fluid"
+            src="../../../../assets/img/reject.svg"
+            alt=""
+          />
+        </div>
+        <p class="heading delete">{{ "are_you_sure" | translate }}</p>
+        <p>
+          {{ "you_want_to" | translate }} {{ def }}
+          {{ "this_insurance" | translate }}
+        </p>
+        <div class="primary_btn mt-30">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="modal.dismiss('Cross click')"
+          >
+            {{ "no" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="
+              activeLockDeleteInsurance(
+                'active',
+                def === 'Active' ? true : false
+              )
+            "
+          >
+            {{ "yes" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

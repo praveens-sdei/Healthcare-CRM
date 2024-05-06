@@ -1,0 +1,435 @@
+@import "../.../../../../../../../assets/css/variable/variable";
+
+.Subscriber {
+  .top_bar {
+    border-bottom: none;
+    .left_part {
+      display: flex;
+      .search_bar {
+        .input-group {
+          background: #f6f8fc;
+          border-radius: 6px;
+          .form-control {
+            border: none;
+            background-color: transparent;
+            padding: 12px 12px 12px 0;
+            width: 175px;
+            &::placeholder {
+              font-weight: 400;
+              font-size: $font_small;
+              line-height: 24px;
+            }
+            &:focus {
+              box-shadow: none;
+            }
+          }
+          .btn {
+            padding: 0;
+            border: none;
+            .mat-icon {
+              line-height: 50px;
+              height: 50px;
+              width: 50px;
+              color: #9b9b9b;
+              font-size: 24px;
+            }
+            &.filter-btn {
+              .mat-icon {
+                color: $bodycolor;
+                border-left: 1px solid #e6e8f0;
+                font-size: 26px;
+              }
+            }
+          }
+        }
+      }
+      .content_wrap {
+        .policy {
+          margin: 0 0 0 20px;
+          label {
+            margin-right: 12px;
+          }
+          .form_field_wrapper {
+            display: inline-block;
+            .mat-form-field {
+              .mat-form-field-wrapper {
+                padding: 0;
+                .mat-form-field-flex {
+                  background-color: $formfiledbackgroundcolor;
+                  border: 1px solid $formfiledbordercolor;
+                  .mat-form-field-infix {
+                    .mat-select {
+                      .mat-select-arrow-wrapper {
+                        transform: translateY(0);
+                      }
+                      .mat-select-value {
+                        color: $formfiled_color;
+                        font-weight: 500;
+                      }
+                    }
+                    width: 110px;
+                  }
+                }
+                .mat-form-field-underline {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.add_subscriber {
+  .modal-dialog {
+    max-width: 900px;
+    .modal-body {
+      form {
+        .upload_item {
+          .form_field_wrapper {
+            .upload_input {
+              position: relative;
+              padding-bottom: 22px;
+              .upload_input_content {
+                position: absolute;
+                top: 0;
+                bottom: auto;
+                width: 100%;
+                label {
+                  padding: 15px 7px;
+                  background-color: #ffffff;
+                  border: 1px solid rgba(228, 228, 228, 0.9);
+                  font-size: 14px;
+                  font-weight: 500;
+                  border-radius: 5px;
+                  color: #3da7c8;
+                  display: block;
+                  text-align: center;
+                  margin: 0;
+                  .btn_svg {
+                    margin-right: 7px;
+                  }
+                }
+              }
+            }
+            .user_upload_input {
+              opacity: 0;
+              z-index: 0;
+              min-height: 50px;
+              width: 100%;
+            }
+          }
+        }
+        .primary_btn {
+          justify-content: space-between;
+          .right {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Import subscribers css
+.import_subscribes {
+  .modal-dialog {
+    max-width: 650px;
+    .import_subscribes {
+      .upload_item {
+        .form_field_wrapper {
+          .upload_input {
+            position: relative;
+            padding-bottom: 22px;
+            .upload_input_content {
+              position: absolute;
+              top: 0;
+              bottom: auto;
+              width: 100%;
+              label {
+                padding: 15px 10px;
+                background-color: #ffffff;
+                border: 1px solid rgba(228, 228, 228, 0.9);
+                font-size: 14px;
+                font-weight: 500;
+                border-radius: 5px;
+                color: #3da7c8;
+                display: block;
+                text-align: center;
+                margin: 0;
+                .btn_svg {
+                  margin-right: 10px;
+                }
+              }
+            }
+            .user_upload_input {
+              opacity: 0;
+              z-index: 0;
+              min-height: 50px;
+              width: 100%;
+            }
+          }
+        }
+      }
+      .primary_btn {
+        justify-content: space-between;
+        .left {
+          margin-right: 15px;
+        }
+        .right {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+// Add secondary subscribes css
+.add__secondary_subscriber {
+  .upload_item {
+    .form_field_wrapper {
+      .upload_input {
+        position: relative;
+        padding-bottom: 22px;
+        .upload_input_content {
+          position: absolute;
+          top: 0;
+          bottom: auto;
+          width: 100%;
+          label {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid rgba(228, 228, 228, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 5px;
+            color: #3da7c8;
+            display: block;
+            text-align: center;
+            margin: 0;
+          }
+        }
+        .user_upload_input {
+          opacity: 0;
+          z-index: 0;
+          min-height: 50px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.material-icons {
+  cursor: pointer;
+}
+
+// expandable table
+
+.table-wrap {
+  .example-element-detail {
+    .inner_table {
+      width: 100%;
+
+      .table-inner {
+        border-radius: 0;
+      }
+
+      .mat-table {
+        border-radius: 0;
+        thead {
+          tr {
+            display: table-row;
+          }
+          th {
+            border-bottom: 1px dashed $common_border;
+          }
+        }
+        tbody {
+          tr {
+            &:last-child {
+              td {
+                border: none;
+              }
+            }
+          }
+          td {
+            border-bottom: 1px dashed $common_border;
+            background-color: $sidebarcolor;
+            &:first-child {
+              button {
+                vertical-align: middle;
+              }
+            }
+          }
+        }
+        tr {
+          text-align: left;
+        }
+      }
+    }
+  }
+  table {
+    tr {
+      td {
+        &.mat-column-expandedDetail {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet_up) {
+  .add_subscriber .modal-dialog .modal-body form .dob {
+    width: 21.33%;
+  }
+  .add_subscriber .modal-dialog .modal-body form .age {
+    width: 12%;
+  }
+}
+@media screen and (max-width: $desktop_large) {
+  .Subscriber .top_bar .right_part {
+    margin: 20px 0 0;
+  }
+  .Subscriber .top_bar {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: $tablet) {
+  .add_subscriber .modal-dialog {
+    max-width: 730px;
+  }
+  .add_subscriber .modal-dialog .modal-body form .primary_btn {
+    margin-top: 15px;
+  }
+}
+@media screen and (max-width: $large_phone) {
+  .Subscriber .top_bar .content_wrap {
+    margin-top: 0;
+  }
+  .Subscriber .top_bar .left_part .search_bar .input-group .form-control {
+    width: 115px;
+  }
+  .add_subscriber .modal-dialog {
+    max-width: 550px;
+  }
+  .import_subscribes .modal-dialog {
+    max-width: 550px;
+  }
+}
+@media screen and (max-width: $medium_iphone) {
+  .Subscriber .top_bar .left_part .content_wrap .policy {
+    margin: 20px 0 0;
+  }
+  .add_subscriber
+    .modal-dialog
+    .modal-body
+    form
+    .insurance_validity
+    .invisible {
+    display: none;
+  }
+  .import_subscribes .modal-dialog .import_subscribes .primary_btn,
+  .import_subscribes .modal-dialog .import_subscribes .primary_btn .right {
+    flex-direction: column;
+    margin: 0;
+  }
+  .import_subscribes .modal-dialog .import_subscribes .primary_btn .left {
+    margin: 0;
+  }
+  .import_subscribes .modal-dialog .import_subscribes .primary_btn .btn {
+    margin: 0 0 10px;
+    width: 100%;
+  }
+  .add_subscriber .modal-dialog .modal-body form .primary_btn {
+    flex-direction: column;
+    margin-top: 0;
+  }
+  .add_subscriber .modal-dialog .modal-body form .primary_btn .right {
+    flex-direction: column;
+  }
+  .add_subscriber .modal-dialog .modal-body form .primary_btn .btn {
+    width: 100%;
+    margin: 0 0 15px;
+  }
+}
+@media screen and (max-width: $medium_phone) {
+  .Subscriber
+    .top_bar
+    .left_part
+    .content_wrap
+    .policy
+    .mat-form-field
+    .mat-form-field-wrapper
+    .mat-form-field-flex
+    .mat-form-field-infix {
+    width: 220px;
+  }
+}
+@media screen and (max-width: $small_phone) {
+  .Subscriber .top_bar .left_part .content_wrap .policy .form_field_wrapper {
+    display: block;
+  }
+  .Subscriber .top_bar .left_part .content_wrap .policy {
+    width: 100%;
+  }
+}
+.custom-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.custom-select:focus {
+  outline: none;
+  //border-color: #007BFF;
+}
+
+.image-upload {
+  input {
+    display: none;
+  }
+  img {
+    width: 80px;
+    cursor: pointer;
+  }
+}
+
+.input-pagination-block {
+  position: relative;
+  // .mat-paginator {
+  //     padding-right: 130px;
+  // }
+  .pagination-input-block {
+    position: absolute;
+    right: 370px;
+    top: 13px;
+    border-radius: 5px;
+    border: 1px solid #b6c8d6;
+    overflow: hidden;
+    width: fit-content;
+    padding: 0 8px 0 5px;
+    display: flex;
+  }
+  input {
+    text-align: center;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+    max-width: 50px;
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  span {
+    font-size: 12px;
+    color: #000000;
+  }
+}

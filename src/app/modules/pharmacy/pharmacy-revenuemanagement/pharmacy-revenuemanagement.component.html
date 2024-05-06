@@ -1,0 +1,457 @@
+<div class="revenue_management dashboard_main_content">
+  <div class="top_bar common_space">
+    <div class="content_wrap">
+      <div class="policy date_pick">
+        <div class="form_field_wrapper mright">
+          <label>{{ "from" | translate }}:</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+            matInput
+            [matDatepickerFilter]="myFilter"
+            [matDatepicker]="picker1"
+            placeholder="Select Date"
+            (dateChange)="handleSelectStartDateFilter($event)"
+            [(ngModel)]="startDateFilter"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form_field_wrapper">
+          <label>{{ "to" | translate }}:</label>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input
+            matInput
+            [matDatepickerFilter]="myFilter"
+            [matDatepicker]="picker2"
+            placeholder="Select Date"
+            (dateChange)="handleSelectEndDateFilter($event)"
+            [(ngModel)]="endDateFilter"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="counter_section common_space">
+    <div class="row">
+
+      <ng-container *ngIf="giveInnerPermission('view_direct_payment')">
+        <div class="col-sm-6 col-md-3">
+          <div class="cust_col light_blue">
+            <div class="cust_col_inner">
+              <mat-icon class="more">more_horiz</mat-icon>
+              <div class="left">
+                <div class="counter">{{directPayment ? directPayment : 0}}</div>
+                <div class="counter_title">
+                  {{ "direct_payment" | translate }}
+                </div>
+              </div>
+              <div class="right">
+                <div class="counter_img">
+                  <img src="../../../../assets/img/top_icon1.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      
+      <!-- <ng-container *ngIf="giveInnerPermission('view_submitted_claim')">
+      
+      <div class="col-sm-6 col-md-3 claims">
+        <div class="cust_col light_violet">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">2546</div>
+              <div class="counter_title">
+                {{ "submitted_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="../../../../assets/img/top_icon2.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </ng-container> -->
+
+      <ng-container *ngIf="giveInnerPermission('view_pending_claim')">
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_green">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{pendingClaimAmount ? pendingClaimAmount : 0}}</div>
+              <div class="counter_title">
+                {{ "pending_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="../../../../assets/img/top_icon3.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="giveInnerPermission('view_approved_claim')">
+      <div class="col-sm-6 col-md-3">
+        <div class="cust_col light_orange">
+          <div class="cust_col_inner">
+            <mat-icon class="more">more_horiz</mat-icon>
+            <div class="left">
+              <div class="counter">{{approvedClaimAmount ? approvedClaimAmount : 0}}</div>
+              <div class="counter_title">
+                {{ "approved_claims" | translate }}
+              </div>
+            </div>
+            <div class="right">
+              <div class="counter_img">
+                <img src="../../../../assets/img/top_icon4.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="claim_section">
+    <div class="row">
+      <ng-container *ngIf="giveInnerPermission('view_total_revenue')">
+      <div class="claim_details col-md-6">
+        <div class="claim_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">{{ "total_revenue" | translate }}</div>
+            <div class="icons">
+              <mat-icon (click)="openVerticallyCenteredpiechartpopup(piechartpopup)">zoom_out_map</mat-icon>
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="pie_outer">
+                <div class="pie_chart_main canvas_wrap">
+                  <canvas
+                    baseChart
+                    [type]="'pie'"
+                    [datasets]="pieChartDatasets"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend"
+                  >
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="detail_description chart">
+                <ul>
+                  <li>
+                    <div class="line darkblue"></div>
+                    <div class="detail_section">
+                      <p>{{CopayAmount}}</p>
+                      <p>{{ "co_pay_amount" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line blue"></div>
+                    <div class="detail_section">
+                      <p>{{approvedClaimAmount}}</p>
+                      <p>{{ "insurance_amount" | translate }}</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="line green"></div>
+                    <div class="detail_section">
+                      <p>{{directPayment}}</p>
+                      <p>{{ "direct_payment" | translate }}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="giveInnerPermission('view_total_dir_payment_received')">
+      <div class="cost_details col-md-6">
+        <div class="cost_details_inner common_space">
+          <div class="top_bar">
+            <div class="main_title">
+              {{ "total_direct_payment_received" | translate }}
+            </div>
+            <div class="icons">
+              <mat-icon (click)="openVerticallyCenteredclaimlistpopup(linechartpopup)">zoom_out_map</mat-icon>
+              <div class="more_action">
+                <button
+                  class="btn btn-outline-light"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "another_action" | translate
+                    }}</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">{{
+                      "something_else_here" | translate
+                    }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas
+              baseChart
+              [type]="'line'"
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [legend]="lineChartLegend"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+    </div>
+    <hr />
+    <ng-container *ngIf="giveInnerPermission('view_revenue_under_insurance')">
+    <div class="claim_by_month">
+      <div class="top_bar common_space">
+        <div class="title_wrap">
+          <div class="main_title">
+            {{ "revenue_under_insurance" | translate }}
+          </div>
+
+          <div class="amount">
+            <ul>
+              <!-- <li>
+                <div class="amount_inner">
+                  <div class="ring ring_b"></div>
+                  <p>{{ "all_amount" | translate }}</p>
+                </div>
+              </li> -->
+              <li>
+                <div class="amount_inner">
+                  <div class="ring ring_g"></div>
+                  <p>{{ "co_pay_amount" | translate }}</p>
+                </div>
+              </li>
+              <li>
+                <div class="amount_inner">
+                  <div class="ring ring_sb"></div>
+                  <p>{{ "insurance_amount" | translate }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content_wrap">
+          <div class="icons">
+            <mat-icon (click)="openVerticallyCenteredclaimlistpopup(barchartpopup)">zoom_out_map</mat-icon>
+            <div class="more_action">
+              <button
+                class="btn btn-outline-light"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "action" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "another_action" | translate
+                  }}</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">{{
+                    "something_else_here" | translate
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="month_barchart common_space">
+        <div class="chart-container">
+          <canvas
+            baseChart
+            [data]="monthbarChartData"
+            [options]="monthbarChartOptions"
+            [plugins]="monthbarChartPlugins"
+            [legend]="monthbarChartLegend"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+    </ng-container>
+  </div>
+  
+</div>
+
+<!--vertical piechart modal-->
+<ng-template #piechartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "total_revenue" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="chart piecharts">
+        <canvas
+        baseChart
+        [type]="'pie'"
+        [datasets]="pieChartDatasets"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+      >
+      </canvas>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--vertical linechart modal -->
+<ng-template #linechartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "total_direct_payment_received" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="display: block">
+        <canvas
+        baseChart
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+      >
+      </canvas>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--vertical barchart modal-->
+<ng-template #barchartpopup let-modal>
+  <div class="custome_modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "revenue_under_insurance" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="closePopup()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="month_barchart">
+        <div class="chart-container">
+          <canvas
+            baseChart
+            [data]="monthbarChartData"
+            [options]="monthbarChartOptions"
+            [plugins]="monthbarChartPlugins"
+            [legend]="monthbarChartLegend"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

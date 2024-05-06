@@ -1,0 +1,103 @@
+<div class="complaint_details dashboard_main_content">
+  <div class="back_button" [routerLink]="['/hospital/complaints']">
+    <button class="btn btn-primary">{{ "back" | translate }}</button>
+  </div>
+  <div class="profile_data">
+    <div class="profile_info complain_data">
+      <ul class="profile_info_inner">
+        <li class="col_item profile_image_wrapper">
+          <div
+            class="profile_image"
+            *ngIf="complaintData?.provider_type_to == 'hospital'"
+          >
+            <img
+              src="{{
+                userData?.profile_picture?.url
+                  ? userData?.profile_picture?.url
+                  : '../../../../assets/img/logo.svg'
+              }}"
+            />
+          </div>
+          <div class="profile_contact">
+            <div class="lable">
+              {{ userName(complaintData?.provider_type_to) }}
+              {{ "name" | translate }}
+            </div>
+            <div
+              class="user_value"
+              *ngIf="complaintData?.provider_type_to == 'hospital'"
+            >
+              {{ userData?.hospital_name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">
+              {{ userName(complaintData?.provider_type_from) }}
+              {{ "name" | translate }}
+            </div>
+            <div class="user_value">
+              {{ complaintData?.complaint_from_user_name }}
+            </div>
+          </div>
+        </li>
+        <li class="col_item">
+          <div class="profile_contact">
+            <div class="lable">{{ "date_and_time" | translate }}</div>
+            <div class="user_value">
+              {{ complaintData?.createdAt | date : "dd/MM/YYYY HH:mm" }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="complain complain_data">
+      <label>{{ "complain" | translate }}</label>
+      <div class="complain_desc">{{ complaintData?.complaint_body }}</div>
+    </div>
+    <div>
+      <form [formGroup]="add_response" (ngSubmit)="addYourResponse()">
+        <div class="admin_action complain_data">
+          <label>
+            {{ userName(complaintData?.provider_type_to) }}
+            {{ "response" | translate }}</label
+          >
+          <div>
+            <textarea
+            class="text_block"
+              cols="120"
+              rows="4"
+              placeholder="{{ 'enter_your_response' | translate }}"
+              formControlName="provider_response"
+              [readonly]="complaintData?.provider_response != ''"
+            ></textarea>
+          </div>
+          <div
+            class="primary_btn"
+            *ngIf="complaintData?.provider_response == ''"
+          >
+          <ng-container *ngIf="giveInnerPermission('response')">
+
+            <button type="submit" class="btn btn-primary">
+              {{ "save" | translate }}
+            </button>
+          </ng-container>
+          </div>
+        
+        </div>
+      </form>
+    </div>
+
+    <div class="admin_action complain_data">
+      <label>{{ "super_admin_action" | translate }}</label>
+      <div class="complain_desc">
+        {{
+          complaintData?.super_admin_response
+            ? complaintData?.super_admin_response
+            : "Response Not Given"
+        }}
+      </div>
+    </div>
+  </div>
+</div>

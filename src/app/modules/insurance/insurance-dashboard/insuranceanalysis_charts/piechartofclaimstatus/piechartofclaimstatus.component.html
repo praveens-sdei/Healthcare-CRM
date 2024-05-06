@@ -1,0 +1,50 @@
+    <div class="doughnut_chart_main canvas_wrap">
+        <h4 class="modal-title" id="modal-basic-title">
+            {{'claims_by_status'|translate}}
+        </h4>
+      <div class="detail_description chart">
+        <ul class="row">
+          <li class="approved" style="color: #62D94F;">            
+            <div class="detail_section">
+              <p>{{ statusCountData?.approved ? statusCountData?.approved : "0" }}
+             {{ "approved_claims" | translate }}</p>
+            </div>
+          </li>
+          <li class="reject" style="color: #F46666;">
+            
+            <div class="detail_section">
+              <p>{{ statusCountData?.reject ? statusCountData?.reject : "0" }} {{ "rejected_claims" | translate }}</p>
+            </div>
+          </li>
+          <li class="pending" style="color: #FFD57A;">           
+            <div class="detail_section">
+              <p>{{ statusCountData?.pending ? statusCountData?.pending : "0" }} {{ "pending_claims" | translate }}</p>
+            </div>
+          </li>
+          <li class="preauth" style="color: #4F90F2;">            
+            <div class="detail_section">
+              <p>{{ statusCountData?.preauth ? statusCountData?.preauth : "0" }} {{ "pre-authorization" | translate }}</p>
+            </div>
+          </li>
+
+          
+        </ul>
+      </div>  
+      <div *ngIf="doughnutChartDatasets; else noData">
+        <canvas
+        baseChart
+        [datasets]="doughnutChartDatasets"
+        [options]="doughnutChartOptions"
+        [legend]="true"
+        [type]="'doughnut'"
+      >
+      </canvas>
+      </div>
+     
+
+      <ng-template #noData>
+        <p>{{ "no_data_available" | translate }}</p>
+      </ng-template>
+    </div>
+   
+       

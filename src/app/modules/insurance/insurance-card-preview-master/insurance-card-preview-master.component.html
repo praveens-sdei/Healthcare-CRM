@@ -1,0 +1,175 @@
+<div class="tab_content moreresponsetab manage_claim">
+  <div class="bottom_bar">
+    <div class="subscribe_detail_inner accodion_item mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ "card_holder" | translate }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <div
+                  class="col-sm-6 col-xl-3 role_item"
+                  *ngFor="let data of insuranceFields; let i = index"
+                >
+                  <div class="form_field_wrapper">
+                    <mat-checkbox
+                      class="example-margin"
+                      [value]="data._id"
+                      [checked]="
+                        isChecked(data._id) ||
+                        isFieldInCompanyCardFields(data._id)
+                      "
+                      [disabled]="
+                        data.disabled ||
+                        data._id === firstNameId1 ||
+                        data._id === middleNameId1 ||
+                        data._id === lastNameId1 ||
+                        data._id === fullNameId1
+                      "
+                      (change)="onCheckboxChange(data._id, data.fieldName)"
+                      >{{ data.fieldName }}</mat-checkbox
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="subscribe_detail_inner accodion_item mt-30">
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{
+              "primary_insured_fields" | translate
+            }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion_panel">
+            <div class="expansion_panel_inner">
+              <div class="row">
+                <ng-container
+                  *ngFor="let data of insuranceFields; let i = index"
+                >
+                  <ng-container *ngIf="data.fieldName !== 'Relationship'">
+                    <div class="col-sm-6 col-xl-3 role_item">
+                      <div class="form_field_wrapper">
+                        <mat-checkbox
+                          class="example-margin"
+                          [value]="data._id"
+                          [checked]="
+                            isCheckedPrimaryFields(data._id) ||
+                            isFieldInCompanyCardPrimary(data._id)
+                          "
+                          [disabled]="
+                            data.disabled1 ||
+                            data._id === firstNameId ||
+                            data._id === middleNameId ||
+                            data._id === lastNameId ||
+                            data._id === fullNameId
+                          "
+                          (change)="
+                            onCheckboxChangePrimaryField(
+                              data._id,
+                              data.fieldName
+                            )
+                          "
+                          >{{ data.fieldName }}</mat-checkbox
+                        >
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="content_item accordion mt-30 card-back-side-field">
+      <div class="subscribe_detail_inner accodion_item">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{
+                "select_cardbacksidefields" | translate
+              }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion_panel">
+              <div class="expansion_panel_inner">
+                <div class="listing_section">
+                  <div class="listing_section_inner">
+                    <mat-table [dataSource]="catSerFields">
+                      <!-- Category Names Column -->
+                      <ng-container matColumnDef="categoryName">
+                        <mat-header-cell *matHeaderCellDef>
+                          {{ "category" | translate }}
+                        </mat-header-cell>
+                        <mat-cell
+                          *matCellDef="let item"
+                          [ngClass]="{ 'disabled-cell': item.disabled }"
+                        >
+                          {{ item.has_category }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <!-- Action Column -->
+                      <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef>
+                          {{ "service" | translate }}
+                        </mat-header-cell>
+                        <mat-cell
+                          *matCellDef="let item"
+                          [ngClass]="{ 'disabled-cell': item.disabled }"
+                        >
+                          {{ item.service }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <!-- Checkbox Column -->
+                      <ng-container matColumnDef="checkbox">
+                        <mat-header-cell *matHeaderCellDef>
+                          {{ "action" | translate }}
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let item">
+                          <mat-checkbox
+                            [(ngModel)]="item.isChecked"
+                            [disabled]="item.disabled"
+                            (change)="onCheckboxChangeCatServ(item)"
+                          >
+                          </mat-checkbox>
+                        </mat-cell>
+                      </ng-container>
+
+                      <!-- Column definitions -->
+                      <mat-header-row
+                        *matHeaderRowDef="displayedColumns"
+                      ></mat-header-row>
+                      <mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                      ></mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+  <div class="primary_btn claim_btn mt-3 mb-3">
+    <button type="button" class="btn btn-secondary">
+      {{ "cancel" | translate }}
+    </button>
+    <ng-container  *ngIf="giveInnerPermission('add')">
+    <button type="button" class="btn btn-primary" (click)="addCardFields()">
+      {{ "save" | translate }}
+    </button>
+  </ng-container>
+  </div>
+</div>
